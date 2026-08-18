@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+DATA_SOURCE_MAPPING.md
+implementation_plan.md
+mom_requirements.md
