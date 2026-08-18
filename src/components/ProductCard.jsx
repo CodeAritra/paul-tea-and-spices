@@ -1,25 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, MapPin } from "lucide-react";
 import { TRANSLATIONS } from "../data/productsData";
 
 export default function ProductCard({
   product,
   lang,
-  onOpenModal,
 }) {
+  const [isFlipped, setIsFlipped] = useState(false);
   const t = TRANSLATIONS[lang] || TRANSLATIONS.de;
 
   const isTea = product.category === "tea";
   const isLuxury = product.tier === "luxury";
 
-  // MOM Strict Colors:
+  // Luxury Colors:
   // Bottle Green (#1A392A) -> Tea Luxury
-  // Oxblood (#5C1D24) -> Spices Luxury
+  // Midnight Sapphire (#121D2C) -> Spices Luxury
   // Ink Navy (#1B263B) -> Premium / Global
   const accentColor = isLuxury
     ? isTea
       ? "#1A392A" // Bottle Green
-      : "#5C1D24" // Oxblood Red
+      : "#121D2C" // Midnight Sapphire
     : "#1B263B"; // Ink Navy
 
   const getTierLabel = () => {
@@ -43,14 +43,20 @@ export default function ProductCard({
       };
 
   return (
-    <div className="group card-flip-container h-[430px] w-full cursor-pointer relative">
+    <div
+      onClick={() => setIsFlipped(!isFlipped)}
+      className="group card-flip-container h-[430px] w-full cursor-pointer relative"
+    >
       {/* 3D Flipping Card Container */}
-      <div className="card-flip-inner relative w-full h-full rounded-2xl shadow-xl hover:shadow-2xl">
+      <div
+        className={`card-flip-inner relative w-full h-full rounded-2xl shadow-xl hover:shadow-2xl transition-transform duration-700 ${
+          isFlipped ? "[transform:rotateY(180deg)]" : ""
+        }`}
+      >
         {/* ============================================================ */}
         {/* FRONT SIDE: PHOTOGRAPHY BACKDROP, GOLD FOIL FRAME & STORY    */}
         {/* ============================================================ */}
         <div
-          onClick={() => onOpenModal(product)}
           className="card-front absolute inset-0 w-full h-full gold-foil-frame p-7 flex flex-col justify-between overflow-hidden text-white"
           style={cardBackgroundStyle}
         >
@@ -90,7 +96,6 @@ export default function ProductCard({
         {/* BACK SIDE (FLIPPED): ALL DETAILED PRODUCT SPECIFICATIONS     */}
         {/* ============================================================ */}
         <div
-          onClick={() => onOpenModal(product)}
           className="card-back absolute inset-0 w-full h-full gold-foil-frame p-6 flex flex-col justify-between overflow-hidden text-white shadow-2xl"
           style={{ backgroundColor: accentColor }}
         >

@@ -58,9 +58,15 @@ export default function StoryTimeline({ lang }) {
 
     const myTrigger = tween.scrollTrigger;
 
+    // Refresh ScrollTrigger to update all downstream trigger positions past the pin-spacer
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 60);
+
     return () => {
       myTrigger?.kill();
       tween.kill();
+      ScrollTrigger.refresh();
     };
   }, [centerOffset]);
 
@@ -113,7 +119,7 @@ export default function StoryTimeline({ lang }) {
                   </div>
                   <div className="flex items-center gap-4 text-xs text-[#1C2024]/70 font-medium">
                     <div className="flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-[#5C1D24]" />
+                      <MapPin className="w-3.5 h-3.5 text-[#C5A059]" />
                       <span>{chapter.location}</span>
                     </div>
                     <div className="flex items-center gap-1.5">

@@ -15,7 +15,7 @@ export default function HeroSection({ lang }) {
       {/* Background Ambient Mist Micro-Animations */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-10 left-10 w-96 h-96 bg-[#1A392A]/5 rounded-full blur-3xl animate-mist"></div>
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#5C1D24]/5 rounded-full blur-3xl animate-mist" style={{ animationDelay: "4s" }}></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#121D2C]/5 rounded-full blur-3xl animate-mist" style={{ animationDelay: "4s" }}></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#C5A059]/5 rounded-full blur-3xl animate-mist" style={{ animationDelay: "8s" }}></div>
 
         {/* Parallax Mountain Silhouettes Graphic */}
@@ -29,7 +29,7 @@ export default function HeroSection({ lang }) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         {/* Son Paul Dedication Pill */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A392A]/10 border border-[#C5A059]/40 text-[#1A392A] text-xs sm:text-sm font-medium mb-8 animate-slide-in">
-          <Heart className="w-3.5 h-3.5 text-[#5C1D24] fill-[#5C1D24]" />
+          <Heart className="w-3.5 h-3.5 text-[#C5A059] fill-[#C5A059]" />
           <span>{t.dedicatedToPaul}</span>
           <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059]"></span>
           <span className="text-[#C5A059] font-serif italic font-semibold">Vorarlberg • Austria</span>

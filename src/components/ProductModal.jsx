@@ -19,7 +19,7 @@ export default function ProductModal({
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-[#1A392A] text-white hover:bg-[#5C1D24] transition shadow-md"
+          className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-[#1A392A] text-white hover:bg-[#121D2C] transition shadow-md"
         >
           <X className="w-4 h-4" />
         </button>
@@ -56,7 +56,7 @@ export default function ProductModal({
           {/* Packaging & Origin Metadata Bar */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-2xl bg-white border border-[#C5A059]/20 text-xs">
             <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-[#5C1D24]" />
+              <MapPin className="w-4 h-4 text-[#C5A059]" />
               <div>
                 <div className="text-[10px] text-[#1C2024]/60 uppercase font-bold">{t.origin}</div>
                 <div className="font-medium text-[#1A392A]">{product.altitude}</div>

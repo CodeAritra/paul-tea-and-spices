@@ -91,7 +91,7 @@ export default function Footer({ lang }) {
 
           <div className="flex items-center gap-2">
             <span>Made with</span>
-            <Heart className="w-3.5 h-3.5 text-[#5C1D24] fill-[#5C1D24]" />
+            <Heart className="w-3.5 h-3.5 text-[#C5A059] fill-[#C5A059]" />
             <span>in Vorarlberg, Austria</span>
           </div>
         </div>

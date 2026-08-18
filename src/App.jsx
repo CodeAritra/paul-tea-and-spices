@@ -3,12 +3,10 @@ import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
 import StoryTimeline from "./components/StoryTimeline";
 import ProductCatalog from "./components/ProductCatalog";
-import ProductModal from "./components/ProductModal";
 import Footer from "./components/Footer";
 
 export default function App() {
   const [lang, setLang] = useState("de"); // Default German per MOM directive
-  const [selectedProductModal, setSelectedProductModal] = useState(null);
 
   // Ultra-smooth page scrolling using Lenis + GSAP ScrollTrigger
   useEffect(() => {
@@ -37,14 +35,15 @@ export default function App() {
       };
 
       gsap.ticker.add(updateRaf);
-      gsap.ticker.lagSmoothing(0);
-
-      // Refresh ScrollTrigger after initializing
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 100);
+      // Refresh ScrollTrigger after initializing and after all downstream components mount
+      const refreshTimers = [
+        setTimeout(() => ScrollTrigger.refresh(), 100),
+        setTimeout(() => ScrollTrigger.refresh(), 300),
+        setTimeout(() => ScrollTrigger.refresh(), 800),
+      ];
 
       return () => {
+        refreshTimers.forEach(clearTimeout);
         gsap.ticker.remove(updateRaf);
         lenisInstance?.destroy();
       };
@@ -70,22 +69,12 @@ export default function App() {
         {/* SECTION 2: FOUNDER STORY SECTION */}
         <StoryTimeline lang={lang} />
 
-        {/* SECTION 3: PRODUCT CATALOG SECTION */}
-        <ProductCatalog
-          lang={lang}
-          onOpenModal={(prod) => setSelectedProductModal(prod)}
-        />
+        {/* SECTION 3: PRODUCT CATALOG SECTION (Story-driven Alternating Tea & Spices) */}
+        <ProductCatalog lang={lang} />
       </main>
 
       {/* Footer */}
       <Footer lang={lang} />
-
-      {/* Product Detail Heritage Story Modal */}
-      <ProductModal
-        product={selectedProductModal}
-        lang={lang}
-        onClose={() => setSelectedProductModal(null)}
-      />
     </div>
   );
 }

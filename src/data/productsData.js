@@ -265,7 +265,7 @@ export const PRODUCTS = [
 
   // ==========================================
   // 3. PAUL SPICES — LUXURY VERTICAL (ALL-INDIAN WHOLE SPICES)
-  // Packaging: Keepsake Wooden Box | Color Accent: Oxblood (#5C1D24)
+  // Packaging: Keepsake Wooden Box | Color Accent: Midnight Sapphire (#121D2C)
   // Dedicated Spice Photography per SKU
   // ==========================================
   {
@@ -273,7 +273,7 @@ export const PRODUCTS = [
     category: "spices",
     vertical: "spices-luxury",
     tier: "luxury",
-    accentColor: "#5C1D24",
+    accentColor: "#121D2C",
     name: "Saffron (Crocus sativus)",
     germanName: "Safran (Crocus sativus)",
     subtitle: "Often Referred to as 'Red Gold' • Luxurious Golden Color & Floral Flavor",
@@ -294,7 +294,7 @@ export const PRODUCTS = [
     },
     sommelierMood: ["luxury", "cooking", "warmth", "exotic"],
     imageUrl: "https://images.unsplash.com/photo-1643471672168-f4a4b6cfa440?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c2FmZnJvbnxlbnwwfHwwfHx8Mg%3D%3D",
-    imageGradient: "linear-gradient(180deg, rgba(92, 29, 36, 0.4) 0%, rgba(92, 29, 36, 0.92) 100%), url('https://images.unsplash.com/photo-1643471672168-f4a4b6cfa440?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c2FmZnJvbnxlbnwwfHwwfHx8Mg%3D%3D')",
+    imageGradient: "linear-gradient(180deg, rgba(18, 29, 44, 0.4) 0%, rgba(18, 29, 44, 0.92) 100%), url('https://images.unsplash.com/photo-1643471672168-f4a4b6cfa440?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c2FmZnJvbnxlbnwwfHwwfHx8Mg%3D%3D')",
     iconSymbol: "🌺",
   },
   {
@@ -302,7 +302,7 @@ export const PRODUCTS = [
     category: "spices",
     vertical: "spices-luxury",
     tier: "luxury",
-    accentColor: "#5C1D24",
+    accentColor: "#121D2C",
     name: "Black Pepper (Piper nigrum)",
     germanName: "Schwarzer Pfeffer (Piper nigrum)",
     subtitle: "Revered as the 'King of Spices' • Robust Pungent Heat",
@@ -323,7 +323,7 @@ export const PRODUCTS = [
     },
     sommelierMood: ["savory", "cooking", "bold", "spicy"],
     imageUrl: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=800&q=80",
-    imageGradient: "linear-gradient(180deg, rgba(58, 21, 26, 0.4) 0%, rgba(92, 29, 36, 0.92) 100%), url('https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=800&q=80')",
+    imageGradient: "linear-gradient(180deg, rgba(18, 29, 44, 0.4) 0%, rgba(18, 29, 44, 0.92) 100%), url('https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=800&q=80')",
     iconSymbol: "🫘",
   },
   {
@@ -331,7 +331,7 @@ export const PRODUCTS = [
     category: "spices",
     vertical: "spices-luxury",
     tier: "luxury",
-    accentColor: "#5C1D24",
+    accentColor: "#121D2C",
     name: "Cardamom (Elettaria cardamomum)",
     germanName: "Kardamom (Elettaria cardamomum)",
     subtitle: "Sweet, Spicy, and Aromatic Flavor",
@@ -352,7 +352,7 @@ export const PRODUCTS = [
     },
     sommelierMood: ["baking", "sweet", "exotic", "warmth"],
     imageUrl: "https://images.unsplash.com/photo-1642255521852-7e7c742ac58f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2FyZGFtb218ZW58MHx8MHx8fDI%3D",
-    imageGradient: "linear-gradient(180deg, rgba(28, 51, 34, 0.4) 0%, rgba(92, 29, 36, 0.92) 100%), url('https://images.unsplash.com/photo-1642255521852-7e7c742ac58f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2FyZGFtb218ZW58MHx8MHx8fDI%3D')",
+    imageGradient: "linear-gradient(180deg, rgba(18, 29, 44, 0.4) 0%, rgba(18, 29, 44, 0.92) 100%), url('https://images.unsplash.com/photo-1642255521852-7e7c742ac58f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2FyZGFtb218ZW58MHx8MHx8fDI%3D')",
     iconSymbol: "🫛",
   },
   {
@@ -360,7 +360,7 @@ export const PRODUCTS = [
     category: "spices",
     vertical: "spices-luxury",
     tier: "luxury",
-    accentColor: "#5C1D24",
+    accentColor: "#121D2C",
     name: "Turmeric (Curcuma longa)",
     germanName: "Kurkuma (Curcuma longa)",
     subtitle: "Vibrant Golden Color & Earthy Flavor • Active Curcumin",
@@ -381,7 +381,7 @@ export const PRODUCTS = [
     },
     sommelierMood: ["wellness", "cooking", "warmth", "energy"],
     imageUrl: "https://images.unsplash.com/photo-1583949885751-23b7d1909378?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dHVybWVyaWN8ZW58MHx8MHx8fDI%3D",
-    imageGradient: "linear-gradient(180deg, rgba(89, 61, 23, 0.4) 0%, rgba(92, 29, 36, 0.92) 100%), url('https://images.unsplash.com/photo-1583949885751-23b7d1909378?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dHVybWVyaWN8ZW58MHx8MHx8fDI%3D')",
+    imageGradient: "linear-gradient(180deg, rgba(18, 29, 44, 0.4) 0%, rgba(18, 29, 44, 0.92) 100%), url('https://images.unsplash.com/photo-1583949885751-23b7d1909378?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dHVybWVyaWN8ZW58MHx8MHx8fDI%3D')",
     iconSymbol: "🌟",
   },
 
@@ -648,7 +648,7 @@ export const PRODUCTS = [
     },
     sommelierMood: ["savory", "cooking", "bold", "spicy"],
     imageUrl: "https://images.unsplash.com/photo-1588252303782-cb80119abd6d?auto=format&fit=crop&w=800&q=80",
-    imageGradient: "linear-gradient(180deg, rgba(92, 29, 36, 0.4) 0%, rgba(27, 38, 59, 0.92) 100%), url('https://images.unsplash.com/photo-1588252303782-cb80119abd6d?auto=format&fit=crop&w=800&q=80')",
+    imageGradient: "linear-gradient(180deg, rgba(18, 29, 44, 0.4) 0%, rgba(27, 38, 59, 0.92) 100%), url('https://images.unsplash.com/photo-1588252303782-cb80119abd6d?auto=format&fit=crop&w=800&q=80')",
     iconSymbol: "🌶️",
   }
 ];
