@@ -8,14 +8,42 @@ export default function Header({
 }) {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.de;
   const [logoError, setLogoError] = useState(false);
+  const [isLangOpen, setIsLangOpen] = useState(false);
   const headerRef = useRef(null);
+  const langDropdownRef = useRef(null);
+  const langTimeoutRef = useRef(null);
+
+  // Close language dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (langDropdownRef.current && !langDropdownRef.current.contains(e.target)) {
+        setIsLangOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      if (langTimeoutRef.current) clearTimeout(langTimeoutRef.current);
+    };
+  }, []);
+
+  const handleLangEnter = () => {
+    if (langTimeoutRef.current) clearTimeout(langTimeoutRef.current);
+    setIsLangOpen(true);
+  };
+
+  const handleLangLeave = () => {
+    langTimeoutRef.current = setTimeout(() => {
+      setIsLangOpen(false);
+    }, 150);
+  };
 
   const languages = [
-    { code: "de", label: "Deutsch", short: "DE", flag: "🇦🇹" },
-    { code: "en", label: "English", short: "EN", flag: "🇬🇧" },
-    { code: "es", label: "Español", short: "ES", flag: "🇪🇸" },
-    { code: "it", label: "Italiano", short: "IT", flag: "🇮🇹" },
-    { code: "fr", label: "Français", short: "FR", flag: "🇫🇷" },
+    { code: "de", label: "Deutsch", short: "DE", flagUrl: "https://flagcdn.com/w40/at.png" },
+    { code: "en", label: "English", short: "EN", flagUrl: "https://flagcdn.com/w40/gb.png" },
+    { code: "es", label: "Español", short: "ES", flagUrl: "https://flagcdn.com/w40/es.png" },
+    { code: "it", label: "Italiano", short: "IT", flagUrl: "https://flagcdn.com/w40/it.png" },
+    { code: "fr", label: "Français", short: "FR", flagUrl: "https://flagcdn.com/w40/fr.png" },
   ];
 
   const currentLanguage = languages.find((l) => l.code === lang) || languages[0];
@@ -109,35 +137,73 @@ export default function Header({
           </p>
         </div>
 
-        {/* Right Side: 5-Language Selector with Full Names & Flags */}
+        {/* Right Side: 5-Language Selector with Full Names & Real Flags (Click or Hover) */}
         <div className="flex items-center gap-2 sm:gap-4">
-          <div className="relative group">
-            <button className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#C5A059]/40 bg-white/80 shadow-sm text-xs font-semibold text-[#1A392A] hover:bg-[#C5A059]/10 hover:border-[#C5A059] transition">
-              <span className="text-sm">{currentLanguage.flag}</span>
+          <div
+            ref={langDropdownRef}
+            className="relative"
+            onMouseEnter={handleLangEnter}
+            onMouseLeave={handleLangLeave}
+          >
+            <button
+              onClick={() => {
+                if (langTimeoutRef.current) clearTimeout(langTimeoutRef.current);
+                setIsLangOpen(!isLangOpen);
+              }}
+              aria-expanded={isLangOpen}
+              aria-label="Select Language"
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition shadow-sm text-xs font-semibold cursor-pointer ${
+                isLangOpen
+                  ? "border-[#1A392A] bg-[#1A392A] text-white"
+                  : "border-[#C5A059]/40 bg-white/80 text-[#1A392A] hover:bg-[#C5A059]/10 hover:border-[#C5A059]"
+              }`}
+            >
+              <img
+                src={currentLanguage.flagUrl}
+                alt={currentLanguage.label}
+                className="w-4 h-3 object-cover rounded-xs border border-[#C5A059]/40 shadow-xs"
+              />
               <span className="hidden sm:inline font-serif">{currentLanguage.label}</span>
               <span className="sm:hidden font-mono uppercase">{currentLanguage.short}</span>
-              <Globe className="w-3.5 h-3.5 text-[#C5A059]" />
+              <Globe className={`w-3.5 h-3.5 transition-transform duration-200 ${isLangOpen ? "text-[#C5A059] rotate-180" : "text-[#C5A059]"}`} />
             </button>
-            <div className="absolute right-0 mt-2 w-48 bg-[#FAF8F5] border border-[#C5A059]/40 rounded-xl shadow-2xl py-1.5 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all z-50 overflow-hidden">
-              <div className="px-3 py-1 text-[10px] uppercase tracking-wider font-semibold text-[#C5A059] border-b border-[#C5A059]/20 mb-1">
-                Select Language
+
+            {/* Dropdown Menu Container with Zero-Gap Hover Bridge (top-full pt-2) */}
+            <div
+              className={`absolute right-0 top-full pt-2 w-52 transition-all duration-200 z-50 ${
+                isLangOpen
+                  ? "opacity-100 translate-y-0 pointer-events-auto"
+                  : "opacity-0 -translate-y-2 pointer-events-none"
+              }`}
+            >
+              <div className="bg-[#FAF8F5] border border-[#C5A059]/40 rounded-xl shadow-2xl py-1.5 overflow-hidden">
+                <div className="px-3 py-1 text-[10px] uppercase tracking-wider font-semibold text-[#C5A059] border-b border-[#C5A059]/20 mb-1">
+                  Select Language
+                </div>
+                {languages.map((l) => (
+                  <button
+                    key={l.code}
+                    onClick={() => {
+                      setLang(l.code);
+                      setIsLangOpen(false);
+                    }}
+                    className={`w-full px-3.5 py-2 text-left text-xs flex items-center justify-between hover:bg-[#1A392A]/10 transition cursor-pointer ${
+                      lang === l.code ? "font-bold text-[#1A392A] bg-[#1A392A]/8" : "text-[#1C2024]"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <img
+                        src={l.flagUrl}
+                        alt={l.label}
+                        className="w-4.5 h-3.5 object-cover rounded-xs border border-[#C5A059]/30 shadow-xs"
+                      />
+                      <span className="font-serif">{l.label}</span>
+                      <span className="text-[10px] text-[#1C2024]/50 font-mono">({l.short})</span>
+                    </div>
+                    {lang === l.code && <span className="w-2 h-2 rounded-full bg-[#1A392A] shadow-sm"></span>}
+                  </button>
+                ))}
               </div>
-              {languages.map((l) => (
-                <button
-                  key={l.code}
-                  onClick={() => setLang(l.code)}
-                  className={`w-full px-3.5 py-2 text-left text-xs flex items-center justify-between hover:bg-[#1A392A]/10 transition ${
-                    lang === l.code ? "font-bold text-[#1A392A] bg-[#1A392A]/8" : "text-[#1C2024]"
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-base">{l.flag}</span>
-                    <span className="font-serif">{l.label}</span>
-                    <span className="text-[10px] text-[#1C2024]/50 font-mono">({l.short})</span>
-                  </div>
-                  {lang === l.code && <span className="w-2 h-2 rounded-full bg-[#1A392A] shadow-sm"></span>}
-                </button>
-              ))}
             </div>
           </div>
         </div>
