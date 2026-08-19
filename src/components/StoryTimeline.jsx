@@ -69,7 +69,7 @@ export default function StoryTimeline({ lang }) {
     <section
       ref={sectionRef}
       id="story-section"
-      className="bg-[#FAF8F5] relative overflow-hidden paper-texture min-h-screen flex flex-col justify-center"
+      className="bg-[#F5F0E8] relative overflow-hidden paper-texture min-h-screen flex flex-col justify-center"
     >
       {/* Section Header */}
       <div className="max-w-4xl mx-auto px-4 text-center mb-8 shrink-0 relative z-20">
@@ -99,13 +99,13 @@ export default function StoryTimeline({ lang }) {
           {HERITAGE_STORIES.map((chapter) => (
             <div
               key={chapter.id}
-              className="w-[88vw] sm:w-[680px] md:w-[760px] shrink-0 rounded-3xl p-8 sm:p-11 border border-[#C5A059]/40 bg-white shadow-xl gold-border flex flex-col justify-between overflow-y-auto"
+              className="w-[88vw] sm:w-[680px] md:w-[760px] shrink-0 rounded-lg p-8 sm:p-11 border border-[#C5A059]/40 bg-white gold-border flex flex-col justify-between overflow-y-auto"
             >
               <div>
                 {/* Top Bar */}
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-[#C5A059]/20">
                   <div className="flex items-center gap-3">
-                    <span className="px-3.5 py-1 rounded-full bg-[#1A392A] text-[#FAF8F5] text-xs font-serif font-bold tracking-widest">
+                    <span className="px-3 py-0.5 rounded-sm bg-[#1A392A] text-[#F5F0E8] text-xs font-serif font-bold tracking-widest">
                       {chapter.chapterNum}
                     </span>
                     <span className="text-xs font-semibold text-[#C5A059] uppercase tracking-wider">
@@ -133,7 +133,7 @@ export default function StoryTimeline({ lang }) {
                 </h4>
 
                 {/* Quote */}
-                <blockquote className="my-4 p-4 rounded-xl bg-[#FAF8F5] border-l-4 border-[#C5A059] text-xs sm:text-sm font-serif italic text-[#1A392A]/90">
+                <blockquote className="my-4 p-4 rounded-sm bg-[#F5F0E8] border-l-4 border-[#C5A059] text-xs sm:text-sm font-serif italic text-[#1A392A]/90">
                   "{chapter.quote[lang] || chapter.quote.de}"
                 </blockquote>
 

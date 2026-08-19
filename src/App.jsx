@@ -60,7 +60,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF8F5] text-[#1C2024] selection:bg-[#1A392A] selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#F5F0E8] text-[#1C2024] selection:bg-[#1A392A] selection:text-white">
       {/* Fixed Header Navigation */}
       <Header
         lang={lang}

@@ -133,10 +133,10 @@ export default function Header({ lang, setLang }) {
     <header
       ref={headerRef}
       style={{ transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)" }}
-      className="fixed top-0 left-0 right-0 z-50 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-[#C5A059]/25 will-change-transform"
+      className="fixed top-0 left-0 right-0 z-50 bg-[#F5F0E8]/90 backdrop-blur-md border-b border-[#C5A059]/25 will-change-transform"
     >
       {/* Top Banner Notice */}
-      <div className="bg-[#1A392A] text-[#FAF8F5] text-xs py-1.5 px-4 text-center font-medium tracking-wider uppercase flex items-center justify-center gap-2">
+      <div className="bg-[#1A392A] text-[#F5F0E8] text-xs py-1.5 px-4 text-center font-medium tracking-wider uppercase flex items-center justify-center gap-2">
         <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
         <span>{t.heritageSub}</span>
         <span className="hidden sm:inline text-[#C5A059]">|</span>
@@ -219,7 +219,7 @@ export default function Header({ lang, setLang }) {
                   : "opacity-0 -translate-y-2 pointer-events-none"
               }`}
             >
-              <div className="bg-[#FAF8F5] border border-[#C5A059]/40 rounded-xl shadow-2xl py-1.5 overflow-hidden">
+              <div className="bg-[#F5F0E8] border border-[#C5A059]/40 rounded-xl shadow-2xl py-1.5 overflow-hidden">
                 <div className="px-3 py-1 text-[10px] uppercase tracking-wider font-semibold text-[#C5A059] border-b border-[#C5A059]/20 mb-1">
                   Select Language
                 </div>

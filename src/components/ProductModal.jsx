@@ -15,7 +15,7 @@ export default function ProductModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in overflow-y-auto">
-      <div className="relative w-full max-w-3xl bg-[#FAF8F5] border border-[#C5A059]/40 rounded-3xl shadow-2xl overflow-hidden my-8 gold-border">
+      <div className="relative w-full max-w-3xl bg-[#F5F0E8] border border-[#C5A059]/40 rounded-3xl shadow-2xl overflow-hidden my-8 gold-border">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -136,7 +136,7 @@ export default function ProductModal({
         </div>
 
         {/* Modal Footer Showcase Specs */}
-        <div className="p-6 bg-[#FAF8F5] border-t border-[#C5A059]/20 flex items-center justify-between">
+        <div className="p-6 bg-[#F5F0E8] border-t border-[#C5A059]/20 flex items-center justify-between">
           <div>
             <div className="font-serif text-sm font-bold text-[#1A392A]">
               {product.allocation}

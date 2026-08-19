@@ -2,7 +2,7 @@
 
 @layer base {
   :root {
-    --color-finesse: #FAF8F5;
+    --color-finesse: #F5F0E8;
     --color-bottle-green: #1A392A;
     --color-midnight-sapphire: #121D2C;
     --color-ink-navy: #1B263B;
@@ -172,7 +172,7 @@
 .apothecary-label {
   background: rgba(26, 57, 42, 0.75);
   border: 1px solid rgba(197, 160, 89, 0.4);
-  color: #FAF8F5;
+  color: #F5F0E8;
   font-family: 'Playfair Display', Georgia, serif;
   letter-spacing: 0.04em;
   backdrop-filter: blur(4px);
@@ -180,7 +180,7 @@
 
 /* Tactile Uncoated Linen Paper Pattern overlay */
 .paper-texture {
-  background-color: #FAF8F5;
+  background-color: #F5F0E8;
   background-image: radial-gradient(rgba(28, 32, 36, 0.03) 1px, transparent 0);
   background-size: 24px 24px;
 }
@@ -219,7 +219,7 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF8F5;
+  background: #F5F0E8;
 }
 ::-webkit-scrollbar-thumb {
   background: #C5A059;

@@ -223,7 +223,7 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
 
         {/* Bottom Label */}
         <div className="absolute bottom-1.5 left-2 right-2 sm:bottom-2 z-10">
-          <p className="text-[9px] sm:text-[11px] font-serif font-semibold text-[#FAF8F5] leading-tight truncate">
+          <p className="text-[9px] sm:text-[11px] font-serif font-semibold text-[#F5F0E8] leading-tight truncate">
             {spiceName}
           </p>
           <p className="text-[7px] sm:text-[8px] font-mono text-[#E5C483]/80 uppercase tracking-wider truncate mt-0.5">
@@ -238,7 +238,7 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
     <section
       ref={sectionRef}
       id="spices-collection"
-      className="relative w-full h-screen min-h-[640px] max-h-[1024px] overflow-hidden bg-[#FAF8F5] paper-texture flex items-center justify-center border-t border-[#C5A059]/20"
+      className="relative w-full h-screen min-h-[640px] max-h-[1024px] overflow-hidden bg-[#F5F0E8] paper-texture flex items-center justify-center border-t border-[#C5A059]/20"
     >
       {/* ============================================================ */}
       {/* STAGE 0: INITIAL LUXURY BENTO GALLERY OVERVIEW                */}
@@ -388,9 +388,9 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
                   {/* Gold Divider */}
                   <div className="spice-focus-text w-12 h-px bg-[#C5A059]/40" />
 
-                  {/* Very Short Story */}
+                  {/* Full Story */}
                   <p className="spice-focus-text text-xs sm:text-sm text-[#1C2024]/80 leading-relaxed font-light max-w-lg">
-                    {spice.shortStory || spice.fullStory}
+                    {spice.fullStory || spice.shortStory}
                   </p>
 
                   {/* Tasting Note Pills */}

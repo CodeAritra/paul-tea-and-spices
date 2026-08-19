@@ -11,7 +11,7 @@ export default function HeroSection({ lang }) {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-[#F4EFE6] to-[#FAF8F5] py-20 lg:py-28 border-b border-[#C5A059]/20 paper-texture">
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#F5F0E8] via-[#EFE8DC] to-[#F5F0E8] py-20 lg:py-28 border-b border-[#C5A059]/20 paper-texture">
       {/* Background Ambient Mist Micro-Animations */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-10 left-10 w-96 h-96 bg-[#1A392A]/5 rounded-full blur-3xl animate-mist"></div>
@@ -58,25 +58,25 @@ export default function HeroSection({ lang }) {
 
         {/* 4 Feature Badges */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-12 border-t border-[#C5A059]/25 text-left">
-          <div className="p-4 rounded-xl bg-[#FAF8F5]/80 border border-[#C5A059]/20 shadow-xs">
+          <div className="p-4 rounded-xl bg-[#F5F0E8]/80 border border-[#C5A059]/20 shadow-xs">
             <div className="text-xs uppercase tracking-widest text-[#C5A059] font-semibold mb-1">01. Provenance</div>
             <div className="font-serif text-base font-bold text-[#1A392A]">Single-Origin Estates</div>
             <div className="text-xs text-[#1C2024]/70 mt-1">Darjeeling, Assam, Kashmir & Kerala</div>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#FAF8F5]/80 border border-[#C5A059]/20 shadow-xs">
+          <div className="p-4 rounded-xl bg-[#F5F0E8]/80 border border-[#C5A059]/20 shadow-xs">
             <div className="text-xs uppercase tracking-widest text-[#C5A059] font-semibold mb-1">02. Craftsmanship</div>
             <div className="font-serif text-base font-bold text-[#1A392A]">Vorarlberg Atelier</div>
             <div className="text-xs text-[#1C2024]/70 mt-1">Blended with Austrian Alpine herbs</div>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#FAF8F5]/80 border border-[#C5A059]/20 shadow-xs">
+          <div className="p-4 rounded-xl bg-[#F5F0E8]/80 border border-[#C5A059]/20 shadow-xs">
             <div className="text-xs uppercase tracking-widest text-[#C5A059] font-semibold mb-1">03. Packaging</div>
             <div className="font-serif text-base font-bold text-[#1A392A]">Handcrafted Wood</div>
             <div className="text-xs text-[#1C2024]/70 mt-1">Reserve wooden boxes & eco cotton paper</div>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#FAF8F5]/80 border border-[#C5A059]/20 shadow-xs">
+          <div className="p-4 rounded-xl bg-[#F5F0E8]/80 border border-[#C5A059]/20 shadow-xs">
             <div className="text-xs uppercase tracking-widest text-[#C5A059] font-semibold mb-1">04. Devotion</div>
             <div className="font-serif text-base font-bold text-[#1A392A]">Named for Paul</div>
             <div className="text-xs text-[#1C2024]/70 mt-1">Purity, patience & family stewardship</div>

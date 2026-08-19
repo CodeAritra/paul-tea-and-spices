@@ -8,7 +8,7 @@ const SPICES_PRODUCTS = PRODUCTS.filter((p) => p.category === "spices");
 
 export default function ProductCatalog({ lang }) {
   return (
-    <div id="shop-catalog" className="bg-[#FAF8F5] paper-texture">
+    <div id="shop-catalog" className="bg-[#F5F0E8] paper-texture">
       {/* ============================================================ */}
       {/* SECTION 1: PAUL TEA COLLECTION — STORY-DRIVEN ZOOM & MINIMAL */}
       {/* ============================================================ */}
