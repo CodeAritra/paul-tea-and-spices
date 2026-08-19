@@ -37,9 +37,18 @@ export default function App() {
       gsap.ticker.add(updateRaf);
       // Refresh ScrollTrigger after initializing and after all downstream components mount
       const refreshTimers = [
-        setTimeout(() => ScrollTrigger.refresh(), 100),
-        setTimeout(() => ScrollTrigger.refresh(), 300),
-        setTimeout(() => ScrollTrigger.refresh(), 800),
+        setTimeout(() => {
+          ScrollTrigger.sort();
+          ScrollTrigger.refresh();
+        }, 100),
+        setTimeout(() => {
+          ScrollTrigger.sort();
+          ScrollTrigger.refresh();
+        }, 300),
+        setTimeout(() => {
+          ScrollTrigger.sort();
+          ScrollTrigger.refresh();
+        }, 800),
       ];
 
       return () => {

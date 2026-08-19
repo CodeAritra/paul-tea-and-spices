@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback ,useLayoutEffect} from "react";
 import { HERITAGE_STORIES } from "../data/storiesData";
 import { MapPin, Calendar, ShieldCheck, Feather } from "lucide-react";
 
@@ -17,55 +17,50 @@ export default function StoryTimeline({ lang }) {
     setCenterOffset(Math.max(0, (window.innerWidth - cardW) / 2));
   }, []);
 
-  // Resize listener
+  // GSAP ScrollTrigger – smooth continuous horizontal scroll, no snap
   useEffect(() => {
     recalcCenter();
     window.addEventListener("resize", recalcCenter);
     return () => window.removeEventListener("resize", recalcCenter);
   }, [recalcCenter]);
 
-  // GSAP ScrollTrigger – smooth continuous horizontal scroll, no snap
-  useEffect(() => {
+  useLayoutEffect(() => {
     const gsap = window.gsap;
     const ScrollTrigger = window.ScrollTrigger;
-    if (!gsap || !ScrollTrigger) return;
+    if (!gsap || !ScrollTrigger) return undefined;
 
     gsap.registerPlugin(ScrollTrigger);
 
     const section = sectionRef.current;
     const track = trackRef.current;
-    if (!section || !track || !track.children[0]) return;
+    if (!section || !track || !track.children[0]) return undefined;
 
-    const cardW = track.children[0].offsetWidth;
-    const step = cardW + GAP;
-    const steps = HERITAGE_STORIES.length - 1; // 2 shifts for 3 cards
-    const totalShift = step * steps;
+    const ctx = gsap.context(() => {
+      const cardW = track.children[0].offsetWidth;
+      const step = cardW + GAP;
+      const steps = HERITAGE_STORIES.length - 1; // 2 shifts for 3 cards
+      const totalShift = step * steps;
 
-    // Smooth continuous scrub with dynamic end calculation
-    const tween = gsap.to(track, {
-      x: -totalShift,
-      ease: "none",
-      scrollTrigger: {
-        trigger: section,
-        pin: true,
-        anticipatePin: 1,
-        scrub: 1, // Smooth damping
-        start: "top top",
-        end: () => `+=${totalShift * 1.15}`, // Natural, comfortable scroll distance
-        invalidateOnRefresh: true,
-      },
-    });
+      gsap.to(track, {
+        x: -totalShift,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          pin: true,
+          anticipatePin: 1,
+          scrub: 1, // Smooth damping
+          start: "top top",
+          end: () => `+=${totalShift * 1.15}`,
+          invalidateOnRefresh: true,
+        },
+      });
+    }, section);
 
-    const myTrigger = tween.scrollTrigger;
-
-    // Refresh ScrollTrigger to update all downstream trigger positions past the pin-spacer
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 60);
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
 
     return () => {
-      myTrigger?.kill();
-      tween.kill();
+      ctx.revert();
       ScrollTrigger.refresh();
     };
   }, [centerOffset]);

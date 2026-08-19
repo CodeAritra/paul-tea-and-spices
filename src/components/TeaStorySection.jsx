@@ -92,6 +92,8 @@ export default function TeaStorySection({ teaProducts, lang }) {
         gsap.fromTo(image, { scale: 1.08, y: isMobile ? -12 : -24 }, { scale: 1, y: isMobile ? 12 : 24, ease: "none", scrollTrigger: { trigger: frame, start: "top 95%", end: "bottom 5%", scrub: 1, invalidateOnRefresh: true } });
         gsap.timeline({ scrollTrigger: { trigger: item, start: "top 84%", toggleActions: "play none none reverse" } }).fromTo(heading, { autoAlpha: 0, y: 28 }, { autoAlpha: 1, y: 0, duration: 0.75, ease: "power3.out" }).fromTo(description, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.65, ease: "power3.out" }, "-=0.48");
       });
+      ScrollTrigger.sort();
+      ScrollTrigger.refresh();
     }, containerRef);
     return () => ctx.revert();
   }, []);

@@ -2,10 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Sparkles, Globe } from "lucide-react";
 import { TRANSLATIONS } from "../data/productsData";
 
-export default function Header({
-  lang,
-  setLang,
-}) {
+export default function Header({ lang, setLang }) {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.de;
   const [logoError, setLogoError] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
@@ -16,7 +13,10 @@ export default function Header({
   // Close language dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (langDropdownRef.current && !langDropdownRef.current.contains(e.target)) {
+      if (
+        langDropdownRef.current &&
+        !langDropdownRef.current.contains(e.target)
+      ) {
         setIsLangOpen(false);
       }
     };
@@ -39,64 +39,100 @@ export default function Header({
   };
 
   const languages = [
-    { code: "de", label: "Deutsch", short: "DE", flagUrl: "https://flagcdn.com/w40/at.png" },
-    { code: "en", label: "English", short: "EN", flagUrl: "https://flagcdn.com/w40/gb.png" },
-    { code: "es", label: "Español", short: "ES", flagUrl: "https://flagcdn.com/w40/es.png" },
-    { code: "it", label: "Italiano", short: "IT", flagUrl: "https://flagcdn.com/w40/it.png" },
-    { code: "fr", label: "Français", short: "FR", flagUrl: "https://flagcdn.com/w40/fr.png" },
+    {
+      code: "de",
+      label: "Deutsch",
+      short: "DE",
+      flagUrl: "https://flagcdn.com/w40/at.png",
+    },
+    {
+      code: "en",
+      label: "English",
+      short: "EN",
+      flagUrl: "https://flagcdn.com/w40/gb.png",
+    },
+    {
+      code: "es",
+      label: "Español",
+      short: "ES",
+      flagUrl: "https://flagcdn.com/w40/es.png",
+    },
+    {
+      code: "it",
+      label: "Italiano",
+      short: "IT",
+      flagUrl: "https://flagcdn.com/w40/it.png",
+    },
+    {
+      code: "fr",
+      label: "Français",
+      short: "FR",
+      flagUrl: "https://flagcdn.com/w40/fr.png",
+    },
   ];
 
-  const currentLanguage = languages.find((l) => l.code === lang) || languages[0];
+  const currentLanguage =
+    languages.find((l) => l.code === lang) || languages[0];
 
-  // Progressive scroll-linked navbar: scrolls up with scroll-down, scrolls down with scroll-up
+  // Smart scroll-linked header:
+  // Hides when scrolling down, reveals when scrolling up.
+  // Stays quietly hidden while inside pinned sections so it NEVER causes items/screen to shift.
   useEffect(() => {
-    const gsap = window.gsap;
-    const ScrollTrigger = window.ScrollTrigger;
-    if (!gsap || !ScrollTrigger || !headerRef.current) return;
-
-    gsap.registerPlugin(ScrollTrigger);
-
+    let lastScrollY = window.scrollY;
+    let isHidden = false;
     const header = headerRef.current;
-    let headerHeight = header.offsetHeight || 110;
-    let currentY = 0;
-    let prevScroll = 0;
+    if (!header) return undefined;
 
-    // QuickTo for ultra-smooth 60fps interpolation without sudden jumps
-    const setY = gsap.quickTo(header, "y", { duration: 0.18, ease: "power1.out" });
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
 
-    const headerTrigger = ScrollTrigger.create({
-      start: "top top",
-      end: 999999,
-      onUpdate: (self) => {
-        const scroll = self.scroll();
-        headerHeight = header.offsetHeight || 110;
+      // Check if any pinned section (Chapters, Tea, Spices) is currently active
+      const ScrollTrigger = window.ScrollTrigger;
+      const isAnyPinActive = ScrollTrigger
+        ? ScrollTrigger.getAll().some((st) => st.pin && st.isActive)
+        : false;
 
-        if (scroll <= 5) {
-          currentY = 0;
-          setY(0);
-          prevScroll = scroll;
-          return;
+      // Always show at the very top of the page
+      if (currentScrollY < 80) {
+        if (isHidden) {
+          header.style.transform = "translateY(0%)";
+          isHidden = false;
         }
+        lastScrollY = currentScrollY;
+        return;
+      }
 
-        const delta = scroll - prevScroll;
+      // If inside a pinned storytelling section, keep header smoothly hidden
+      if (isAnyPinActive) {
+        if (!isHidden) {
+          header.style.transform = "translateY(-100%)";
+          isHidden = true;
+        }
+        lastScrollY = currentScrollY;
+        return;
+      }
 
-        // Progressively scroll header up (towards -headerHeight) on scroll down
-        // Progressively scroll header down (towards 0) on scroll up
-        currentY = Math.min(0, Math.max(-headerHeight, currentY - delta));
-        setY(currentY);
+      // Normal unpinned scroll: Hide on scroll down, show on scroll up
+      const diff = currentScrollY - lastScrollY;
+      if (diff > 12 && !isHidden) {
+        header.style.transform = "translateY(-100%)";
+        isHidden = true;
+      } else if (diff < -15 && isHidden) {
+        header.style.transform = "translateY(0%)";
+        isHidden = false;
+      }
 
-        prevScroll = scroll;
-      },
-    });
-
-    return () => {
-      headerTrigger.kill();
+      lastScrollY = currentScrollY;
     };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header
       ref={headerRef}
+      style={{ transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)" }}
       className="fixed top-0 left-0 right-0 z-50 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-[#C5A059]/25 will-change-transform"
     >
       {/* Top Banner Notice */}
@@ -147,7 +183,8 @@ export default function Header({
           >
             <button
               onClick={() => {
-                if (langTimeoutRef.current) clearTimeout(langTimeoutRef.current);
+                if (langTimeoutRef.current)
+                  clearTimeout(langTimeoutRef.current);
                 setIsLangOpen(!isLangOpen);
               }}
               aria-expanded={isLangOpen}
@@ -163,9 +200,15 @@ export default function Header({
                 alt={currentLanguage.label}
                 className="w-4 h-3 object-cover rounded-xs border border-[#C5A059]/40 shadow-xs"
               />
-              <span className="hidden sm:inline font-serif">{currentLanguage.label}</span>
-              <span className="sm:hidden font-mono uppercase">{currentLanguage.short}</span>
-              <Globe className={`w-3.5 h-3.5 transition-transform duration-200 ${isLangOpen ? "text-[#C5A059] rotate-180" : "text-[#C5A059]"}`} />
+              <span className="hidden sm:inline font-serif">
+                {currentLanguage.label}
+              </span>
+              <span className="sm:hidden font-mono uppercase">
+                {currentLanguage.short}
+              </span>
+              <Globe
+                className={`w-3.5 h-3.5 transition-transform duration-200 ${isLangOpen ? "text-[#C5A059] rotate-180" : "text-[#C5A059]"}`}
+              />
             </button>
 
             {/* Dropdown Menu Container with Zero-Gap Hover Bridge (top-full pt-2) */}
@@ -188,7 +231,9 @@ export default function Header({
                       setIsLangOpen(false);
                     }}
                     className={`w-full px-3.5 py-2 text-left text-xs flex items-center justify-between hover:bg-[#1A392A]/10 transition cursor-pointer ${
-                      lang === l.code ? "font-bold text-[#1A392A] bg-[#1A392A]/8" : "text-[#1C2024]"
+                      lang === l.code
+                        ? "font-bold text-[#1A392A] bg-[#1A392A]/8"
+                        : "text-[#1C2024]"
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
@@ -198,9 +243,13 @@ export default function Header({
                         className="w-4.5 h-3.5 object-cover rounded-xs border border-[#C5A059]/30 shadow-xs"
                       />
                       <span className="font-serif">{l.label}</span>
-                      <span className="text-[10px] text-[#1C2024]/50 font-mono">({l.short})</span>
+                      <span className="text-[10px] text-[#1C2024]/50 font-mono">
+                        ({l.short})
+                      </span>
                     </div>
-                    {lang === l.code && <span className="w-2 h-2 rounded-full bg-[#1A392A] shadow-sm"></span>}
+                    {lang === l.code && (
+                      <span className="w-2 h-2 rounded-full bg-[#1A392A] shadow-sm"></span>
+                    )}
                   </button>
                 ))}
               </div>
