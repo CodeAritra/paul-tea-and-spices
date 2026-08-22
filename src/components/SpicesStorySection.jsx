@@ -16,7 +16,7 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
     gsap.registerPlugin(ScrollTrigger);
 
     const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
 
     if (prefersReducedMotion) {
@@ -77,7 +77,7 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
             ease: "none",
             duration: totalTlDuration,
           },
-          0
+          0,
         );
       }
 
@@ -92,14 +92,14 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
           duration: EXIT_DUR,
           ease: "power2.inOut",
         },
-        HOLD_DUR
+        HOLD_DUR,
       );
 
       // Steps 1..13: Non-overlapping sequential reveals (Item A fully vanishes BEFORE Item B appears)
       slides.forEach((slide, idx) => {
         const slideImg = slide.querySelector(".spice-focus-img");
         const slideTexts = slide.querySelectorAll(".spice-focus-text");
-        
+
         // Incoming item starts ONLY AFTER the previous item has fully finished its exit
         const enterTime = HOLD_DUR + EXIT_DUR + idx * SEGMENT;
         const exitTime = enterTime + ENTER_DUR + HOLD_DUR;
@@ -115,7 +115,7 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
             duration: ENTER_DUR,
             ease: "power2.out",
           },
-          enterTime
+          enterTime,
         );
 
         if (slideImg) {
@@ -123,7 +123,7 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
             slideImg,
             { scale: 1.07 },
             { scale: 1.0, duration: ENTER_DUR + HOLD_DUR, ease: "none" },
-            enterTime
+            enterTime,
           );
         }
 
@@ -138,7 +138,7 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
               stagger: 0.05,
               ease: "power2.out",
             },
-            enterTime + 0.08
+            enterTime + 0.08,
           );
         }
 
@@ -155,7 +155,7 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
             duration: EXIT_DUR,
             ease: "power2.inOut",
           },
-          exitTime
+          exitTime,
         );
       });
 
@@ -171,7 +171,7 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
           duration: ENTER_DUR,
           ease: "power2.out",
         },
-        finaleEnterTime
+        finaleEnterTime,
       );
 
       // Finale reading hold before unpinning to footer
@@ -248,11 +248,13 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
         <div className="text-center mb-3 sm:mb-5 shrink-0">
           <div className="inline-flex items-center gap-3 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.25em] text-[#C5A059] mb-1.5">
             <span className="w-8 h-px bg-[#C5A059]/50"></span>
-            <span>PAUL SPICES MAISON</span>
+            <span>PAUL'S SPICES MAISON</span>
             <span className="w-8 h-px bg-[#C5A059]/50"></span>
           </div>
           <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold text-[#121D2C] tracking-tight mb-1.5">
-            {lang === "de" ? "Paul Gewürze Kollektion" : "Paul Spices Collections"}
+            {lang === "de"
+              ? "Paul's Gewürze Kollektion"
+              : "Paul's Spices Collections"}
           </h2>
           <p className="text-[11px] sm:text-xs text-[#1C2024]/70 max-w-2xl mx-auto font-light leading-relaxed">
             {lang === "de"
@@ -265,11 +267,19 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
         <div className="grid grid-cols-12 gap-2 sm:gap-2.5 max-h-[66vh] overflow-y-auto sm:overflow-visible p-1">
           {/* Row 1: Top 4 Spices (sum = 12 cols: 3 + 3 + 3 + 3) */}
           {topSpices.map((spice, i) =>
-            renderTile(spice, i, "col-span-6 sm:col-span-3 h-20 sm:h-24 lg:h-28")
+            renderTile(
+              spice,
+              i,
+              "col-span-6 sm:col-span-3 h-20 sm:h-24 lg:h-28",
+            ),
           )}
 
           {/* Row 2 Left: Cumin (col-span-3) */}
-          {renderTile(leftMidTop, 4, "col-span-6 sm:col-span-3 h-20 sm:h-24 lg:h-28")}
+          {renderTile(
+            leftMidTop,
+            4,
+            "col-span-6 sm:col-span-3 h-20 sm:h-24 lg:h-28",
+          )}
 
           {/* CENTER: "The Essence of India" (Spans 6 columns & 2 rows in desktop) */}
           <div className="col-span-12 sm:col-span-6 sm:row-span-2 relative flex flex-col items-center justify-center text-center p-4 sm:p-6 my-1 sm:my-0">
@@ -277,7 +287,9 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
               {/* Provenance Tag */}
               <div className="inline-flex items-center gap-2 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.25em] text-[#C5A059] mb-1.5 sm:mb-2">
                 <span className="w-4 h-px bg-[#C5A059]/60" />
-                <span>{lang === "de" ? "HERKUNFT · INDIEN" : "PROVENANCE · INDIA"}</span>
+                <span>
+                  {lang === "de" ? "HERKUNFT · INDIEN" : "PROVENANCE · INDIA"}
+                </span>
                 <span className="w-4 h-px bg-[#C5A059]/60" />
               </div>
 
@@ -296,13 +308,25 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
           </div>
 
           {/* Row 2 Right: Coriander (col-span-3) */}
-          {renderTile(rightMidTop, 5, "col-span-6 sm:col-span-3 h-20 sm:h-24 lg:h-28")}
+          {renderTile(
+            rightMidTop,
+            5,
+            "col-span-6 sm:col-span-3 h-20 sm:h-24 lg:h-28",
+          )}
 
           {/* Row 3 Left: Cloves (col-span-3) */}
-          {renderTile(leftMidBottom, 6, "col-span-6 sm:col-span-3 h-20 sm:h-24 lg:h-28")}
+          {renderTile(
+            leftMidBottom,
+            6,
+            "col-span-6 sm:col-span-3 h-20 sm:h-24 lg:h-28",
+          )}
 
           {/* Row 3 Right: Fennel (col-span-3) */}
-          {renderTile(rightMidBottom, 7, "col-span-6 sm:col-span-3 h-20 sm:h-24 lg:h-28")}
+          {renderTile(
+            rightMidBottom,
+            7,
+            "col-span-6 sm:col-span-3 h-20 sm:h-24 lg:h-28",
+          )}
 
           {/* Row 4: Bottom 5 Spices (sum = 12 cols: 2 + 3 + 2 + 3 + 2) */}
           {bottomSpices.map((spice, idx) => {
@@ -348,7 +372,7 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
                     {/* Top Paul Spices Tag */}
                     <div className="absolute top-4 left-4 z-10">
                       <span className="px-3 py-1 rounded-sm text-[10px] font-serif font-bold uppercase tracking-widest bg-black/70 text-[#E5C483] border border-[#C5A059]/60 backdrop-blur-md">
-                        PAUL SPICES
+                        PAUL'S SPICES
                       </span>
                     </div>
 
@@ -366,10 +390,13 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
                   {/* Provenance & Counter */}
                   <div className="spice-focus-text inline-flex items-center gap-2.5 text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-[#C5A059]">
                     <span className="w-6 h-px bg-[#C5A059]/60" />
-                    <span>{lang === "de" ? "HERKUNFT: INDIEN" : "FROM INDIA"}</span>
+                    <span>
+                      {lang === "de" ? "HERKUNFT: INDIEN" : "FROM INDIA"}
+                    </span>
                     <span className="text-[#121D2C]/30">·</span>
                     <span>
-                      {String(idx + 1).padStart(2, "0")} / {String(spicesProducts.length).padStart(2, "0")}
+                      {String(idx + 1).padStart(2, "0")} /{" "}
+                      {String(spicesProducts.length).padStart(2, "0")}
                     </span>
                   </div>
 
@@ -420,7 +447,7 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
         <div className="w-full max-w-2xl mx-auto space-y-6">
           <div className="inline-flex items-center gap-3 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.25em] text-[#C5A059]">
             <span className="w-8 h-px bg-[#C5A059]/50"></span>
-            <span>PAUL SPICES MAISON</span>
+            <span>PAUL'S SPICES MAISON</span>
             <span className="w-8 h-px bg-[#C5A059]/50"></span>
           </div>
 

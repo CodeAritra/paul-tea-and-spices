@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { Sparkles, Globe } from "lucide-react";
 import { TRANSLATIONS } from "../data/productsData";
 
@@ -9,6 +10,15 @@ export default function Header({ lang, setLang }) {
   const headerRef = useRef(null);
   const langDropdownRef = useRef(null);
   const langTimeoutRef = useRef(null);
+
+  const navLabels = {
+    de: { home: "Home", story: "Über Uns" },
+    en: { home: "Home", story: "About Us" },
+    es: { home: "Inicio", story: "Sobre Nosotros" },
+    it: { home: "Home", story: "Chi Siamo" },
+    fr: { home: "Accueil", story: "À Propos" },
+  };
+  const currentNav = navLabels[lang] || navLabels.en;
 
   // Close language dropdown on outside click
   useEffect(() => {
@@ -146,35 +156,92 @@ export default function Header({ lang, setLang }) {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Left Side: Brand Logo Image */}
-        <div className="flex items-center gap-3">
-          {!logoError ? (
-            <img
-              src="/logo.jpeg"
-              alt="Paul Tea & Spices Logo"
-              onError={() => setLogoError(true)}
-              className="h-10 sm:h-12 w-auto object-contain cursor-pointer transition-transform hover:scale-105"
-            />
-          ) : (
-            /* Fallback luxury crest */
-            <div className="w-10 h-10 rounded-full bg-[#1A392A] border border-[#C5A059] flex items-center justify-center text-[#C5A059] font-serif font-bold text-lg shadow-md cursor-pointer">
-              P
-            </div>
-          )}
+        {/* Left Side: Brand Logo Image + Desktop Nav */}
+        <div className="flex items-center gap-6">
+          <Link to="/" className="flex items-center gap-3 group" title="Paul's Tea & Spices">
+            {!logoError ? (
+              <img
+                src="/images/logo.png"
+                alt="Paul's Tea & Spices Logo"
+                onError={() => setLogoError(true)}
+                className="h-10 sm:h-12 w-auto object-contain cursor-pointer transition-transform group-hover:scale-105"
+              />
+            ) : (
+              /* Fallback luxury crest */
+              <div className="w-10 h-10 rounded-full bg-[#1A392A] border border-[#C5A059] flex items-center justify-center text-[#C5A059] font-serif font-bold text-lg shadow-md cursor-pointer">
+                P
+              </div>
+            )}
+          </Link>
+
+          {/* Desktop Nav Links */}
+          <nav className="hidden md:flex items-center gap-5 text-xs font-serif tracking-wider uppercase">
+            <NavLink
+              to="/"
+              end
+              className={({ isActive }) =>
+                `transition-all py-1 border-b-2 font-medium ${
+                  isActive
+                    ? "text-[#1A392A] font-bold border-[#1A392A]"
+                    : "text-[#1C2024]/70 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+                }`
+              }
+            >
+              {currentNav.home}
+            </NavLink>
+
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `transition-all py-1 border-b-2 font-medium ${
+                  isActive
+                    ? "text-[#1A392A] font-bold border-[#1A392A]"
+                    : "text-[#1C2024]/70 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+                }`
+              }
+            >
+              {currentNav.story}
+            </NavLink>
+          </nav>
         </div>
 
         {/* Center: Master Brand Emblem Wordmark */}
-        <div className="text-center cursor-pointer">
-          <h1 className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#1A392A]">
-            PAUL
+        <Link to="/" className="text-center group cursor-pointer">
+          <h1 className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#1A392A] group-hover:text-[#C5A059] transition-colors">
+            PAUL'S
           </h1>
           <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-[#C5A059] font-medium -mt-1">
             TEA & SPICES • VORARLBERG
           </p>
-        </div>
+        </Link>
 
-        {/* Right Side: 5-Language Selector with Full Names & Real Flags (Click or Hover) */}
+        {/* Right Side: Mobile Nav + 5-Language Selector */}
         <div className="flex items-center gap-2 sm:gap-4">
+          {/* Mobile Nav Links */}
+          <div className="flex md:hidden items-center gap-1.5 text-[11px] font-serif uppercase tracking-wider mr-1">
+            <NavLink
+              to="/"
+              end
+              className={({ isActive }) =>
+                `px-2 py-0.5 rounded transition ${
+                  isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
+                }`
+              }
+            >
+              Home
+            </NavLink>
+            <span className="text-[#C5A059]/50">•</span>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `px-2 py-0.5 rounded transition ${
+                  isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
+                }`
+              }
+            >
+              {lang === "de" ? "Über Uns" : "About Us"}
+            </NavLink>
+          </div>
           <div
             ref={langDropdownRef}
             className="relative"

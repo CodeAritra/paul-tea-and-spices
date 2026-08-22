@@ -28,7 +28,7 @@ export default function ProductCard({
     return t.tierGlobalLabel;
   };
 
-  const brandTag = isTea ? "PAUL TEA" : "PAUL SPICES";
+  const brandTag = isTea ? "PAUL'S TEA" : "PAUL'S SPICES";
 
   const cardBackgroundStyle = product.imageGradient
     ? {
