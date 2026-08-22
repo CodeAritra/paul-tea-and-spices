@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paul's Tea & Spices — Artwork Typography & Label Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Montserrat:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0b1118;
+      color: #e5e5e5;
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #c5a059;
+      border: 1px solid rgba(197, 160, 89, 0.4);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      background: rgba(197, 160, 89, 0.1);
+    }
+    h1 {
+      font-family: 'Cinzel', serif;
+      color: #f5f0e8;
+      font-size: 26px;
+      letter-spacing: 0.18em;
+      margin-bottom: 6px;
+    }
+    p.subtitle {
+      color: #8fa0b0;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+    }
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      align-items: flex-end;
+      background: #141c26;
+      padding: 18px 24px;
+      border-radius: 14px;
+      border: 1px solid #233244;
+      margin-bottom: 24px;
+      max-width: 1240px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    label {
+      font-size: 10px;
+      color: #8da4bc;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+    }
+    select, input[type="text"], input[type="range"], button {
+      background: #0a0f16;
+      border: 1px solid #2d4156;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      outline: none;
+    }
+    select:focus, input[type="text"]:focus {
+      border-color: #c5a059;
+    }
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+    button.primary-btn {
+      background: linear-gradient(135deg, #c5a059 0%, #e5c483 100%);
+      color: #0b1118;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      padding: 10px 22px;
+      border-radius: 6px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 12px;
+      box-shadow: 0 4px 15px rgba(229, 196, 131, 0.25);
+      transition: all 0.2s;
+    }
+    button.primary-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(229, 196, 131, 0.45);
+    }
+    button.secondary-btn {
+      background: #1c2736;
+      color: #e5c483;
+      border: 1px solid #c5a05955;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      transition: all 0.2s;
+    }
+    button.secondary-btn:hover {
+      background: #253448;
+      border-color: #c5a059;
+    }
+    .preview-container {
+      position: relative;
+      max-width: 1240px;
+      width: 100%;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #c5a05955;
+      background: #000;
+    }
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .positions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+      width: 100%;
+      max-width: 1240px;
+      margin-top: 24px;
+    }
+    .item-card {
+      background: #141c26;
+      border: 1px solid #233244;
+      border-radius: 10px;
+      padding: 14px;
+      transition: border-color 0.2s;
+    }
+    .item-card:hover {
+      border-color: #c5a05966;
+    }
+    .item-card h4 {
+      font-size: 11px;
+      color: #e5c483;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      display: flex;
+      justify-content: space-between;
+    }
+    .item-card .sliders {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .slider-row {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .slider-row span {
+      font-size: 10px;
+      color: #72879c;
+    }
+    .quick-bar {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .quick-pill {
+      background: #16202c;
+      border: 1px solid #2a3b4e;
+      color: #9cb2c9;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quick-pill.active, .quick-pill:hover {
+      border-color: #c5a059;
+      color: #e5c483;
+      background: #1e2d3e;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">PAUL TEA & SPICES • BESPOKE PACKAGING STUDIO</div>
+    <h1>ALPINE ARTWORK TYPOGRAPHY</h1>
+    <p class="subtitle">Scratchboard Engraving with 5 Signature Blend Inscriptions (All in Caps)</p>
+  </header>
+
+  <div class="controls-bar">
+    <div class="control-group">
+      <label>Typography Font</label>
+      <select id="fontSelect">
+        <option value="'Cinzel', serif" selected>Cinzel (Luxury Imperial Serif)</option>
+        <option value="'Cinzel Decorative', serif">Cinzel Decorative (Ornate)</option>
+        <option value="'Cormorant Garamond', serif">Cormorant Garamond (Classic Fine Book)</option>
+        <option value="'Playfair Display', serif">Playfair Display (High Contrast Serif)</option>
+        <option value="'Montserrat', sans-serif">Montserrat (Geometric Sans)</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label>Visual Style & Color</label>
+      <select id="presetSelect">
+        <option value="gold-refined" selected>✨ Refined Gold + Underline (#E5C483)</option>
+        <option value="chalk-silver">🪶 Scratchboard Etched Silver (#F0EAE1)</option>
+        <option value="gold-glow">🌟 Warm Gold Luminescence</option>
+        <option value="champagne-diamond">💎 Champagne with Diamond Accent</option>
+        <option value="badge-pill">🏷️ Frosted Night Pill Badges</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label>Font Size</label>
+      <input type="range" id="globalSize" min="14" max="48" value="28">
+    </div>
+
+    <div class="control-group">
+      <label>Letter Spacing (Tracking)</label>
+      <input type="range" id="letterSpacing" min="1" max="16" value="6">
+    </div>
+
+    <div class="btn-group">
+      <button class="primary-btn" id="downloadBtn">📥 Download High-Res PNG</button>
+      <button class="secondary-btn" id="saveServerBtn">💾 Apply to Website</button>
+    </div>
+  </div>
+
+  <div class="preview-container">
+    <canvas id="artCanvas"></canvas>
+  </div>
+
+  <div class="quick-bar">
+    <span style="font-size: 11px; color: #72879c; align-self: center;">Quick Text Presets:</span>
+    <button class="quick-pill active" id="btnCorrected">✨ Corrected Spellings (MORNING SPARK & EVENING RELAXATION)</button>
+    <button class="quick-pill" id="btnExactLiteral">📝 Exact Literal Input (MORNING PSARK & EVENINGRELAXATION)</button>
+  </div>
+
+  <div class="positions-grid" id="positionsGrid"></div>
+
+  <script>
+    const labels = [
+      { id: 'girl', name: 'Girl / Hiker (Vitality)', text: 'ENERGY KICK', x: 21.8, y: 88.5, size: 28 },
+      { id: 'breeze', name: 'Bird / Breeze (Sky)', text: 'SUMMER BREEZE', x: 41.2, y: 22.0, size: 27 },
+      { id: 'mountain', name: 'Mountain Peaks (High-Altitude)', text: 'ALPINE GLOW', x: 52.8, y: 48.2, size: 29 },
+      { id: 'deer', name: 'Deer / Stag (Freshness)', text: 'MORNING SPARK', x: 70.4, y: 67.8, size: 28 },
+      { id: 'moon', name: 'Moon (Restoration)', text: 'EVENING RELAXATION', x: 77.2, y: 25.5, size: 28 }
+    ];
+
+    const canvas = document.getElementById('artCanvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = '/images/scenery.png';
+
+    const fontSelect = document.getElementById('fontSelect');
+    const presetSelect = document.getElementById('presetSelect');
+    const globalSize = document.getElementById('globalSize');
+    const letterSpacing = document.getElementById('letterSpacing');
+    const positionsGrid = document.getElementById('positionsGrid');
+
+    // Build interactive cards
+    labels.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'item-card';
+      card.innerHTML = `
+        <h4><span>${item.name}</span><span style="color:#72879c;font-size:10px;">ID: ${item.id}</span></h4>
+        <input type="text" value="${item.text}" id="text_${item.id}" style="width:100%;margin-bottom:8px;font-weight:600;" />
+        <div class="sliders">
+          <div class="slider-row">
+            <span>X Pos: <b id="val_x_${item.id}" style="color:#e5c483;">${item.x}%</b></span>
+            <input type="range" id="x_${item.id}" min="0" max="100" step="0.1" value="${item.x}">
+          </div>
+          <div class="slider-row">
+            <span>Y Pos: <b id="val_y_${item.id}" style="color:#e5c483;">${item.y}%</b></span>
+            <input type="range" id="y_${item.id}" min="0" max="100" step="0.1" value="${item.y}">
+          </div>
+        </div>
+      `;
+      positionsGrid.appendChild(card);
+
+      const textInp = card.querySelector(`#text_${item.id}`);
+      textInp.addEventListener('input', (e) => {
+        item.text = e.target.value.toUpperCase();
+        render();
+      });
+      card.querySelector(`#x_${item.id}`).addEventListener('input', (e) => {
+        item.x = parseFloat(e.target.value);
+        card.querySelector(`#val_x_${item.id}`).textContent = item.x + '%';
+        render();
+      });
+      card.querySelector(`#y_${item.id}`).addEventListener('input', (e) => {
+        item.y = parseFloat(e.target.value);
+        card.querySelector(`#val_y_${item.id}`).textContent = item.y + '%';
+        render();
+      });
+    });
+
+    document.getElementById('btnCorrected').onclick = function() {
+      this.classList.add('active');
+      document.getElementById('btnExactLiteral').classList.remove('active');
+      labels.find(l => l.id === 'deer').text = 'MORNING SPARK';
+      labels.find(l => l.id === 'moon').text = 'EVENING RELAXATION';
+      document.getElementById('text_deer').value = 'MORNING SPARK';
+      document.getElementById('text_moon').value = 'EVENING RELAXATION';
+      render();
+    };
+
+    document.getElementById('btnExactLiteral').onclick = function() {
+      this.classList.add('active');
+      document.getElementById('btnCorrected').classList.remove('active');
+      labels.find(l => l.id === 'deer').text = 'MORNING PSARK';
+      labels.find(l => l.id === 'moon').text = 'EVENINGRELAXATION';
+      document.getElementById('text_deer').value = 'MORNING PSARK';
+      document.getElementById('text_moon').value = 'EVENINGRELAXATION';
+      render();
+    };
+
+    function drawSpacedText(ctx, text, x, y, tracking) {
+      const chars = text.split('');
+      const charWidths = chars.map(c => ctx.measureText(c).width);
+      const totalWidth = charWidths.reduce((acc, w) => acc + w, 0) + (chars.length - 1) * tracking;
+      let startX = x - totalWidth / 2;
+
+      chars.forEach((c, i) => {
+        ctx.fillText(c, startX, y);
+        startX += charWidths[i] + tracking;
+      });
+      return totalWidth;
+    }
+
+    function render() {
+      if (!img.complete || !img.naturalWidth) return;
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+
+      // Draw base scratchboard artwork
+      ctx.drawImage(img, 0, 0);
+
+      const fontFam = fontSelect.value;
+      const baseSize = parseInt(globalSize.value, 10) * (canvas.width / 1920);
+      const tracking = parseInt(letterSpacing.value, 10) * (canvas.width / 1920);
+      const preset = presetSelect.value;
+
+      labels.forEach(item => {
+        const posX = (item.x / 100) * canvas.width;
+        const posY = (item.y / 100) * canvas.height;
+        const size = (item.size / 28) * baseSize;
+
+        ctx.save();
+        ctx.font = `700 ${size}px ${fontFam}`;
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+
+        if (preset === 'gold-refined') {
+          // Dark drop shadow for contrast against lighter areas
+          ctx.shadowColor = 'rgba(0, 4, 10, 0.98)';
+          ctx.shadowBlur = 14 * (canvas.width / 1920);
+          ctx.shadowOffsetX = 0;
+          ctx.shadowOffsetY = 3;
+          ctx.fillStyle = '#e5c483';
+          const totalW = drawSpacedText(ctx, item.text, posX, posY, tracking);
+
+          // Subtle gold accent glow
+          ctx.shadowColor = 'rgba(229, 196, 131, 0.4)';
+          ctx.shadowBlur = 8 * (canvas.width / 1920);
+          drawSpacedText(ctx, item.text, posX, posY, tracking);
+
+          // Fine accent underline
+          ctx.strokeStyle = 'rgba(229, 196, 131, 0.45)';
+          ctx.lineWidth = 1.5 * (canvas.width / 1920);
+          ctx.beginPath();
+          ctx.moveTo(posX - totalW * 0.35, posY + size * 0.85);
+          ctx.lineTo(posX + totalW * 0.35, posY + size * 0.85);
+          ctx.stroke();
+        } else if (preset === 'chalk-silver') {
+          // Etched scratchboard chalk style
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.98)';
+          ctx.shadowBlur = 12 * (canvas.width / 1920);
+          ctx.shadowOffsetX = 0;
+          ctx.shadowOffsetY = 2;
+          ctx.fillStyle = '#f0eae1';
+          drawSpacedText(ctx, item.text, posX, posY, tracking);
+        } else if (preset === 'gold-glow') {
+          ctx.shadowColor = 'rgba(229, 196, 131, 0.8)';
+          ctx.shadowBlur = 18 * (canvas.width / 1920);
+          ctx.fillStyle = '#fff4dc';
+          drawSpacedText(ctx, item.text, posX, posY, tracking);
+        } else if (preset === 'champagne-diamond') {
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
+          ctx.shadowBlur = 15;
+          ctx.fillStyle = '#fbf0d9';
+          const totalW = drawSpacedText(ctx, item.text, posX, posY, tracking);
+
+          ctx.fillStyle = '#e5c483';
+          ctx.font = `${size * 0.55}px ${fontFam}`;
+          const diamondW = ctx.measureText('◆').width;
+          ctx.fillText('◆', posX - (diamondW / 2), posY + size * 0.85);
+        } else if (preset === 'badge-pill') {
+          ctx.font = `700 ${size}px ${fontFam}`;
+          const totalW = drawSpacedText(ctx, item.text, posX, posY, tracking);
+          const padX = 24 * (canvas.width / 1920);
+          const padY = 12 * (canvas.width / 1920);
+
+          // Clear and draw pill first
+          ctx.restore();
+          ctx.save();
+          ctx.fillStyle = 'rgba(10, 17, 24, 0.82)';
+          ctx.strokeStyle = 'rgba(229, 196, 131, 0.65)';
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.roundRect(posX - totalW/2 - padX, posY - size/2 - padY, totalW + padX*2, size + padY*2, 20);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.font = `700 ${size}px ${fontFam}`;
+          ctx.fillStyle = '#e5c483';
+          ctx.shadowColor = 'rgba(0,0,0,0.8)';
+          ctx.shadowBlur = 4;
+          drawSpacedText(ctx, item.text, posX, posY, tracking);
+        }
+
+        ctx.restore();
+      });
+    }
+
+    img.onload = render;
+    fontSelect.onchange = render;
+    presetSelect.onchange = render;
+    globalSize.oninput = render;
+    letterSpacing.oninput = render;
+
+    // Download high res PNG
+    document.getElementById('downloadBtn').onclick = () => {
+      const link = document.createElement('a');
+      link.download = 'paul-tea-alpine-blend-artwork.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    };
+
+    // Save to website / public directory via client-side download or trigger
+    document.getElementById('saveServerBtn').onclick = () => {
+      const link = document.createElement('a');
+      link.download = 'scenery.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      alert('Downloaded as scenery.png. You can replace public/images/scenery.png or use it directly!');
+    };
+
+    window.getEditedDataUrl = () => canvas.toDataURL('image/png');
+  </script>
+</body>
+</html>

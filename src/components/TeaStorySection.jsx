@@ -37,6 +37,14 @@ function ProductIntroduction({ tea, lang, isEven }) {
 function CinematicTeaStory({ tea, lang, story }) {
   const storyRef = useRef(null);
 
+  const hasTextOverlay = Boolean(
+    story?.originLabel ||
+    story?.location ||
+    story?.region ||
+    story?.statement ||
+    (story?.character && story?.character.length > 0)
+  );
+
   useLayoutEffect(() => {
     const gsap = window.gsap;
     const ScrollTrigger = window.ScrollTrigger;
@@ -84,73 +92,90 @@ function CinematicTeaStory({ tea, lang, story }) {
       // through a mask. Animating stage opacity caused the photograph to pop in.
       gsap.set(origin, { autoAlpha: 1 });
       gsap.set(originMedia, { clipPath: revealStart });
-      gsap.set(
-        q(
-          ".tea-origin-label, .tea-origin-location, .tea-origin-region, .tea-origin-statement, .tea-origin-character",
-        ),
-        { autoAlpha: 0 },
+
+      const textEls = q(
+        ".tea-origin-label, .tea-origin-location, .tea-origin-region, .tea-origin-statement, .tea-origin-character",
       );
-      gsap.set(q(".tea-origin-location, .tea-origin-statement"), textOffset);
+      if (textEls.length) {
+        gsap.set(textEls, { autoAlpha: 0 });
+      }
+      const locAndStmt = q(".tea-origin-location, .tea-origin-statement");
+      if (locAndStmt.length) {
+        gsap.set(locAndStmt, textOffset);
+      }
+
       gsap.set(q(".tea-origin-image"), {
         scale: 1.14,
         ...imageOffset,
         transformOrigin: "center center",
       });
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: `+=${isMobile ? 1600 : 2500}`,
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        })
-        .to(
-          q(".tea-story-intro-image"),
-          { scale: isMobile ? 1.02 : 1.05, duration: 1, ease: "none" },
-          0,
-        )
-        .to(
-          intro,
-          {
-            autoAlpha: 0,
-            x: isMobile ? introExit.x / 2 : introExit.x,
-            y: isMobile ? introExit.y / 2 : introExit.y,
-            duration: 1,
-            ease: "power1.inOut",
-          },
-          0.75,
-        )
-        .to(
-          originMedia,
-          { clipPath: "inset(0 0 0% 0)", duration: 1.45, ease: "power2.inOut" },
-          1.15,
-        )
-        .to(
-          q(".tea-origin-image"),
-          { scale: 1, x: 0, y: 0, duration: 1.8, ease: "none" },
-          1.15,
-        )
-        .to(q(".tea-origin-label"), { autoAlpha: 1, duration: 0.35 }, 1.8)
-        .to(
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: `+=${isMobile ? 1600 : 2500}`,
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      tl.to(
+        q(".tea-story-intro-image"),
+        { scale: isMobile ? 1.02 : 1.05, duration: 1, ease: "none" },
+        0,
+      )
+      .to(
+        intro,
+        {
+          autoAlpha: 0,
+          x: isMobile ? introExit.x / 2 : introExit.x,
+          y: isMobile ? introExit.y / 2 : introExit.y,
+          duration: 1,
+          ease: "power1.inOut",
+        },
+        0.75,
+      )
+      .to(
+        originMedia,
+        { clipPath: "inset(0 0 0% 0)", duration: 1.45, ease: "power2.inOut" },
+        1.15,
+      )
+      .to(
+        q(".tea-origin-image"),
+        { scale: 1, x: 0, y: 0, duration: 1.8, ease: "none" },
+        1.15,
+      );
+
+      if (q(".tea-origin-label").length) {
+        tl.to(q(".tea-origin-label"), { autoAlpha: 1, duration: 0.35 }, 1.8);
+      }
+      if (q(".tea-origin-location").length) {
+        tl.to(
           q(".tea-origin-location"),
           { autoAlpha: 1, x: 0, y: 0, duration: 0.65, ease: "power3.out" },
           1.95,
-        )
-        .to(q(".tea-origin-region"), { autoAlpha: 1, duration: 0.4 }, 2.25)
-        .to(
+        );
+      }
+      if (q(".tea-origin-region").length) {
+        tl.to(q(".tea-origin-region"), { autoAlpha: 1, duration: 0.4 }, 2.25);
+      }
+      if (q(".tea-origin-statement").length) {
+        tl.to(
           q(".tea-origin-statement"),
           { autoAlpha: 1, x: 0, y: 0, duration: 0.65, ease: "power3.out" },
           2.75,
-        )
-        .to(
+        );
+      }
+      if (q(".tea-origin-character").length) {
+        tl.to(
           q(".tea-origin-character"),
           { autoAlpha: 1, duration: 0.45, stagger: 0.18, ease: "power2.out" },
           3.35,
         );
+      }
     }, section);
     return () => ctx.revert();
   }, [story.revealDirection]);
@@ -165,32 +190,46 @@ function CinematicTeaStory({ tea, lang, story }) {
         <div className="tea-origin-media absolute inset-0 overflow-hidden">
           <img
             src={story.originImageUrl}
-            alt={story.originImageAlt}
+            alt={story.originImageAlt || tea.name}
             className="tea-origin-image absolute inset-0 w-full h-full object-cover will-change-transform"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#121D2C]/55 via-[#1A392A]/20 to-[#121D2C]/80" />
+          {hasTextOverlay && (
+            <div className="absolute inset-0 bg-gradient-to-b from-[#121D2C]/55 via-[#1A392A]/20 to-[#121D2C]/80" />
+          )}
         </div>
-        <div className="relative z-10 h-full max-w-6xl mx-auto px-6 py-12 flex flex-col items-center justify-center text-center">
-          <p className="tea-origin-label text-[10px] sm:text-xs uppercase tracking-[0.35em] text-[#E5C483] mb-3">
-            {story.originLabel}
-          </p>
-          <h3 className="tea-origin-location font-serif text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight leading-none">
-            {story.location}
-          </h3>
-          <p className="tea-origin-region mt-3 text-[10px] sm:text-xs uppercase tracking-[0.32em] text-[#E5C483]">
-            {story.region}
-          </p>
-          <p className="tea-origin-statement max-w-md mt-10 text-sm sm:text-base font-light leading-relaxed">
-            {story.statement}
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-x-7 gap-y-3 text-[11px] sm:text-xs font-serif tracking-[0.22em] text-[#E5C483]">
-            {story.character.map((word) => (
-              <span key={word} className="tea-origin-character">
-                {word}
-              </span>
-            ))}
+        {hasTextOverlay && (
+          <div className="relative z-10 h-full max-w-6xl mx-auto px-6 py-12 flex flex-col items-center justify-center text-center">
+            {story.originLabel && (
+              <p className="tea-origin-label text-[10px] sm:text-xs uppercase tracking-[0.35em] text-[#E5C483] mb-3">
+                {story.originLabel}
+              </p>
+            )}
+            {story.location && (
+              <h3 className="tea-origin-location font-serif text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight leading-none">
+                {story.location}
+              </h3>
+            )}
+            {story.region && (
+              <p className="tea-origin-region mt-3 text-[10px] sm:text-xs uppercase tracking-[0.32em] text-[#E5C483]">
+                {story.region}
+              </p>
+            )}
+            {story.statement && (
+              <p className="tea-origin-statement max-w-md mt-10 text-sm sm:text-base font-light leading-relaxed">
+                {story.statement}
+              </p>
+            )}
+            {story.character && story.character.length > 0 && (
+              <div className="mt-10 flex flex-wrap justify-center gap-x-7 gap-y-3 text-[11px] sm:text-xs font-serif tracking-[0.22em] text-[#E5C483]">
+                {story.character.map((word) => (
+                  <span key={word} className="tea-origin-character">
+                    {word}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
-        </div>
+        )}
       </div>
       <div className="tea-story-intro absolute inset-0 z-10 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-7xl lg:w-[70%] flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
