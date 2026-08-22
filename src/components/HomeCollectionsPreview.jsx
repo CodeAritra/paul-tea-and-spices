@@ -34,7 +34,7 @@ export default function HomeCollectionsPreview({ lang }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto text-left">
           {/* Card 1: Paul's Tea */}
           <Link
-            to="/tea-and-spices"
+            to="/tea"
             className="group block p-6 sm:p-8 rounded-2xl bg-white/70 hover:bg-white/95 border border-[#C5A059]/30 hover:border-[#C5A059] shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden"
           >
             <div className="flex items-center justify-between mb-4">
@@ -59,7 +59,7 @@ export default function HomeCollectionsPreview({ lang }) {
 
           {/* Card 2: Paul's Spices */}
           <Link
-            to="/tea-and-spices"
+            to="/spices"
             className="group block p-6 sm:p-8 rounded-2xl bg-white/70 hover:bg-white/95 border border-[#C5A059]/30 hover:border-[#C5A059] shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden"
           >
             <div className="flex items-center justify-between mb-4">

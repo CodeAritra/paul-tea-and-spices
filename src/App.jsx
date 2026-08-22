@@ -4,8 +4,13 @@ import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
 import HomeCollectionsPreview from "./components/HomeCollectionsPreview";
 import StoryTimeline from "./components/StoryTimeline";
-import ProductCatalog from "./components/ProductCatalog";
+import TeaStorySection from "./components/TeaStorySection";
+import SpicesStorySection from "./components/SpicesStorySection";
 import Footer from "./components/Footer";
+import { PRODUCTS } from "./data/productsData";
+
+const TEA_PRODUCTS = PRODUCTS.filter((p) => p.category === "tea");
+const SPICES_PRODUCTS = PRODUCTS.filter((p) => p.category === "spices");
 
 function HomePage({ lang }) {
   return (
@@ -19,12 +24,21 @@ function HomePage({ lang }) {
   );
 }
 
-function TeaAndSpicesPage({ lang }) {
+function TeaPage({ lang }) {
   return (
-    <>
-      {/* PRODUCT CATALOG SECTION (Tea & Spices Story Sections) */}
-      <ProductCatalog lang={lang} />
-    </>
+    <div id="tea-catalog" className="bg-[#F5F0E8] paper-texture">
+      {/* PAUL TEA COLLECTION — STORY-DRIVEN & MINIMAL */}
+      <TeaStorySection teaProducts={TEA_PRODUCTS} lang={lang} />
+    </div>
+  );
+}
+
+function SpicesPage({ lang }) {
+  return (
+    <div id="spices-catalog" className="bg-[#F5F0E8] paper-texture">
+      {/* PAUL SPICES COLLECTION — STORY-DRIVEN & MINIMAL */}
+      <SpicesStorySection spicesProducts={SPICES_PRODUCTS} lang={lang} />
+    </div>
   );
 }
 
@@ -150,7 +164,9 @@ export default function App() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<HomePage lang={lang} />} />
-          <Route path="/tea-and-spices" element={<TeaAndSpicesPage lang={lang} />} />
+          <Route path="/tea" element={<TeaPage lang={lang} />} />
+          <Route path="/spices" element={<SpicesPage lang={lang} />} />
+          <Route path="/tea-and-spices" element={<Navigate to="/tea" replace />} />
           <Route path="/about" element={<AboutPage lang={lang} />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

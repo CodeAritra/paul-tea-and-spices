@@ -1,26 +1,75 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { Sparkles, Globe } from "lucide-react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { Sparkles, Globe, ChevronDown, Coffee, Flame } from "lucide-react";
 import { TRANSLATIONS } from "../data/productsData";
 
 export default function Header({ lang, setLang }) {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.de;
+  const location = useLocation();
   const [logoError, setLogoError] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isProductsOpen, setIsProductsOpen] = useState(false);
   const headerRef = useRef(null);
   const langDropdownRef = useRef(null);
+  const productsDropdownRef = useRef(null);
   const langTimeoutRef = useRef(null);
+  const productsTimeoutRef = useRef(null);
 
   const navLabels = {
-    de: { home: "Home", products: "Tee & Gewürze", story: "Über Uns" },
-    en: { home: "Home", products: "Tea & Spices", story: "About Us" },
-    es: { home: "Inicio", products: "Té y Especias", story: "Sobre Nosotros" },
-    it: { home: "Home", products: "Tè & Spezie", story: "Chi Siamo" },
-    fr: { home: "Accueil", products: "Thé & Épices", story: "À Propos" },
+    de: {
+      home: "Home",
+      products: "Produkte",
+      tea: "Paul's Tee",
+      teaSub: "Single-Origin & Premium Mischungen",
+      spices: "Paul's Gewürze",
+      spicesSub: "Indische Ganze Gewürze für Europa",
+      story: "Über Uns",
+    },
+    en: {
+      home: "Home",
+      products: "Products",
+      tea: "Paul's Tea",
+      teaSub: "Single-Origin & Premium Blends",
+      spices: "Paul's Spices",
+      spicesSub: "Whole Indian Spices for Europe",
+      story: "About Us",
+    },
+    es: {
+      home: "Inicio",
+      products: "Productos",
+      tea: "Paul's Té",
+      teaSub: "Origen Único y Mezclas Premium",
+      spices: "Paul's Especias",
+      spicesSub: "Especias Indias para Europa",
+      story: "Sobre Nosotros",
+    },
+    it: {
+      home: "Home",
+      products: "Prodotti",
+      tea: "Paul's Tè",
+      teaSub: "Singola Origine e Miscele Premium",
+      spices: "Paul's Spezie",
+      spicesSub: "Spezie Indiane per l'Europa",
+      story: "Chi Siamo",
+    },
+    fr: {
+      home: "Accueil",
+      products: "Produits",
+      tea: "Paul's Thé",
+      teaSub: "Origine Unique & Assemblages",
+      spices: "Paul's Épices",
+      spicesSub: "Épices Indiennes pour l'Europe",
+      story: "À Propos",
+    },
   };
   const currentNav = navLabels[lang] || navLabels.en;
 
-  // Close language dropdown on outside click
+  const isProductsActive =
+    location.pathname === "/tea" ||
+    location.pathname === "/spices" ||
+    location.pathname === "/tea-and-spices";
+
+  // Close dropdowns on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -29,11 +78,18 @@ export default function Header({ lang, setLang }) {
       ) {
         setIsLangOpen(false);
       }
+      if (
+        productsDropdownRef.current &&
+        !productsDropdownRef.current.contains(e.target)
+      ) {
+        setIsProductsOpen(false);
+      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       if (langTimeoutRef.current) clearTimeout(langTimeoutRef.current);
+      if (productsTimeoutRef.current) clearTimeout(productsTimeoutRef.current);
     };
   }, []);
 
@@ -45,6 +101,17 @@ export default function Header({ lang, setLang }) {
   const handleLangLeave = () => {
     langTimeoutRef.current = setTimeout(() => {
       setIsLangOpen(false);
+    }, 150);
+  };
+
+  const handleProductsEnter = () => {
+    if (productsTimeoutRef.current) clearTimeout(productsTimeoutRef.current);
+    setIsProductsOpen(true);
+  };
+
+  const handleProductsLeave = () => {
+    productsTimeoutRef.current = setTimeout(() => {
+      setIsProductsOpen(false);
     }, 150);
   };
 
@@ -143,7 +210,7 @@ export default function Header({ lang, setLang }) {
     <header
       ref={headerRef}
       style={{ transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)" }}
-      className="fixed top-0 left-0 right-0 z-50 bg-[#F5F0E8]/90 backdrop-blur-md border-b border-[#C5A059]/25 will-change-transform"
+      className="fixed top-0 left-0 right-0 z-50 bg-[#F5F0E8]/95 backdrop-blur-md border-b border-[#C5A059]/25 will-change-transform"
     >
       {/* Top Banner Notice */}
       <div className="bg-[#1A392A] text-[#F5F0E8] text-xs py-1.5 px-4 text-center font-medium tracking-wider uppercase flex items-center justify-center gap-2">
@@ -175,7 +242,7 @@ export default function Header({ lang, setLang }) {
           </Link>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-5 text-xs font-serif tracking-wider uppercase">
+          <nav className="hidden md:flex items-center gap-6 text-xs font-serif tracking-wider uppercase">
             <NavLink
               to="/"
               end
@@ -190,18 +257,91 @@ export default function Header({ lang, setLang }) {
               {currentNav.home}
             </NavLink>
 
-            <NavLink
-              to="/tea-and-spices"
-              className={({ isActive }) =>
-                `transition-all py-1 border-b-2 font-medium ${
-                  isActive
+            {/* Products Dropdown Menu */}
+            <div
+              ref={productsDropdownRef}
+              className="relative py-2"
+              onMouseEnter={handleProductsEnter}
+              onMouseLeave={handleProductsLeave}
+            >
+              <button
+                onClick={() => {
+                  if (productsTimeoutRef.current)
+                    clearTimeout(productsTimeoutRef.current);
+                  setIsProductsOpen(!isProductsOpen);
+                }}
+                className={`flex items-center gap-1.5 py-1 border-b-2 font-medium transition-all cursor-pointer ${
+                  isProductsActive
                     ? "text-[#1A392A] font-bold border-[#1A392A]"
                     : "text-[#1C2024]/70 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
-                }`
-              }
-            >
-              {currentNav.products}
-            </NavLink>
+                }`}
+                aria-expanded={isProductsOpen}
+              >
+                <span>{currentNav.products}</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 text-[#C5A059] transition-transform duration-200 ${
+                    isProductsOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {/* Products Dropdown Bridge & Card */}
+              <div
+                className={`absolute left-0 top-full pt-1.5 w-64 transition-all duration-200 z-50 ${
+                  isProductsOpen
+                    ? "opacity-100 translate-y-0 pointer-events-auto"
+                    : "opacity-0 -translate-y-2 pointer-events-none"
+                }`}
+              >
+                <div className="bg-[#F5F0E8] border border-[#C5A059]/40 rounded-xl shadow-2xl p-2 space-y-1">
+                  {/* Option 1: Tea Collection */}
+                  <Link
+                    to="/tea"
+                    onClick={() => setIsProductsOpen(false)}
+                    className={`flex items-start gap-3 p-2.5 rounded-lg transition group/item ${
+                      location.pathname === "/tea"
+                        ? "bg-[#1A392A]/10 text-[#1A392A] font-bold"
+                        : "hover:bg-[#1A392A]/8 text-[#1C2024]"
+                    }`}
+                  >
+                    <div className="w-8 h-8 rounded-full bg-[#1A392A] text-[#E5C483] flex items-center justify-center shrink-0 shadow-xs group-hover/item:scale-105 transition-transform">
+                      <Coffee className="w-4 h-4" />
+                    </div>
+                    <div className="text-left">
+                      <div className="font-serif font-bold text-xs text-[#1A392A] group-hover/item:text-[#C5A059] transition-colors normal-case">
+                        {currentNav.tea}
+                      </div>
+                      <div className="text-[10px] text-[#1C2024]/60 normal-case font-sans leading-tight mt-0.5">
+                        {currentNav.teaSub}
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* Option 2: Spices Collection */}
+                  <Link
+                    to="/spices"
+                    onClick={() => setIsProductsOpen(false)}
+                    className={`flex items-start gap-3 p-2.5 rounded-lg transition group/item ${
+                      location.pathname === "/spices"
+                        ? "bg-[#1A392A]/10 text-[#1A392A] font-bold"
+                        : "hover:bg-[#1A392A]/8 text-[#1C2024]"
+                    }`}
+                  >
+                    <div className="w-8 h-8 rounded-full bg-[#121D2C] text-[#E5C483] flex items-center justify-center shrink-0 shadow-xs group-hover/item:scale-105 transition-transform">
+                      <Flame className="w-4 h-4 text-[#C5A059]" />
+                    </div>
+                    <div className="text-left">
+                      <div className="font-serif font-bold text-xs text-[#1A392A] group-hover/item:text-[#C5A059] transition-colors normal-case">
+                        {currentNav.spices}
+                      </div>
+                      <div className="text-[10px] text-[#1C2024]/60 normal-case font-sans leading-tight mt-0.5">
+                        {currentNav.spicesSub}
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
 
             <NavLink
               to="/about"
@@ -231,39 +371,50 @@ export default function Header({ lang, setLang }) {
         {/* Right Side: Mobile Nav + 5-Language Selector */}
         <div className="flex items-center gap-2 sm:gap-4">
           {/* Mobile Nav Links */}
-          <div className="flex md:hidden items-center gap-1.5 text-[11px] font-serif uppercase tracking-wider mr-1">
+          <div className="flex md:hidden items-center gap-1 text-[11px] font-serif uppercase tracking-wider mr-1">
             <NavLink
               to="/"
               end
               className={({ isActive }) =>
-                `px-2 py-0.5 rounded transition ${
+                `px-1.5 py-0.5 rounded transition ${
                   isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
                 }`
               }
             >
               Home
             </NavLink>
-            <span className="text-[#C5A059]/50">•</span>
+            <span className="text-[#C5A059]/40">•</span>
             <NavLink
-              to="/tea-and-spices"
+              to="/tea"
               className={({ isActive }) =>
-                `px-2 py-0.5 rounded transition ${
+                `px-1.5 py-0.5 rounded transition ${
                   isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
                 }`
               }
             >
-              {lang === "de" ? "Tee & Gewürze" : "Tea & Spices"}
+              {lang === "de" ? "Tee" : "Tea"}
             </NavLink>
-            <span className="text-[#C5A059]/50">•</span>
+            <span className="text-[#C5A059]/40">•</span>
+            <NavLink
+              to="/spices"
+              className={({ isActive }) =>
+                `px-1.5 py-0.5 rounded transition ${
+                  isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
+                }`
+              }
+            >
+              {lang === "de" ? "Gewürze" : "Spices"}
+            </NavLink>
+            <span className="text-[#C5A059]/40">•</span>
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                `px-2 py-0.5 rounded transition ${
+                `px-1.5 py-0.5 rounded transition ${
                   isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
                 }`
               }
             >
-              {lang === "de" ? "Über Uns" : "About Us"}
+              {lang === "de" ? "Über Uns" : "About"}
             </NavLink>
           </div>
           <div

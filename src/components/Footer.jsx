@@ -24,7 +24,7 @@ export default function Footer({ lang }) {
               Austrian herbal blending craftsmanship meets 3 generations of
               Indian single-origin estate cultivation. Dedicated to son Paul.
             </p>
-            <div className="flex items-center gap-3 text-xs font-serif text-[#C5A059] pt-2">
+            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs font-serif text-[#C5A059] pt-2">
               <Link
                 to="/"
                 className="hover:underline hover:text-white transition"
@@ -33,10 +33,17 @@ export default function Footer({ lang }) {
               </Link>
               <span className="text-[#C5A059]/50">•</span>
               <Link
-                to="/tea-and-spices"
+                to="/tea"
                 className="hover:underline hover:text-white transition"
               >
-                {lang === "de" ? "Tee & Gewürze" : "Tea & Spices"}
+                {lang === "de" ? "Tee" : "Tea"}
+              </Link>
+              <span className="text-[#C5A059]/50">•</span>
+              <Link
+                to="/spices"
+                className="hover:underline hover:text-white transition"
+              >
+                {lang === "de" ? "Gewürze" : "Spices"}
               </Link>
               <span className="text-[#C5A059]/50">•</span>
               <Link
