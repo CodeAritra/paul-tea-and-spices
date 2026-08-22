@@ -31,7 +31,7 @@ export default function HomeCollectionsPreview({ lang }) {
         </p>
 
         {/* Two Pillars Preview */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-10 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto text-left">
           {/* Card 1: Paul's Tea */}
           <Link
             to="/tea-and-spices"
@@ -80,21 +80,6 @@ export default function HomeCollectionsPreview({ lang }) {
               <span>{isDe ? "Gewürze Entdecken" : "Explore Spices"}</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </div>
-          </Link>
-        </div>
-
-        {/* Primary CTA Button */}
-        <div className="flex justify-center">
-          <Link
-            to="/tea-and-spices"
-            className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-[#1A392A] text-white hover:bg-[#12271D] border border-[#C5A059] shadow-lg hover:shadow-2xl text-xs sm:text-sm font-serif font-bold tracking-widest uppercase transition-all duration-300 transform hover:-translate-y-0.5 group cursor-pointer"
-          >
-            <span>
-              {isDe
-                ? "Zu Paul's Tee & Gewürze"
-                : "Go to Paul's Tea & Spices"}
-            </span>
-            <ArrowRight className="w-4 h-4 text-[#C5A059] group-hover:translate-x-1.5 transition-transform" />
           </Link>
         </div>
       </div>
