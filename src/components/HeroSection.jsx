@@ -8,6 +8,7 @@ export default function HeroSection({ lang }) {
 
   const scrollToContent = () => {
     const el =
+      document.getElementById("home-showcase") ||
       document.getElementById("tea-collection") ||
       document.getElementById("shop-catalog");
     if (el) el.scrollIntoView({ behavior: "smooth" });

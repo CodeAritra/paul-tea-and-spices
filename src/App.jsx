@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
+import HomeCollectionsPreview from "./components/HomeCollectionsPreview";
 import StoryTimeline from "./components/StoryTimeline";
 import ProductCatalog from "./components/ProductCatalog";
 import Footer from "./components/Footer";
@@ -12,7 +13,16 @@ function HomePage({ lang }) {
       {/* SECTION 1: HERO SECTION */}
       <HeroSection lang={lang} />
 
-      {/* SECTION 2: PRODUCT CATALOG SECTION (Tea & Spices Story Sections) */}
+      {/* SECTION 2: PAUL'S TEA & SPICES SHOWCASE & CTA */}
+      <HomeCollectionsPreview lang={lang} />
+    </>
+  );
+}
+
+function TeaAndSpicesPage({ lang }) {
+  return (
+    <>
+      {/* PRODUCT CATALOG SECTION (Tea & Spices Story Sections) */}
       <ProductCatalog lang={lang} />
     </>
   );
@@ -140,6 +150,7 @@ export default function App() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<HomePage lang={lang} />} />
+          <Route path="/tea-and-spices" element={<TeaAndSpicesPage lang={lang} />} />
           <Route path="/about" element={<AboutPage lang={lang} />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

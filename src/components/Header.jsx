@@ -12,11 +12,11 @@ export default function Header({ lang, setLang }) {
   const langTimeoutRef = useRef(null);
 
   const navLabels = {
-    de: { home: "Home", story: "Über Uns" },
-    en: { home: "Home", story: "About Us" },
-    es: { home: "Inicio", story: "Sobre Nosotros" },
-    it: { home: "Home", story: "Chi Siamo" },
-    fr: { home: "Accueil", story: "À Propos" },
+    de: { home: "Home", products: "Tee & Gewürze", story: "Über Uns" },
+    en: { home: "Home", products: "Tea & Spices", story: "About Us" },
+    es: { home: "Inicio", products: "Té y Especias", story: "Sobre Nosotros" },
+    it: { home: "Home", products: "Tè & Spezie", story: "Chi Siamo" },
+    fr: { home: "Accueil", products: "Thé & Épices", story: "À Propos" },
   };
   const currentNav = navLabels[lang] || navLabels.en;
 
@@ -191,6 +191,19 @@ export default function Header({ lang, setLang }) {
             </NavLink>
 
             <NavLink
+              to="/tea-and-spices"
+              className={({ isActive }) =>
+                `transition-all py-1 border-b-2 font-medium ${
+                  isActive
+                    ? "text-[#1A392A] font-bold border-[#1A392A]"
+                    : "text-[#1C2024]/70 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+                }`
+              }
+            >
+              {currentNav.products}
+            </NavLink>
+
+            <NavLink
               to="/about"
               className={({ isActive }) =>
                 `transition-all py-1 border-b-2 font-medium ${
@@ -229,6 +242,17 @@ export default function Header({ lang, setLang }) {
               }
             >
               Home
+            </NavLink>
+            <span className="text-[#C5A059]/50">•</span>
+            <NavLink
+              to="/tea-and-spices"
+              className={({ isActive }) =>
+                `px-2 py-0.5 rounded transition ${
+                  isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
+                }`
+              }
+            >
+              {lang === "de" ? "Tee & Gewürze" : "Tea & Spices"}
             </NavLink>
             <span className="text-[#C5A059]/50">•</span>
             <NavLink
