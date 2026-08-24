@@ -47,6 +47,13 @@ export default function Footer({ lang }) {
               </Link>
               <span className="text-[#C5A059]/50">•</span>
               <Link
+                to="/tutorials"
+                className="hover:underline hover:text-white transition"
+              >
+                {lang === "de" ? "Anleitungen" : "Tutorials"}
+              </Link>
+              <span className="text-[#C5A059]/50">•</span>
+              <Link
                 to="/about"
                 className="hover:underline hover:text-white transition"
               >

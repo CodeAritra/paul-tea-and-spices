@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Sparkles, Globe, ChevronDown, Coffee, Flame } from "lucide-react";
+import { Sparkles, Globe } from "lucide-react";
 import { TRANSLATIONS } from "../data/productsData";
 
 export default function Header({ lang, setLang }) {
@@ -8,68 +8,50 @@ export default function Header({ lang, setLang }) {
   const location = useLocation();
   const [logoError, setLogoError] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const [isProductsOpen, setIsProductsOpen] = useState(false);
   const headerRef = useRef(null);
   const langDropdownRef = useRef(null);
-  const productsDropdownRef = useRef(null);
   const langTimeoutRef = useRef(null);
-  const productsTimeoutRef = useRef(null);
 
   const navLabels = {
     de: {
       home: "Home",
-      products: "Produkte",
-      tea: "Paul's Tee",
-      teaSub: "Single-Origin & Premium Mischungen",
-      spices: "Paul's Gewürze",
-      spicesSub: "Indische Ganze Gewürze für Europa",
-      story: "Über Uns",
+      tea: "Tee",
+      spices: "Gewürze",
+      tutorials: "Anleitungen",
+      about: "Über Uns",
     },
     en: {
       home: "Home",
-      products: "Products",
-      tea: "Paul's Tea",
-      teaSub: "Single-Origin & Premium Blends",
-      spices: "Paul's Spices",
-      spicesSub: "Whole Indian Spices for Europe",
-      story: "About Us",
+      tea: "Tea",
+      spices: "Spices",
+      tutorials: "Tutorials",
+      about: "About Us",
     },
     es: {
       home: "Inicio",
-      products: "Productos",
-      tea: "Paul's Té",
-      teaSub: "Origen Único y Mezclas Premium",
-      spices: "Paul's Especias",
-      spicesSub: "Especias Indias para Europa",
-      story: "Sobre Nosotros",
+      tea: "Té",
+      spices: "Especias",
+      tutorials: "Tutoriales",
+      about: "Sobre Nosotros",
     },
     it: {
       home: "Home",
-      products: "Prodotti",
-      tea: "Paul's Tè",
-      teaSub: "Singola Origine e Miscele Premium",
-      spices: "Paul's Spezie",
-      spicesSub: "Spezie Indiane per l'Europa",
-      story: "Chi Siamo",
+      tea: "Tè",
+      spices: "Spezie",
+      tutorials: "Tutorial",
+      about: "Chi Siamo",
     },
     fr: {
       home: "Accueil",
-      products: "Produits",
-      tea: "Paul's Thé",
-      teaSub: "Origine Unique & Assemblages",
-      spices: "Paul's Épices",
-      spicesSub: "Épices Indiennes pour l'Europe",
-      story: "À Propos",
+      tea: "Thé",
+      spices: "Épices",
+      tutorials: "Tutoriels",
+      about: "À Propos",
     },
   };
   const currentNav = navLabels[lang] || navLabels.en;
 
-  const isProductsActive =
-    location.pathname === "/tea" ||
-    location.pathname === "/spices" ||
-    location.pathname === "/tea-and-spices";
-
-  // Close dropdowns on outside click
+  // Close language dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -78,18 +60,11 @@ export default function Header({ lang, setLang }) {
       ) {
         setIsLangOpen(false);
       }
-      if (
-        productsDropdownRef.current &&
-        !productsDropdownRef.current.contains(e.target)
-      ) {
-        setIsProductsOpen(false);
-      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       if (langTimeoutRef.current) clearTimeout(langTimeoutRef.current);
-      if (productsTimeoutRef.current) clearTimeout(productsTimeoutRef.current);
     };
   }, []);
 
@@ -101,17 +76,6 @@ export default function Header({ lang, setLang }) {
   const handleLangLeave = () => {
     langTimeoutRef.current = setTimeout(() => {
       setIsLangOpen(false);
-    }, 150);
-  };
-
-  const handleProductsEnter = () => {
-    if (productsTimeoutRef.current) clearTimeout(productsTimeoutRef.current);
-    setIsProductsOpen(true);
-  };
-
-  const handleProductsLeave = () => {
-    productsTimeoutRef.current = setTimeout(() => {
-      setIsProductsOpen(false);
     }, 150);
   };
 
@@ -163,7 +127,7 @@ export default function Header({ lang, setLang }) {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Check if any pinned section (Chapters, Tea, Spices) is currently active
+      // Check if any pinned section is currently active
       const ScrollTrigger = window.ScrollTrigger;
       const isAnyPinActive = ScrollTrigger
         ? ScrollTrigger.getAll().some((st) => st.pin && st.isActive)
@@ -222,201 +186,168 @@ export default function Header({ lang, setLang }) {
         </span>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Left Side: Brand Logo Image + Desktop Nav */}
-        <div className="flex items-center gap-6">
-          <Link to="/" className="flex items-center gap-3 group" title="Paul's Tea & Spices">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+        {/* Left Side: Paul's Logo + Subtitle "TEA & SPICES" */}
+        <Link
+          to="/"
+          className="flex flex-col items-center group select-none shrink-0"
+          title="Paul's Tea & Spices"
+        >
+          <div className="flex items-center justify-center">
             {!logoError ? (
               <img
                 src="/images/logo.png"
-                alt="Paul's Tea & Spices Logo"
+                alt="Paul's Logo"
                 onError={() => setLogoError(true)}
-                className="h-10 sm:h-12 w-auto object-contain cursor-pointer transition-transform group-hover:scale-105"
+                className="h-9 sm:h-10 w-auto object-contain cursor-pointer transition-transform group-hover:scale-105"
               />
             ) : (
-              /* Fallback luxury crest */
-              <div className="w-10 h-10 rounded-full bg-[#1A392A] border border-[#C5A059] flex items-center justify-center text-[#C5A059] font-serif font-bold text-lg shadow-md cursor-pointer">
+              <div className="w-8 h-8 rounded-full bg-[#1A392A] border border-[#C5A059] flex items-center justify-center text-[#C5A059] font-serif font-bold text-base shadow-xs">
                 P
               </div>
             )}
-          </Link>
+          </div>
+          <span className="text-[8px] sm:text-[9.5px] uppercase tracking-[0.24em] font-serif font-semibold text-[#C5A059] group-hover:text-[#1A392A] transition-colors -mt-0.5 whitespace-nowrap">
+            TEA & SPICES
+          </span>
+        </Link>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-6 text-xs font-serif tracking-wider uppercase">
+        {/* Center: Desktop Navigation Tabs (Home, Tea, Spices, Tutorials, About Us) */}
+        <nav className="hidden md:flex items-center justify-center gap-6 lg:gap-8 text-xs font-serif tracking-wider uppercase">
+          {/* Home */}
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
+                isActive
+                  ? "text-[#1A392A] font-bold border-[#1A392A]"
+                  : "text-[#1C2024]/75 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+              }`
+            }
+          >
+            {currentNav.home}
+          </NavLink>
+
+          {/* Tea */}
+          <NavLink
+            to="/tea"
+            className={({ isActive }) =>
+              `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
+                isActive
+                  ? "text-[#1A392A] font-bold border-[#1A392A]"
+                  : "text-[#1C2024]/75 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+              }`
+            }
+          >
+            {currentNav.tea}
+          </NavLink>
+
+          {/* Spices */}
+          <NavLink
+            to="/spices"
+            className={({ isActive }) =>
+              `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
+                isActive
+                  ? "text-[#1A392A] font-bold border-[#1A392A]"
+                  : "text-[#1C2024]/75 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+              }`
+            }
+          >
+            {currentNav.spices}
+          </NavLink>
+
+          {/* Tutorials */}
+          <NavLink
+            to="/tutorials"
+            className={({ isActive }) =>
+              `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
+                isActive
+                  ? "text-[#1A392A] font-bold border-[#1A392A]"
+                  : "text-[#1C2024]/75 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+              }`
+            }
+          >
+            {currentNav.tutorials}
+          </NavLink>
+
+          {/* About Us */}
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
+                isActive
+                  ? "text-[#1A392A] font-bold border-[#1A392A]"
+                  : "text-[#1C2024]/75 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+              }`
+            }
+          >
+            {currentNav.about}
+          </NavLink>
+        </nav>
+
+        {/* Right Side: Mobile Navigation + Language Selector */}
+        <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+          {/* Mobile Nav Links */}
+          <div className="flex md:hidden items-center gap-1 text-[11px] font-serif uppercase tracking-wider mr-1 overflow-x-auto no-scrollbar">
             <NavLink
               to="/"
               end
               className={({ isActive }) =>
-                `transition-all py-1 border-b-2 font-medium ${
-                  isActive
-                    ? "text-[#1A392A] font-bold border-[#1A392A]"
-                    : "text-[#1C2024]/70 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+                `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
+                  isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
                 }`
               }
             >
               {currentNav.home}
             </NavLink>
-
-            {/* Products Dropdown Menu */}
-            <div
-              ref={productsDropdownRef}
-              className="relative py-2"
-              onMouseEnter={handleProductsEnter}
-              onMouseLeave={handleProductsLeave}
-            >
-              <button
-                onClick={() => {
-                  if (productsTimeoutRef.current)
-                    clearTimeout(productsTimeoutRef.current);
-                  setIsProductsOpen(!isProductsOpen);
-                }}
-                className={`flex items-center gap-1.5 py-1 border-b-2 font-medium transition-all cursor-pointer ${
-                  isProductsActive
-                    ? "text-[#1A392A] font-bold border-[#1A392A]"
-                    : "text-[#1C2024]/70 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
-                }`}
-                aria-expanded={isProductsOpen}
-              >
-                <span>{currentNav.products}</span>
-                <ChevronDown
-                  className={`w-3.5 h-3.5 text-[#C5A059] transition-transform duration-200 ${
-                    isProductsOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              {/* Products Dropdown Bridge & Card */}
-              <div
-                className={`absolute left-0 top-full pt-1.5 w-64 transition-all duration-200 z-50 ${
-                  isProductsOpen
-                    ? "opacity-100 translate-y-0 pointer-events-auto"
-                    : "opacity-0 -translate-y-2 pointer-events-none"
-                }`}
-              >
-                <div className="bg-[#F5F0E8] border border-[#C5A059]/40 rounded-xl shadow-2xl p-2 space-y-1">
-                  {/* Option 1: Tea Collection */}
-                  <Link
-                    to="/tea"
-                    onClick={() => setIsProductsOpen(false)}
-                    className={`flex items-start gap-3 p-2.5 rounded-lg transition group/item ${
-                      location.pathname === "/tea"
-                        ? "bg-[#1A392A]/10 text-[#1A392A] font-bold"
-                        : "hover:bg-[#1A392A]/8 text-[#1C2024]"
-                    }`}
-                  >
-                    <div className="w-8 h-8 rounded-full bg-[#1A392A] text-[#E5C483] flex items-center justify-center shrink-0 shadow-xs group-hover/item:scale-105 transition-transform">
-                      <Coffee className="w-4 h-4" />
-                    </div>
-                    <div className="text-left">
-                      <div className="font-serif font-bold text-xs text-[#1A392A] group-hover/item:text-[#C5A059] transition-colors normal-case">
-                        {currentNav.tea}
-                      </div>
-                      <div className="text-[10px] text-[#1C2024]/60 normal-case font-sans leading-tight mt-0.5">
-                        {currentNav.teaSub}
-                      </div>
-                    </div>
-                  </Link>
-
-                  {/* Option 2: Spices Collection */}
-                  <Link
-                    to="/spices"
-                    onClick={() => setIsProductsOpen(false)}
-                    className={`flex items-start gap-3 p-2.5 rounded-lg transition group/item ${
-                      location.pathname === "/spices"
-                        ? "bg-[#1A392A]/10 text-[#1A392A] font-bold"
-                        : "hover:bg-[#1A392A]/8 text-[#1C2024]"
-                    }`}
-                  >
-                    <div className="w-8 h-8 rounded-full bg-[#121D2C] text-[#E5C483] flex items-center justify-center shrink-0 shadow-xs group-hover/item:scale-105 transition-transform">
-                      <Flame className="w-4 h-4 text-[#C5A059]" />
-                    </div>
-                    <div className="text-left">
-                      <div className="font-serif font-bold text-xs text-[#1A392A] group-hover/item:text-[#C5A059] transition-colors normal-case">
-                        {currentNav.spices}
-                      </div>
-                      <div className="text-[10px] text-[#1C2024]/60 normal-case font-sans leading-tight mt-0.5">
-                        {currentNav.spicesSub}
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                `transition-all py-1 border-b-2 font-medium ${
-                  isActive
-                    ? "text-[#1A392A] font-bold border-[#1A392A]"
-                    : "text-[#1C2024]/70 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
-                }`
-              }
-            >
-              {currentNav.story}
-            </NavLink>
-          </nav>
-        </div>
-
-        {/* Center: Master Brand Emblem Wordmark */}
-        <Link to="/" className="text-center group cursor-pointer">
-          <h1 className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#1A392A] group-hover:text-[#C5A059] transition-colors">
-            PAUL'S
-          </h1>
-          <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-[#C5A059] font-medium -mt-1">
-            TEA & SPICES • VORARLBERG
-          </p>
-        </Link>
-
-        {/* Right Side: Mobile Nav + 5-Language Selector */}
-        <div className="flex items-center gap-2 sm:gap-4">
-          {/* Mobile Nav Links */}
-          <div className="flex md:hidden items-center gap-1 text-[11px] font-serif uppercase tracking-wider mr-1">
-            <NavLink
-              to="/"
-              end
-              className={({ isActive }) =>
-                `px-1.5 py-0.5 rounded transition ${
-                  isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
-                }`
-              }
-            >
-              Home
-            </NavLink>
             <span className="text-[#C5A059]/40">•</span>
             <NavLink
               to="/tea"
               className={({ isActive }) =>
-                `px-1.5 py-0.5 rounded transition ${
+                `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
                   isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
                 }`
               }
             >
-              {lang === "de" ? "Tee" : "Tea"}
+              {currentNav.tea}
             </NavLink>
             <span className="text-[#C5A059]/40">•</span>
             <NavLink
               to="/spices"
               className={({ isActive }) =>
-                `px-1.5 py-0.5 rounded transition ${
+                `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
                   isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
                 }`
               }
             >
-              {lang === "de" ? "Gewürze" : "Spices"}
+              {currentNav.spices}
+            </NavLink>
+            <span className="text-[#C5A059]/40">•</span>
+            <NavLink
+              to="/tutorials"
+              className={({ isActive }) =>
+                `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
+                  isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
+                }`
+              }
+            >
+              {currentNav.tutorials}
             </NavLink>
             <span className="text-[#C5A059]/40">•</span>
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                `px-1.5 py-0.5 rounded transition ${
+                `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
                   isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
                 }`
               }
             >
-              {lang === "de" ? "Über Uns" : "About"}
+              {currentNav.about}
             </NavLink>
           </div>
+
+          {/* Language Selector Dropdown */}
           <div
             ref={langDropdownRef}
             className="relative"
@@ -431,7 +362,7 @@ export default function Header({ lang, setLang }) {
               }}
               aria-expanded={isLangOpen}
               aria-label="Select Language"
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition shadow-sm text-xs font-semibold cursor-pointer ${
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition shadow-xs text-xs font-semibold cursor-pointer ${
                 isLangOpen
                   ? "border-[#1A392A] bg-[#1A392A] text-white"
                   : "border-[#C5A059]/40 bg-white/80 text-[#1A392A] hover:bg-[#C5A059]/10 hover:border-[#C5A059]"
@@ -453,7 +384,7 @@ export default function Header({ lang, setLang }) {
               />
             </button>
 
-            {/* Dropdown Menu Container with Zero-Gap Hover Bridge (top-full pt-2) */}
+            {/* Dropdown Menu Container with Zero-Gap Hover Bridge */}
             <div
               className={`absolute right-0 top-full pt-2 w-52 transition-all duration-200 z-50 ${
                 isLangOpen
@@ -490,7 +421,7 @@ export default function Header({ lang, setLang }) {
                       </span>
                     </div>
                     {lang === l.code && (
-                      <span className="w-2 h-2 rounded-full bg-[#1A392A] shadow-sm"></span>
+                      <span className="w-2 h-2 rounded-full bg-[#1A392A] shadow-xs"></span>
                     )}
                   </button>
                 ))}

@@ -6,6 +6,7 @@ import HomeCollectionsPreview from "./components/HomeCollectionsPreview";
 import StoryTimeline from "./components/StoryTimeline";
 import TeaStorySection from "./components/TeaStorySection";
 import SpicesStorySection from "./components/SpicesStorySection";
+import TutorialsSection from "./components/TutorialsSection";
 import Footer from "./components/Footer";
 import { PRODUCTS } from "./data/productsData";
 
@@ -40,6 +41,10 @@ function SpicesPage({ lang }) {
       <SpicesStorySection spicesProducts={SPICES_PRODUCTS} lang={lang} />
     </div>
   );
+}
+
+function TutorialsPage({ lang }) {
+  return <TutorialsSection lang={lang} />;
 }
 
 function AboutPage({ lang }) {
@@ -166,6 +171,7 @@ export default function App() {
           <Route path="/" element={<HomePage lang={lang} />} />
           <Route path="/tea" element={<TeaPage lang={lang} />} />
           <Route path="/spices" element={<SpicesPage lang={lang} />} />
+          <Route path="/tutorials" element={<TutorialsPage lang={lang} />} />
           <Route path="/tea-and-spices" element={<Navigate to="/tea" replace />} />
           <Route path="/about" element={<AboutPage lang={lang} />} />
           <Route path="*" element={<Navigate to="/" replace />} />
