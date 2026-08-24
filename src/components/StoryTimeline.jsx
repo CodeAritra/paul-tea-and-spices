@@ -1,22 +1,16 @@
 import React, { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { HERITAGE_STORIES } from "../data/storiesData";
 import { MapPin, Calendar, ShieldCheck, Feather, Sparkles } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function StoryTimeline({ lang }) {
   const containerRef = useRef(null);
 
   useLayoutEffect(() => {
-    const gsap = window.gsap;
-    const ScrollTrigger = window.ScrollTrigger;
-    if (!gsap || !ScrollTrigger || !containerRef.current) return undefined;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (prefersReducedMotion) return undefined;
+    if (!containerRef.current) return undefined;
 
     const ctx = gsap.context(() => {
       const cards = containerRef.current.querySelectorAll(
@@ -38,7 +32,7 @@ export default function StoryTimeline({ lang }) {
             ease: "power3.out",
             scrollTrigger: {
               trigger: card,
-              start: "top 84%",
+              start: "top 88%",
               toggleActions: "play none none reverse",
             },
           },
@@ -56,7 +50,7 @@ export default function StoryTimeline({ lang }) {
             ease: "back.out(2)",
             scrollTrigger: {
               trigger: node,
-              start: "top 88%",
+              start: "top 90%",
               toggleActions: "play none none reverse",
             },
           },

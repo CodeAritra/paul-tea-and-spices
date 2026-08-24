@@ -1,4 +1,8 @@
 import React, { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function SpicesStorySection({ spicesProducts, lang }) {
   const sectionRef = useRef(null);
@@ -7,21 +11,8 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
   const totalSnapSteps = spiceCount; // 13 slides + finale
 
   useLayoutEffect(() => {
-    const gsap = window.gsap;
-    const ScrollTrigger = window.ScrollTrigger;
     const section = sectionRef.current;
-
-    if (!gsap || !ScrollTrigger || !section) return undefined;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (prefersReducedMotion) {
-      return undefined;
-    }
+    if (!section) return undefined;
 
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
 

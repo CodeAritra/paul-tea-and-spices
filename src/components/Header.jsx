@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Sparkles, Globe, ChevronDown } from "lucide-react";
 import { TRANSLATIONS, PRODUCTS } from "../data/productsData";
 
@@ -152,7 +153,6 @@ export default function Header({ lang, setLang }) {
       }
 
       // Check if any pinned section is currently active
-      const ScrollTrigger = window.ScrollTrigger;
       const isAnyPinActive = ScrollTrigger
         ? ScrollTrigger.getAll().some((st) => st.pin && st.isActive)
         : false;

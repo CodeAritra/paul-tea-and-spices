@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "lenis";
 import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
 import HomeCollectionsPreview from "./components/HomeCollectionsPreview";
@@ -9,6 +12,8 @@ import SpiceMapSection from "./components/SpiceMapSection";
 import TutorialsSection from "./components/TutorialsSection";
 import Footer from "./components/Footer";
 import { PRODUCTS } from "./data/productsData";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const TEA_PRODUCTS = PRODUCTS.filter((p) => p.category === "tea");
 
@@ -78,89 +83,65 @@ export default function App() {
       }
     }
     const timer = setTimeout(() => {
-      if (window.ScrollTrigger) {
-        window.ScrollTrigger.sort();
-        window.ScrollTrigger.refresh();
-      }
+      ScrollTrigger.sort();
+      ScrollTrigger.refresh();
     }, 120);
     return () => clearTimeout(timer);
   }, [location.pathname, location.hash]);
 
   // Ultra-smooth page scrolling using Lenis + GSAP ScrollTrigger
   useEffect(() => {
-    let lenisInstance = null;
-    let updateRaf = null;
-    let refreshTimers = [];
-    let isCancelled = false;
+    // Disable lag smoothing so pinned scrubs are silky smooth and never jump
+    gsap.ticker.lagSmoothing(0);
 
-    const initLenis = () => {
-      if (isCancelled) return;
-      if (!window.Lenis || !window.ScrollTrigger || !window.gsap) {
-        // Retry shortly if CDN scripts are still parsing
-        const retryTimer = setTimeout(initLenis, 60);
-        refreshTimers.push(retryTimer);
-        return;
-      }
+    const lenisInstance = new Lenis({
+      duration: 1.1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: "vertical",
+      gestureOrientation: "vertical",
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
+    });
 
-      const gsap = window.gsap;
-      const ScrollTrigger = window.ScrollTrigger;
-      gsap.registerPlugin(ScrollTrigger);
+    window.lenis = lenisInstance;
 
-      // Disable lag smoothing so pinned scrubs are silky smooth and never jump
-      gsap.ticker.lagSmoothing(0);
+    // Synchronize Lenis scroll with GSAP ScrollTrigger
+    lenisInstance.on("scroll", (e) => {
+      ScrollTrigger.update();
+    });
 
-      lenisInstance = new window.Lenis({
-        duration: 1.1,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: "vertical",
-        gestureOrientation: "vertical",
-        smoothWheel: true,
-        wheelMultiplier: 1.0,
-        touchMultiplier: 1.5,
-      });
-
-      window.lenis = lenisInstance;
-
-      // Synchronize Lenis scroll with GSAP ScrollTrigger
-      lenisInstance.on("scroll", ScrollTrigger.update);
-
-      // Connect Lenis frame updates to GSAP ticker for 60fps rendering
-      updateRaf = (time) => {
-        lenisInstance.raf(time * 1000);
-      };
-
-      gsap.ticker.add(updateRaf);
-
-      // Refresh ScrollTrigger after initializing and after all downstream components mount
-      const refreshAll = () => {
-        ScrollTrigger.sort();
-        ScrollTrigger.refresh();
-      };
-
-      refreshTimers.push(
-        setTimeout(refreshAll, 60),
-        setTimeout(refreshAll, 200),
-        setTimeout(refreshAll, 500),
-        setTimeout(refreshAll, 1000),
-        setTimeout(refreshAll, 2000),
-      );
-
-      window.addEventListener("resize", refreshAll);
-      window.addEventListener("load", refreshAll);
+    // Connect Lenis frame updates to GSAP ticker for 60fps rendering
+    const updateRaf = (time) => {
+      lenisInstance.raf(time * 1000);
     };
 
-    initLenis();
+    gsap.ticker.add(updateRaf);
+
+    // Refresh ScrollTrigger after initializing and after all downstream components mount
+    const refreshAll = () => {
+      ScrollTrigger.sort();
+      ScrollTrigger.refresh();
+    };
+
+    const timers = [
+      setTimeout(refreshAll, 60),
+      setTimeout(refreshAll, 200),
+      setTimeout(refreshAll, 500),
+      setTimeout(refreshAll, 1000),
+      setTimeout(refreshAll, 2000),
+    ];
+
+    window.addEventListener("resize", refreshAll);
+    window.addEventListener("load", refreshAll);
 
     return () => {
-      isCancelled = true;
-      refreshTimers.forEach(clearTimeout);
-      if (updateRaf && window.gsap) {
-        window.gsap.ticker.remove(updateRaf);
-      }
-      if (lenisInstance) {
-        lenisInstance.destroy();
-        window.lenis = null;
-      }
+      timers.forEach(clearTimeout);
+      window.removeEventListener("resize", refreshAll);
+      window.removeEventListener("load", refreshAll);
+      gsap.ticker.remove(updateRaf);
+      lenisInstance.destroy();
+      window.lenis = null;
     };
   }, []);
 
