@@ -132,7 +132,7 @@ export default function App() {
         setTimeout(refreshAll, 200),
         setTimeout(refreshAll, 500),
         setTimeout(refreshAll, 1000),
-        setTimeout(refreshAll, 2000)
+        setTimeout(refreshAll, 2000),
       );
 
       window.addEventListener("resize", refreshAll);
@@ -157,10 +157,7 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-[#F5F0E8] text-[#1C2024] selection:bg-[#1A392A] selection:text-white">
       {/* Fixed Header Navigation */}
-      <Header
-        lang={lang}
-        setLang={setLang}
-      />
+      <Header lang={lang} setLang={setLang} />
 
       {/* Spacer for fixed header (banner ~30px + nav 80px) */}
       <div className="h-[110px] shrink-0" />
@@ -172,7 +169,10 @@ export default function App() {
           <Route path="/tea" element={<TeaPage lang={lang} />} />
           <Route path="/spices" element={<SpicesPage lang={lang} />} />
           <Route path="/tutorials" element={<TutorialsPage lang={lang} />} />
-          <Route path="/tea-and-spices" element={<Navigate to="/tea" replace />} />
+          <Route
+            path="/tea-and-spices"
+            element={<Navigate to="/tea" replace />}
+          />
           <Route path="/about" element={<AboutPage lang={lang} />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
@@ -183,4 +183,3 @@ export default function App() {
     </div>
   );
 }
-
