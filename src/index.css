@@ -198,34 +198,6 @@
   background-size: 24px 24px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .tea-cinematic-story {
-    height: auto;
-    max-height: none;
-  }
-
-  .tea-story-intro,
-  .tea-origin-stage {
-    position: relative;
-    visibility: visible !important;
-    opacity: 1 !important;
-    clip-path: none !important;
-  }
-
-  .tea-origin-stage {
-    min-height: 34rem;
-  }
-
-  .tea-origin-label,
-  .tea-origin-location,
-  .tea-origin-region,
-  .tea-origin-statement,
-  .tea-origin-character {
-    visibility: visible !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
 
 /* Smooth custom scrollbars */
 ::-webkit-scrollbar {

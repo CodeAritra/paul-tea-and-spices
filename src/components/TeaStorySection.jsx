@@ -5,6 +5,9 @@ import { TEA_STORY_CONFIG } from "../data/teaStoryConfig";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* ─────────────────────────────────────────────
+   ProductIntroduction – fallback card (no origin image)
+───────────────────────────────────────────── */
 function ProductIntroduction({ tea, lang, isEven }) {
   return (
     <div
@@ -38,15 +41,22 @@ function ProductIntroduction({ tea, lang, isEven }) {
   );
 }
 
+/* ─────────────────────────────────────────────
+   CinematicTeaStory – pinned scroll animation:
+   ① Tea image + story visible immediately below the heading
+   ② On scroll: intro fades/slides up
+   ③ Origin landscape unrolls from the top
+   ④ Text overlays appear over the full-screen landscape
+───────────────────────────────────────────── */
 function CinematicTeaStory({ tea, lang, story }) {
   const storyRef = useRef(null);
 
   const hasTextOverlay = Boolean(
     story?.originLabel ||
-      story?.location ||
-      story?.region ||
-      story?.statement ||
-      (story?.character && story?.character.length > 0),
+    story?.location ||
+    story?.region ||
+    story?.statement ||
+    (story?.character && story?.character.length > 0),
   );
 
   useLayoutEffect(() => {
@@ -61,20 +71,24 @@ function CinematicTeaStory({ tea, lang, story }) {
       const originMedia = q(".tea-origin-media");
       const originImg = q(".tea-origin-image");
 
-      // 1. Stage is ready behind intro
+      // ── Explicit initial states ──────────────────────────────────────
+      // Intro MUST be visible on init (prevents React StrictMode double-run issue)
+      gsap.set(intro, { autoAlpha: 1, y: 0 });
+
+      // Origin stage sits behind the intro, ready
       gsap.set(origin, { autoAlpha: 1 });
 
-      // 2. Origin media starts clipped from bottom (unrolls down from top)
+      // Origin image: hidden by clip-path (will unroll downward from top)
       gsap.set(originMedia, { clipPath: "inset(0 0 100% 0)" });
 
-      // 3. Origin image starts slightly shifted upward so it slides down from top
+      // Origin image is scaled up & shifted upward; slides into place as it reveals
       gsap.set(originImg, {
         scale: 1.12,
         y: -70,
         transformOrigin: "center top",
       });
 
-      // 4. Text overlays on the origin photo start hidden
+      // Origin text overlays start invisible
       const textEls = q(
         ".tea-origin-label, .tea-origin-location, .tea-origin-region, .tea-origin-statement, .tea-origin-character",
       );
@@ -82,7 +96,7 @@ function CinematicTeaStory({ tea, lang, story }) {
         gsap.set(textEls, { autoAlpha: 0 });
       }
 
-      // Master ScrollTrigger timeline for full screen section pin
+      // ── Master scrubbed timeline ────────────────────────────────────
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
@@ -95,7 +109,7 @@ function CinematicTeaStory({ tea, lang, story }) {
         },
       });
 
-      // Step A: Intro content (Image on Left, Story Text on Right) fades & slides out upwards
+      // Step A – Tea intro gently scales its image, then fades out + slides up
       tl.to(
         q(".tea-story-intro-image"),
         { scale: isMobile ? 1.02 : 1.05, duration: 1, ease: "none" },
@@ -111,7 +125,8 @@ function CinematicTeaStory({ tea, lang, story }) {
           },
           0.4,
         )
-        // Step B: Origin image unrolls from TOP down to cover full screen
+
+        // Step B – Origin landscape unrolls from the top to fill screen
         .to(
           originMedia,
           { clipPath: "inset(0 0 0% 0)", duration: 1.6, ease: "power2.inOut" },
@@ -123,7 +138,7 @@ function CinematicTeaStory({ tea, lang, story }) {
           0.7,
         );
 
-      // Step C: Origin text overlay appears over full-screen landscape photo
+      // Step C – Text overlays appear over the full-screen landscape
       if (q(".tea-origin-label").length) {
         tl.to(q(".tea-origin-label"), { autoAlpha: 1, duration: 0.35 }, 1.6);
       }
@@ -162,9 +177,9 @@ function CinematicTeaStory({ tea, lang, story }) {
       id={`tea-story-${tea.id}`}
       className="tea-cinematic-story relative w-full h-screen min-h-[640px] max-h-[1000px] overflow-hidden bg-[#F5F0E8]"
     >
-      {/* 1. BACKGROUND ORIGIN LANDSCAPE STAGE */}
+      {/* ① BACKGROUND ORIGIN LANDSCAPE STAGE (z-0) */}
       <div className="tea-origin-stage absolute inset-0 z-0 text-[#F5F0E8]">
-        <div className="tea-origin-media absolute inset-0 overflow-hidden">
+        <div className="tea-origin-media absolute top-0 left-5 right-5 bottom-5 sm:left-8 sm:right-8 sm:bottom-8 lg:left-12 lg:right-12 lg:bottom-10 overflow-hidden">
           <img
             src={story.originImageUrl}
             alt={story.originImageAlt || tea.name}
@@ -209,8 +224,10 @@ function CinematicTeaStory({ tea, lang, story }) {
         )}
       </div>
 
-      {/* 2. INITIAL INTRO STAGE (Tea Image on Left, Title & Full Story Text on Right) */}
-      <div className="tea-story-intro absolute inset-0 z-10 flex items-center justify-center px-4 sm:px-6 lg:px-8 pointer-events-none">
+      {/* ② INTRO STAGE – Tea image (left) + story text (right) (z-10)
+           bg-[#F5F0E8] blocks origin text bleed-through.
+           pt-[110px] clears the fixed header both before and after pinning. */}
+      <div className="tea-story-intro absolute inset-0 z-10 bg-[#F5F0E8] flex items-start justify-center pt-[110px] px-4 sm:px-6 lg:px-8 pointer-events-none">
         <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-14 pointer-events-auto">
           {/* Left: Product Image */}
           <div className="w-full lg:w-1/2 shrink-0 flex justify-center">
@@ -229,7 +246,7 @@ function CinematicTeaStory({ tea, lang, story }) {
             </div>
           </div>
 
-          {/* Right: Title & Paragraph Text */}
+          {/* Right: Title & Story Text */}
           <div className="w-full lg:w-1/2 space-y-5 text-left">
             <h3 className="tea-story-heading font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A392A] leading-tight tracking-tight">
               {lang === "de" && tea.germanName ? tea.germanName : tea.name}
@@ -244,67 +261,81 @@ function CinematicTeaStory({ tea, lang, story }) {
   );
 }
 
+/* ─────────────────────────────────────────────
+   TeaStorySection – page section wrapper
+───────────────────────────────────────────── */
 export default function TeaStorySection({ teaProducts, lang }) {
-  const containerRef = useRef(null);
+  const introRef = useRef(null);
+
+  const items = teaProducts.map((tea, index) => ({
+    tea,
+    index,
+    story: TEA_STORY_CONFIG[tea.id] || null,
+    isCinematic: Boolean(TEA_STORY_CONFIG[tea.id]?.originImageUrl),
+  }));
+  const regularItems = items.filter((i) => !i.isCinematic);
+
+  // Scroll-entrance animations for any non-cinematic ProductIntroduction cards
   useLayoutEffect(() => {
-    if (!containerRef.current) return undefined;
+    if (!introRef.current) return undefined;
     const ctx = gsap.context(() => {
-      containerRef.current
+      introRef.current
         .querySelectorAll(".tea-story-item")
         .forEach((item) => {
-          const image = item.querySelector(".tea-zoom-img");
-          const frame = item.querySelector(".tea-visual-frame");
-          const heading = item.querySelector(".tea-story-heading");
-          const description = item.querySelector(".tea-story-desc");
-          const isMobile = window.matchMedia("(max-width: 767px)").matches;
-          gsap.fromTo(
-            image,
-            { scale: 1.08, y: isMobile ? -12 : -24 },
-            {
-              scale: 1,
-              y: isMobile ? 12 : 24,
-              ease: "none",
-              scrollTrigger: {
-                trigger: frame,
-                start: "top 95%",
-                end: "bottom 5%",
-                scrub: 1,
-                invalidateOnRefresh: true,
-              },
+        const image = item.querySelector(".tea-zoom-img");
+        const frame = item.querySelector(".tea-visual-frame");
+        const heading = item.querySelector(".tea-story-heading");
+        const description = item.querySelector(".tea-story-desc");
+        const isMobile = window.matchMedia("(max-width: 767px)").matches;
+        gsap.fromTo(
+          image,
+          { scale: 1.08, y: isMobile ? -12 : -24 },
+          {
+            scale: 1,
+            y: isMobile ? 12 : 24,
+            ease: "none",
+            scrollTrigger: {
+              trigger: frame,
+              start: "top 95%",
+              end: "bottom 5%",
+              scrub: 1,
+              invalidateOnRefresh: true,
             },
+          },
+        );
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: item,
+              start: "top 84%",
+              toggleActions: "play none none reverse",
+            },
+          })
+          .fromTo(
+            heading,
+            { autoAlpha: 0, y: 28 },
+            { autoAlpha: 1, y: 0, duration: 0.75, ease: "power3.out" },
+          )
+          .fromTo(
+            description,
+            { autoAlpha: 0, y: 16 },
+            { autoAlpha: 1, y: 0, duration: 0.65, ease: "power3.out" },
+            "-=0.48",
           );
-          gsap
-            .timeline({
-              scrollTrigger: {
-                trigger: item,
-                start: "top 84%",
-                toggleActions: "play none none reverse",
-              },
-            })
-            .fromTo(
-              heading,
-              { autoAlpha: 0, y: 28 },
-              { autoAlpha: 1, y: 0, duration: 0.75, ease: "power3.out" },
-            )
-            .fromTo(
-              description,
-              { autoAlpha: 0, y: 16 },
-              { autoAlpha: 1, y: 0, duration: 0.65, ease: "power3.out" },
-              "-=0.48",
-            );
-        });
+      });
       ScrollTrigger.sort();
       ScrollTrigger.refresh();
-    }, containerRef);
+    }, introRef);
     return () => ctx.revert();
   }, []);
+
   return (
     <section
-      ref={containerRef}
       id="tea-collection"
-      className="py-12 sm:py-16 bg-[#F5F0E8] relative overflow-hidden paper-texture border-b border-[#C5A059]/20"
+      className="bg-[#F5F0E8] paper-texture border-b border-[#C5A059]/20"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8 text-center">
+      {/* ── Section heading ── */}
+      <div className="pt-12 sm:pt-16 pb-2 sm:pb-3 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="inline-flex items-center gap-3 text-[11px] font-mono uppercase tracking-[0.25em] text-[#C5A059] mb-2">
           <span className="w-8 h-px bg-[#C5A059]/50" />
           <span>PAUL'S TEA MAISON</span>
@@ -318,26 +349,30 @@ export default function TeaStorySection({ teaProducts, lang }) {
           artisanal herbal blends crafted in our Vorarlberg Atelier.
         </p>
       </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
-        {teaProducts.map((tea, index) => {
-          const story = TEA_STORY_CONFIG[tea.id];
-          return story?.originImageUrl ? (
-            <CinematicTeaStory
-              key={tea.id}
-              tea={tea}
-              lang={lang}
-              story={story}
-            />
-          ) : (
+
+      {/* ── Cinematic sections (tea intro → scroll → scenery reveal) ── */}
+      {items
+        .filter((i) => i.isCinematic)
+        .map(({ tea, story }) => (
+          <CinematicTeaStory key={tea.id} tea={tea} lang={lang} story={story} />
+        ))}
+
+      {/* ── Regular product cards (if any) ── */}
+      {regularItems.length > 0 && (
+        <div
+          ref={introRef}
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-12 sm:space-y-16"
+        >
+          {regularItems.map(({ tea, index }) => (
             <ProductIntroduction
               key={tea.id}
               tea={tea}
               lang={lang}
               isEven={index % 2 === 0}
             />
-          );
-        })}
-      </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
