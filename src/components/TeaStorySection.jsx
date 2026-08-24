@@ -42,7 +42,7 @@ function CinematicTeaStory({ tea, lang, story }) {
     story?.location ||
     story?.region ||
     story?.statement ||
-    (story?.character && story?.character.length > 0)
+    (story?.character && story?.character.length > 0),
   );
 
   useLayoutEffect(() => {
@@ -127,27 +127,27 @@ function CinematicTeaStory({ tea, lang, story }) {
         { scale: isMobile ? 1.02 : 1.05, duration: 1, ease: "none" },
         0,
       )
-      .to(
-        intro,
-        {
-          autoAlpha: 0,
-          x: isMobile ? introExit.x / 2 : introExit.x,
-          y: isMobile ? introExit.y / 2 : introExit.y,
-          duration: 1,
-          ease: "power1.inOut",
-        },
-        0.75,
-      )
-      .to(
-        originMedia,
-        { clipPath: "inset(0 0 0% 0)", duration: 1.45, ease: "power2.inOut" },
-        1.15,
-      )
-      .to(
-        q(".tea-origin-image"),
-        { scale: 1, x: 0, y: 0, duration: 1.8, ease: "none" },
-        1.15,
-      );
+        .to(
+          intro,
+          {
+            autoAlpha: 0,
+            x: isMobile ? introExit.x / 2 : introExit.x,
+            y: isMobile ? introExit.y / 2 : introExit.y,
+            duration: 1,
+            ease: "power1.inOut",
+          },
+          0.75,
+        )
+        .to(
+          originMedia,
+          { clipPath: "inset(0 0 0% 0)", duration: 1.45, ease: "power2.inOut" },
+          1.15,
+        )
+        .to(
+          q(".tea-origin-image"),
+          { scale: 1, x: 0, y: 0, duration: 1.8, ease: "none" },
+          1.15,
+        );
 
       if (q(".tea-origin-label").length) {
         tl.to(q(".tea-origin-label"), { autoAlpha: 1, duration: 0.35 }, 1.8);

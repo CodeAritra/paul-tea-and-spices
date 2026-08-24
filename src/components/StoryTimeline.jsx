@@ -13,14 +13,18 @@ export default function StoryTimeline({ lang }) {
     gsap.registerPlugin(ScrollTrigger);
 
     const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
 
     if (prefersReducedMotion) return undefined;
 
     const ctx = gsap.context(() => {
-      const cards = containerRef.current.querySelectorAll(".story-chapter-card");
-      const nodes = containerRef.current.querySelectorAll(".story-timeline-node");
+      const cards = containerRef.current.querySelectorAll(
+        ".story-chapter-card",
+      );
+      const nodes = containerRef.current.querySelectorAll(
+        ".story-timeline-node",
+      );
 
       cards.forEach((card) => {
         gsap.fromTo(
@@ -37,7 +41,7 @@ export default function StoryTimeline({ lang }) {
               start: "top 84%",
               toggleActions: "play none none reverse",
             },
-          }
+          },
         );
       });
 
@@ -55,7 +59,7 @@ export default function StoryTimeline({ lang }) {
               start: "top 88%",
               toggleActions: "play none none reverse",
             },
-          }
+          },
         );
       });
 
@@ -75,7 +79,10 @@ export default function StoryTimeline({ lang }) {
       {/* Background Decorative Gradient Orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-20 left-10 w-96 h-96 bg-[#1A392A]/5 rounded-full blur-3xl animate-mist" />
-        <div className="absolute top-1/2 right-10 w-96 h-96 bg-[#C5A059]/5 rounded-full blur-3xl animate-mist" style={{ animationDelay: "5s" }} />
+        <div
+          className="absolute top-1/2 right-10 w-96 h-96 bg-[#C5A059]/5 rounded-full blur-3xl animate-mist"
+          style={{ animationDelay: "5s" }}
+        />
       </div>
 
       {/* Section Header */}
@@ -88,7 +95,8 @@ export default function StoryTimeline({ lang }) {
           The Heritage of Paul's Tea & Spices
         </h1>
         <p className="text-xs sm:text-sm text-[#1C2024]/75 max-w-2xl mx-auto font-light leading-relaxed">
-          Rooted in a cross-cultural friendship in Vorarlberg, Austria. Travel through the three founding chapters of our maison.
+          Rooted in a cross-cultural friendship in Vorarlberg, Austria. Travel
+          through the three founding chapters of our maison.
         </p>
       </div>
 
@@ -170,4 +178,3 @@ export default function StoryTimeline({ lang }) {
     </section>
   );
 }
-
