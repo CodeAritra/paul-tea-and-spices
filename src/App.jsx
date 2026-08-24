@@ -5,13 +5,12 @@ import HeroSection from "./components/HeroSection";
 import HomeCollectionsPreview from "./components/HomeCollectionsPreview";
 import StoryTimeline from "./components/StoryTimeline";
 import TeaStorySection from "./components/TeaStorySection";
-import SpicesStorySection from "./components/SpicesStorySection";
+import SpiceMapSection from "./components/SpiceMapSection";
 import TutorialsSection from "./components/TutorialsSection";
 import Footer from "./components/Footer";
 import { PRODUCTS } from "./data/productsData";
 
 const TEA_PRODUCTS = PRODUCTS.filter((p) => p.category === "tea");
-const SPICES_PRODUCTS = PRODUCTS.filter((p) => p.category === "spices");
 
 function HomePage({ lang }) {
   return (
@@ -37,8 +36,8 @@ function TeaPage({ lang }) {
 function SpicesPage({ lang }) {
   return (
     <div id="spices-catalog" className="bg-[#F5F0E8] paper-texture">
-      {/* PAUL SPICES COLLECTION — STORY-DRIVEN & MINIMAL */}
-      <SpicesStorySection spicesProducts={SPICES_PRODUCTS} lang={lang} />
+      {/* INTERACTIVE SPICE MAP SECTION */}
+      <SpiceMapSection lang={lang} />
     </div>
   );
 }
