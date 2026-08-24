@@ -258,6 +258,7 @@ export default function Header({ lang, setLang }) {
           <NavLink
             to="/"
             end
+            onClick={() => setIsTeaMenuOpen(false)}
             className={({ isActive }) =>
               `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
                 isActive
@@ -277,6 +278,7 @@ export default function Header({ lang, setLang }) {
           >
             <NavLink
               to="/tea"
+              onClick={() => setIsTeaMenuOpen(false)}
               className={({ isActive }) =>
                 `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] flex items-center gap-1.5 ${
                   isActive || isTeaMenuOpen
@@ -292,6 +294,7 @@ export default function Header({ lang, setLang }) {
           {/* Spices */}
           <NavLink
             to="/spices"
+            onClick={() => setIsTeaMenuOpen(false)}
             className={({ isActive }) =>
               `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
                 isActive
@@ -306,6 +309,7 @@ export default function Header({ lang, setLang }) {
           {/* Tutorials */}
           <NavLink
             to="/tutorials"
+            onClick={() => setIsTeaMenuOpen(false)}
             className={({ isActive }) =>
               `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
                 isActive
@@ -320,6 +324,7 @@ export default function Header({ lang, setLang }) {
           {/* About Us */}
           <NavLink
             to="/about"
+            onClick={() => setIsTeaMenuOpen(false)}
             className={({ isActive }) =>
               `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
                 isActive
