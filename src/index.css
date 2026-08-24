@@ -1,4 +1,13 @@
 @import "tailwindcss";
+@theme {
+  --color-finesse: #F5F0E8;
+  --color-bottle-green: #1A392A;
+  --color-midnight-sapphire: #121D2C;
+  --color-ink-navy: #1B263B;
+  --color-gold: #C5A059;
+  --color-gold-light: #E5C483;
+  --color-charcoal: #1C2024;
+}
 
 @layer base {
   :root {
@@ -21,6 +30,10 @@
   h1, h2, h3, h4, h5, h6, .font-serif {
     font-family: 'Playfair Display', Georgia, serif;
   }
+}
+
+.bg-finesse {
+  background-color: var(--color-finesse);
 }
 
 /* Strict 3D Flip Card Positioning & Mechanics */

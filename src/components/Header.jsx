@@ -1,16 +1,31 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Sparkles, Globe } from "lucide-react";
-import { TRANSLATIONS } from "../data/productsData";
+import { Sparkles, Globe, ChevronDown } from "lucide-react";
+import { TRANSLATIONS, PRODUCTS } from "../data/productsData";
+
+const TEA_PRODUCTS = PRODUCTS.filter((p) => p.category === "tea");
 
 export default function Header({ lang, setLang }) {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.de;
   const location = useLocation();
   const [logoError, setLogoError] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isTeaMenuOpen, setIsTeaMenuOpen] = useState(false);
   const headerRef = useRef(null);
   const langDropdownRef = useRef(null);
   const langTimeoutRef = useRef(null);
+  const teaTimeoutRef = useRef(null);
+
+  const handleTeaEnter = () => {
+    if (teaTimeoutRef.current) clearTimeout(teaTimeoutRef.current);
+    setIsTeaMenuOpen(true);
+  };
+
+  const handleTeaLeave = () => {
+    teaTimeoutRef.current = setTimeout(() => {
+      setIsTeaMenuOpen(false);
+    }, 250);
+  };
 
   const navLabels = {
     de: {
@@ -65,6 +80,7 @@ export default function Header({ lang, setLang }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       if (langTimeoutRef.current) clearTimeout(langTimeoutRef.current);
+      if (teaTimeoutRef.current) clearTimeout(teaTimeoutRef.current);
     };
   }, []);
 
@@ -127,6 +143,14 @@ export default function Header({ lang, setLang }) {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
+      // Always show if mega menu is active
+      if (isTeaMenuOpen) {
+        header.style.transform = "translateY(0%)";
+        isHidden = false;
+        lastScrollY = currentScrollY;
+        return;
+      }
+
       // Check if any pinned section is currently active
       const ScrollTrigger = window.ScrollTrigger;
       const isAnyPinActive = ScrollTrigger
@@ -168,14 +192,30 @@ export default function Header({ lang, setLang }) {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isTeaMenuOpen]);
 
   return (
-    <header
-      ref={headerRef}
-      style={{ transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)" }}
-      className="fixed top-0 left-0 right-0 z-50 bg-[#F5F0E8]/95 backdrop-blur-md border-b border-[#C5A059]/25 will-change-transform"
-    >
+    <>
+      {/* Dark Page Backdrop Overlay */}
+      <div
+        className={`fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity duration-300 z-30 ${
+          isTeaMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setIsTeaMenuOpen(false)}
+        onMouseEnter={handleTeaLeave}
+      />
+
+      <header
+        ref={headerRef}
+        style={{ transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)" }}
+        className={`fixed top-0 left-0 right-0 z-50 bg-finesse paper-texture transition-all duration-300 will-change-transform ${
+          isTeaMenuOpen
+            ? "border-b-0 shadow-none"
+            : "border-b border-[#C5A059]/25"
+        }`}
+      >
       {/* Top Banner Notice */}
       <div className="bg-[#1A392A] text-[#F5F0E8] text-xs py-1.5 px-4 text-center font-medium tracking-wider uppercase flex items-center justify-center gap-2">
         <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
@@ -229,19 +269,25 @@ export default function Header({ lang, setLang }) {
             {currentNav.home}
           </NavLink>
 
-          {/* Tea */}
-          <NavLink
-            to="/tea"
-            className={({ isActive }) =>
-              `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
-                isActive
-                  ? "text-[#1A392A] font-bold border-[#1A392A]"
-                  : "text-[#1C2024]/75 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
-              }`
-            }
+          {/* Tea Tab  */}
+          <div
+            className="relative"
+            onMouseEnter={handleTeaEnter}
+            onMouseLeave={handleTeaLeave}
           >
-            {currentNav.tea}
-          </NavLink>
+            <NavLink
+              to="/tea"
+              className={({ isActive }) =>
+                `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] flex items-center gap-1.5 ${
+                  isActive || isTeaMenuOpen
+                    ? "text-[#1A392A] font-bold border-[#1A392A]"
+                    : "text-[#1C2024]/75 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+                }`
+              }
+            >
+              <span>{currentNav.tea}</span>
+            </NavLink>
+          </div>
 
           {/* Spices */}
           <NavLink
@@ -286,6 +332,91 @@ export default function Header({ lang, setLang }) {
           </NavLink>
         </nav>
 
+        {/* Full-Width Mega Dropdown for Tea */}
+        <div
+          className={`absolute top-full left-0 right-0 w-full bg-finesse paper-texture border-t-0 border-b border-[#C5A059]/30 shadow-2xl transition-all duration-300 overflow-hidden z-40 ${
+            isTeaMenuOpen
+              ? "max-h-[1400px] opacity-100 py-20 sm:py-30 pointer-events-auto"
+              : "max-h-0 opacity-0 py-0 pointer-events-none"
+          }`}
+          onMouseEnter={handleTeaEnter}
+          onMouseLeave={handleTeaLeave}
+        >
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Grid of Tea Items (Exact Tesla Vehicles Menu Layout) */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 items-start justify-center">
+              {TEA_PRODUCTS.map((tea) => {
+                const name =
+                  lang === "de" && tea.germanName ? tea.germanName : tea.name;
+                const isPremium = tea.tier === "premium";
+
+                const leftLinkText = isPremium
+                  ? lang === "de"
+                    ? "Premium"
+                    : "Premium"
+                  : lang === "de"
+                    ? "Luxus"
+                    : "Luxury";
+
+                const rightLinkText = isPremium
+                  ? lang === "de"
+                    ? "Feinste Mischung"
+                    : "Finest Blend"
+                  : lang === "de"
+                    ? "Einzelursprung"
+                    : "Single-Origin";
+
+                return (
+                  <div
+                    key={tea.id}
+                    className="group/item flex flex-col items-center text-center cursor-pointer select-none"
+                  >
+                    {/* 1. Product Image (Tesla vehicle photo style) */}
+                    <Link
+                      to={`/tea#tea-story-${tea.id}`}
+                      onClick={() => setIsTeaMenuOpen(false)}
+                      className="w-full aspect-[4/3] max-h-[300px] sm:max-h-[340px] flex items-center justify-center mb-5 overflow-hidden rounded-2xl bg-[#1A392A]/5 border border-[#C5A059]/30 shadow-sm group-hover/item:shadow-xl transition-all duration-300"
+                    >
+                      <img
+                        src={tea.imageUrl}
+                        alt={name}
+                        className="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-500 ease-out filter brightness-95"
+                      />
+                    </Link>
+
+                    {/* 2. Product Name (Tesla Model Name style) */}
+                    <Link
+                      to={`/tea#tea-story-${tea.id}`}
+                      onClick={() => setIsTeaMenuOpen(false)}
+                      className="font-serif text-base sm:text-lg font-bold text-[#1A392A] group-hover/item:text-[#C5A059] transition-colors leading-tight mb-2 tracking-tight line-clamp-1"
+                    >
+                      {name}
+                    </Link>
+
+                    {/* 3. Sub-links below title (Tesla "Learn Order" style with underlines) */}
+                    <div className="flex items-center justify-center gap-4 text-xs sm:text-sm font-sans text-[#1C2024]/75 mt-1">
+                      <Link
+                        to={`/tea#tea-story-${tea.id}`}
+                        onClick={() => setIsTeaMenuOpen(false)}
+                        className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#1A392A] hover:text-[#1A392A] transition-all font-medium"
+                      >
+                        {leftLinkText}
+                      </Link>
+                      <Link
+                        to={`/tea#tea-story-${tea.id}`}
+                        onClick={() => setIsTeaMenuOpen(false)}
+                        className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#1A392A] hover:text-[#1A392A] transition-all font-medium"
+                      >
+                        {rightLinkText}
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
         {/* Right Side: Mobile Navigation + Language Selector */}
         <div className="flex items-center gap-2 sm:gap-4 shrink-0">
           {/* Mobile Nav Links */}
@@ -295,7 +426,9 @@ export default function Header({ lang, setLang }) {
               end
               className={({ isActive }) =>
                 `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
-                  isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
+                  isActive
+                    ? "font-bold text-[#1A392A] bg-[#1A392A]/10"
+                    : "text-[#1C2024]/70"
                 }`
               }
             >
@@ -306,7 +439,9 @@ export default function Header({ lang, setLang }) {
               to="/tea"
               className={({ isActive }) =>
                 `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
-                  isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
+                  isActive
+                    ? "font-bold text-[#1A392A] bg-[#1A392A]/10"
+                    : "text-[#1C2024]/70"
                 }`
               }
             >
@@ -317,7 +452,9 @@ export default function Header({ lang, setLang }) {
               to="/spices"
               className={({ isActive }) =>
                 `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
-                  isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
+                  isActive
+                    ? "font-bold text-[#1A392A] bg-[#1A392A]/10"
+                    : "text-[#1C2024]/70"
                 }`
               }
             >
@@ -328,7 +465,9 @@ export default function Header({ lang, setLang }) {
               to="/tutorials"
               className={({ isActive }) =>
                 `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
-                  isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
+                  isActive
+                    ? "font-bold text-[#1A392A] bg-[#1A392A]/10"
+                    : "text-[#1C2024]/70"
                 }`
               }
             >
@@ -339,7 +478,9 @@ export default function Header({ lang, setLang }) {
               to="/about"
               className={({ isActive }) =>
                 `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
-                  isActive ? "font-bold text-[#1A392A] bg-[#1A392A]/10" : "text-[#1C2024]/70"
+                  isActive
+                    ? "font-bold text-[#1A392A] bg-[#1A392A]/10"
+                    : "text-[#1C2024]/70"
                 }`
               }
             >
@@ -431,5 +572,6 @@ export default function Header({ lang, setLang }) {
         </div>
       </div>
     </header>
+  </>
   );
 }

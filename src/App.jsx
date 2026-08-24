@@ -59,12 +59,23 @@ export default function App() {
   const [lang, setLang] = useState("de"); // Default German per MOM directive
   const location = useLocation();
 
-  // Scroll to top and refresh GSAP ScrollTrigger whenever route changes
+  // Scroll to top or target hash and refresh GSAP ScrollTrigger whenever route changes
   useEffect(() => {
-    if (window.lenis) {
-      window.lenis.scrollTo(0, { immediate: true });
+    if (location.hash) {
+      const el = document.querySelector(location.hash);
+      if (el) {
+        if (window.lenis) {
+          window.lenis.scrollTo(el, { offset: -110 });
+        } else {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      }
     } else {
-      window.scrollTo(0, 0);
+      if (window.lenis) {
+        window.lenis.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo(0, 0);
+      }
     }
     const timer = setTimeout(() => {
       if (window.ScrollTrigger) {
@@ -73,7 +84,7 @@ export default function App() {
       }
     }, 120);
     return () => clearTimeout(timer);
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   // Ultra-smooth page scrolling using Lenis + GSAP ScrollTrigger
   useEffect(() => {
