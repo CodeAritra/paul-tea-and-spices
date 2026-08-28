@@ -45,11 +45,11 @@ export const HERITAGE_STORIES = [
       fr: "La Rencontre à Vorarlberg",
     },
     subtitle: {
-      de: "Trinkt man in Österreich Tee nur, wenn man krank ist?",
-      en: "Do people in Austria only drink tea when they are sick?",
-      es: "¿En Austria solo se bebe té cuando se está enfermo?",
-      it: "In Austria si beve il tè solo quando si è malati?",
-      fr: "Ne boit-on du thé en Autriche que lorsqu'on est malade ?",
+      de: "Interkulturelle Freundschaft & die Leidenschaft für echte Teekultur",
+      en: "Cross-cultural friendship & a shared passion for authentic tea culture",
+      es: "Amistad intercultural y una pasión compartida por la cultura del té",
+      it: "Amicizia interculturale e una passione condivisa per la cultura del tè",
+      fr: "Amitié interculturelle et une passion partagée pour la culture du thé",
     },
     quote: {
       de: "Eine unschuldige Frage bei einem Studentenfest entfachte ein stundenlanges Teeritual und eine tiefe Freundschaft.",
@@ -59,13 +59,13 @@ export const HERITAGE_STORIES = [
       fr: "Une question innocente lors d'une soirée suscita un rituel de dégustation de plusieurs heures.",
     },
     content: {
-      de: "Während eines internationalen Studienprogramms kreuzten sich die Wege zweier Studenten: Ein Inder, dessen Familie seit drei Generationen im Teegeschäft tätig ist, und ein Österreicher mit einer Leidenschaft für heimische Alpenkräuter. Bei einer Feier, auf der die meisten Alkohol tranken, bestellte der Inder Tee. Neugierig fragte der Österreicher, ob er sich unwohl fühle – denn in Österreich verbindet man Tee oft mit Krankheit. Diese Frage führte zu stundenlangen Tezeremonien, Wissensaustausch und der Gründung von Paul Tea & Spices.",
+      de: "Während eines internationalen Studienprogramms kreuzten sich die Wege zweier Studenten: Ein Inder, dessen Familie seit drei Generationen im Teegeschäft tätig ist, und ein Österreicher mit einer Leidenschaft für heimische Alpenkräuter. Bei einer Feier, auf der die meisten Alkohol tranken, bestellte der Inder Tee. Neugierig fragte der Österreicher, ob er sich unwohl fühle – denn in Österreich verbindet man Tee oft mit Krankheit. Diese Frage führte zu stundenlangen Teezeremonien, Wissensaustausch und der Gründung von Paul Tea & Spices.",
       en: "During an international study program, two students crossed paths: an Indian coming from a family in the tea business for three generations, and an Austrian with a passion for local herbs. At a gathering where most drank alcohol, the Austrian noticed the Indian ordering tea. Curious, he asked if the Indian was feeling unwell, as in Austria tea is often associated with illness. This innocent question sparked hours-long tea ceremonies, cultural exchange, and the founding of Paul Tea & Spices.",
       es: "Durante un programa de estudios internacionales, dos estudiantes se cruzaron: un indio de una familia con tres generaciones en el negocio del té y un austriaco apasionado por las hierbas locales. Al ver al indio pedir té en una fiesta, el austriaco preguntó sorprendido si se sentía mal. Esa pregunta inocente dio inicio a ceremonias de té y al nacimiento de la empresa.",
       it: "Durante un programma di studi internazionali, due studenti si incontrarono: un indiano proveniente da una famiglia nel settore del tè da tre generazioni e un austriaco appassionato di erbe locali. Notando l'indiano ordinare tè a una festa, l'austriaco chiese sorpreso se stesse male. Da quella domanda nacquero cerimonie del tè e Paul Tea & Spices.",
       fr: "Pendant un programme d'études internationales, deux étudiants se rencontrèrent : un Indien issu d'une famille dans le thé depuis trois générations et un Autrichien passionné par les plantes locales. Voyant l'Indien commander du thé lors d'une fête, l'Autrichien demanda s'il était malade. Cette question innocente donna naissance à des cérémonies du thé et à la création de Paul Tea & Spices.",
     },
-    location: "Vorarlberg, Austria",
+    location: "Feldkirch, Vorarlberg (Austria)",
     year: "Founding Story",
     tag: "Cultural Exchange",
   },
@@ -100,8 +100,8 @@ export const HERITAGE_STORIES = [
       it: "Guidati dal nostro CEO indiano con esperienza generazionale nel tè, eliminiamo gli intermediari e acquistiamo direttamente da piantagioni a Darjeeling, Assam, Kashmir e Kerala. Rifiutiamo la produzione di massa per privilegiare l'artigianato.",
       fr: "Dirigés par notre CEO indien fort d'un savoir-faire familial séculaire, nous supprimons les intermédiaires et meublons nos produits directement auprès de plantations à Darjeeling, Assam, Cachemire et Kerala. Nous refusons la production de masse au profit de l'artisanat.",
     },
-    location: "Darjeeling • Assam • Kashmir • Kerala • Feldkirch",
+    location: "Darjeeling • Kerala • Feldkirch (Austria)",
     year: "Direct Estate Provenance",
     tag: "Craft & Ethics",
-  }
+  },
 ];
