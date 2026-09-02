@@ -279,9 +279,7 @@ export default function TeaStorySection({ teaProducts, lang }) {
   useLayoutEffect(() => {
     if (!introRef.current) return undefined;
     const ctx = gsap.context(() => {
-      introRef.current
-        .querySelectorAll(".tea-story-item")
-        .forEach((item) => {
+      introRef.current.querySelectorAll(".tea-story-item").forEach((item) => {
         const image = item.querySelector(".tea-zoom-img");
         const frame = item.querySelector(".tea-visual-frame");
         const heading = item.querySelector(".tea-story-heading");
