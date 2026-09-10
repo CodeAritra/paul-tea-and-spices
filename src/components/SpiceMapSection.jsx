@@ -197,14 +197,15 @@ export default function SpiceMapSection({ lang = "de" }) {
                 </span>
               </div>
 
-              {/* Reset Map Button overlay inside viewport */}
+              {/* Prominent Back to Full Map Button overlay when zoomed */}
               {selectedSpice && (
                 <button
                   onClick={handleResetZoom}
-                  className="absolute bottom-4 left-4 z-30 px-3 py-1.5 rounded-md bg-white/90 text-[#121D2C] border border-[#C5A059]/40 backdrop-blur-md text-[11px] font-mono hover:bg-[#121D2C] hover:text-[#E5C483] transition-all duration-300 shadow-lg flex items-center gap-1.5"
+                  className="absolute top-4 left-4 z-30 px-3.5 py-2 rounded-full bg-[#121D2C]/90 text-[#E5C483] border border-[#C5A059]/70 backdrop-blur-md text-xs font-mono font-medium hover:bg-[#C5A059] hover:text-[#121D2C] transition-all duration-300 shadow-xl flex items-center gap-2 group animate-in fade-in zoom-in-95 duration-300 cursor-pointer"
+                  title={isGerman ? "Zurück zur Gesamtkarte" : "Back to Full Map View"}
                 >
                   <svg
-                    className="w-3.5 h-3.5"
+                    className="w-4 h-4 transition-transform group-hover:-translate-x-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -213,10 +214,10 @@ export default function SpiceMapSection({ lang = "de" }) {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+                      d="M10 19l-7-7m0 0l7-7m-7 7h18"
                     />
                   </svg>
-                  <span>{isGerman ? "Gesamtansicht" : "Full Map View"}</span>
+                  <span>{isGerman ? "Zurück zur Karte" : "Back to Full Map"}</span>
                 </button>
               )}
 
@@ -256,13 +257,13 @@ export default function SpiceMapSection({ lang = "de" }) {
                   {SPICES_DATA.map((spice) => {
                     const isSelected = selectedSpice?.id === spice.id;
                     const spiceName = isGerman ? spice.germanName : spice.name;
-                    const isTopPin = spice.y < 28;
+                    const isTopPin = spice.y < 32;
                     const isRightPin = spice.x > 70 || spice.id === "turmeric";
                     const tooltipPosClass = isRightPin
-                      ? "right-full top-1/2 -translate-y-1/2 mr-3"
+                      ? "right-full top-1/2 -translate-y-1/2 mr-2.5"
                       : isTopPin
-                      ? "top-full left-1/2 -translate-x-1/2 mt-3"
-                      : "bottom-full left-1/2 -translate-x-1/2 mb-3";
+                      ? "top-full left-1/2 -translate-x-1/2 mt-2.5"
+                      : "bottom-full left-1/2 -translate-x-1/2 mb-2.5";
 
                     return (
                       <div
@@ -282,8 +283,8 @@ export default function SpiceMapSection({ lang = "de" }) {
                           style={{
                             transform: selectedSpice
                               ? isSelected
-                                ? "scale(0.85)"
-                                : "scale(0.65)"
+                                ? "scale(0.48)"
+                                : "scale(0.35)"
                               : "scale(1)",
                           }}
                         >
@@ -311,14 +312,14 @@ export default function SpiceMapSection({ lang = "de" }) {
 
                           {/* Rich Vertical Tooltip Card (Smart Directional Popover) */}
                           <div
-                            className={`absolute p-2 rounded-2xl bg-[#121D2C]/95 border border-[#C5A059]/60 text-white pointer-events-none transition-all duration-300 shadow-2xl z-[999] flex flex-col items-center w-36 sm:w-44 backdrop-blur-md text-center ${tooltipPosClass} ${
+                            className={`absolute p-2 rounded-xl bg-[#121D2C]/95 border border-[#C5A059]/60 text-white pointer-events-none transition-all duration-300 shadow-2xl z-[999] flex flex-col items-center w-36 sm:w-40 backdrop-blur-md text-center ${tooltipPosClass} ${
                               isSelected
                                 ? "opacity-100 scale-100 translate-y-0"
                                 : "opacity-0 scale-90 translate-y-1 group-hover/pin:opacity-100 group-hover/pin:scale-100 group-hover/pin:translate-y-0"
                             }`}
                           >
-                            {/* Larger Spice Image Frame */}
-                            <div className="w-full aspect-[4/3] rounded-xl overflow-hidden mb-2 border border-[#C5A059]/40 bg-black/40 shadow-md">
+                            {/* Spice Image Frame */}
+                            <div className="w-full aspect-[16/10] rounded-lg overflow-hidden mb-1.5 border border-[#C5A059]/40 bg-black/40 shadow-md">
                               <img
                                 src={spice.image}
                                 alt={spiceName}
@@ -327,7 +328,7 @@ export default function SpiceMapSection({ lang = "de" }) {
                             </div>
 
                             {/* Name & Origin Text Below Image */}
-                            <div className="w-full px-1">
+                            <div className="w-full px-1 pb-0.5">
                               <p className="text-xs sm:text-sm font-serif font-bold text-[#E5C483] leading-tight truncate">
                                 {spiceName}
                               </p>
@@ -366,7 +367,7 @@ export default function SpiceMapSection({ lang = "de" }) {
                   </div>
                   <button
                     onClick={handleResetZoom}
-                    className="w-7 h-7 rounded-full bg-[#F5F0E8] border border-[#C5A059]/30 text-[#121D2C]/70 hover:text-[#121D2C] hover:border-[#C5A059] transition-all duration-300 flex items-center justify-center text-sm"
+                    className="w-7 h-7 rounded-full bg-[#F5F0E8] border border-[#C5A059]/30 text-[#121D2C]/70 hover:text-[#121D2C] hover:bg-[#C5A059]/20 hover:border-[#C5A059] transition-all duration-300 flex items-center justify-center text-sm cursor-pointer"
                     title={isGerman ? "Schließen" : "Close detail"}
                   >
                     ✕
@@ -437,7 +438,7 @@ export default function SpiceMapSection({ lang = "de" }) {
                 <div className="shrink-0 flex items-center justify-between pt-3 mt-3 border-t border-[#C5A059]/20 text-xs font-mono">
                   <button
                     onClick={handlePrevSpice}
-                    className="px-3 py-1.5 rounded-lg bg-[#F5F0E8] text-[#121D2C] border border-[#C5A059]/30 hover:bg-[#121D2C] hover:text-white transition-all duration-300 flex items-center gap-1"
+                    className="px-3 py-1.5 rounded-lg bg-[#F5F0E8] text-[#121D2C] border border-[#C5A059]/30 hover:bg-[#121D2C] hover:text-white transition-all duration-300 flex items-center gap-1 cursor-pointer"
                   >
                     <span>←</span>
                     <span>{isGerman ? "Vorheriges" : "Previous"}</span>
@@ -445,14 +446,14 @@ export default function SpiceMapSection({ lang = "de" }) {
 
                   <button
                     onClick={handleResetZoom}
-                    className="text-[10px] text-[#C5A059] hover:underline"
+                    className="text-[10px] text-[#C5A059] hover:underline cursor-pointer"
                   >
                     {isGerman ? "Landkarte ansehen" : "View Map"}
                   </button>
 
                   <button
                     onClick={handleNextSpice}
-                    className="px-3 py-1.5 rounded-lg bg-[#121D2C] text-[#E5C483] font-bold hover:bg-[#1B263B] transition-all duration-300 flex items-center gap-1 shadow-md"
+                    className="px-3 py-1.5 rounded-lg bg-[#121D2C] text-[#E5C483] font-bold hover:bg-[#1B263B] transition-all duration-300 flex items-center gap-1 shadow-md cursor-pointer"
                   >
                     <span>{isGerman ? "Nächstes" : "Next"}</span>
                     <span>→</span>

@@ -1,34 +1,40 @@
 @import "tailwindcss";
 @theme {
-  --color-finesse: #F5F0E8;
-  --color-bottle-green: #1A392A;
-  --color-midnight-sapphire: #121D2C;
-  --color-ink-navy: #1B263B;
-  --color-gold: #C5A059;
-  --color-gold-light: #E5C483;
-  --color-charcoal: #1C2024;
+  --color-finesse: #f5f0e8;
+  --color-bottle-green: #1a392a;
+  --color-midnight-sapphire: #121d2c;
+  --color-ink-navy: #1b263b;
+  --color-gold: #c5a059;
+  --color-gold-light: #e5c483;
+  --color-charcoal: #1c2024;
 }
 
 @layer base {
   :root {
-    --color-finesse: #F5F0E8;
-    --color-bottle-green: #1A392A;
-    --color-midnight-sapphire: #121D2C;
-    --color-ink-navy: #1B263B;
-    --color-gold: #C5A059;
-    --color-gold-light: #E5C483;
-    --color-charcoal: #1C2024;
+    --color-finesse: #f5f0e8;
+    --color-bottle-green: #1a392a;
+    --color-midnight-sapphire: #121d2c;
+    --color-ink-navy: #1b263b;
+    --color-gold: #c5a059;
+    --color-gold-light: #e5c483;
+    --color-charcoal: #1c2024;
   }
 
   body {
     background-color: var(--color-finesse);
     color: var(--color-charcoal);
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: "Plus Jakarta Sans", sans-serif;
     overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6, .font-serif {
-    font-family: 'Playfair Display', Georgia, serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .font-serif {
+    font-family: "Playfair Display", Georgia, serif;
   }
 }
 
@@ -161,7 +167,7 @@
 }
 
 .gold-foil-frame::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 4px;
   border: 1px solid rgba(197, 160, 89, 0.25);
@@ -171,7 +177,14 @@
 
 /* Gold Shimmer Button Effect */
 .gold-shimmer-btn {
-  background: linear-gradient(90deg, #1A392A 0%, #2D5A43 45%, #C5A059 50%, #2D5A43 55%, #1A392A 100%);
+  background: linear-gradient(
+    90deg,
+    #1a392a 0%,
+    #2d5a43 45%,
+    #c5a059 50%,
+    #2d5a43 55%,
+    #1a392a 100%
+  );
   background-size: 250% 100%;
   transition: all 0.5s ease;
 }
@@ -185,31 +198,30 @@
 .apothecary-label {
   background: rgba(26, 57, 42, 0.75);
   border: 1px solid rgba(197, 160, 89, 0.4);
-  color: #F5F0E8;
-  font-family: 'Playfair Display', Georgia, serif;
+  color: #f5f0e8;
+  font-family: "Playfair Display", Georgia, serif;
   letter-spacing: 0.04em;
   backdrop-filter: blur(4px);
 }
 
 /* Tactile Uncoated Linen Paper Pattern overlay */
 .paper-texture {
-  background-color: #F5F0E8;
+  background-color: #f5f0e8;
   background-image: radial-gradient(rgba(28, 32, 36, 0.03) 1px, transparent 0);
   background-size: 24px 24px;
 }
-
 
 /* Smooth custom scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #F5F0E8;
+  background: #f5f0e8;
 }
 ::-webkit-scrollbar-thumb {
-  background: #C5A059;
+  background: #c5a059;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #1A392A;
+  background: #1a392a;
 }
