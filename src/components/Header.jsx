@@ -242,11 +242,14 @@ export default function Header({ lang, setLang }) {
         className={`fixed top-0 left-0 right-0 z-50 bg-finesse paper-texture transition-all duration-300 will-change-transform ${
           isAnyMegaMenuOpen
             ? "border-b-0 shadow-none"
-            : "border-b border-[#C5A059]/75"
+            : "border-b border-[#C5A059]/60 shadow-[0_8px_30px_rgba(26,57,42,0.12),0_2px_8px_rgba(197,160,89,0.15)]"
         }`}
       >
-        {/* Top Banner Notice */}
-        <div className="bg-[#1A392A] text-[#F5F0E8] text-xs py-1.5 px-4 text-center font-medium tracking-wider uppercase flex items-center justify-center gap-2">
+        {/* Top Banner Notice with Gold Ribbon Accent */}
+        <div className="relative bg-gradient-to-r from-[#121D2C] via-[#1A392A] to-[#121D2C] text-[#F5F0E8] text-xs py-1.5 px-4 text-center font-medium tracking-wider uppercase flex items-center justify-center gap-2 border-b border-[#C5A059]/40 shadow-xs">
+          {/* Gold Metallic Ribbon Line */}
+          <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#E5C483] to-transparent opacity-90" />
+
           <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
           <span>{t.heritageSub}</span>
           <span className="hidden sm:inline text-[#C5A059]">|</span>
