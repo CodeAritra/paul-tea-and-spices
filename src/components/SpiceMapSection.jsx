@@ -117,7 +117,7 @@ export default function SpiceMapSection({ lang = "de" }) {
         {/* ============================================================ */}
         {/* MAIN MAP CONTAINER + DETAIL CARD DISPLAY LAYOUT              */}
         {/* ============================================================ */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center justify-center pb-9 pt-5">
           {/* MAP DISPLAY COLUMN */}
           <div
             className={`transition-all duration-700 ease-out flex flex-col justify-center ${
@@ -202,7 +202,11 @@ export default function SpiceMapSection({ lang = "de" }) {
                 <button
                   onClick={handleResetZoom}
                   className="absolute top-4 left-4 z-30 px-3.5 py-2 rounded-full bg-[#121D2C]/90 text-[#E5C483] border border-[#C5A059]/70 backdrop-blur-md text-xs font-mono font-medium hover:bg-[#C5A059] hover:text-[#121D2C] transition-all duration-300 shadow-xl flex items-center gap-2 group animate-in fade-in zoom-in-95 duration-300 cursor-pointer"
-                  title={isGerman ? "Zurück zur Gesamtkarte" : "Back to Full Map View"}
+                  title={
+                    isGerman
+                      ? "Zurück zur Gesamtkarte"
+                      : "Back to Full Map View"
+                  }
                 >
                   <svg
                     className="w-4 h-4 transition-transform group-hover:-translate-x-1"
@@ -217,132 +221,165 @@ export default function SpiceMapSection({ lang = "de" }) {
                       d="M10 19l-7-7m0 0l7-7m-7 7h18"
                     />
                   </svg>
-                  <span>{isGerman ? "Zurück zur Karte" : "Back to Full Map"}</span>
+                  <span>
+                    {isGerman ? "Zurück zur Karte" : "Back to Full Map"}
+                  </span>
                 </button>
               )}
 
               {/* SMOOTH ZOOM/PAN TRANSFORM WRAPPER */}
-              <div
-                className="w-full h-full relative transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu"
-                style={{
-                  transformOrigin: selectedSpice
-                    ? `${selectedSpice.x}% ${selectedSpice.y}%`
-                    : "50% 50%",
-                  transform: selectedSpice ? "scale(2.6)" : "scale(1)",
-                }}
-              >
-                {/* MAP & PINS SHARED BOUNDING CANVAS */}
-                <div className="absolute inset-3 sm:inset-6">
-                  {/* INDIA SVG MAP BASE */}
-                  <div className="w-full h-full flex items-center justify-center pointer-events-none">
-                    {isLoading ? (
-                      <div className="flex items-center gap-2 text-xs font-mono text-[#C5A059] animate-pulse">
-                        <span>Loading India Map...</span>
-                      </div>
-                    ) : svgContent ? (
-                      <div
-                        className="w-full h-full flex items-center justify-center [&_svg]:w-full [&_svg]:h-full [&_svg]:object-fill [&_path]:fill-[#C5A059]/15 [&_path]:stroke-[#121D2C] [&_path]:stroke-[2.5] [&_path]:stroke-linejoin-round drop-shadow-[0_8px_24px_rgba(197,160,89,0.3)]"
-                        dangerouslySetInnerHTML={{ __html: svgContent }}
-                      />
-                    ) : (
-                      <img
-                        src="/images/India.svg"
-                        alt="India Spice Map"
-                        className="w-full h-full object-fill filter brightness-90 contrast-125 drop-shadow-[0_4px_16px_rgba(197,160,89,0.25)] opacity-85"
-                      />
-                    )}
-                  </div>
+              {(() => {
+                const SCALE = 2.4;
+                const isSelectedTop = selectedSpice ? selectedSpice.y < 32 : false;
+                const isSelectedRight = selectedSpice
+                  ? selectedSpice.x > 70 || selectedSpice.id === "turmeric"
+                  : false;
 
-                  {/* ALL 13 SPICE PINS OVERLAY */}
-                  {SPICES_DATA.map((spice) => {
-                    const isSelected = selectedSpice?.id === spice.id;
-                    const spiceName = isGerman ? spice.germanName : spice.name;
-                    const isTopPin = spice.y < 32;
-                    const isRightPin = spice.x > 70 || spice.id === "turmeric";
-                    const tooltipPosClass = isRightPin
-                      ? "right-full top-1/2 -translate-y-1/2 mr-2.5"
-                      : isTopPin
-                      ? "top-full left-1/2 -translate-x-1/2 mt-2.5"
-                      : "bottom-full left-1/2 -translate-x-1/2 mb-2.5";
+                let targetX = selectedSpice ? selectedSpice.x : 50;
+                let targetY = selectedSpice ? selectedSpice.y : 50;
 
-                    return (
-                      <div
-                        key={spice.id}
-                        onClick={() => handlePinClick(spice)}
-                        className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer group/pin opacity-100 ${
-                          isSelected ? "z-[100]" : "z-20 hover:z-[90] group-hover/pin:z-[90]"
-                        }`}
-                        style={{
-                          left: `${spice.x}%`,
-                          top: `${spice.y}%`,
-                        }}
-                      >
-                        {/* Counter-scaling container for crisp rendering when zoomed */}
-                        <div
-                          className="relative flex items-center justify-center transition-transform duration-500"
-                          style={{
-                            transform: selectedSpice
-                              ? isSelected
-                                ? "scale(0.48)"
-                                : "scale(0.35)"
-                              : "scale(1)",
-                          }}
-                        >
-                          {/* Glowing Ring Animation */}
-                          <span
-                            className={`absolute inset-0 rounded-full transition-all duration-700 ${
-                              isSelected
-                                ? "animate-ping bg-[#C5A059] opacity-75 scale-150"
-                                : "bg-[#C5A059]/40 group-hover/pin:animate-ping group-hover/pin:opacity-50"
-                            }`}
+                if (selectedSpice) {
+                  if (isSelectedRight) {
+                    targetX = selectedSpice.x - 15;
+                    targetY = selectedSpice.y + 7;
+                  } else if (isSelectedTop) {
+                    targetX = selectedSpice.x;
+                    targetY = selectedSpice.y + 12;
+                  } else {
+                    targetX = selectedSpice.x;
+                    targetY = selectedSpice.y - 15;
+                  }
+                }
+
+                const translateX = (50 - targetX) * SCALE;
+                const translateY = (50 - targetY) * SCALE;
+
+                return (
+                  <div
+                    className="w-full h-full relative transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu"
+                    style={{
+                      transformOrigin: "50% 50%",
+                      transform: selectedSpice
+                        ? `translate(${translateX}%, ${translateY}%) scale(${SCALE})`
+                        : "translate(0%, 0%) scale(1)",
+                    }}
+                  >
+                    {/* MAP & PINS SHARED BOUNDING CANVAS */}
+                    <div className="absolute inset-3 sm:inset-6">
+                      {/* INDIA SVG MAP BASE */}
+                      <div className="w-full h-full flex items-center justify-center pointer-events-none">
+                        {isLoading ? (
+                          <div className="flex items-center gap-2 text-xs font-mono text-[#C5A059] animate-pulse">
+                            <span>Loading India Map...</span>
+                          </div>
+                        ) : svgContent ? (
+                          <div
+                            className="w-full h-full flex items-center justify-center [&_svg]:w-full [&_svg]:h-full [&_svg]:object-fill [&_path]:fill-[#C5A059]/15 [&_path]:stroke-[#121D2C] [&_path]:stroke-[2.5] [&_path]:stroke-linejoin-round drop-shadow-[0_8px_24px_rgba(197,160,89,0.3)]"
+                            dangerouslySetInnerHTML={{ __html: svgContent }}
                           />
-
-                          {/* Outer Gold Border Circle */}
-                          <div
-                            className={`relative w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center border-2 transition-all duration-300 shadow-xl ${
-                              isSelected
-                                ? "bg-[#C5A059] border-[#121D2C] text-[#121D2C] scale-125 shadow-[0_0_20px_rgba(197,160,89,0.8)]"
-                                : "bg-[#121D2C] border-[#C5A059] text-[#E5C483] group-hover/pin:scale-110 group-hover/pin:border-white group-hover/pin:bg-[#C5A059] group-hover/pin:text-[#121D2C]"
-                            }`}
-                          >
-                            <span className="text-xs sm:text-sm font-semibold select-none">
-                              {spice.iconSymbol}
-                            </span>
-                          </div>
-
-                          {/* Rich Vertical Tooltip Card (Smart Directional Popover) */}
-                          <div
-                            className={`absolute p-2 rounded-xl bg-[#121D2C]/95 border border-[#C5A059]/60 text-white pointer-events-none transition-all duration-300 shadow-2xl z-[999] flex flex-col items-center w-36 sm:w-40 backdrop-blur-md text-center ${tooltipPosClass} ${
-                              isSelected
-                                ? "opacity-100 scale-100 translate-y-0"
-                                : "opacity-0 scale-90 translate-y-1 group-hover/pin:opacity-100 group-hover/pin:scale-100 group-hover/pin:translate-y-0"
-                            }`}
-                          >
-                            {/* Spice Image Frame */}
-                            <div className="w-full aspect-[16/10] rounded-lg overflow-hidden mb-1.5 border border-[#C5A059]/40 bg-black/40 shadow-md">
-                              <img
-                                src={spice.image}
-                                alt={spiceName}
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-
-                            {/* Name & Origin Text Below Image */}
-                            <div className="w-full px-1 pb-0.5">
-                              <p className="text-xs sm:text-sm font-serif font-bold text-[#E5C483] leading-tight truncate">
-                                {spiceName}
-                              </p>
-                              <p className="text-[8.5px] sm:text-[9.5px] font-mono text-[#F5F0E8]/75 uppercase truncate mt-0.5">
-                                {isGerman ? spice.germanOrigin : spice.origin}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
+                        ) : (
+                          <img
+                            src="/images/India.svg"
+                            alt="India Spice Map"
+                            className="w-full h-full object-fill filter brightness-90 contrast-125 drop-shadow-[0_4px_16px_rgba(197,160,89,0.25)] opacity-85"
+                          />
+                        )}
                       </div>
-                    );
-                  })}
-                </div>
-              </div>
+
+                      {/* ALL 13 SPICE PINS OVERLAY */}
+                      {SPICES_DATA.map((spice) => {
+                        const isSelected = selectedSpice?.id === spice.id;
+                        const spiceName = isGerman ? spice.germanName : spice.name;
+                        const isTopPin = spice.y < 32;
+                        const isRightPin = spice.x > 70 || spice.id === "turmeric";
+                        const tooltipPosClass = isRightPin
+                          ? "right-full top-1/2 -translate-y-1/2 mr-2.5"
+                          : isTopPin
+                            ? "top-full left-1/2 -translate-x-1/2 mt-2.5"
+                            : "bottom-full left-1/2 -translate-x-1/2 mb-2.5";
+
+                        return (
+                          <div
+                            key={spice.id}
+                            onClick={() => handlePinClick(spice)}
+                            className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer group/pin opacity-100 ${
+                              isSelected
+                                ? "z-[100]"
+                                : "z-20 hover:z-[90] group-hover/pin:z-[90]"
+                            }`}
+                            style={{
+                              left: `${spice.x}%`,
+                              top: `${spice.y}%`,
+                            }}
+                          >
+                            {/* Counter-scaling container for crisp rendering when zoomed */}
+                            <div
+                              className="relative flex items-center justify-center transition-transform duration-500"
+                              style={{
+                                transform: selectedSpice
+                                  ? isSelected
+                                    ? "scale(0.65)"
+                                    : "scale(0.35)"
+                                  : "scale(1)",
+                              }}
+                            >
+                              {/* Glowing Ring Animation */}
+                              <span
+                                className={`absolute inset-0 rounded-full transition-all duration-700 ${
+                                  isSelected
+                                    ? "animate-ping bg-[#C5A059] opacity-75 scale-150"
+                                    : "bg-[#C5A059]/40 group-hover/pin:animate-ping group-hover/pin:opacity-50"
+                                }`}
+                              />
+
+                              {/* Outer Gold Border Circle */}
+                              <div
+                                className={`relative w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center border-2 transition-all duration-300 shadow-xl ${
+                                  isSelected
+                                    ? "bg-[#C5A059] border-[#121D2C] text-[#121D2C] scale-125 shadow-[0_0_20px_rgba(197,160,89,0.8)]"
+                                    : "bg-[#121D2C] border-[#C5A059] text-[#E5C483] group-hover/pin:scale-110 group-hover/pin:border-white group-hover/pin:bg-[#C5A059] group-hover/pin:text-[#121D2C]"
+                                }`}
+                              >
+                                <span className="text-xs sm:text-sm font-semibold select-none">
+                                  {spice.iconSymbol}
+                                </span>
+                              </div>
+
+                              {/* Rich Vertical Tooltip Card (Smart Directional Popover) */}
+                              <div
+                                className={`absolute p-2 rounded-xl bg-[#121D2C]/95 border border-[#C5A059]/60 text-white pointer-events-none transition-all duration-300 shadow-2xl z-[999] flex flex-col items-center w-36 sm:w-40 backdrop-blur-md text-center ${tooltipPosClass} ${
+                                  isSelected
+                                    ? "opacity-100 scale-100 translate-y-0"
+                                    : "opacity-0 scale-90 translate-y-1 group-hover/pin:opacity-100 group-hover/pin:scale-100 group-hover/pin:translate-y-0"
+                                }`}
+                              >
+                                {/* Spice Image Frame */}
+                                <div className="w-full aspect-[16/10] rounded-lg overflow-hidden mb-1.5 border border-[#C5A059]/40 bg-black/40 shadow-md">
+                                  <img
+                                    src={spice.image}
+                                    alt={spiceName}
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+
+                                {/* Name & Origin Text Below Image */}
+                                <div className="w-full px-1 pb-0.5">
+                                  <p className="text-xs sm:text-sm font-serif font-bold text-[#E5C483] leading-tight truncate">
+                                    {spiceName}
+                                  </p>
+                                  <p className="text-[8.5px] sm:text-[9.5px] font-mono text-[#F5F0E8]/75 uppercase truncate mt-0.5">
+                                    {isGerman ? spice.germanOrigin : spice.origin}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           </div>
 
