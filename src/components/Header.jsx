@@ -5,6 +5,7 @@ import { Sparkles, Globe, ChevronDown } from "lucide-react";
 import { TRANSLATIONS, PRODUCTS } from "../data/productsData";
 
 const TEA_PRODUCTS = PRODUCTS.filter((p) => p.category === "tea");
+const SPICE_PRODUCTS = PRODUCTS.filter((p) => p.category === "spices");
 
 export default function Header({ lang, setLang }) {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.de;
@@ -12,13 +13,17 @@ export default function Header({ lang, setLang }) {
   const [logoError, setLogoError] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isTeaMenuOpen, setIsTeaMenuOpen] = useState(false);
+  const [isSpiceMenuOpen, setIsSpiceMenuOpen] = useState(false);
   const headerRef = useRef(null);
   const langDropdownRef = useRef(null);
   const langTimeoutRef = useRef(null);
   const teaTimeoutRef = useRef(null);
+  const spiceTimeoutRef = useRef(null);
 
   const handleTeaEnter = () => {
     if (teaTimeoutRef.current) clearTimeout(teaTimeoutRef.current);
+    if (spiceTimeoutRef.current) clearTimeout(spiceTimeoutRef.current);
+    setIsSpiceMenuOpen(false);
     setIsTeaMenuOpen(true);
   };
 
@@ -26,6 +31,24 @@ export default function Header({ lang, setLang }) {
     teaTimeoutRef.current = setTimeout(() => {
       setIsTeaMenuOpen(false);
     }, 250);
+  };
+
+  const handleSpiceEnter = () => {
+    if (spiceTimeoutRef.current) clearTimeout(spiceTimeoutRef.current);
+    if (teaTimeoutRef.current) clearTimeout(teaTimeoutRef.current);
+    setIsTeaMenuOpen(false);
+    setIsSpiceMenuOpen(true);
+  };
+
+  const handleSpiceLeave = () => {
+    spiceTimeoutRef.current = setTimeout(() => {
+      setIsSpiceMenuOpen(false);
+    }, 250);
+  };
+
+  const closeAllMenus = () => {
+    setIsTeaMenuOpen(false);
+    setIsSpiceMenuOpen(false);
   };
 
   const navLabels = {
@@ -82,6 +105,7 @@ export default function Header({ lang, setLang }) {
       document.removeEventListener("mousedown", handleClickOutside);
       if (langTimeoutRef.current) clearTimeout(langTimeoutRef.current);
       if (teaTimeoutRef.current) clearTimeout(teaTimeoutRef.current);
+      if (spiceTimeoutRef.current) clearTimeout(spiceTimeoutRef.current);
     };
   }, []);
 
@@ -132,6 +156,8 @@ export default function Header({ lang, setLang }) {
   const currentLanguage =
     languages.find((l) => l.code === lang) || languages[0];
 
+  const isAnyMegaMenuOpen = isTeaMenuOpen || isSpiceMenuOpen;
+
   // Smart scroll-linked header:
   // Hides when scrolling down, reveals when scrolling up.
   // Stays quietly hidden while inside pinned sections so it NEVER causes items/screen to shift.
@@ -145,7 +171,7 @@ export default function Header({ lang, setLang }) {
       const currentScrollY = window.scrollY;
 
       // Always show if mega menu is active
-      if (isTeaMenuOpen) {
+      if (isTeaMenuOpen || isSpiceMenuOpen) {
         header.style.transform = "translateY(0%)";
         isHidden = false;
         lastScrollY = currentScrollY;
@@ -192,26 +218,29 @@ export default function Header({ lang, setLang }) {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isTeaMenuOpen]);
+  }, [isTeaMenuOpen, isSpiceMenuOpen]);
 
   return (
     <>
       {/* Dark Page Backdrop Overlay */}
       <div
         className={`fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity duration-300 z-30 ${
-          isTeaMenuOpen
+          isAnyMegaMenuOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
         }`}
-        onClick={() => setIsTeaMenuOpen(false)}
-        onMouseEnter={handleTeaLeave}
+        onClick={closeAllMenus}
+        onMouseEnter={() => {
+          handleTeaLeave();
+          handleSpiceLeave();
+        }}
       />
 
       <header
         ref={headerRef}
         style={{ transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)" }}
         className={`fixed top-0 left-0 right-0 z-50 bg-finesse paper-texture transition-all duration-300 will-change-transform ${
-          isTeaMenuOpen
+          isAnyMegaMenuOpen
             ? "border-b-0 shadow-none"
             : "border-b border-[#C5A059]/75"
         }`}
@@ -230,6 +259,7 @@ export default function Header({ lang, setLang }) {
           {/* Left Side: Paul's Logo + Subtitle "TEA & SPICES" */}
           <Link
             to="/"
+            onClick={closeAllMenus}
             className="flex flex-col items-center group select-none shrink-0"
             title="Paul's Tea & Spices"
           >
@@ -258,7 +288,7 @@ export default function Header({ lang, setLang }) {
             <NavLink
               to="/"
               end
-              onClick={() => setIsTeaMenuOpen(false)}
+              onClick={closeAllMenus}
               className={({ isActive }) =>
                 `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
                   isActive
@@ -278,7 +308,7 @@ export default function Header({ lang, setLang }) {
             >
               <NavLink
                 to="/tea"
-                onClick={() => setIsTeaMenuOpen(false)}
+                onClick={closeAllMenus}
                 className={({ isActive }) =>
                   `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] flex items-center gap-1.5 ${
                     isActive || isTeaMenuOpen
@@ -291,25 +321,31 @@ export default function Header({ lang, setLang }) {
               </NavLink>
             </div>
 
-            {/* Spices */}
-            <NavLink
-              to="/spices"
-              onClick={() => setIsTeaMenuOpen(false)}
-              className={({ isActive }) =>
-                `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
-                  isActive
-                    ? "text-[#1A392A] font-bold border-[#1A392A]"
-                    : "text-[#1C2024]/75 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
-                }`
-              }
+            {/* Spices Tab */}
+            <div
+              className="relative"
+              onMouseEnter={handleSpiceEnter}
+              onMouseLeave={handleSpiceLeave}
             >
-              {currentNav.spices}
-            </NavLink>
+              <NavLink
+                to="/spices"
+                onClick={closeAllMenus}
+                className={({ isActive }) =>
+                  `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] flex items-center gap-1.5 ${
+                    isActive || isSpiceMenuOpen
+                      ? "text-[#1A392A] font-bold border-[#1A392A]"
+                      : "text-[#1C2024]/75 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+                  }`
+                }
+              >
+                <span>{currentNav.spices}</span>
+              </NavLink>
+            </div>
 
             {/* Tutorials */}
             <NavLink
               to="/tutorials"
-              onClick={() => setIsTeaMenuOpen(false)}
+              onClick={closeAllMenus}
               className={({ isActive }) =>
                 `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
                   isActive
@@ -324,7 +360,7 @@ export default function Header({ lang, setLang }) {
             {/* About Us */}
             <NavLink
               to="/about"
-              onClick={() => setIsTeaMenuOpen(false)}
+              onClick={closeAllMenus}
               className={({ isActive }) =>
                 `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
                   isActive
@@ -341,14 +377,14 @@ export default function Header({ lang, setLang }) {
           <div
             className={`absolute top-full left-0 right-0 w-full bg-finesse paper-texture border-t-0 border-b border-[#C5A059]/30 shadow-2xl transition-all duration-300 overflow-hidden z-40 ${
               isTeaMenuOpen
-                ? "max-h-[1400px] opacity-100 py-20 sm:py-30 pointer-events-auto"
+                ? "max-h-[1400px] opacity-100 py-16 sm:py-24 pointer-events-auto"
                 : "max-h-0 opacity-0 py-0 pointer-events-none"
             }`}
             onMouseEnter={handleTeaEnter}
             onMouseLeave={handleTeaLeave}
           >
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-              {/* Grid of Tea Items (Exact Tesla Vehicles Menu Layout) */}
+              {/* Grid of Tea Items */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 items-start justify-center">
                 {TEA_PRODUCTS.map((tea) => {
                   const name =
@@ -376,10 +412,10 @@ export default function Header({ lang, setLang }) {
                       key={tea.id}
                       className="group/item flex flex-col items-center text-center cursor-pointer select-none"
                     >
-                      {/* 1. Product Image (Tesla vehicle photo style) */}
+                      {/* 1. Product Image */}
                       <Link
                         to={`/tea#tea-story-${tea.id}`}
-                        onClick={() => setIsTeaMenuOpen(false)}
+                        onClick={closeAllMenus}
                         className="w-full aspect-[4/3] max-h-[300px] sm:max-h-[340px] flex items-center justify-center mb-5 overflow-hidden rounded-2xl bg-[#1A392A]/5 border border-[#C5A059]/30 shadow-sm group-hover/item:shadow-xl transition-all duration-300"
                       >
                         <img
@@ -389,27 +425,112 @@ export default function Header({ lang, setLang }) {
                         />
                       </Link>
 
-                      {/* 2. Product Name (Tesla Model Name style) */}
+                      {/* 2. Product Name */}
                       <Link
                         to={`/tea#tea-story-${tea.id}`}
-                        onClick={() => setIsTeaMenuOpen(false)}
+                        onClick={closeAllMenus}
                         className="font-serif text-base sm:text-lg font-bold text-[#1A392A] group-hover/item:text-[#C5A059] transition-colors leading-tight mb-2 tracking-tight line-clamp-1"
                       >
                         {name}
                       </Link>
 
-                      {/* 3. Sub-links below title (Tesla "Learn Order" style with underlines) */}
+                      {/* 3. Sub-links below title */}
                       <div className="flex items-center justify-center gap-4 text-xs sm:text-sm font-sans text-[#1C2024]/75 mt-1">
                         <Link
                           to={`/tea#tea-story-${tea.id}`}
-                          onClick={() => setIsTeaMenuOpen(false)}
+                          onClick={closeAllMenus}
                           className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#1A392A] hover:text-[#1A392A] transition-all font-medium"
                         >
                           {leftLinkText}
                         </Link>
                         <Link
                           to={`/tea#tea-story-${tea.id}`}
-                          onClick={() => setIsTeaMenuOpen(false)}
+                          onClick={closeAllMenus}
+                          className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#1A392A] hover:text-[#1A392A] transition-all font-medium"
+                        >
+                          {rightLinkText}
+                        </Link>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Full-Width Mega Dropdown for Spices */}
+          <div
+            className={`absolute top-full left-0 right-0 w-full bg-finesse paper-texture border-t-0 border-b border-[#C5A059]/30 shadow-2xl transition-all duration-300 overflow-hidden z-40 ${
+              isSpiceMenuOpen
+                ? "max-h-[1400px] opacity-100 py-16 sm:py-24 pointer-events-auto"
+                : "max-h-0 opacity-0 py-0 pointer-events-none"
+            }`}
+            onMouseEnter={handleSpiceEnter}
+            onMouseLeave={handleSpiceLeave}
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Grid of 5 Spice Items */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 sm:gap-8 items-start justify-center">
+                {SPICE_PRODUCTS.slice(0, 5).map((spice) => {
+                  const name =
+                    lang === "de" && spice.germanName ? spice.germanName : spice.name;
+                  const isLuxury = spice.tier === "luxury";
+
+                  const leftLinkText = isLuxury
+                    ? lang === "de"
+                      ? "Luxus"
+                      : "Luxury"
+                    : lang === "de"
+                      ? "Global"
+                      : "Global";
+
+                  const rightLinkText = isLuxury
+                    ? lang === "de"
+                      ? "Ganze Gewürze"
+                      : "Whole Spices"
+                    : lang === "de"
+                      ? "Feine Auslese"
+                      : "Fine Select";
+
+                  return (
+                    <div
+                      key={spice.id}
+                      className="group/item flex flex-col items-center text-center cursor-pointer select-none"
+                    >
+                      {/* 1. Product Image */}
+                      <Link
+                        to="/spices"
+                        onClick={closeAllMenus}
+                        className="w-full aspect-[4/3] max-h-[300px] sm:max-h-[340px] flex items-center justify-center mb-5 overflow-hidden rounded-2xl bg-[#121D2C]/5 border border-[#C5A059]/30 shadow-sm group-hover/item:shadow-xl transition-all duration-300"
+                      >
+                        <img
+                          src={spice.imageUrl}
+                          alt={name}
+                          className="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-500 ease-out filter brightness-95"
+                        />
+                      </Link>
+
+                      {/* 2. Product Name */}
+                      <Link
+                        to="/spices"
+                        onClick={closeAllMenus}
+                        className="font-serif text-base sm:text-lg font-bold text-[#1A392A] group-hover/item:text-[#C5A059] transition-colors leading-tight mb-2 tracking-tight line-clamp-1"
+                      >
+                        {name}
+                      </Link>
+
+                      {/* 3. Sub-links below title */}
+                      <div className="flex items-center justify-center gap-4 text-xs sm:text-sm font-sans text-[#1C2024]/75 mt-1">
+                        <Link
+                          to="/spices"
+                          onClick={closeAllMenus}
+                          className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#1A392A] hover:text-[#1A392A] transition-all font-medium"
+                        >
+                          {leftLinkText}
+                        </Link>
+                        <Link
+                          to="/spices"
+                          onClick={closeAllMenus}
                           className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#1A392A] hover:text-[#1A392A] transition-all font-medium"
                         >
                           {rightLinkText}
