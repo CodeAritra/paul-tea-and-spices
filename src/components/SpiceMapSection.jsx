@@ -93,7 +93,7 @@ export default function SpiceMapSection({ lang = "de" }) {
   const isGerman = lang === "de";
 
   return (
-    <section className="relative w-full min-h-[calc(100vh-110px)] flex flex-col justify-center bg-[#F5F0E8] paper-texture text-[#121D2C] py-4 sm:py-6 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-[#C5A059]/20 selection:bg-[#121D2C] selection:text-white">
+    <section className="relative w-full min-h-[calc(100vh-110px)] flex flex-col justify-center bg-[#EDE1CC] paper-texture text-[#121D2C] py-4 sm:py-6 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-[#C5A059]/20 selection:bg-[#121D2C] selection:text-white">
       {/* Background Decorative Ambient Glows */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#C5A059]/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-80 h-80 bg-[#C5A059]/5 rounded-full blur-2xl pointer-events-none" />
@@ -126,7 +126,7 @@ export default function SpiceMapSection({ lang = "de" }) {
           >
             <div
               ref={mapViewportRef}
-              className="relative w-full max-w-[380px] sm:max-w-[430px] lg:max-w-[450px] max-h-[calc(100vh-230px)] mx-auto aspect-[666.67/777.33] bg-[#F5F0E8] rounded-2xl border border-[#C5A059]/35 shadow-xl overflow-hidden group select-none"
+              className="relative w-full max-w-[380px] sm:max-w-[430px] lg:max-w-[450px] max-h-[calc(100vh-230px)] mx-auto aspect-[666.67/777.33] bg-[#EDE1CC] rounded-2xl border border-[#C5A059]/35 shadow-xl overflow-hidden group select-none"
             >
               {/* Map Background Cartography Lines & Compass */}
               <div className="absolute inset-0 bg-[radial-gradient(#C5A059_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-20 pointer-events-none" />
@@ -230,7 +230,9 @@ export default function SpiceMapSection({ lang = "de" }) {
               {/* SMOOTH ZOOM/PAN TRANSFORM WRAPPER */}
               {(() => {
                 const SCALE = 2.4;
-                const isSelectedTop = selectedSpice ? selectedSpice.y < 32 : false;
+                const isSelectedTop = selectedSpice
+                  ? selectedSpice.y < 32
+                  : false;
                 const isSelectedRight = selectedSpice
                   ? selectedSpice.x > 70 || selectedSpice.id === "turmeric"
                   : false;
@@ -289,9 +291,12 @@ export default function SpiceMapSection({ lang = "de" }) {
                       {/* ALL 13 SPICE PINS OVERLAY */}
                       {SPICES_DATA.map((spice) => {
                         const isSelected = selectedSpice?.id === spice.id;
-                        const spiceName = isGerman ? spice.germanName : spice.name;
+                        const spiceName = isGerman
+                          ? spice.germanName
+                          : spice.name;
                         const isTopPin = spice.y < 32;
-                        const isRightPin = spice.x > 70 || spice.id === "turmeric";
+                        const isRightPin =
+                          spice.x > 70 || spice.id === "turmeric";
                         const tooltipPosClass = isRightPin
                           ? "right-full top-1/2 -translate-y-1/2 mr-2.5"
                           : isTopPin
@@ -367,8 +372,10 @@ export default function SpiceMapSection({ lang = "de" }) {
                                   <p className="text-xs sm:text-sm font-serif font-bold text-[#E5C483] leading-tight truncate">
                                     {spiceName}
                                   </p>
-                                  <p className="text-[8.5px] sm:text-[9.5px] font-mono text-[#F5F0E8]/75 uppercase truncate mt-0.5">
-                                    {isGerman ? spice.germanOrigin : spice.origin}
+                                  <p className="text-[8.5px] sm:text-[9.5px] font-mono text-[#EDE1CC]/75 uppercase truncate mt-0.5">
+                                    {isGerman
+                                      ? spice.germanOrigin
+                                      : spice.origin}
                                   </p>
                                 </div>
                               </div>
@@ -390,12 +397,12 @@ export default function SpiceMapSection({ lang = "de" }) {
           {/* ============================================================ */}
           {selectedSpice && (
             <div className="lg:col-span-6 flex flex-col justify-between animate-in fade-in slide-in-from-bottom-6 lg:slide-in-from-right-6 duration-500 max-h-[calc(100vh-230px)]">
-              <div className="bg-white border border-[#C5A059]/35 rounded-2xl p-3.5 sm:p-4 shadow-xl relative overflow-hidden text-[#121D2C] h-full flex flex-col justify-between overflow-y-auto">
+              <div className="bg-[#F5EBDB] border border-[#C5A059]/45 rounded-2xl p-3.5 sm:p-4 shadow-xl relative overflow-hidden text-[#1C2024] h-full flex flex-col justify-between overflow-y-auto">
                 {/* Gold Top Accent Line */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C5A059] to-transparent" />
 
                 {/* Header Tag + Close Button (Top Section) */}
-                <div className="shrink-0 flex items-center justify-between mb-2 pb-2 border-b border-[#C5A059]/20">
+                <div className="shrink-0 flex items-center justify-between mb-2 pb-2 border-b border-[#C5A059]/25">
                   <div className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-[#C5A059]">
                     <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
                     <span>
@@ -406,7 +413,7 @@ export default function SpiceMapSection({ lang = "de" }) {
                   </div>
                   <button
                     onClick={handleResetZoom}
-                    className="w-7 h-7 rounded-full bg-[#F5F0E8] border border-[#C5A059]/30 text-[#121D2C]/70 hover:text-[#121D2C] hover:bg-[#C5A059]/20 hover:border-[#C5A059] transition-all duration-300 flex items-center justify-center text-sm cursor-pointer"
+                    className="w-7 h-7 rounded-full bg-[#EDE1CC] border border-[#C5A059]/35 text-[#1A392A] hover:bg-[#1A392A] hover:text-[#E5C483] hover:border-[#1A392A] transition-all duration-300 flex items-center justify-center text-sm cursor-pointer"
                     title={isGerman ? "Schließen" : "Close detail"}
                   >
                     ✕
@@ -416,7 +423,7 @@ export default function SpiceMapSection({ lang = "de" }) {
                 {/* Middle Content Section (Flexible & Centered) */}
                 <div className="flex-1 flex flex-col justify-center space-y-2.5 my-auto">
                   {/* Spice Image Frame */}
-                  <div className="relative w-full aspect-[16/9] max-h-[140px] sm:max-h-[160px] rounded-xl overflow-hidden border border-[#C5A059]/30 group shrink-0">
+                  <div className="relative w-full aspect-[16/9] max-h-[140px] sm:max-h-[160px] rounded-xl overflow-hidden border border-[#C5A059]/35 group shrink-0">
                     <img
                       src={selectedSpice.image}
                       alt={
@@ -424,11 +431,11 @@ export default function SpiceMapSection({ lang = "de" }) {
                       }
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#121D2C]/60 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1C2024]/40 via-transparent to-transparent pointer-events-none" />
 
                     {/* Category Pill on Image */}
                     <div className="absolute top-2.5 left-2.5 z-10">
-                      <span className="px-2 py-0.5 rounded-md text-[8.5px] font-mono uppercase tracking-wider bg-[#121D2C]/90 text-[#E5C483] border border-[#C5A059]/50 backdrop-blur-md">
+                      <span className="px-2 py-0.5 rounded-md text-[8.5px] font-mono uppercase tracking-wider bg-[#1A392A]/90 text-[#E5C483] border border-[#C5A059]/50 backdrop-blur-md">
                         {selectedSpice.category}
                       </span>
                     </div>
@@ -436,7 +443,7 @@ export default function SpiceMapSection({ lang = "de" }) {
 
                   {/* Spice Name & Subtitle */}
                   <div>
-                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#121D2C] leading-tight mb-0.5">
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#1A392A] leading-tight mb-0.5">
                       {isGerman ? selectedSpice.germanName : selectedSpice.name}
                     </h3>
                     <p className="font-serif italic text-xs text-[#C5A059] font-medium">
@@ -445,7 +452,7 @@ export default function SpiceMapSection({ lang = "de" }) {
                   </div>
 
                   {/* Story Description */}
-                  <div className="bg-[#F5F0E8] rounded-xl p-2.5 border border-[#C5A059]/20">
+                  <div className="bg-[#EDE1CC]/75 rounded-xl p-2.5 border border-[#C5A059]/25">
                     <p className="text-xs text-[#1C2024]/85 font-light leading-relaxed">
                       {isGerman
                         ? selectedSpice.germanStory
@@ -456,14 +463,14 @@ export default function SpiceMapSection({ lang = "de" }) {
                   {/* Tasting Notes */}
                   {selectedSpice.tastingNotes && (
                     <div>
-                      <p className="text-[9px] font-mono uppercase tracking-widest text-[#C5A059] mb-1">
+                      <p className="text-[9px] font-mono uppercase tracking-widest text-[#C5A059] mb-1 font-bold">
                         {isGerman ? "GESCHMACKSPROFIL" : "TASTING NOTES"}
                       </p>
                       <div className="flex flex-wrap gap-1">
                         {selectedSpice.tastingNotes.map((note) => (
                           <span
                             key={note}
-                            className="px-2.5 py-1 rounded text-[10px] font-mono bg-[#121D2C]/5 text-[#121D2C] border border-[#C5A059]/30"
+                            className="px-2.5 py-1 rounded text-[10px] font-mono bg-[#EDE1CC] text-[#1A392A] border border-[#C5A059]/30 font-semibold"
                           >
                             {note}
                           </span>
@@ -474,10 +481,10 @@ export default function SpiceMapSection({ lang = "de" }) {
                 </div>
 
                 {/* Footer Navigation Bar (Bottom Section) */}
-                <div className="shrink-0 flex items-center justify-between pt-3 mt-3 border-t border-[#C5A059]/20 text-xs font-mono">
+                <div className="shrink-0 flex items-center justify-between pt-3 mt-3 border-t border-[#C5A059]/25 text-xs font-mono">
                   <button
                     onClick={handlePrevSpice}
-                    className="px-3 py-1.5 rounded-lg bg-[#F5F0E8] text-[#121D2C] border border-[#C5A059]/30 hover:bg-[#121D2C] hover:text-white transition-all duration-300 flex items-center gap-1 cursor-pointer"
+                    className="px-3 py-1.5 rounded-lg bg-[#EDE1CC] text-[#1A392A] border border-[#C5A059]/40 hover:bg-[#1A392A] hover:text-[#E5C483] transition-all duration-300 flex items-center gap-1 cursor-pointer font-bold"
                   >
                     <span>←</span>
                     <span>{isGerman ? "Vorheriges" : "Previous"}</span>
@@ -492,7 +499,7 @@ export default function SpiceMapSection({ lang = "de" }) {
 
                   <button
                     onClick={handleNextSpice}
-                    className="px-3 py-1.5 rounded-lg bg-[#121D2C] text-[#E5C483] font-bold hover:bg-[#1B263B] transition-all duration-300 flex items-center gap-1 shadow-md cursor-pointer"
+                    className="px-3 py-1.5 rounded-lg bg-[#1A392A] text-[#E5C483] font-bold hover:bg-[#C5A059] hover:text-[#1A392A] transition-all duration-300 flex items-center gap-1 shadow-md cursor-pointer"
                   >
                     <span>{isGerman ? "Nächstes" : "Next"}</span>
                     <span>→</span>

@@ -9,7 +9,7 @@ export default function HomeCollectionsPreview({ lang }) {
   return (
     <section
       id="home-showcase"
-      className="py-14 sm:py-20 bg-gradient-to-b from-[#F5F0E8] via-[#EFE8DC] to-[#F5F0E8] border-b border-[#C5A059]/25 relative overflow-hidden paper-texture"
+      className="py-14 sm:py-20 bg-gradient-to-b from-[#EDE1CC] via-[#E4D7C0] to-[#EDE1CC] border-b border-[#C5A059]/25 relative overflow-hidden paper-texture"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         {/* Atelier Badge */}

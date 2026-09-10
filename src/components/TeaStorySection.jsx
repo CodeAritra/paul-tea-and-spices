@@ -175,10 +175,10 @@ function CinematicTeaStory({ tea, lang, story }) {
     <div
       ref={storyRef}
       id={`tea-story-${tea.id}`}
-      className="tea-cinematic-story relative w-full h-screen min-h-[640px] max-h-[1000px] overflow-hidden bg-[#F5F0E8]"
+      className="tea-cinematic-story relative w-full h-screen min-h-[640px] max-h-[1000px] overflow-hidden bg-[#EDE1CC]"
     >
       {/* ① BACKGROUND ORIGIN LANDSCAPE STAGE (z-0) */}
-      <div className="tea-origin-stage absolute inset-0 z-0 text-[#F5F0E8]">
+      <div className="tea-origin-stage absolute inset-0 z-0 text-[#EDE1CC]">
         <div className="tea-origin-media absolute top-0 left-5 right-5 bottom-5 sm:left-8 sm:right-8 sm:bottom-8 lg:left-12 lg:right-12 lg:bottom-10 overflow-hidden">
           <img
             src={story.originImageUrl}
@@ -197,7 +197,7 @@ function CinematicTeaStory({ tea, lang, story }) {
               </p>
             )}
             {story.location && (
-              <h3 className="tea-origin-location font-serif text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight leading-none text-[#F5F0E8] drop-shadow-md">
+              <h3 className="tea-origin-location font-serif text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight leading-none text-[#EDE1CC] drop-shadow-md">
                 {story.location}
               </h3>
             )}
@@ -207,7 +207,7 @@ function CinematicTeaStory({ tea, lang, story }) {
               </p>
             )}
             {story.statement && (
-              <p className="tea-origin-statement max-w-md mt-10 text-sm sm:text-base font-light leading-relaxed text-[#F5F0E8]/90">
+              <p className="tea-origin-statement max-w-md mt-10 text-sm sm:text-base font-light leading-relaxed text-[#EDE1CC]/90">
                 {story.statement}
               </p>
             )}
@@ -225,9 +225,9 @@ function CinematicTeaStory({ tea, lang, story }) {
       </div>
 
       {/* ② INTRO STAGE – Tea image (left) + story text (right) (z-10)
-           bg-[#F5F0E8] blocks origin text bleed-through.
+           bg-[#EDE1CC] blocks origin text bleed-through.
            pt-[110px] clears the fixed header both before and after pinning. */}
-      <div className="tea-story-intro absolute inset-0 z-10 bg-[#F5F0E8] flex items-start justify-center pt-[110px] px-4 sm:px-6 lg:px-8 pointer-events-none">
+      <div className="tea-story-intro absolute inset-0 z-10 bg-[#EDE1CC] flex items-start justify-center pt-[110px] px-4 sm:px-6 lg:px-8 pointer-events-none">
         <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-14 pointer-events-auto">
           {/* Left: Product Image */}
           <div className="w-full lg:w-1/2 shrink-0 flex justify-center">
@@ -330,7 +330,7 @@ export default function TeaStorySection({ teaProducts, lang }) {
   return (
     <section
       id="tea-collection"
-      className="bg-[#F5F0E8] paper-texture border-b border-[#C5A059]/20"
+      className="bg-[#EDE1CC] paper-texture border-b border-[#C5A059]/20"
     >
       {/* ── Section heading ── */}
       <div className="pt-12 sm:pt-16 pb-2 sm:pb-3 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

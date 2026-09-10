@@ -167,7 +167,7 @@ export default function SpicesStorySection({ spicesProducts, lang }) {
     <section
       ref={sectionRef}
       id="spices-collection"
-      className="relative w-full h-screen min-h-[640px] max-h-[1024px] overflow-hidden bg-[#F5F0E8] paper-texture flex items-center justify-center border-t border-[#C5A059]/20"
+      className="relative w-full h-screen min-h-[640px] max-h-[1024px] overflow-hidden bg-[#EDE1CC] paper-texture flex items-center justify-center border-t border-[#C5A059]/20"
     >
       {/* ============================================================ */}
       {/* STAGE 1-13: FOCUSED EDITORIAL SPOTLIGHTS                      */}

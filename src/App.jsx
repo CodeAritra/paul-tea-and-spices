@@ -31,7 +31,7 @@ function HomePage({ lang }) {
 
 function TeaPage({ lang }) {
   return (
-    <div id="tea-catalog" className="bg-[#F5F0E8] paper-texture">
+    <div id="tea-catalog" className="bg-[#EDE1CC] paper-texture">
       {/* PAUL TEA COLLECTION — STORY-DRIVEN & MINIMAL */}
       <TeaStorySection teaProducts={TEA_PRODUCTS} lang={lang} />
     </div>
@@ -40,7 +40,7 @@ function TeaPage({ lang }) {
 
 function SpicesPage({ lang }) {
   return (
-    <div id="spices-catalog" className="bg-[#F5F0E8] paper-texture">
+    <div id="spices-catalog" className="bg-[#EDE1CC] paper-texture">
       {/* INTERACTIVE SPICE MAP SECTION */}
       <SpiceMapSection lang={lang} />
     </div>
@@ -146,7 +146,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F5F0E8] text-[#1C2024] selection:bg-[#1A392A] selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#EDE1CC] text-[#1C2024] selection:bg-[#1A392A] selection:text-white">
       {/* Fixed Header Navigation */}
       <Header lang={lang} setLang={setLang} />
 

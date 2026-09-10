@@ -246,7 +246,7 @@ export default function Header({ lang, setLang }) {
         }`}
       >
         {/* Top Banner Notice with Gold Ribbon Accent */}
-        <div className="relative bg-gradient-to-r from-[#121D2C] via-[#1A392A] to-[#121D2C] text-[#F5F0E8] text-xs py-1.5 px-4 text-center font-medium tracking-wider uppercase flex items-center justify-center gap-2 border-b border-[#C5A059]/40 shadow-xs">
+        <div className="relative bg-gradient-to-r from-[#121D2C] via-[#1A392A] to-[#121D2C] text-[#EDE1CC] text-xs py-1.5 px-4 text-center font-medium tracking-wider uppercase flex items-center justify-center gap-2 border-b border-[#C5A059]/40 shadow-xs">
           {/* Gold Metallic Ribbon Line */}
           <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#E5C483] to-transparent opacity-90" />
 
@@ -634,8 +634,8 @@ export default function Header({ lang, setLang }) {
                 aria-label="Select Language"
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition shadow-xs text-xs font-semibold cursor-pointer ${
                   isLangOpen
-                    ? "border-[#1A392A] bg-[#1A392A] text-white"
-                    : "border-[#C5A059]/40 bg-white/80 text-[#1A392A] hover:bg-[#C5A059]/10 hover:border-[#C5A059]"
+                    ? "border-[#1A392A] bg-[#1A392A] text-[#E5C483]"
+                    : "border-[#C5A059]/50 bg-[#F5EBDB] text-[#1A392A] hover:bg-[#1A392A] hover:text-[#E5C483] hover:border-[#1A392A]"
                 }`}
               >
                 <img
@@ -662,8 +662,8 @@ export default function Header({ lang, setLang }) {
                     : "opacity-0 -translate-y-2 pointer-events-none"
                 }`}
               >
-                <div className="bg-[#F5F0E8] border border-[#C5A059]/40 rounded-xl shadow-2xl py-1.5 overflow-hidden">
-                  <div className="px-3 py-1 text-[10px] uppercase tracking-wider font-semibold text-[#C5A059] border-b border-[#C5A059]/20 mb-1">
+                <div className="bg-[#F5EBDB] border border-[#C5A059]/50 rounded-xl shadow-2xl py-1.5 overflow-hidden">
+                  <div className="px-3 py-1 text-[10px] uppercase tracking-wider font-semibold text-[#C5A059] border-b border-[#C5A059]/25 mb-1">
                     Select Language
                   </div>
                   {languages.map((l) => (
@@ -673,9 +673,9 @@ export default function Header({ lang, setLang }) {
                         setLang(l.code);
                         setIsLangOpen(false);
                       }}
-                      className={`w-full px-3.5 py-2 text-left text-xs flex items-center justify-between hover:bg-[#1A392A]/10 transition cursor-pointer ${
+                      className={`w-full px-3.5 py-2 text-left text-xs flex items-center justify-between hover:bg-[#EDE1CC] transition cursor-pointer ${
                         lang === l.code
-                          ? "font-bold text-[#1A392A] bg-[#1A392A]/8"
+                          ? "font-bold text-[#1A392A] bg-[#EDE1CC]"
                           : "text-[#1C2024]"
                       }`}
                     >

@@ -15,11 +15,11 @@ import {
   ChefHat,
   Compass,
   ArrowRight,
-  Volume2
+  Volume2,
 } from "lucide-react";
 
 export default function TutorialsSection({ lang }) {
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState("timer");
   const [selectedTeaTimer, setSelectedTeaTimer] = useState(0);
   const [timeLeft, setTimeLeft] = useState(180);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
@@ -30,19 +30,20 @@ export default function TutorialsSection({ lang }) {
     de: {
       badge: "Paul's Meisterklasse & Rituale",
       title: "Die Kunst der Vollendeten Zubereitung",
-      subtitle: "Vom Aufguss seltener indischer Teeblätter bis zur thermischen Entfaltung ganzer Gewürze – überliefert aus drei Generationen.",
+      subtitle:
+        "Vom Aufguss seltener indischer Teeblätter bis zur thermischen Entfaltung ganzer Gewürze – überliefert aus drei Generationen.",
       categories: {
-        all: "Alle Anleitungen",
+        timer: "Tee-Timer",
         tea: "Tee-Zubereitung",
-        spices: "Gewürz-Rituale",
-        recipes: "Signature Rezepte"
+        spices: "Gewürz-Mischung",
       },
       timerTitle: "Interaktiver Tee-Timer & Aufguss-Sommelier",
       timerSub: "Wählen Sie Ihren Tee für die exakte Temperatur & Ziehzeit:",
       start: "Timer Starten",
       pause: "Pausieren",
       reset: "Zurücksetzen",
-      timerDone: "Ihr Tee ist perfekt gereift! Jetzt sanft abgießen und genießen.",
+      timerDone:
+        "Ihr Tee ist perfekt gereift! Jetzt sanft abgießen und genießen.",
       waterTemp: "Wassertemperatur",
       steepDuration: "Ziehzeit",
       leafRatio: "Dosierung",
@@ -58,14 +59,17 @@ export default function TutorialsSection({ lang }) {
           ratio: "2,5g pro 200ml Quellwasser",
           vessel: "Porzellankanne oder Gaiwan",
           color: "#1A392A",
-          image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80",
+          prepSummary:
+            "Quellwasser kochen und auf ~92°C abkühlen lassen. 2,5g unzerkleinerte Blätter in die vorgewärmte Kanne geben und genau 3 Minuten ziehen lassen, um feine Muskatell-Noten ohne Bitterstoffe zu entfalten.",
+          image:
+            "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80",
           steps: [
             "Das Quellwasser sprudelnd kochen und anschließend 45 Sekunden abkühlen lassen auf ~92°C.",
             "Die Teekanne mit etwas heißem Wasser vorwärmen und das Wasser verwerfen.",
             "2,5g unzerkleinerte Blattknospen hineingeben und mit 200ml Wasser übergießen.",
             "Genau 3 Minuten ziehen lassen, damit sich die Muskatell-Noten optimal entfalten, ohne Bitterstoffe freizusetzen.",
-            "Vollständig abseihen und pur in dünnwandigen Tassen servieren."
-          ]
+            "Vollständig abseihen und pur in dünnwandigen Tassen servieren.",
+          ],
         },
         {
           id: "green-tea",
@@ -77,14 +81,17 @@ export default function TutorialsSection({ lang }) {
           ratio: "2g pro 200ml Quellwasser",
           vessel: "Glaskanne oder Keramik-Kyusu",
           color: "#2D5A27",
-          image: "https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?auto=format&fit=crop&w=800&q=80",
+          prepSummary:
+            "Wasser nach dem Kochen 3–4 Min. auf 80°C abkühlen lassen. 2g Blätter dosieren, mit temperiertem Wasser aufgießen und 2:30 Min. ziehen lassen für ein smaragdgrünes, süß-frisches Aroma.",
+          image:
+            "https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?auto=format&fit=crop&w=800&q=80",
           steps: [
             "Wasser kochen und 3–4 Minuten auf 80°C abkühlen lassen (Niemals kochendes Wasser verwenden!).",
             "Die zarten, antioxidantienreichen Blätter dosieren.",
             "Mit dem temperierten Wasser benetzen und 2:30 Minuten ziehen lassen.",
             "Der Aufguss leuchtet hell smaragdgrün mit natürlicher Süße und feiner Frische.",
-            "Die Blätter eignen sich für bis zu 3 geschmackvolle Folgeaufgüsse (+30 Sek. pro Durchgang)."
-          ]
+            "Die Blätter eignen sich für bis zu 3 geschmackvolle Folgeaufgüsse (+30 Sek. pro Durchgang).",
+          ],
         },
         {
           id: "white-tea",
@@ -96,14 +103,17 @@ export default function TutorialsSection({ lang }) {
           ratio: "3g pro 250ml Quellwasser",
           vessel: "Glas-Aufgussgefäß",
           color: "#8C7A5B",
-          image: "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=800&q=80",
+          prepSummary:
+            "Quellwasser auf sanfte 75°C temperieren. Die ungeöffneten Silberknospen im Glasgefäß 5 Minuten geduldig ziehen lassen – für ein seidiges, blumig-honigsüßes Aroma.",
+          image:
+            "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=800&q=80",
           steps: [
             "Quellwasser auf sanfte 75°C temperieren.",
             "Die ungeöffneten, samtigen Blattknospen im Glasgefäß bewundern.",
             "Behutsam aufgießen – die Knospen tanzen vertikal im Glas.",
             "Geduldig 5 Minuten ziehen lassen. Die ätherischen Blütennoten entfalten sich seidig und rund.",
-            "Ein edles Meditations- und Genussritual für ruhige Abendstunden."
-          ]
+            "Ein edles Meditations- und Genussritual für ruhige Abendstunden.",
+          ],
         },
         {
           id: "herbal-blend",
@@ -115,14 +125,17 @@ export default function TutorialsSection({ lang }) {
           ratio: "3g pro 220ml kochendes Wasser",
           vessel: "Ton- oder Gusseisenkanne",
           color: "#1B263B",
-          image: "https://images.unsplash.com/photo-1514733670139-4d87a1941d55?auto=format&fit=crop&w=800&q=80",
+          prepSummary:
+            "Wasser auf 95°C erhitzen. Die Mischung aus alpiner Minze und Teeblättern abgedeckt 3,5 Minuten ziehen lassen, um flüchtige Öle zu binden. Warm mit Honig verfeinern.",
+          image:
+            "https://images.unsplash.com/photo-1514733670139-4d87a1941d55?auto=format&fit=crop&w=800&q=80",
           steps: [
             "Frisches Wasser auf 95°C erhitzen.",
             "Die Mischung aus alpiner Minze, Zitronenverbene und edlen Teeblättern in das Sieb geben.",
             "Aufgießen und abgedeckt 3,5 Minuten ruhen lassen, um flüchtige ätherische Öle im Gefäß zu binden.",
-            "Heiß oder lauwarm mit einem Teelöffel Vorarlberger Bergblütenhonig verfeinern."
-          ]
-        }
+            "Heiß oder lauwarm mit einem Teelöffel Vorarlberger Bergblütenhonig verfeinern.",
+          ],
+        },
       ],
       spiceRituals: [
         {
@@ -130,37 +143,46 @@ export default function TutorialsSection({ lang }) {
           category: "spices",
           icon: "Flame",
           tag: "Grundtechnik der Gewürzküche",
-          description: "Ganze Gewürze wie Kreuzkümmel, Senfsaat und Kardamom entfalten ihr wahres Aroma erst, wenn sie für 20–30 Sekunden in heißem Ghee oder reinem Pflanzenöl aufspringen.",
+          image:
+            "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=800&q=80",
+          description:
+            "Ganze Gewürze wie Kreuzkümmel, Senfsaat und Kardamom entfalten ihr wahres Aroma erst, wenn sie für 20–30 Sekunden in heißem Ghee oder reinem Pflanzenöl aufspringen.",
           tips: [
             "Hitze auf mittlere Stufe einstellen – Gewürze dürfen niemals schwarz werden.",
             "Zuerst feste Samen (Kreuzkümmel, Koriander), danach zerstoßene Kapseln zugeben.",
-            "Sobald der nussige Duft aufsteigt, sofort von der Flamme nehmen oder mit Flüssigkeit ablöschen."
-          ]
+            "Sobald der nussige Duft aufsteigt, sofort von der Flamme nehmen oder mit Flüssigkeit ablöschen.",
+          ],
         },
         {
           title: "Die Safran-Extraktion (Zweiphasen-Methode)",
           category: "spices",
           icon: "Sparkles",
           tag: "Rotes Gold von Kaschmir",
-          description: "Safranfäden niemals direkt in kochendes Essen werfen. Nur durch kontrollierte Kalt- oder Warmextraktion wird die volle Crocin-Farbe und der honigartige Duft freigesetzt.",
+          image:
+            "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80",
+          description:
+            "Safranfäden niemals direkt in kochendes Essen werfen. Nur durch kontrollierte Kalt- oder Warmextraktion wird die volle Crocin-Farbe und der honigartige Duft freigesetzt.",
           tips: [
             "Safranfäden im Mörser mit einer Prise Zucker oder Salz zu feinstem Puder zerreiben.",
             "Entweder auf einen Eiswürfel streuen (schonendste Aroma-Farbausbeute) oder in 2 EL warmer Milch 15 Minuten ziehen lassen.",
-            "Das tief rubinrote Elixier erst gegen Ende des Kochvorgangs sanft unterrühren."
-          ]
+            "Das tief rubinrote Elixier erst gegen Ende des Kochvorgangs sanft unterrühren.",
+          ],
         },
         {
           title: "Tellicherry Pfeffer: Mörser vs. Mühle",
           category: "spices",
           icon: "ChefHat",
           tag: "Pfeffer-Masterclass",
-          description: "Große spät geerntete Tellicherry-Beeren enthalten in ihrer dicken Schale fruchtige Terpene, die bei feinem Mahlen verfliegen, aber beim groben Zerstoßen explodieren.",
+          image:
+            "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=800&q=80",
+          description:
+            "Große spät geerntete Tellicherry-Beeren enthalten in ihrer dicken Schale fruchtige Terpene, die bei feinem Mahlen verfliegen, aber beim groben Zerstoßen explodieren.",
           tips: [
             "Für Fleisch, Pasta & Käse: Immer grob im schweren Granitmörser zerstoßen.",
             "Für delikate Saucen und Fonds: Ganze Beeren mitköcheln und vor dem Servieren entnehmen.",
-            "Pfeffer vor dem Mörsern kurz in einer trockenen Pfanne handwarm anwärmen."
-          ]
-        }
+            "Pfeffer vor dem Mörsern kurz in einer trockenen Pfanne handwarm anwärmen.",
+          ],
+        },
       ],
       signatureRecipes: [
         {
@@ -168,7 +190,8 @@ export default function TutorialsSection({ lang }) {
           time: "12 Min.",
           servings: "2 Tassen",
           difficulty: "Einfach",
-          image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=80",
+          image:
+            "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=80",
           ingredients: [
             "2 gehäufte TL Paul's Assam Schwarzer Tee",
             "3 grüne Kardamomkapseln (leicht zerdrückt)",
@@ -176,44 +199,49 @@ export default function TutorialsSection({ lang }) {
             "1cm frischer Ingwer (in feine Scheiben geschnitten)",
             "200ml klares Quellwasser",
             "200ml frische Alpenmilch (oder Hafermilch)",
-            "1-2 TL Vorarlberger Alpenhonig"
+            "1-2 TL Vorarlberger Alpenhonig",
           ],
-          instruction: "Wasser mit den Gewürzen und dem Ingwer 5 Minuten sanft köcheln. Den Assam Tee zugeben und 2 Minuten ziehen lassen. Milch hinzufügen und einmal kurz cremig aufschäumen lassen. Durch ein feines Teesieb in Becher gießen und mit Honig süßen."
+          instruction:
+            "Wasser mit den Gewürzen und dem Ingwer 5 Minuten sanft köcheln. Den Assam Tee zugeben und 2 Minuten ziehen lassen. Milch hinzufügen und einmal kurz cremig aufschäumen lassen. Durch ein feines Teesieb in Becher gießen und mit Honig süßen.",
         },
         {
           title: "Kashmiri Goldene Mondmilch (Golden Elixir)",
           time: "8 Min.",
           servings: "1 Tasse",
           difficulty: "Leicht",
-          image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80",
+          image:
+            "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80",
           ingredients: [
             "250ml Mandelmilch oder Biomilch",
             "5 Fäden Paul's Kaschmir Safran",
             "½ TL Paul's Kurkuma",
             "1 Prise frisch zerstoßener Tellicherry Pfeffer (aktiviert das Curcumin)",
             "2 zerdrückte Kardamomkapseln",
-            "1 TL reines Kokosöl oder Ghee"
+            "1 TL reines Kokosöl oder Ghee",
           ],
-          instruction: "Milch mit Safran, Kurkuma, Kardamom und schwarzem Pfeffer sanft erwärmen (nicht kochen). 5 Minuten ziehen lassen, bis die Milch eine leuchtend goldene Farbe annimmt. Durch ein Sieb gießen und warm vor dem Schlafen genießen."
-        }
-      ]
+          instruction:
+            "Milch mit Safran, Kurkuma, Kardamom und schwarzem Pfeffer sanft erwärmen (nicht kochen). 5 Minuten ziehen lassen, bis die Milch eine leuchtend goldene Farbe annimmt. Durch ein Sieb gießen und warm vor dem Schlafen genießen.",
+        },
+      ],
     },
     en: {
       badge: "Paul's Masterclass & Rituals",
       title: "The Art of Refined Preparation",
-      subtitle: "From steeping rare Indian loose leaf teas to unlocking whole spices in ghee – perfected over three generations.",
+      subtitle:
+        "From steeping rare Indian loose leaf teas to unlocking whole spices in ghee – perfected over three generations.",
       categories: {
-        all: "All Guides",
-        tea: "Tea Brewing",
-        spices: "Spice Rituals",
-        recipes: "Signature Recipes"
+        timer: "Tea Timer",
+        tea: "Tea Preparation",
+        spices: "Spice Mixing",
       },
       timerTitle: "Interactive Tea Timer & Steeping Sommelier",
-      timerSub: "Select your tea to set exact water temperature & countdown duration:",
+      timerSub:
+        "Select your tea to set exact water temperature & countdown duration:",
       start: "Start Timer",
       pause: "Pause",
       reset: "Reset",
-      timerDone: "Your infusion is perfected! Strain gently and savor every note.",
+      timerDone:
+        "Your infusion is perfected! Strain gently and savor every note.",
       waterTemp: "Water Temp",
       steepDuration: "Steeping Time",
       leafRatio: "Leaf Ratio",
@@ -229,14 +257,17 @@ export default function TutorialsSection({ lang }) {
           ratio: "2.5g per 200ml spring water",
           vessel: "Porcelain Teapot or Gaiwan",
           color: "#1A392A",
-          image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80",
+          prepSummary:
+            "Boil fresh spring water and let settle to ~92°C. Steep 2.5g whole leaves in a preheated pot for 3 minutes to unlock rich muscatel notes without bitterness.",
+          image:
+            "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80",
           steps: [
             "Bring fresh spring water to a rolling boil, then allow it to settle for 45 seconds to ~92°C.",
             "Preheat your porcelain teapot with a splash of hot water, then discard it.",
             "Place 2.5g of uncrushed whole leaves into the pot and pour over 200ml of hot water.",
             "Steep for precisely 3 minutes to unleash muscatel top notes and rich malty body without astringency.",
-            "Strain completely into thin-rimmed porcelain cups and enjoy pure."
-          ]
+            "Strain completely into thin-rimmed porcelain cups and enjoy pure.",
+          ],
         },
         {
           id: "green-tea",
@@ -248,14 +279,17 @@ export default function TutorialsSection({ lang }) {
           ratio: "2g per 200ml spring water",
           vessel: "Glass Infuser or Kyusu",
           color: "#2D5A27",
-          image: "https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?auto=format&fit=crop&w=800&q=80",
+          prepSummary:
+            "Cool boiled water to 80°C (never use boiling water). Infuse 2g tender leaves for 2.5 minutes for a sweet emerald liquor (re-steep up to 3 times).",
+          image:
+            "https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?auto=format&fit=crop&w=800&q=80",
           steps: [
             "Boil fresh water and allow it to cool 3–4 minutes down to 80°C (never use boiling water!).",
             "Dose the vibrant, antioxidant-dense tender leaves.",
             "Pour gently and steep for 2.5 minutes.",
             "The liquor glows a crystalline emerald with lingering sweetness and zero bitterness.",
-            "Leaves can be re-steeped up to 3 times (+30s per steep)."
-          ]
+            "Leaves can be re-steeped up to 3 times (+30s per steep).",
+          ],
         },
         {
           id: "white-tea",
@@ -267,14 +301,17 @@ export default function TutorialsSection({ lang }) {
           ratio: "3g per 250ml spring water",
           vessel: "Glassware or Gaiwan",
           color: "#8C7A5B",
-          image: "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=800&q=80",
+          prepSummary:
+            "Heat soft spring water to 75°C. Gently pour over whole unopened silver buds and steep for 5 minutes for a smooth, honeyed melon infusion.",
+          image:
+            "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=800&q=80",
           steps: [
             "Heat soft spring water to a gentle 75°C.",
             "Admire the downy silver trichomes on whole unopened buds.",
             "Pour slowly down the side of the glass vessel; watch the buds float upright.",
             "Patiently infuse for 5 minutes. The delicate honeyed melon aroma is supremely restorative.",
-            "Ideal for meditative afternoon & evening moments."
-          ]
+            "Ideal for meditative afternoon & evening moments.",
+          ],
         },
         {
           id: "herbal-blend",
@@ -286,14 +323,17 @@ export default function TutorialsSection({ lang }) {
           ratio: "3g per 220ml boiling water",
           vessel: "Clay or Cast Iron Teapot",
           color: "#1B263B",
-          image: "https://images.unsplash.com/photo-1514733670139-4d87a1941d55?auto=format&fit=crop&w=800&q=80",
+          prepSummary:
+            "Heat water to 95°C. Cover and infuse alpine mint and tea leaves for 3.5 minutes to trap essential oils. Optionally stir in raw mountain honey.",
+          image:
+            "https://images.unsplash.com/photo-1514733670139-4d87a1941d55?auto=format&fit=crop&w=800&q=80",
           steps: [
             "Heat filtered water to 95°C.",
             "Combine Austrian mountain mint, lemon verbena, and premium whole leaf tea.",
             "Cover while infusing for 3.5 minutes to trap volatile essential oils.",
-            "Optionally stir in a teaspoon of raw Vorarlberg alpine honey."
-          ]
-        }
+            "Optionally stir in a teaspoon of raw Vorarlberg alpine honey.",
+          ],
+        },
       ],
       spiceRituals: [
         {
@@ -301,37 +341,46 @@ export default function TutorialsSection({ lang }) {
           category: "spices",
           icon: "Flame",
           tag: "Foundation of Indian Spicing",
-          description: "Whole seeds such as cumin, black mustard, and cardamom pods unlock their true fragrance only when briefly crackled in hot clarified butter or cold-pressed oil.",
+          image:
+            "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=800&q=80",
+          description:
+            "Whole seeds such as cumin, black mustard, and cardamom pods unlock their true fragrance only when briefly crackled in hot clarified butter or cold-pressed oil.",
           tips: [
             "Maintain medium heat — spices must sizzle and pop, never scorch black.",
             "Add dense seeds first (cumin, coriander), then crushed pods and leaves.",
-            "As soon as the nutty aroma fills the room (20-30s), fold into your stew or dish."
-          ]
+            "As soon as the nutty aroma fills the room (20-30s), fold into your stew or dish.",
+          ],
         },
         {
           title: "Saffron Extraction: The Ice & Warm Milk Protocol",
           category: "spices",
           icon: "Sparkles",
           tag: "Red Gold of Kashmir",
-          description: "Never drop dry saffron directly into boiling broth. Controlled cold-ice or warm-milk blooming yields twice the color and 100% of its intoxicating floral aroma.",
+          image:
+            "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80",
+          description:
+            "Never drop dry saffron directly into boiling broth. Controlled cold-ice or warm-milk blooming yields twice the color and 100% of its intoxicating floral aroma.",
           tips: [
             "Gently pulverize saffron threads with a pinch of coarse sugar in a mortar.",
             "Place powder over a single ice cube to melt slowly for maximum color extraction.",
-            "Add the crimson liquor at the very finish of cooking to preserve fragile aroma."
-          ]
+            "Add the crimson liquor at the very finish of cooking to preserve fragile aroma.",
+          ],
         },
         {
           title: "Tellicherry Peppercorns: Pestle vs. Grinder",
           category: "spices",
           icon: "ChefHat",
           tag: "Pepper Sommelier Guide",
-          description: "Extra-bold late-harvest Tellicherry peppercorns feature citrusy resinous essential oils in their outer pericarp that evaporate in fine blenders but burst when hand-crushed.",
+          image:
+            "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=800&q=80",
+          description:
+            "Extra-bold late-harvest Tellicherry peppercorns feature citrusy resinous essential oils in their outer pericarp that evaporate in fine blenders but burst when hand-crushed.",
           tips: [
             "For steaks, pasta & cheeses: Always crack coarsely using a heavy granite mortar.",
             "For subtle broths & poaching: Simmer whole berries and skim before plating.",
-            "Warm berries in a dry skillet for 60 seconds before crushing to double their aromatic kick."
-          ]
-        }
+            "Warm berries in a dry skillet for 60 seconds before crushing to double their aromatic kick.",
+          ],
+        },
       ],
       signatureRecipes: [
         {
@@ -339,7 +388,8 @@ export default function TutorialsSection({ lang }) {
           time: "12 Mins",
           servings: "2 Cups",
           difficulty: "Easy",
-          image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=80",
+          image:
+            "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=80",
           ingredients: [
             "2 heaping tsp Paul's Assam Orthodox Tea",
             "3 green cardamom pods (bruised)",
@@ -347,97 +397,112 @@ export default function TutorialsSection({ lang }) {
             "1cm fresh ginger root (thinly sliced)",
             "200ml pure spring water",
             "200ml rich alpine whole milk (or oat milk)",
-            "1-2 tsp raw Vorarlberg alpine honey"
+            "1-2 tsp raw Vorarlberg alpine honey",
           ],
-          instruction: "Simmer water with spices and ginger for 5 minutes. Add Assam tea leaves and steep 2 minutes. Pour in milk, bring to a gentle rolling foam once. Strain through fine mesh into clay cups and stir in honey."
+          instruction:
+            "Simmer water with spices and ginger for 5 minutes. Add Assam tea leaves and steep 2 minutes. Pour in milk, bring to a gentle rolling foam once. Strain through fine mesh into clay cups and stir in honey.",
         },
         {
           title: "Kashmiri Golden Saffron Moon Milk",
           time: "8 Mins",
           servings: "1 Cup",
           difficulty: "Quick",
-          image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80",
+          image:
+            "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80",
           ingredients: [
             "250ml almond milk or fresh whole milk",
             "5-6 threads Paul's Kashmiri Saffron",
             "½ tsp Paul's Wayanad Turmeric",
             "1 pinch freshly cracked Tellicherry Pepper (activates curcumin)",
             "2 crushed cardamom pods",
-            "1 tsp pure coconut oil or ghee"
+            "1 tsp pure coconut oil or ghee",
           ],
-          instruction: "Gently warm milk with saffron, turmeric, black pepper, and cardamom for 5 minutes without boiling. Strain into a warm ceramic mug and enjoy before bedtime for deep restorative rest."
-        }
-      ]
+          instruction:
+            "Gently warm milk with saffron, turmeric, black pepper, and cardamom for 5 minutes without boiling. Strain into a warm ceramic mug and enjoy before bedtime for deep restorative rest.",
+        },
+      ],
     },
     es: {
       badge: "Clase Magistral y Rituales de Paul",
       title: "El Arte de la Preparación Perfecta",
-      subtitle: "Desde la infusión de hojas de té indias exclusivas hasta la extracción térmica de especias enteras.",
+      subtitle:
+        "Desde la infusión de hojas de té indias exclusivas hasta la extracción térmica de especias enteras.",
       categories: {
-        all: "Todas las Guías",
+        timer: "Temporizador",
         tea: "Preparación de Té",
-        spices: "Rituales de Especias",
-        recipes: "Recetas Exclusivas"
+        spices: "Mezcla de Especias",
       },
       timerTitle: "Temporizador Interactivo y Sumiller de Té",
-      timerSub: "Seleccione su té para ajustar la temperatura exacta y la cuenta regresiva:",
+      timerSub:
+        "Seleccione su té para ajustar la temperatura exacta y la cuenta regresiva:",
       start: "Iniciar Temporizador",
       pause: "Pausar",
       reset: "Reiniciar",
-      timerDone: "¡Su té está en su punto perfecto! Cuele suavemente y disfrute.",
+      timerDone:
+        "¡Su té está en su punto perfecto! Cuele suavemente y disfrute.",
       waterTemp: "Temperatura del Agua",
       steepDuration: "Tiempo de Infusión",
       leafRatio: "Dosis de Hoja",
-      vessel: "Recipiente Recomendado"
+      vessel: "Recipiente Recomendado",
     },
     it: {
       badge: "Masterclass & Rituali di Paul",
       title: "L'Arte della Preparazione Perfetta",
-      subtitle: "Dall'infusione di foglie di tè rare all'estrazione termica delle spezie indiane intere.",
+      subtitle:
+        "Dall'infusione di foglie di tè rare all'estrazione termica delle spezie indiane intere.",
       categories: {
-        all: "Tutte le Guide",
-        tea: "Infusione Tè",
-        spices: "Rituali Spezie",
-        recipes: "Ricette Esclusive"
+        timer: "Timer Tè",
+        tea: "Preparazione Tè",
+        spices: "Miscelazione Spezie",
       },
       timerTitle: "Timer Interattivo e Sommelier del Tè",
-      timerSub: "Seleziona il tuo tè per impostare temperatura e durata esatte:",
+      timerSub:
+        "Seleziona il tuo tè per impostare temperatura e durata esatte:",
       start: "Avvia Timer",
       pause: "Pausa",
       reset: "Azzera",
-      timerDone: "La tua infusione è perfetta! Filtra delicatamente e assapora.",
+      timerDone:
+        "La tua infusione è perfetta! Filtra delicatamente e assapora.",
       waterTemp: "Temperatura Acqua",
       steepDuration: "Tempo di Infusione",
       leafRatio: "Dosaggio",
-      vessel: "Recipiente Consigliato"
+      vessel: "Recipiente Consigliato",
     },
     fr: {
       badge: "Masterclass & Rituels de Paul",
       title: "L'Art de la Préparation Parfaite",
-      subtitle: "De l'infusion de feuilles de thé rares à l'éveil aromatique des épices entières dans le beurre clarifié.",
+      subtitle:
+        "De l'infusion de feuilles de thé rares à l'éveil aromatique des épices entières dans le beurre clarifié.",
       categories: {
-        all: "Tous les Guides",
-        tea: "Infusion du Thé",
-        spices: "Rituels des Épices",
-        recipes: "Recettes Signature"
+        timer: "Minuteur",
+        tea: "Préparation du Thé",
+        spices: "Mélange d'Épices",
       },
       timerTitle: "Minuteur Interactif & Sommelier du Thé",
-      timerSub: "Sélectionnez votre thé pour calibrer température et compte à rebours :",
+      timerSub:
+        "Sélectionnez votre thé pour calibrer température et compte à rebours :",
       start: "Démarrer le Minuteur",
       pause: "Pause",
       reset: "Réinitialiser",
-      timerDone: "Votre infusion est accomplie ! Filtrez délicatement et savourez.",
+      timerDone:
+        "Votre infusion est accomplie ! Filtrez délicatement et savourez.",
       waterTemp: "Température de l'Eau",
       steepDuration: "Durée d'Infusion",
       leafRatio: "Dosage",
-      vessel: "Récipient Conseillé"
-    }
+      vessel: "Récipient Conseillé",
+    },
   };
 
   const content = TUTORIAL_CONTENT[lang] || TUTORIAL_CONTENT.de;
-  const currentTeaGuides = (TUTORIAL_CONTENT[lang] && TUTORIAL_CONTENT[lang].teaGuides) || TUTORIAL_CONTENT.en.teaGuides;
-  const currentSpiceRituals = (TUTORIAL_CONTENT[lang] && TUTORIAL_CONTENT[lang].spiceRituals) || TUTORIAL_CONTENT.en.spiceRituals;
-  const currentRecipes = (TUTORIAL_CONTENT[lang] && TUTORIAL_CONTENT[lang].signatureRecipes) || TUTORIAL_CONTENT.en.signatureRecipes;
+  const currentTeaGuides =
+    (TUTORIAL_CONTENT[lang] && TUTORIAL_CONTENT[lang].teaGuides) ||
+    TUTORIAL_CONTENT.en.teaGuides;
+  const currentSpiceRituals =
+    (TUTORIAL_CONTENT[lang] && TUTORIAL_CONTENT[lang].spiceRituals) ||
+    TUTORIAL_CONTENT.en.spiceRituals;
+  const currentRecipes =
+    (TUTORIAL_CONTENT[lang] && TUTORIAL_CONTENT[lang].signatureRecipes) ||
+    TUTORIAL_CONTENT.en.signatureRecipes;
 
   const currentTea = currentTeaGuides[selectedTeaTimer] || currentTeaGuides[0];
 
@@ -493,12 +558,13 @@ export default function TutorialsSection({ lang }) {
     return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
   };
 
-  const progressPercent = currentTea.timeSec > 0
-    ? ((currentTea.timeSec - timeLeft) / currentTea.timeSec) * 100
-    : 0;
+  const progressPercent =
+    currentTea.timeSec > 0
+      ? ((currentTea.timeSec - timeLeft) / currentTea.timeSec) * 100
+      : 0;
 
   return (
-    <div className="bg-[#F5F0E8] min-h-screen pt-12 pb-24 text-[#1C2024]">
+    <div className="bg-[#EDE1CC] min-h-screen pt-12 pb-24 text-[#1C2024]">
       {/* 1. HERO HEADER SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A392A] text-[#E5C483] text-xs uppercase tracking-[0.2em] font-medium mb-6 shadow-sm">
@@ -515,12 +581,11 @@ export default function TutorialsSection({ lang }) {
         </p>
 
         {/* Category Selector Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
           {[
-            { id: "all", label: content.categories.all, icon: BookOpen },
+            { id: "timer", label: content.categories.timer, icon: Clock },
             { id: "tea", label: content.categories.tea, icon: Coffee },
             { id: "spices", label: content.categories.spices, icon: Flame },
-            { id: "recipes", label: content.categories.recipes, icon: ChefHat },
           ].map((cat) => {
             const Icon = cat.icon;
             const isActive = activeCategory === cat.id;
@@ -528,13 +593,19 @@ export default function TutorialsSection({ lang }) {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-serif uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-xs ${
+                className={`group flex items-center gap-2 px-6 py-3 rounded-full text-xs sm:text-sm font-serif uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                   isActive
-                    ? "bg-[#1A392A] text-[#F5F0E8] border border-[#C5A059] font-bold shadow-md scale-105"
-                    : "bg-white/80 text-[#1C2024]/70 border border-[#C5A059]/30 hover:border-[#1A392A] hover:text-[#1A392A]"
+                    ? "bg-[#1A392A] text-[#EDE1CC] border border-[#C5A059] font-bold shadow-md scale-105"
+                    : "bg-transparent text-[#1A392A] border border-[#1A392A]/50 hover:bg-[#1A392A] hover:text-[#EDE1CC] font-semibold"
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-[#C5A059]" : "text-[#1A392A]/60"}`} />
+                <Icon
+                  className={`w-4 h-4 transition-colors duration-300 ${
+                    isActive
+                      ? "text-[#C5A059]"
+                      : "text-[#1A392A] group-hover:text-[#C5A059]"
+                  }`}
+                />
                 <span>{cat.label}</span>
               </button>
             );
@@ -542,8 +613,8 @@ export default function TutorialsSection({ lang }) {
         </div>
       </section>
 
-      {/* 2. INTERACTIVE TEA TIMER & SOMMELIER SECTION (Tea category or All) */}
-      {(activeCategory === "all" || activeCategory === "tea") && (
+      {/* 1. INTERACTIVE TEA TIMER & SOMMELIER SECTION (Timer Tab) */}
+      {activeCategory === "timer" && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
           <div className="bg-[#1A392A] text-white rounded-3xl p-6 sm:p-10 lg:p-12 border border-[#C5A059]/40 shadow-2xl relative overflow-hidden">
             {/* Background Glow Accents */}
@@ -555,7 +626,7 @@ export default function TutorialsSection({ lang }) {
                 <span className="text-[#C5A059] text-xs font-serif uppercase tracking-[0.25em] font-semibold">
                   Precision Steeping Guide
                 </span>
-                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#F5F0E8] mt-2 mb-3">
+                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#EDE1CC] mt-2 mb-3">
                   {content.timerTitle}
                 </h2>
                 <p className="text-xs sm:text-sm text-white/70">
@@ -595,7 +666,10 @@ export default function TutorialsSection({ lang }) {
                 <div className="lg:col-span-5 flex flex-col items-center justify-center text-center">
                   <div className="relative w-48 h-48 sm:w-56 sm:h-56 flex items-center justify-center">
                     {/* SVG Circular Progress Ring */}
-                    <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                    <svg
+                      className="w-full h-full transform -rotate-90"
+                      viewBox="0 0 100 100"
+                    >
                       <circle
                         cx="50"
                         cy="50"
@@ -612,7 +686,9 @@ export default function TutorialsSection({ lang }) {
                         className="text-[#C5A059] transition-all duration-1000 ease-linear"
                         strokeWidth="5"
                         strokeDasharray={276.46}
-                        strokeDashoffset={276.46 - (276.46 * progressPercent) / 100}
+                        strokeDashoffset={
+                          276.46 - (276.46 * progressPercent) / 100
+                        }
                         strokeLinecap="round"
                         stroke="currentColor"
                         fill="transparent"
@@ -621,11 +697,15 @@ export default function TutorialsSection({ lang }) {
 
                     {/* Center Time Readout */}
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="font-mono text-4xl sm:text-5xl font-bold tracking-tight text-[#F5F0E8]">
+                      <span className="font-mono text-4xl sm:text-5xl font-bold tracking-tight text-[#EDE1CC]">
                         {formatTime(timeLeft)}
                       </span>
                       <span className="text-[11px] font-serif uppercase tracking-widest text-[#C5A059] mt-1">
-                        {isTimerRunning ? "Steeping in Progress" : timerFinished ? "Complete!" : "Ready to Brew"}
+                        {isTimerRunning
+                          ? "Steeping in Progress"
+                          : timerFinished
+                            ? "Complete!"
+                            : "Ready to Brew"}
                       </span>
                     </div>
                   </div>
@@ -719,7 +799,10 @@ export default function TutorialsSection({ lang }) {
                     </h3>
                     <div className="space-y-2">
                       {currentTea.steps.map((step, sIdx) => (
-                        <div key={sIdx} className="flex items-start gap-3 text-xs text-white/80 leading-relaxed bg-white/5 p-2.5 rounded-lg border border-white/5">
+                        <div
+                          key={sIdx}
+                          className="flex items-start gap-3 text-xs text-white/80 leading-relaxed bg-white/5 p-2.5 rounded-lg border border-white/5"
+                        >
                           <span className="w-5 h-5 rounded-full bg-[#C5A059] text-[#1A392A] font-bold flex items-center justify-center shrink-0 text-[10px]">
                             {sIdx + 1}
                           </span>
@@ -735,8 +818,80 @@ export default function TutorialsSection({ lang }) {
         </section>
       )}
 
-      {/* 3. SPICE TEMPERING & THERMAL RITUALS SECTION (Spices category or All) */}
-      {(activeCategory === "all" || activeCategory === "spices") && (
+      {/* 2. TEA PREPARATION MASTERCLASS GUIDES (Tea Preparation Tab) */}
+      {activeCategory === "tea" && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-[#C5A059] text-xs font-serif uppercase tracking-[0.25em] font-semibold">
+              Masterclass Infusions
+            </span>
+            <h2 className="font-serif text-3xl font-bold text-[#1A392A] mt-1 mb-3">
+              Tee-Zubereitung Anleitungen
+            </h2>
+            <p className="text-sm text-[#1C2024]/70 font-light">
+              Entdecken Sie die spezifischen Aufguss-Rituale für jede unserer
+              erlesenen Teesorten.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+            {currentTeaGuides.map((guide, idx) => (
+              <div
+                key={idx}
+                className="bg-[#F5EBDB] rounded-3xl overflow-hidden border border-[#C5A059]/40 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row h-full min-h-[260px]"
+              >
+                <div className="sm:w-5/12 relative h-52 sm:h-auto shrink-0 overflow-hidden min-h-[220px]">
+                  <img
+                    src={guide.image}
+                    alt={guide.name}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  />
+                  <div className="absolute top-3 left-3 bg-[#1A392A]/90 backdrop-blur-xs text-[#E5C483] px-3 py-1 rounded-full text-[10px] font-mono tracking-wider font-semibold border border-[#C5A059]/30">
+                    {guide.type}
+                  </div>
+                </div>
+                <div className="p-6 sm:p-7 flex flex-col justify-between flex-grow sm:w-7/12">
+                  <div>
+                    <h3 className="font-serif text-base sm:text-lg font-bold text-[#1A392A] mb-2 leading-snug">
+                      {guide.name}
+                    </h3>
+
+                    <div className="flex flex-wrap gap-2 text-[11px] font-mono text-[#C5A059] mb-3">
+                      <span className="bg-[#EDE1CC] text-[#1A392A] px-2.5 py-1 rounded-md border border-[#C5A059]/30 font-semibold">
+                        {guide.temp}
+                      </span>
+                      <span className="bg-[#EDE1CC] text-[#1A392A] px-2.5 py-1 rounded-md border border-[#C5A059]/30 font-semibold">
+                        {guide.timeStr}
+                      </span>
+                    </div>
+
+                    <div className="bg-[#EDE1CC]/75 p-3 rounded-xl border border-[#C5A059]/25 mb-4">
+                      <span className="text-[10px] font-serif uppercase tracking-widest text-[#1A392A] font-bold block mb-1">
+                        {lang === "de" ? "Zubereitung:" : "Preparation:"}
+                      </span>
+                      <p className="text-xs text-[#1C2024]/85 leading-relaxed font-light">
+                        {guide.prepSummary}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-[#C5A059]/25 pt-3 mt-auto">
+                    <span className="text-[10px] font-serif uppercase tracking-widest text-[#1A392A] font-bold block mb-0.5">
+                      {content.vessel}:
+                    </span>
+                    <p className="text-xs text-[#1C2024]/75 font-light">
+                      {guide.vessel} • {guide.ratio}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 3. SPICE MIXING RITUALS SECTION (Spice Mixing Tab) */}
+      {activeCategory === "spices" && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-[#C5A059] text-xs font-serif uppercase tracking-[0.25em] font-semibold">
@@ -746,7 +901,8 @@ export default function TutorialsSection({ lang }) {
               Ganze Gewürze Thermisch Aktivieren
             </h2>
             <p className="text-sm text-[#1C2024]/70 font-light">
-              Die indische Kulinarik basiert auf der Kunst des Temperierens: Wie flüchtige ätherische Öle schonend gebunden werden.
+              Die indische Kulinarik basiert auf der Kunst des Temperierens: Wie
+              flüchtige ätherische Öle schonend gebunden werden.
             </p>
           </div>
 
@@ -754,135 +910,48 @@ export default function TutorialsSection({ lang }) {
             {currentSpiceRituals.map((ritual, idx) => (
               <div
                 key={idx}
-                className="bg-white rounded-3xl p-7 border border-[#C5A059]/30 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                className="bg-[#F5EBDB] rounded-3xl overflow-hidden border border-[#C5A059]/40 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-[#1A392A] text-[#C5A059] flex items-center justify-center mb-5 shadow-xs">
-                    {idx === 0 ? <Flame className="w-6 h-6" /> : idx === 1 ? <Sparkles className="w-6 h-6" /> : <ChefHat className="w-6 h-6" />}
-                  </div>
-
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#C5A059] font-bold">
-                    {ritual.tag}
-                  </span>
-
-                  <h3 className="font-serif text-lg font-bold text-[#1A392A] mt-1 mb-3">
-                    {ritual.title}
-                  </h3>
-
-                  <p className="text-xs text-[#1C2024]/75 leading-relaxed mb-6 font-light">
-                    {ritual.description}
-                  </p>
-
-                  <div className="space-y-2 border-t border-[#C5A059]/20 pt-4">
-                    <span className="text-[10px] font-serif uppercase tracking-widest text-[#1A392A] font-bold block mb-1">
-                      Praxis-Tipps:
-                    </span>
-                    {ritual.tips.map((tip, tIdx) => (
-                      <div key={tIdx} className="flex items-start gap-2 text-[11px] text-[#1C2024]/80 leading-snug">
-                        <span className="text-[#C5A059] font-bold">•</span>
-                        <span>{tip}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* 4. SIGNATURE RECIPES SECTION (Recipes category or All) */}
-      {(activeCategory === "all" || activeCategory === "recipes") && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-[#C5A059] text-xs font-serif uppercase tracking-[0.25em] font-semibold">
-              Heritage Fusion
-            </span>
-            <h2 className="font-serif text-3xl font-bold text-[#1A392A] mt-1 mb-3">
-              Vorarlberg & Indische Signature Elixiere
-            </h2>
-            <p className="text-sm text-[#1C2024]/70 font-light">
-              Harmonische Rezepturen für jeden Moment des Tages – kreiert für pure Lebensfreude und Wohlbefinden.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {currentRecipes.map((recipe, idx) => (
-              <div
-                key={idx}
-                className="bg-white rounded-3xl overflow-hidden border border-[#C5A059]/30 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row"
-              >
-                {/* Image Col */}
-                <div className="md:w-5/12 relative h-56 md:h-auto shrink-0 overflow-hidden">
-                  <img
-                    src={recipe.image}
-                    alt={recipe.title}
-                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                  />
-                  <div className="absolute top-3 left-3 bg-[#1A392A]/90 backdrop-blur-xs text-[#E5C483] px-3 py-1 rounded-full text-[10px] font-mono tracking-wider font-semibold">
-                    {recipe.time} • {recipe.servings}
-                  </div>
-                </div>
-
-                {/* Recipe Details Col */}
-                <div className="p-6 sm:p-7 flex flex-col justify-between flex-grow">
-                  <div>
-                    <h3 className="font-serif text-xl font-bold text-[#1A392A] mb-3">
-                      {recipe.title}
-                    </h3>
-
-                    <div className="mb-4">
-                      <span className="text-[10px] font-serif uppercase tracking-widest text-[#C5A059] font-bold block mb-1.5">
-                        Zutaten:
-                      </span>
-                      <ul className="grid grid-cols-1 gap-1 text-xs text-[#1C2024]/80">
-                        {recipe.ingredients.map((ing, iIdx) => (
-                          <li key={iIdx} className="flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] shrink-0" />
-                            <span>{ing}</span>
-                          </li>
-                        ))}
-                      </ul>
+                  {/* Spice Image Header */}
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={ritual.image}
+                      alt={ritual.title}
+                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                    />
+                    <div className="absolute top-3 left-3 bg-[#1A392A]/90 backdrop-blur-xs text-[#E5C483] px-3 py-1 rounded-full text-[10px] font-mono tracking-wider font-semibold border border-[#C5A059]/30">
+                      {ritual.tag}
                     </div>
                   </div>
 
-                  <div className="border-t border-[#C5A059]/20 pt-4 mt-2">
-                    <span className="text-[10px] font-serif uppercase tracking-widest text-[#1A392A] font-bold block mb-1">
-                      Zubereitung:
-                    </span>
-                    <p className="text-xs text-[#1C2024]/75 leading-relaxed font-light">
-                      {recipe.instruction}
+                  <div className="p-6">
+                    <h3 className="font-serif text-lg font-bold text-[#1A392A] mb-3 leading-snug">
+                      {ritual.title}
+                    </h3>
+
+                    <p className="text-xs text-[#1C2024]/80 leading-relaxed mb-5 font-light">
+                      {ritual.description}
                     </p>
+
+                    <div className="space-y-2 border-t border-[#C5A059]/25 pt-4">
+                      <span className="text-[10px] font-serif uppercase tracking-widest text-[#1A392A] font-bold block mb-1">
+                        Praxis-Tipps:
+                      </span>
+                      {ritual.tips.map((tip, tIdx) => (
+                        <div
+                          key={tIdx}
+                          className="flex items-start gap-2 text-[11px] text-[#1C2024]/85 leading-snug"
+                        >
+                          <span className="text-[#C5A059] font-bold">•</span>
+                          <span>{tip}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Quick CTA Banner to Product Catalog */}
-          <div className="mt-16 text-center bg-[#1A392A]/5 border border-[#C5A059]/30 rounded-3xl p-8 sm:p-12">
-            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A392A] mb-3">
-              Bereit für Ihren eigenen Tee- und Gewürzmoment?
-            </h3>
-            <p className="text-xs sm:text-sm text-[#1C2024]/70 max-w-xl mx-auto mb-6">
-              Entdecken Sie unsere Single-Origin Teesorten in der edlen Holzschatulle und ganze Gewürze aus Indiens besten Regionen.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link
-                to="/tea"
-                className="px-6 py-3 rounded-full bg-[#1A392A] hover:bg-[#121D2C] text-[#F5F0E8] text-xs font-serif uppercase tracking-widest font-semibold transition-all shadow-md flex items-center gap-2"
-              >
-                <span>Tee Kollektion</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#C5A059]" />
-              </Link>
-              <Link
-                to="/spices"
-                className="px-6 py-3 rounded-full bg-white hover:bg-[#F5F0E8] text-[#1A392A] border border-[#C5A059] text-xs font-serif uppercase tracking-widest font-semibold transition-all shadow-xs flex items-center gap-2"
-              >
-                <span>Gewürze Kollektion</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#C5A059]" />
-              </Link>
-            </div>
           </div>
         </section>
       )}

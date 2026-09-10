@@ -15,7 +15,7 @@ export default function HeroSection({ lang }) {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#F5F0E8] via-[#EFE8DC] to-[#F5F0E8] min-h-[calc(100vh-110px)] flex flex-col justify-between py-12 sm:py-16 lg:py-20 border-b border-[#C5A059]/20 paper-texture">
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#EDE1CC] via-[#E4D7C0] to-[#EDE1CC] min-h-[calc(100vh-110px)] flex flex-col justify-between py-12 sm:py-16 lg:py-20 border-b border-[#C5A059]/20 paper-texture">
       {/* Background Ambient Mist Micro-Animations */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-10 left-10 w-96 h-96 bg-[#1A392A]/5 rounded-full blur-3xl animate-mist"></div>

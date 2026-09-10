@@ -47,7 +47,7 @@ export default function StoryTimeline({ lang = "de" }) {
             duration: 0.5,
             ease: "power2.out",
             pointerEvents: "auto",
-          }
+          },
         );
       } else if (idx === prevIdx) {
         gsap.to(page, {
@@ -81,7 +81,7 @@ export default function StoryTimeline({ lang = "de" }) {
   return (
     <section
       id="story-section"
-      className="bg-[#F5F0E8] relative overflow-hidden paper-texture py-16 sm:py-24"
+      className="bg-[#EDE1CC] relative overflow-hidden paper-texture py-16 sm:py-24"
     >
       {/* Background Decorative Ambient Glows */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -105,7 +105,8 @@ export default function StoryTimeline({ lang = "de" }) {
             The Heritage of Paul's Tea & Spices
           </h2>
           <p className="text-xs sm:text-sm text-[#1C2024]/75 max-w-xl mx-auto font-light leading-relaxed">
-            Rooted in a cross-cultural friendship in Vorarlberg, Austria. Explore the three founding chapters of our maison.
+            Rooted in a cross-cultural friendship in Vorarlberg, Austria.
+            Explore the three founding chapters of our maison.
           </p>
         </div>
 
@@ -123,8 +124,8 @@ export default function StoryTimeline({ lang = "de" }) {
                     isActive
                       ? "text-[#1A392A] font-bold scale-105"
                       : isPast
-                      ? "text-[#C5A059] font-medium hover:text-[#1A392A]"
-                      : "text-[#1C2024]/40 font-normal hover:text-[#1A392A]"
+                        ? "text-[#C5A059] font-medium hover:text-[#1A392A]"
+                        : "text-[#1C2024]/40 font-normal hover:text-[#1A392A]"
                   }`}
                 >
                   <span
@@ -132,13 +133,15 @@ export default function StoryTimeline({ lang = "de" }) {
                       isActive
                         ? "bg-[#1A392A] text-[#E5C483] shadow-xs"
                         : isPast
-                        ? "bg-[#C5A059]/20 text-[#1A392A] border border-[#C5A059]/40"
-                        : "bg-transparent text-[#1C2024]/40 border border-[#1C2024]/20"
+                          ? "bg-[#C5A059]/20 text-[#1A392A] border border-[#C5A059]/40"
+                          : "bg-transparent text-[#1C2024]/40 border border-[#1C2024]/20"
                     }`}
                   >
                     {ch.num}
                   </span>
-                  <span className="hidden sm:inline tracking-wide">{ch.label}</span>
+                  <span className="hidden sm:inline tracking-wide">
+                    {ch.label}
+                  </span>
                 </button>
                 {idx < chapterTitles.length - 1 && (
                   <div
@@ -162,8 +165,8 @@ export default function StoryTimeline({ lang = "de" }) {
             aria-label="Previous chapter"
             className={`hidden md:flex shrink-0 p-3.5 rounded-full border transition-all duration-300 items-center justify-center shadow-md ${
               activeChapterIndex === 0
-                ? "opacity-30 cursor-not-allowed border-gray-300 text-gray-400 bg-white/40"
-                : "bg-white border-[#C5A059]/60 text-[#1A392A] hover:bg-[#1A392A] hover:text-[#E5C483] hover:border-[#1A392A] hover:shadow-xl hover:scale-110 active:scale-95 cursor-pointer"
+                ? "opacity-30 cursor-not-allowed border-gray-300 text-gray-400 bg-[#F5EBDB]/50"
+                : "bg-[#F5EBDB] border-[#C5A059]/70 text-[#1A392A] hover:bg-[#1A392A] hover:text-[#E5C483] hover:border-[#1A392A] hover:shadow-xl hover:scale-110 active:scale-95 cursor-pointer"
             }`}
           >
             <ChevronLeft className="w-6 h-6" />
@@ -171,14 +174,13 @@ export default function StoryTimeline({ lang = "de" }) {
 
           {/* Central Book Folio Page */}
           <div
-            className="w-full max-w-4xl relative rounded-2xl sm:rounded-3xl border border-[#C5A059]/40 shadow-[0_20px_50px_-15px_rgba(26,57,42,0.1),0_0_0_1px_rgba(197,160,89,0.25)] overflow-hidden min-h-[520px] sm:min-h-[480px] lg:min-h-[460px] flex flex-col justify-between"
-            style={{ backgroundColor: "rgba(255, 255, 255, 0.96)" }}
+            className="w-full max-w-4xl relative rounded-2xl sm:rounded-3xl border border-[#C5A059]/45 shadow-xl overflow-hidden min-h-[520px] sm:min-h-[480px] lg:min-h-[460px] flex flex-col justify-between bg-[#F5EBDB] text-[#1C2024]"
           >
             {/* Fine Inset Gold Border Accent */}
-            <div className="absolute inset-2 sm:inset-3 rounded-xl sm:rounded-2xl border border-[#C5A059]/20 pointer-events-none z-10" />
+            <div className="absolute inset-2 sm:inset-3 rounded-xl sm:rounded-2xl border border-[#C5A059]/25 pointer-events-none z-10" />
 
             {/* Subtle Deckle Edge / Luxury Paper Spine Hint */}
-            <div className="absolute left-0 top-0 bottom-0 w-1.5 sm:w-2 bg-gradient-to-r from-[#C5A059]/25 via-[#C5A059]/10 to-transparent pointer-events-none z-10" />
+            <div className="absolute left-0 top-0 bottom-0 w-1.5 sm:w-2 bg-gradient-to-r from-[#C5A059]/30 via-[#C5A059]/10 to-transparent pointer-events-none z-10" />
 
             {/* Viewport for Pages */}
             <div className="relative w-full h-full flex-1">
@@ -194,18 +196,22 @@ export default function StoryTimeline({ lang = "de" }) {
                 >
                   {/* Top Provenance & Chapter Identifier */}
                   <div className="flex items-center justify-between gap-3 pb-3 border-b border-[#C5A059]/25">
-                    <div className="flex items-center gap-2 sm:gap-3 text-xs text-[#1C2024]/75 font-medium">
+                    <div className="flex items-center gap-2 sm:gap-3 text-xs text-[#1C2024]/80 font-medium">
                       <div className="flex items-center gap-1.5">
                         <MapPin className="w-3.5 h-3.5 text-[#C5A059] shrink-0" />
-                        <span className="truncate max-w-[150px] sm:max-w-xs">{chapter.location}</span>
+                        <span className="truncate max-w-[150px] sm:max-w-xs">
+                          {chapter.location}
+                        </span>
                       </div>
-                      <span className="text-[#C5A059]/40">•</span>
+                      <span className="text-[#C5A059]/50">•</span>
                       <div className="flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5 text-[#1A392A] shrink-0" />
-                        <span className="whitespace-nowrap">{chapter.year}</span>
+                        <span className="whitespace-nowrap">
+                          {chapter.year}
+                        </span>
                       </div>
                     </div>
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#1A392A]/6 text-[#1A392A] text-[10.5px] font-mono font-semibold uppercase tracking-wider border border-[#C5A059]/30">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#1A392A]/8 text-[#1A392A] text-[10.5px] font-mono font-semibold uppercase tracking-wider border border-[#C5A059]/35">
                       <Sparkles className="w-3 h-3 text-[#C5A059]" />
                       <span>{chapter.chapterNum}</span>
                     </div>
@@ -216,7 +222,7 @@ export default function StoryTimeline({ lang = "de" }) {
                     {/* Left Column: Heading, Subtitle & Prominent Quote */}
                     <div className="lg:col-span-6 flex flex-col justify-between h-full space-y-2.5 sm:space-y-3">
                       <div className="space-y-1.5 sm:space-y-2">
-                        <div className="text-[10.5px] font-mono tracking-widest text-[#C5A059] uppercase">
+                        <div className="text-[10.5px] font-mono tracking-widest text-[#C5A059] uppercase font-bold">
                           {chapter.tag}
                         </div>
                         <h3 className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold text-[#1A392A] leading-tight tracking-tight">
@@ -226,7 +232,7 @@ export default function StoryTimeline({ lang = "de" }) {
                           "{chapter.subtitle[lang] || chapter.subtitle.de}"
                         </h4>
                       </div>
-                      <blockquote className="p-3 sm:p-3.5 rounded-lg bg-[#F5F0E8]/70 border-l-2 border-[#C5A059] text-xs sm:text-[13px] font-serif italic text-[#1A392A]/90 leading-relaxed shadow-xs mt-auto">
+                      <blockquote className="p-3 sm:p-3.5 rounded-lg bg-[#EDE1CC]/75 border-l-2 border-[#C5A059] text-xs sm:text-[13px] font-serif italic text-[#1A392A]/90 leading-relaxed shadow-xs mt-auto">
                         "{chapter.quote[lang] || chapter.quote.de}"
                       </blockquote>
                     </div>
@@ -236,7 +242,7 @@ export default function StoryTimeline({ lang = "de" }) {
                       <p className="text-xs sm:text-sm text-[#1C2024]/85 leading-relaxed font-light">
                         {chapter.content[lang] || chapter.content.de}
                       </p>
-                      <div className="p-3 rounded-lg bg-white/80 border border-[#C5A059]/20 flex items-center justify-between text-[11px] text-[#1C2024]/70 mt-auto">
+                      <div className="p-3 rounded-lg bg-[#EDE1CC]/75 border border-[#C5A059]/30 flex items-center justify-between text-[11px] text-[#1C2024]/75 mt-auto">
                         <span className="font-serif italic text-[#1A392A]">
                           Maison Philosophy • Vorarlberg Atelier Sourcing
                         </span>
@@ -273,8 +279,8 @@ export default function StoryTimeline({ lang = "de" }) {
             aria-label="Next chapter"
             className={`hidden md:flex shrink-0 p-3.5 rounded-full border transition-all duration-300 items-center justify-center shadow-md ${
               activeChapterIndex === totalChapters - 1
-                ? "opacity-30 cursor-not-allowed border-gray-300 text-gray-400 bg-white/40"
-                : "bg-white border-[#C5A059]/60 text-[#1A392A] hover:bg-[#1A392A] hover:text-[#E5C483] hover:border-[#1A392A] hover:shadow-xl hover:scale-110 active:scale-95 cursor-pointer"
+                ? "opacity-30 cursor-not-allowed border-gray-300 text-gray-400 bg-[#F5EBDB]/50"
+                : "bg-[#F5EBDB] border-[#C5A059]/70 text-[#1A392A] hover:bg-[#1A392A] hover:text-[#E5C483] hover:border-[#1A392A] hover:shadow-xl hover:scale-110 active:scale-95 cursor-pointer"
             }`}
           >
             <ChevronRight className="w-6 h-6" />
@@ -289,8 +295,8 @@ export default function StoryTimeline({ lang = "de" }) {
             disabled={activeChapterIndex === 0}
             className={`px-4 py-2 rounded-full border text-xs font-medium transition-all duration-200 flex items-center gap-1.5 ${
               activeChapterIndex === 0
-                ? "opacity-40 cursor-not-allowed border-gray-300 text-gray-400 bg-white/40"
-                : "bg-white border-[#C5A059] text-[#1A392A] shadow-sm hover:bg-[#1A392A] hover:text-[#E5C483]"
+                ? "opacity-30 cursor-not-allowed border-gray-300 text-gray-400 bg-[#F5EBDB]/50"
+                : "bg-[#F5EBDB] border-[#C5A059] text-[#1A392A] shadow-sm hover:bg-[#1A392A] hover:text-[#E5C483]"
             }`}
           >
             <ChevronLeft className="w-4 h-4" />
@@ -307,8 +313,8 @@ export default function StoryTimeline({ lang = "de" }) {
             disabled={activeChapterIndex === totalChapters - 1}
             className={`px-4 py-2 rounded-full border text-xs font-medium transition-all duration-200 flex items-center gap-1.5 ${
               activeChapterIndex === totalChapters - 1
-                ? "opacity-40 cursor-not-allowed border-gray-300 text-gray-400 bg-white/40"
-                : "bg-white border-[#C5A059] text-[#1A392A] shadow-sm hover:bg-[#1A392A] hover:text-[#E5C483]"
+                ? "opacity-30 cursor-not-allowed border-gray-300 text-gray-400 bg-[#F5EBDB]/50"
+                : "bg-[#F5EBDB] border-[#C5A059] text-[#1A392A] shadow-sm hover:bg-[#1A392A] hover:text-[#E5C483]"
             }`}
           >
             <span>{labels.next}</span>

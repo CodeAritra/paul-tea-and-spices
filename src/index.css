@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @theme {
-  --color-finesse: #f5f0e8;
+  --color-finesse: #ede1cc;
   --color-bottle-green: #1a392a;
   --color-midnight-sapphire: #121d2c;
   --color-ink-navy: #1b263b;
@@ -11,7 +11,7 @@
 
 @layer base {
   :root {
-    --color-finesse: #f5f0e8;
+    --color-finesse: #ede1cc;
     --color-bottle-green: #1a392a;
     --color-midnight-sapphire: #121d2c;
     --color-ink-navy: #1b263b;
@@ -130,7 +130,6 @@
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -198,7 +197,7 @@
 .apothecary-label {
   background: rgba(26, 57, 42, 0.75);
   border: 1px solid rgba(197, 160, 89, 0.4);
-  color: #f5f0e8;
+  color: #ede1cc;
   font-family: "Playfair Display", Georgia, serif;
   letter-spacing: 0.04em;
   backdrop-filter: blur(4px);
@@ -206,7 +205,7 @@
 
 /* Tactile Uncoated Linen Paper Pattern overlay */
 .paper-texture {
-  background-color: #f5f0e8;
+  background-color: #ede1cc;
   background-image: radial-gradient(rgba(28, 32, 36, 0.03) 1px, transparent 0);
   background-size: 24px 24px;
 }
@@ -216,7 +215,7 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f5f0e8;
+  background: #ede1cc;
 }
 ::-webkit-scrollbar-thumb {
   background: #c5a059;
