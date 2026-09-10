@@ -93,21 +93,21 @@ export default function SpiceMapSection({ lang = "de" }) {
   const isGerman = lang === "de";
 
   return (
-    <section className="relative w-full bg-[#F5F0E8] paper-texture text-[#121D2C] py-12 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-[#C5A059]/20 selection:bg-[#121D2C] selection:text-white">
+    <section className="relative w-full min-h-[calc(100vh-110px)] flex flex-col justify-center bg-[#F5F0E8] paper-texture text-[#121D2C] py-4 sm:py-6 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-[#C5A059]/20 selection:bg-[#121D2C] selection:text-white">
       {/* Background Decorative Ambient Glows */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#C5A059]/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-80 h-80 bg-[#C5A059]/5 rounded-full blur-2xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10 w-full">
         {/* ============================================================ */}
         {/* SECTION HEADER                                               */}
         {/* ============================================================ */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#121D2C] tracking-tight mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-3 sm:mb-4">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#121D2C] tracking-tight mb-1.5">
             {isGerman ? "Gewürze aus Indien" : "Spices from India"}
           </h2>
 
-          <p className="text-xs sm:text-sm text-[#1C2024]/75 font-light leading-relaxed max-w-2xl mx-auto">
+          <p className="text-xs text-[#1C2024]/75 font-light leading-relaxed max-w-xl mx-auto">
             {isGerman
               ? "Klicken Sie auf eine der 13 Stecknadeln auf der Landkarte, um in die jeweilige Anbauregion zu zoomen und die Geschichte unserer Reingewürze zu entdecken."
               : "Click any of the 13 pins on the map to smoothly zoom into its native cultivation region and discover the story behind our single-origin spices."}
@@ -117,7 +117,7 @@ export default function SpiceMapSection({ lang = "de" }) {
         {/* ============================================================ */}
         {/* MAIN MAP CONTAINER + DETAIL CARD DISPLAY LAYOUT              */}
         {/* ============================================================ */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center justify-center">
           {/* MAP DISPLAY COLUMN */}
           <div
             className={`transition-all duration-700 ease-out flex flex-col justify-center ${
@@ -126,7 +126,7 @@ export default function SpiceMapSection({ lang = "de" }) {
           >
             <div
               ref={mapViewportRef}
-              className="relative w-full max-w-[580px] mx-auto aspect-[666.67/777.33] bg-[#F5F0E8] rounded-2xl border border-[#C5A059]/35 shadow-xl overflow-hidden group select-none"
+              className="relative w-full max-w-[380px] sm:max-w-[430px] lg:max-w-[450px] max-h-[calc(100vh-230px)] mx-auto aspect-[666.67/777.33] bg-[#F5F0E8] rounded-2xl border border-[#C5A059]/35 shadow-xl overflow-hidden group select-none"
             >
               {/* Map Background Cartography Lines & Compass */}
               <div className="absolute inset-0 bg-[radial-gradient(#C5A059_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-20 pointer-events-none" />
@@ -348,14 +348,16 @@ export default function SpiceMapSection({ lang = "de" }) {
           {/* ============================================================ */}
           {/* SELECTED SPICE DETAIL CARD COLUMN (WIDER & MATCHES MAP HEIGHT)*/}
           {/* ============================================================ */}
+          {/* SELECTED SPICE DETAIL CARD COLUMN (WIDER & MATCHES MAP HEIGHT)*/}
+          {/* ============================================================ */}
           {selectedSpice && (
-            <div className="lg:col-span-6 h-full flex flex-col justify-between animate-in fade-in slide-in-from-bottom-6 lg:slide-in-from-right-6 duration-500">
-              <div className="bg-white border border-[#C5A059]/35 rounded-2xl p-5 sm:p-6 shadow-xl relative overflow-hidden text-[#121D2C] h-full flex flex-col justify-between">
+            <div className="lg:col-span-6 flex flex-col justify-between animate-in fade-in slide-in-from-bottom-6 lg:slide-in-from-right-6 duration-500 max-h-[calc(100vh-230px)]">
+              <div className="bg-white border border-[#C5A059]/35 rounded-2xl p-3.5 sm:p-4 shadow-xl relative overflow-hidden text-[#121D2C] h-full flex flex-col justify-between overflow-y-auto">
                 {/* Gold Top Accent Line */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C5A059] to-transparent" />
 
                 {/* Header Tag + Close Button (Top Section) */}
-                <div className="shrink-0 flex items-center justify-between mb-3 pb-3 border-b border-[#C5A059]/20">
+                <div className="shrink-0 flex items-center justify-between mb-2 pb-2 border-b border-[#C5A059]/20">
                   <div className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-[#C5A059]">
                     <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
                     <span>
@@ -366,7 +368,7 @@ export default function SpiceMapSection({ lang = "de" }) {
                   </div>
                   <button
                     onClick={handleResetZoom}
-                    className="w-7 h-7 rounded-full bg-[#F5F0E8] border border-[#C5A059]/30 text-[#121D2C]/70 hover:text-[#121D2C] hover:border-[#C5A059] transition-all duration-300 flex items-center justify-center text-sm"
+                    className="w-6 h-6 rounded-full bg-[#F5F0E8] border border-[#C5A059]/30 text-[#121D2C]/70 hover:text-[#121D2C] hover:border-[#C5A059] transition-all duration-300 flex items-center justify-center text-xs"
                     title={isGerman ? "Schließen" : "Close detail"}
                   >
                     ✕
@@ -374,9 +376,9 @@ export default function SpiceMapSection({ lang = "de" }) {
                 </div>
 
                 {/* Middle Content Section (Flexible & Centered) */}
-                <div className="flex-1 flex flex-col justify-center space-y-3.5 my-auto">
+                <div className="flex-1 flex flex-col justify-center space-y-2.5 my-auto">
                   {/* Spice Image Frame */}
-                  <div className="relative w-full aspect-[16/9] max-h-[240px] rounded-xl overflow-hidden border border-[#C5A059]/30 group shrink-0">
+                  <div className="relative w-full aspect-[16/9] max-h-[140px] sm:max-h-[160px] rounded-xl overflow-hidden border border-[#C5A059]/30 group shrink-0">
                     <img
                       src={selectedSpice.image}
                       alt={
@@ -387,8 +389,8 @@ export default function SpiceMapSection({ lang = "de" }) {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#121D2C]/60 via-transparent to-transparent pointer-events-none" />
 
                     {/* Category Pill on Image */}
-                    <div className="absolute top-3 left-3 z-10">
-                      <span className="px-2.5 py-1 rounded-md text-[9px] font-mono uppercase tracking-wider bg-[#121D2C]/90 text-[#E5C483] border border-[#C5A059]/50 backdrop-blur-md">
+                    <div className="absolute top-2.5 left-2.5 z-10">
+                      <span className="px-2 py-0.5 rounded-md text-[8.5px] font-mono uppercase tracking-wider bg-[#121D2C]/90 text-[#E5C483] border border-[#C5A059]/50 backdrop-blur-md">
                         {selectedSpice.category}
                       </span>
                     </div>
@@ -396,7 +398,7 @@ export default function SpiceMapSection({ lang = "de" }) {
 
                   {/* Spice Name & Subtitle */}
                   <div>
-                    <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#121D2C] leading-tight mb-1">
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#121D2C] leading-tight mb-0.5">
                       {isGerman ? selectedSpice.germanName : selectedSpice.name}
                     </h3>
                     <p className="font-serif italic text-xs text-[#C5A059] font-medium">
@@ -405,8 +407,8 @@ export default function SpiceMapSection({ lang = "de" }) {
                   </div>
 
                   {/* Story Description */}
-                  <div className="bg-[#F5F0E8] rounded-xl p-3.5 border border-[#C5A059]/20">
-                    <p className="text-xs sm:text-sm text-[#1C2024]/85 font-light leading-relaxed">
+                  <div className="bg-[#F5F0E8] rounded-xl p-2.5 border border-[#C5A059]/20">
+                    <p className="text-xs text-[#1C2024]/85 font-light leading-relaxed">
                       {isGerman
                         ? selectedSpice.germanStory
                         : selectedSpice.story}
@@ -416,10 +418,10 @@ export default function SpiceMapSection({ lang = "de" }) {
                   {/* Tasting Notes */}
                   {selectedSpice.tastingNotes && (
                     <div>
-                      <p className="text-[10px] font-mono uppercase tracking-widest text-[#C5A059] mb-1.5">
+                      <p className="text-[9px] font-mono uppercase tracking-widest text-[#C5A059] mb-1">
                         {isGerman ? "GESCHMACKSPROFIL" : "TASTING NOTES"}
                       </p>
-                      <div className="flex flex-wrap gap-1.5">
+                      <div className="flex flex-wrap gap-1">
                         {selectedSpice.tastingNotes.map((note) => (
                           <span
                             key={note}
