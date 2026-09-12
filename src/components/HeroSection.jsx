@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Sparkles,
   Mountain,
@@ -11,6 +12,8 @@ import {
   Compass,
 } from "lucide-react";
 import { TRANSLATIONS } from "../data/productsData";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const FEATURE_PILLARS = {
   de: [
@@ -206,6 +209,19 @@ export default function HeroSection({ lang }) {
         },
         0.15,
       );
+
+      // Subtle scroll parallax & soft dissolve as you scroll into the 2nd section
+      gsap.to(img, {
+        yPercent: 16,
+        scale: 1.06,
+        ease: "none",
+        scrollTrigger: {
+          trigger: frame,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.8,
+        },
+      });
     }, 80);
 
     return () => {
@@ -223,7 +239,7 @@ export default function HeroSection({ lang }) {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#EDE1CC] via-[#E4D7C0] to-[#EDE1CC] min-h-[calc(100vh-110px)] flex flex-col justify-between py-12 sm:py-16 lg:py-20 border-b border-[#C5A059]/20 paper-texture">
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#EDE1CC] via-[#E4D7C0] to-[#EDE1CC] border-b border-[#C5A059]/20 paper-texture">
       {/* Background Ambient Mist Micro-Animations */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-10 left-10 w-96 h-96 bg-[#683619]/5 rounded-full blur-3xl animate-mist"></div>
@@ -237,73 +253,76 @@ export default function HeroSection({ lang }) {
         ></div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex-grow flex flex-col justify-between items-center w-full">
-        {/* Content Centered Wrapper */}
-        <div className="flex-grow flex flex-col justify-center items-center max-w-5xl w-full">
-          {/* Son Paul Dedication Pill */}
-          <Link
-            to="/about"
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#683619]/10 hover:bg-[#683619]/15 border border-[#C5A059]/40 text-[#683619] text-xs font-medium mb-5 animate-slide-in transition cursor-pointer group shadow-xs"
-            title="Explore Our Founder Story"
+      {/* ── 1. Full-Width & Full-Height Landing Hero Image Stage (Screen Height - Navbar Height) with Seamless Gradient Dissolve ── */}
+      <div className="relative w-full h-[calc(100vh-110px)] min-h-[500px] overflow-hidden bg-transparent">
+        <div
+          ref={landingFrameRef}
+          className="w-full h-full overflow-hidden will-change-[clip-path]"
+          style={{
+            clipPath: "circle(0% at 50% 50%)",
+            maskImage:
+              "linear-gradient(to bottom, black 95%, rgba(0,0,0,0.4) 98%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, black 95%, rgba(0,0,0,0.4) 98%, transparent 100%)",
+          }}
+        >
+          <img
+            ref={landingImgRef}
+            src="/images/homepage-landing.png"
+            alt="Paul's Tea & Spices Atelier & Estates"
+            className="w-full h-full object-cover object-center will-change-transform filter brightness-95 contrast-105"
+          />
+        </div>
+
+        {/* Soft Atmospheric Bottom Blend starting from the very bottom edge */}
+        <div className="absolute inset-x-0 bottom-0 h-10 sm:h-14 lg:h-20 bg-gradient-to-t from-[#EDE1CC] via-[#EDE1CC]/40 to-transparent pointer-events-none z-10" />
+      </div>
+
+      {/* ── 2. Hero Content Section below Image (Floating on the seamless blend) ── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center flex flex-col justify-between items-center w-full pt-10 pb-16 sm:pb-20">
+        {/* Son Paul Dedication Pill */}
+        <Link
+          to="/about"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#683619]/10 hover:bg-[#683619]/15 border border-[#C5A059]/40 text-[#683619] text-xs font-medium mb-4 sm:mb-6 animate-slide-in transition cursor-pointer group shadow-xs backdrop-blur-xs"
+          title="Explore Our Founder Story"
+        >
+          <Heart className="w-3 h-3 text-[#C5A059] fill-[#C5A059] group-hover:scale-110 transition-transform" />
+          <span>{t.dedicatedToPaul}</span>
+          <span className="w-1 h-1 rounded-full bg-[#C5A059]"></span>
+          <span className="text-[#C5A059] font-serif italic font-semibold">
+            Vorarlberg • Austria
+          </span>
+        </Link>
+
+        {/* Main Hero Title */}
+        <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#683619] mb-4 sm:mb-6 py-1 leading-tight max-w-4xl mx-auto whitespace-pre-line">
+          {t.heritageHeadline}
+        </h1>
+
+        {/* Subtitle / Lore quote */}
+        <p className="text-sm sm:text-base lg:text-lg text-[#1C2024]/80 font-sans max-w-2xl mx-auto mb-6 sm:mb-8 py-1 leading-relaxed font-light">
+          Born from a friendship in the mountains of Vorarlberg. We curate
+          pristine single-origin teas and whole spices from high-altitude
+          Indian estates, finished in our Alpine Atelier.
+        </p>
+
+        {/* Scroll Indicator */}
+        <div className="flex justify-center py-2 sm:py-4">
+          <button
+            onClick={scrollToContent}
+            className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#683619]/5 hover:bg-[#683619]/10 text-[#683619] border border-[#C5A059]/40 text-xs font-semibold tracking-wider uppercase transition cursor-pointer hover:scale-103 shadow-xs"
           >
-            <Heart className="w-3 h-3 text-[#C5A059] fill-[#C5A059] group-hover:scale-110 transition-transform" />
-            <span>{t.dedicatedToPaul}</span>
-            <span className="w-1 h-1 rounded-full bg-[#C5A059]"></span>
-            <span className="text-[#C5A059] font-serif italic font-semibold">
-              Vorarlberg • Austria
+            <span>
+              {lang === "de"
+                ? "Kollektionen Erkunden"
+                : "Discover The Collections"}
             </span>
-          </Link>
-
-          {/* Home Landing Image with Center-Out Fade Reveal Animation */}
-          <div className="w-full max-w-5xl mx-auto my-4 sm:my-6 px-1 sm:px-4">
-            <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] max-h-[480px] rounded-2xl sm:rounded-3xl overflow-hidden bg-transparent">
-              <div
-                ref={landingFrameRef}
-                className="w-full h-full overflow-hidden will-change-[clip-path]"
-                style={{ clipPath: "circle(0% at 50% 50%)" }}
-              >
-                <img
-                  ref={landingImgRef}
-                  src="/images/homepage-landing.png"
-                  alt="Paul's Tea & Spices Atelier & Estates"
-                  className="w-full h-full object-cover object-center will-change-transform filter brightness-95 contrast-105"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Main Hero Title */}
-          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#683619] mb-3 sm:mb-4 py-2 leading-tight max-w-4xl mx-auto whitespace-pre-line">
-            {t.heritageHeadline}
-          </h1>
-
-          {/* Subtitle / Lore quote */}
-          <p className="text-sm sm:text-base lg:text-lg text-[#1C2024]/80 font-sans max-w-2xl mx-auto mb-5 sm:mb-6 py-1 leading-relaxed font-light">
-            Born from a friendship in the mountains of Vorarlberg. We curate
-            pristine single-origin teas and whole spices from high-altitude
-            Indian estates, finished in our Alpine Atelier.
-          </p>
-
-          
-
-          {/* Scroll Indicator */}
-          <div className="flex justify-center py-3 sm:py-4">
-            <button
-              onClick={scrollToContent}
-              className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#683619]/5 hover:bg-[#683619]/10 text-[#683619] border border-[#C5A059]/40 text-xs font-semibold tracking-wider uppercase transition cursor-pointer hover:scale-103 shadow-xs"
-            >
-              <span>
-                {lang === "de"
-                  ? "Kollektionen Erkunden"
-                  : "Discover The Collections"}
-              </span>
-              <ArrowDown className="w-3.5 h-3.5 text-[#C5A059] animate-bounce" />
-            </button>
-          </div>
+            <ArrowDown className="w-3.5 h-3.5 text-[#C5A059] animate-bounce" />
+          </button>
         </div>
 
         {/* Feature Badges Horizontal Scrolling Ribbon */}
-        <div className="w-full mt-8 pt-6 border-t border-[#C5A059]/25 relative">
+        <div className="w-full mt-10 pt-8 border-t border-[#C5A059]/25 relative">
           <div className="w-full overflow-hidden mask-gradient-x py-1">
             <div className="animate-marquee-scroll flex gap-3 sm:gap-4 items-center">
               {/* Duplicated list for seamless infinite loop */}
