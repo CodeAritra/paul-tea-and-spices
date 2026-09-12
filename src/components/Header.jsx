@@ -14,7 +14,7 @@ const HEADER_TEA_ITEMS = [
     imageUrl: "/images/alpine glow.png",
     bgColor: "#343536",
     containerPadding: "p-1.5 sm:p-2",
-    imgScale: "scale-140 group-hover/item:scale-138",
+    imgScale: "scale-140 group-hover/item:scale-143",
   },
   {
     id: "energy-kick",
@@ -22,7 +22,7 @@ const HEADER_TEA_ITEMS = [
     imageUrl: "/images/energy kick.png",
     bgColor: "#718756",
     containerPadding: "p-2.5 sm:p-3",
-    imgScale: "scale-115 group-hover/item:scale-115",
+    imgScale: "scale-115 group-hover/item:scale-118",
   },
   {
     id: "evening-relaxation",
@@ -30,7 +30,7 @@ const HEADER_TEA_ITEMS = [
     imageUrl: "/images/evening and relaxation.png",
     bgColor: "#111A2B",
     containerPadding: "p-2.5 sm:p-3.5",
-    imgScale: "scale-125 group-hover/item:scale-122 mt-7",
+    imgScale: "scale-125 group-hover/item:scale-128 mt-7",
   },
   {
     id: "morning-spark",
@@ -38,7 +38,7 @@ const HEADER_TEA_ITEMS = [
     imageUrl: "/images/morning spark.png",
     bgColor: "#EDE1CC",
     containerPadding: "p-2 sm:p-2.5",
-    imgScale: "scale-112 group-hover/item:scale-120 ml-9",
+    imgScale: "scale-112 group-hover/item:scale-115 ml-9",
   },
   {
     id: "summer-breeze",
@@ -46,7 +46,7 @@ const HEADER_TEA_ITEMS = [
     imageUrl: "/images/summer breeze.png",
     bgColor: "#84A6D2",
     containerPadding: "p-2 sm:p-3",
-    imgScale: "scale-118 group-hover/item:scale-125",
+    imgScale: "scale-118 group-hover/item:scale-121",
   },
 ];
 
@@ -456,7 +456,7 @@ export default function Header({ lang, setLang }) {
                         }
                       }}
                       style={{ backgroundColor: tea.bgColor }}
-                      className={`w-full aspect-[4/3] max-h-[220px] sm:max-h-[260px] flex items-center justify-center mb-4 overflow-hidden rounded-2xl border border-[#C5A059]/40 shadow-md group-hover/item:border-[#E5C483] group-hover/item:shadow-xl transition-all duration-300 ${tea.containerPadding || "p-3 sm:p-4"}`}
+                      className={`w-full aspect-[4/3] max-h-[220px] sm:max-h-[260px] flex items-center justify-center mb-4 overflow-hidden rounded-2xl shadow-md group-hover/item:border-[#E5C483] group-hover/item:shadow-xl transition-all duration-300 ${tea.containerPadding || "p-3 sm:p-4"}`}
                     >
                       <img
                         src={tea.imageUrl}
