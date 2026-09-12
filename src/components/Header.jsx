@@ -239,21 +239,21 @@ export default function Header({ lang, setLang }) {
       <header
         ref={headerRef}
         style={{ transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)" }}
-        className={`fixed top-0 left-0 right-0 z-50 bg-finesse paper-texture transition-all duration-300 will-change-transform ${
+        className={`fixed top-0 left-0 right-0 z-50 bg-[#683619] text-[#EDE1CC] transition-all duration-300 will-change-transform ${
           isAnyMegaMenuOpen
             ? "border-b-0 shadow-none"
-            : "border-b border-[#C5A059]/60 shadow-[0_8px_30px_rgba(26,57,42,0.12),0_2px_8px_rgba(197,160,89,0.15)]"
+            : "border-b border-[#C5A059]/40 shadow-[0_8px_30px_rgba(0,0,0,0.25)]"
         }`}
       >
         {/* Top Banner Notice with Gold Ribbon Accent */}
-        <div className="relative bg-gradient-to-r from-[#121D2C] via-[#1A392A] to-[#121D2C] text-[#EDE1CC] text-xs py-1.5 px-4 text-center font-medium tracking-wider uppercase flex items-center justify-center gap-2 border-b border-[#C5A059]/40 shadow-xs">
+        <div className="relative bg-[#522912] text-[#EDE1CC] text-xs py-1.5 px-4 text-center font-medium tracking-wider uppercase flex items-center justify-center gap-2 border-b border-[#C5A059]/30 shadow-xs">
           {/* Gold Metallic Ribbon Line */}
           <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#E5C483] to-transparent opacity-90" />
 
-          <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
+          <Sparkles className="w-3.5 h-3.5 text-[#E5C483]" />
           <span>{t.heritageSub}</span>
-          <span className="hidden sm:inline text-[#C5A059]">|</span>
-          <span className="hidden sm:inline text-[#C5A059]/90 font-serif italic text-sm">
+          <span className="hidden sm:inline text-[#E5C483]">|</span>
+          <span className="hidden sm:inline text-[#E5C483]/90 font-serif italic text-sm">
             "Crafted to be kept, not consumed."
           </span>
         </div>
@@ -275,12 +275,12 @@ export default function Header({ lang, setLang }) {
                   className="h-9 sm:h-10 w-auto object-contain cursor-pointer transition-transform group-hover:scale-105"
                 />
               ) : (
-                <div className="w-8 h-8 rounded-full bg-[#1A392A] border border-[#C5A059] flex items-center justify-center text-[#C5A059] font-serif font-bold text-base shadow-xs">
+                <div className="w-8 h-8 rounded-full bg-[#522912] border border-[#C5A059] flex items-center justify-center text-[#E5C483] font-serif font-bold text-base shadow-xs">
                   P
                 </div>
               )}
             </div>
-            <span className="text-[8px] sm:text-[9.5px] uppercase tracking-[0.24em] font-serif font-semibold text-[#C5A059] group-hover:text-[#1A392A] transition-colors -mt-0.5 whitespace-nowrap">
+            <span className="text-[8px] sm:text-[9.5px] uppercase tracking-[0.24em] font-serif font-semibold text-[#E5C483] group-hover:text-white transition-colors -mt-0.5 whitespace-nowrap">
               TEA & SPICES
             </span>
           </Link>
@@ -295,8 +295,8 @@ export default function Header({ lang, setLang }) {
               className={({ isActive }) =>
                 `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
                   isActive
-                    ? "text-[#683619] font-bold border-[#683619]"
-                    : "text-[#1C2024]/75 border-transparent hover:text-[#683619] hover:border-[#683619]"
+                    ? "text-[#E5C483] font-bold border-[#E5C483]"
+                    : "text-[#EDE1CC]/80 border-transparent hover:text-[#E5C483] hover:border-[#E5C483]"
                 }`
               }
             >
@@ -313,13 +313,15 @@ export default function Header({ lang, setLang }) {
                 to="/tea"
                 onClick={() => {
                   closeAllMenus();
-                  window.dispatchEvent(new CustomEvent("paul:trigger-tea-reveal"));
+                  if (location.pathname === "/tea") {
+                    window.dispatchEvent(new CustomEvent("paul:trigger-tea-reveal"));
+                  }
                 }}
                 className={({ isActive }) =>
                   `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] flex items-center gap-1.5 ${
                     isActive || isTeaMenuOpen
-                      ? "text-[#683619] font-bold border-[#683619]"
-                      : "text-[#1C2024]/75 border-transparent hover:text-[#683619] hover:border-[#683619]"
+                      ? "text-[#E5C483] font-bold border-[#E5C483]"
+                      : "text-[#EDE1CC]/80 border-transparent hover:text-[#E5C483] hover:border-[#E5C483]"
                   }`
                 }
               >
@@ -339,8 +341,8 @@ export default function Header({ lang, setLang }) {
                 className={({ isActive }) =>
                   `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] flex items-center gap-1.5 ${
                     isActive || isSpiceMenuOpen
-                      ? "text-[#683619] font-bold border-[#683619]"
-                      : "text-[#1C2024]/75 border-transparent hover:text-[#683619] hover:border-[#683619]"
+                      ? "text-[#E5C483] font-bold border-[#E5C483]"
+                      : "text-[#EDE1CC]/80 border-transparent hover:text-[#E5C483] hover:border-[#E5C483]"
                   }`
                 }
               >
@@ -355,8 +357,8 @@ export default function Header({ lang, setLang }) {
               className={({ isActive }) =>
                 `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
                   isActive
-                    ? "text-[#683619] font-bold border-[#683619]"
-                    : "text-[#1C2024]/75 border-transparent hover:text-[#683619] hover:border-[#683619]"
+                    ? "text-[#E5C483] font-bold border-[#E5C483]"
+                    : "text-[#EDE1CC]/80 border-transparent hover:text-[#E5C483] hover:border-[#E5C483]"
                 }`
               }
             >
@@ -370,8 +372,8 @@ export default function Header({ lang, setLang }) {
               className={({ isActive }) =>
                 `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
                   isActive
-                    ? "text-[#683619] font-bold border-[#683619]"
-                    : "text-[#1C2024]/75 border-transparent hover:text-[#683619] hover:border-[#683619]"
+                    ? "text-[#E5C483] font-bold border-[#E5C483]"
+                    : "text-[#EDE1CC]/80 border-transparent hover:text-[#E5C483] hover:border-[#E5C483]"
                 }`
               }
             >
@@ -381,7 +383,7 @@ export default function Header({ lang, setLang }) {
 
           {/* Full-Width Mega Dropdown for Tea */}
           <div
-            className={`absolute top-full left-0 right-0 w-full bg-finesse paper-texture border-t-0 border-b border-[#C5A059]/30 shadow-2xl transition-all duration-300 overflow-hidden z-40 ${
+            className={`absolute top-full left-0 right-0 w-full bg-[#683619] border-t border-b border-[#C5A059]/40 shadow-2xl transition-all duration-300 overflow-hidden z-40 ${
               isTeaMenuOpen
                 ? "max-h-[1400px] opacity-100 py-16 sm:py-24 pointer-events-auto"
                 : "max-h-0 opacity-0 py-0 pointer-events-none"
@@ -422,7 +424,7 @@ export default function Header({ lang, setLang }) {
                       <Link
                         to={`/tea#tea-story-${tea.id}`}
                         onClick={closeAllMenus}
-                        className="w-full aspect-[4/3] max-h-[300px] sm:max-h-[340px] flex items-center justify-center mb-5 overflow-hidden rounded-2xl bg-[#1A392A]/5 border border-[#C5A059]/30 shadow-sm group-hover/item:shadow-xl transition-all duration-300"
+                        className="w-full aspect-[4/3] max-h-[300px] sm:max-h-[340px] flex items-center justify-center mb-5 overflow-hidden rounded-2xl bg-[#522912] border border-[#C5A059]/40 shadow-sm group-hover/item:border-[#E5C483] group-hover/item:shadow-xl transition-all duration-300"
                       >
                         <img
                           src={tea.imageUrl}
@@ -435,24 +437,24 @@ export default function Header({ lang, setLang }) {
                       <Link
                         to={`/tea#tea-story-${tea.id}`}
                         onClick={closeAllMenus}
-                        className="font-serif text-base sm:text-lg font-bold text-[#1A392A] group-hover/item:text-[#C5A059] transition-colors leading-tight mb-2 tracking-tight line-clamp-1"
+                        className="font-serif text-base sm:text-lg font-bold text-[#EDE1CC] group-hover/item:text-[#E5C483] transition-colors leading-tight mb-2 tracking-tight line-clamp-1"
                       >
                         {name}
                       </Link>
 
                       {/* 3. Sub-links below title */}
-                      <div className="flex items-center justify-center gap-4 text-xs sm:text-sm font-sans text-[#1C2024]/75 mt-1">
+                      <div className="flex items-center justify-center gap-4 text-xs sm:text-sm font-sans text-[#EDE1CC]/75 mt-1">
                         <Link
                           to={`/tea#tea-story-${tea.id}`}
                           onClick={closeAllMenus}
-                          className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#1A392A] hover:text-[#1A392A] transition-all font-medium"
+                          className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#E5C483] hover:text-[#E5C483] transition-all font-medium"
                         >
                           {leftLinkText}
                         </Link>
                         <Link
                           to={`/tea#tea-story-${tea.id}`}
                           onClick={closeAllMenus}
-                          className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#1A392A] hover:text-[#1A392A] transition-all font-medium"
+                          className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#E5C483] hover:text-[#E5C483] transition-all font-medium"
                         >
                           {rightLinkText}
                         </Link>
@@ -466,7 +468,7 @@ export default function Header({ lang, setLang }) {
 
           {/* Full-Width Mega Dropdown for Spices */}
           <div
-            className={`absolute top-full left-0 right-0 w-full bg-finesse paper-texture border-t-0 border-b border-[#C5A059]/30 shadow-2xl transition-all duration-300 overflow-hidden z-40 ${
+            className={`absolute top-full left-0 right-0 w-full bg-[#683619] border-t border-b border-[#C5A059]/40 shadow-2xl transition-all duration-300 overflow-hidden z-40 ${
               isSpiceMenuOpen
                 ? "max-h-[1400px] opacity-100 py-16 sm:py-24 pointer-events-auto"
                 : "max-h-0 opacity-0 py-0 pointer-events-none"
@@ -507,7 +509,7 @@ export default function Header({ lang, setLang }) {
                       <Link
                         to="/spices"
                         onClick={closeAllMenus}
-                        className="w-full aspect-[4/3] max-h-[300px] sm:max-h-[340px] flex items-center justify-center mb-5 overflow-hidden rounded-2xl bg-[#121D2C]/5 border border-[#C5A059]/30 shadow-sm group-hover/item:shadow-xl transition-all duration-300"
+                        className="w-full aspect-[4/3] max-h-[300px] sm:max-h-[340px] flex items-center justify-center mb-5 overflow-hidden rounded-2xl bg-[#522912] border border-[#C5A059]/40 shadow-sm group-hover/item:border-[#E5C483] group-hover/item:shadow-xl transition-all duration-300"
                       >
                         <img
                           src={spice.imageUrl}
@@ -520,24 +522,24 @@ export default function Header({ lang, setLang }) {
                       <Link
                         to="/spices"
                         onClick={closeAllMenus}
-                        className="font-serif text-base sm:text-lg font-bold text-[#1A392A] group-hover/item:text-[#C5A059] transition-colors leading-tight mb-2 tracking-tight line-clamp-1"
+                        className="font-serif text-base sm:text-lg font-bold text-[#EDE1CC] group-hover/item:text-[#E5C483] transition-colors leading-tight mb-2 tracking-tight line-clamp-1"
                       >
                         {name}
                       </Link>
 
                       {/* 3. Sub-links below title */}
-                      <div className="flex items-center justify-center gap-4 text-xs sm:text-sm font-sans text-[#1C2024]/75 mt-1">
+                      <div className="flex items-center justify-center gap-4 text-xs sm:text-sm font-sans text-[#EDE1CC]/75 mt-1">
                         <Link
                           to="/spices"
                           onClick={closeAllMenus}
-                          className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#1A392A] hover:text-[#1A392A] transition-all font-medium"
+                          className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#E5C483] hover:text-[#E5C483] transition-all font-medium"
                         >
                           {leftLinkText}
                         </Link>
                         <Link
                           to="/spices"
                           onClick={closeAllMenus}
-                          className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#1A392A] hover:text-[#1A392A] transition-all font-medium"
+                          className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#E5C483] hover:text-[#E5C483] transition-all font-medium"
                         >
                           {rightLinkText}
                         </Link>
@@ -559,8 +561,8 @@ export default function Header({ lang, setLang }) {
                 className={({ isActive }) =>
                   `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
                     isActive
-                      ? "font-bold text-[#683619] bg-[#683619]/10"
-                      : "text-[#1C2024]/70 hover:text-[#683619]"
+                      ? "font-bold text-[#E5C483] bg-[#522912]"
+                      : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
                   }`
                 }
               >
@@ -570,13 +572,15 @@ export default function Header({ lang, setLang }) {
               <NavLink
                 to="/tea"
                 onClick={() => {
-                  window.dispatchEvent(new CustomEvent("paul:trigger-tea-reveal"));
+                  if (location.pathname === "/tea") {
+                    window.dispatchEvent(new CustomEvent("paul:trigger-tea-reveal"));
+                  }
                 }}
                 className={({ isActive }) =>
                   `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
                     isActive
-                      ? "font-bold text-[#683619] bg-[#683619]/10"
-                      : "text-[#1C2024]/70 hover:text-[#683619]"
+                      ? "font-bold text-[#E5C483] bg-[#522912]"
+                      : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
                   }`
                 }
               >
@@ -588,8 +592,8 @@ export default function Header({ lang, setLang }) {
                 className={({ isActive }) =>
                   `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
                     isActive
-                      ? "font-bold text-[#683619] bg-[#683619]/10"
-                      : "text-[#1C2024]/70 hover:text-[#683619]"
+                      ? "font-bold text-[#E5C483] bg-[#522912]"
+                      : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
                   }`
                 }
               >
@@ -601,8 +605,8 @@ export default function Header({ lang, setLang }) {
                 className={({ isActive }) =>
                   `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
                     isActive
-                      ? "font-bold text-[#683619] bg-[#683619]/10"
-                      : "text-[#1C2024]/70 hover:text-[#683619]"
+                      ? "font-bold text-[#E5C483] bg-[#522912]"
+                      : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
                   }`
                 }
               >
@@ -614,8 +618,8 @@ export default function Header({ lang, setLang }) {
                 className={({ isActive }) =>
                   `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
                     isActive
-                      ? "font-bold text-[#683619] bg-[#683619]/10"
-                      : "text-[#1C2024]/70 hover:text-[#683619]"
+                      ? "font-bold text-[#E5C483] bg-[#522912]"
+                      : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
                   }`
                 }
               >
@@ -640,8 +644,8 @@ export default function Header({ lang, setLang }) {
                 aria-label="Select Language"
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition shadow-xs text-xs font-semibold cursor-pointer ${
                   isLangOpen
-                    ? "border-[#1A392A] bg-[#1A392A] text-[#E5C483]"
-                    : "border-[#C5A059]/50 bg-[#F5EBDB] text-[#1A392A] hover:bg-[#1A392A] hover:text-[#E5C483] hover:border-[#1A392A]"
+                    ? "border-[#E5C483] bg-[#E5C483] text-[#522912]"
+                    : "border-[#C5A059]/50 bg-[#522912] text-[#EDE1CC] hover:bg-[#E5C483] hover:text-[#522912] hover:border-[#E5C483]"
                 }`}
               >
                 <img
@@ -656,7 +660,7 @@ export default function Header({ lang, setLang }) {
                   {currentLanguage.short}
                 </span>
                 <Globe
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${isLangOpen ? "text-[#C5A059] rotate-180" : "text-[#C5A059]"}`}
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${isLangOpen ? "text-[#522912] rotate-180" : "text-[#E5C483]"}`}
                 />
               </button>
 
@@ -668,8 +672,8 @@ export default function Header({ lang, setLang }) {
                     : "opacity-0 -translate-y-2 pointer-events-none"
                 }`}
               >
-                <div className="bg-[#F5EBDB] border border-[#C5A059]/50 rounded-xl shadow-2xl py-1.5 overflow-hidden">
-                  <div className="px-3 py-1 text-[10px] uppercase tracking-wider font-semibold text-[#C5A059] border-b border-[#C5A059]/25 mb-1">
+                <div className="bg-[#522912] border border-[#C5A059]/50 rounded-xl shadow-2xl py-1.5 overflow-hidden divide-y divide-[#C5A059]/20">
+                  <div className="px-3 py-1 text-[10px] uppercase tracking-wider font-semibold text-[#E5C483] mb-1">
                     Select Language
                   </div>
                   {languages.map((l) => (
@@ -679,10 +683,10 @@ export default function Header({ lang, setLang }) {
                         setLang(l.code);
                         setIsLangOpen(false);
                       }}
-                      className={`w-full px-3.5 py-2 text-left text-xs flex items-center justify-between hover:bg-[#EDE1CC] transition cursor-pointer ${
+                      className={`w-full px-3.5 py-2 text-left text-xs flex items-center justify-between transition cursor-pointer ${
                         lang === l.code
-                          ? "font-bold text-[#1A392A] bg-[#EDE1CC]"
-                          : "text-[#1C2024]"
+                          ? "font-bold text-[#E5C483] bg-[#683619]"
+                          : "text-[#EDE1CC] hover:bg-[#683619] hover:text-[#E5C483]"
                       }`}
                     >
                       <div className="flex items-center gap-2.5">
@@ -692,12 +696,12 @@ export default function Header({ lang, setLang }) {
                           className="w-4.5 h-3.5 object-cover rounded-xs border border-[#C5A059]/30 shadow-xs"
                         />
                         <span className="font-serif">{l.label}</span>
-                        <span className="text-[10px] text-[#1C2024]/50 font-mono">
+                        <span className="text-[10px] text-[#EDE1CC]/60 font-mono">
                           ({l.short})
                         </span>
                       </div>
                       {lang === l.code && (
-                        <span className="w-2 h-2 rounded-full bg-[#1A392A] shadow-xs"></span>
+                        <span className="w-2 h-2 rounded-full bg-[#E5C483] shadow-xs"></span>
                       )}
                     </button>
                   ))}

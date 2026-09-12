@@ -8,6 +8,8 @@ export default function TeaSceneryHero({ lang = "de" }) {
   const sceneryImgRef = useRef(null);
   const headingRef = useRef(null);
   const location = useLocation();
+  const lastAnimatedTimeRef = useRef(0);
+  const timelineRef = useRef(null);
 
   const heroContent = {
     de: {
@@ -44,14 +46,23 @@ export default function TeaSceneryHero({ lang = "de" }) {
 
   const content = heroContent[lang] || heroContent.de;
 
-  const playCenterOutReveal = () => {
+  const playCenterOutReveal = (force = false) => {
+    const now = Date.now();
+    // Guard against duplicate execution within 800ms
+    if (!force && now - lastAnimatedTimeRef.current < 800) {
+      return;
+    }
+    lastAnimatedTimeRef.current = now;
+
     const frame = sceneryFrameRef.current;
     const img = sceneryImgRef.current;
     const heading = headingRef.current;
 
     if (!frame || !img) return;
 
-    // Reset animations
+    if (timelineRef.current) {
+      timelineRef.current.kill();
+    }
     gsap.killTweensOf([frame, img, heading]);
 
     // Initial state: Image hidden via center point clipPath
@@ -72,15 +83,16 @@ export default function TeaSceneryHero({ lang = "de" }) {
     }
 
     const tl = gsap.timeline();
+    timelineRef.current = tl;
 
-    // 1. Heading fades and slides in
+    // 1. Heading fades and slides in smoothly once
     if (heading) {
       tl.to(
         heading,
         {
           autoAlpha: 1,
           y: 0,
-          duration: 1,
+          duration: 0.9,
           ease: "power3.out",
         },
         0,
@@ -111,21 +123,32 @@ export default function TeaSceneryHero({ lang = "de" }) {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      playCenterOutReveal();
-    }, 60);
+    let timer = null;
+    const ctx = gsap.context(() => {
+      timer = setTimeout(() => {
+        playCenterOutReveal();
+      }, 50);
 
-    const handleCustomTrigger = () => {
-      playCenterOutReveal();
-    };
+      const handleCustomTrigger = () => {
+        playCenterOutReveal(true);
+      };
 
-    window.addEventListener("paul:trigger-tea-reveal", handleCustomTrigger);
+      window.addEventListener("paul:trigger-tea-reveal", handleCustomTrigger);
+
+      return () => {
+        if (timer) clearTimeout(timer);
+        window.removeEventListener("paul:trigger-tea-reveal", handleCustomTrigger);
+        if (timelineRef.current) {
+          timelineRef.current.kill();
+        }
+      };
+    }, containerRef);
 
     return () => {
-      clearTimeout(timer);
-      window.removeEventListener("paul:trigger-tea-reveal", handleCustomTrigger);
+      if (timer) clearTimeout(timer);
+      ctx.revert();
     };
-  }, [location.pathname, location.key]);
+  }, [location.pathname]);
 
   return (
     <section
