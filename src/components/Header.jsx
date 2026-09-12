@@ -427,7 +427,7 @@ export default function Header({ lang, setLang }) {
                     key={tea.id}
                     className="group/item flex flex-col items-center text-center cursor-pointer select-none"
                   >
-                    {/* 1. Product Image with Refined Dimensions */}
+                    {/* 1. Product Image */}
                     <Link
                       to="/tea"
                       onClick={() => {
@@ -438,12 +438,12 @@ export default function Header({ lang, setLang }) {
                           );
                         }
                       }}
-                      className="w-full aspect-square max-h-[180px] sm:max-h-[210px] lg:max-h-[230px] flex items-center justify-center overflow-hidden rounded-2xl bg-transparent border-none shadow-none transition-all duration-300 px-2 mb-2"
+                      className="w-full aspect-square max-h-[220px] sm:max-h-[260px] flex items-center justify-center mb-4 overflow-hidden rounded-2xl border border-[#C5A059]/40 shadow-md group-hover/item:border-[#E5C483] group-hover/item:shadow-xl transition-all duration-300"
                     >
                       <img
                         src={tea.imageUrl}
                         alt={tea.name}
-                        className="w-full h-full object-contain rounded-xl group-hover/item:scale-106 transition-transform duration-500 ease-out filter drop-shadow-lg brightness-100"
+                        className="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-500 ease-out"
                       />
                     </Link>
 
