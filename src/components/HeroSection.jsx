@@ -191,13 +191,6 @@ export default function HeroSection({ lang }) {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#C5A059]/5 rounded-full blur-3xl animate-mist"
           style={{ animationDelay: "8s" }}
         ></div>
-
-        {/* Parallax Mountain Silhouettes Graphic */}
-        <div className="absolute bottom-0 inset-x-0 h-24 opacity-15 flex justify-between items-end text-[#1A392A] pointer-events-none">
-          <Mountain className="w-36 h-36 -mb-6 stroke-1" />
-          <Mountain className="w-56 h-56 -mb-8 stroke-1 hidden md:block" />
-          <Mountain className="w-40 h-40 -mb-6 stroke-1" />
-        </div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex-grow flex flex-col justify-between items-center w-full">

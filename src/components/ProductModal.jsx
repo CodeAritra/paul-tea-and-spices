@@ -2,11 +2,7 @@ import React from "react";
 import { X, MapPin, Calendar, Box, Feather } from "lucide-react";
 import { TRANSLATIONS } from "../data/productsData";
 
-export default function ProductModal({
-  product,
-  lang,
-  onClose,
-}) {
+export default function ProductModal({ product, lang, onClose }) {
   if (!product) return null;
   const t = TRANSLATIONS[lang] || TRANSLATIONS.de;
 
@@ -34,7 +30,11 @@ export default function ProductModal({
           <div className="relative z-10">
             <div className="flex flex-wrap items-center gap-2 mb-3">
               <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#C5A059] text-white uppercase tracking-widest">
-                {isLuxury ? t.tierLuxuryLabel : product.tier === "premium" ? t.tierPremiumLabel : t.tierGlobalLabel}
+                {isLuxury
+                  ? t.tierLuxuryLabel
+                  : product.tier === "premium"
+                    ? t.tierPremiumLabel
+                    : t.tierGlobalLabel}
               </span>
               <span className="text-xs font-mono bg-white/10 px-3 py-1 rounded-full">
                 {product.altitude}
@@ -42,7 +42,9 @@ export default function ProductModal({
             </div>
 
             <h2 className="font-serif text-2xl sm:text-4xl font-bold mb-2">
-              {lang === "de" && product.germanName ? product.germanName : product.name}
+              {lang === "de" && product.germanName
+                ? product.germanName
+                : product.name}
             </h2>
 
             <p className="font-serif italic text-sm text-[#E5C483]">
@@ -58,23 +60,33 @@ export default function ProductModal({
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-[#C5A059]" />
               <div>
-                <div className="text-[10px] text-[#1C2024]/60 uppercase font-bold">{t.origin}</div>
-                <div className="font-medium text-[#1A392A]">{product.altitude}</div>
+                <div className="text-[10px] text-[#1C2024]/60 uppercase font-bold">
+                  {t.origin}
+                </div>
+                <div className="font-medium text-[#1A392A]">
+                  {product.altitude}
+                </div>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-[#1A392A]" />
               <div>
-                <div className="text-[10px] text-[#1C2024]/60 uppercase font-bold">{t.harvestYear}</div>
-                <div className="font-medium text-[#1A392A]">{product.harvestSeason}</div>
+                <div className="text-[10px] text-[#1C2024]/60 uppercase font-bold">
+                  {t.harvestYear}
+                </div>
+                <div className="font-medium text-[#1A392A]">
+                  {product.harvestSeason}
+                </div>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
               <Box className="w-4 h-4 text-[#C5A059]" />
               <div>
-                <div className="text-[10px] text-[#1C2024]/60 uppercase font-bold">{t.packaging}</div>
+                <div className="text-[10px] text-[#1C2024]/60 uppercase font-bold">
+                  {t.packaging}
+                </div>
                 <div className="font-medium text-[#1A392A]">
                   {isLuxury ? t.woodBox : t.paperBox}
                 </div>
@@ -118,18 +130,30 @@ export default function ProductModal({
             </h4>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
               <div className="bg-white/10 p-3 rounded-xl">
-                <div className="text-white/60 text-[10px] uppercase font-bold">Temperature</div>
-                <div className="font-bold text-white mt-0.5">{product.steeping.waterTemp}</div>
+                <div className="text-white/60 text-[10px] uppercase font-bold">
+                  Temperature
+                </div>
+                <div className="font-bold text-white mt-0.5">
+                  {product.steeping.waterTemp}
+                </div>
               </div>
 
               <div className="bg-white/10 p-3 rounded-xl">
-                <div className="text-white/60 text-[10px] uppercase font-bold">Steeping Time</div>
-                <div className="font-bold text-[#C5A059] mt-0.5">{product.steeping.timeDisplay}</div>
+                <div className="text-white/60 text-[10px] uppercase font-bold">
+                  Steeping Time
+                </div>
+                <div className="font-bold text-[#C5A059] mt-0.5">
+                  {product.steeping.timeDisplay}
+                </div>
               </div>
 
               <div className="bg-white/10 p-3 rounded-xl col-span-2 sm:col-span-1">
-                <div className="text-white/60 text-[10px] uppercase font-bold">Proportion</div>
-                <div className="font-bold text-white mt-0.5">{product.steeping.leafAmount}</div>
+                <div className="text-white/60 text-[10px] uppercase font-bold">
+                  Proportion
+                </div>
+                <div className="font-bold text-white mt-0.5">
+                  {product.steeping.leafAmount}
+                </div>
               </div>
             </div>
           </div>
