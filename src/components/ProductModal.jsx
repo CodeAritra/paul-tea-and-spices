@@ -15,7 +15,7 @@ export default function ProductModal({ product, lang, onClose }) {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-[#1A392A] text-white hover:bg-[#121D2C] transition shadow-md"
+          className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-[#683619] text-white hover:bg-[#522912] transition shadow-md"
         >
           <X className="w-4 h-4" />
         </button>
@@ -63,19 +63,19 @@ export default function ProductModal({ product, lang, onClose }) {
                 <div className="text-[10px] text-[#1C2024]/60 uppercase font-bold">
                   {t.origin}
                 </div>
-                <div className="font-medium text-[#1A392A]">
+                <div className="font-medium text-[#683619]">
                   {product.altitude}
                 </div>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-[#1A392A]" />
+              <Calendar className="w-4 h-4 text-[#683619]" />
               <div>
                 <div className="text-[10px] text-[#1C2024]/60 uppercase font-bold">
                   {t.harvestYear}
                 </div>
-                <div className="font-medium text-[#1A392A]">
+                <div className="font-medium text-[#683619]">
                   {product.harvestSeason}
                 </div>
               </div>
@@ -87,7 +87,7 @@ export default function ProductModal({ product, lang, onClose }) {
                 <div className="text-[10px] text-[#1C2024]/60 uppercase font-bold">
                   {t.packaging}
                 </div>
-                <div className="font-medium text-[#1A392A]">
+                <div className="font-medium text-[#683619]">
                   {isLuxury ? t.woodBox : t.paperBox}
                 </div>
               </div>
@@ -96,7 +96,7 @@ export default function ProductModal({ product, lang, onClose }) {
 
           {/* Heritage Story Section */}
           <div>
-            <h3 className="font-serif text-lg font-bold text-[#1A392A] mb-2 flex items-center gap-2">
+            <h3 className="font-serif text-lg font-bold text-[#683619] mb-2 flex items-center gap-2">
               <Feather className="w-4 h-4 text-[#C5A059]" />
               <span>Heritage Lore & Story</span>
             </h3>
@@ -114,7 +114,7 @@ export default function ProductModal({ product, lang, onClose }) {
               {product.tastingNotes.map((note, idx) => (
                 <span
                   key={idx}
-                  className="px-3 py-1.5 rounded-full text-xs font-medium bg-[#1A392A]/10 text-[#1A392A] border border-[#1A392A]/20 flex items-center gap-1"
+                  className="px-3 py-1.5 rounded-full text-xs font-medium bg-[#683619]/10 text-[#683619] border border-[#683619]/20 flex items-center gap-1"
                 >
                   <span>🌿</span>
                   <span>{note}</span>
@@ -124,7 +124,7 @@ export default function ProductModal({ product, lang, onClose }) {
           </div>
 
           {/* Brewing & Culinary Ritual Guide */}
-          <div className="p-5 rounded-2xl bg-[#1A392A] text-white">
+          <div className="p-5 rounded-2xl bg-[#683619] text-white">
             <h4 className="font-serif text-base font-bold text-[#C5A059] mb-3 flex items-center gap-2">
               <span>{t.brewGuide}</span>
             </h4>
@@ -162,7 +162,7 @@ export default function ProductModal({ product, lang, onClose }) {
         {/* Modal Footer Showcase Specs */}
         <div className="p-6 bg-[#EDE1CC] border-t border-[#C5A059]/20 flex items-center justify-between">
           <div>
-            <div className="font-serif text-sm font-bold text-[#1A392A]">
+            <div className="font-serif text-sm font-bold text-[#683619]">
               {product.allocation}
             </div>
             <div className="text-xs text-[#1C2024]/60">{product.unit}</div>
@@ -170,7 +170,7 @@ export default function ProductModal({ product, lang, onClose }) {
 
           <button
             onClick={onClose}
-            className="px-6 py-2.5 rounded-full text-xs font-semibold bg-[#1A392A] text-white hover:bg-[#2D5A43] transition"
+            className="px-6 py-2.5 rounded-full text-xs font-semibold bg-[#683619] text-white hover:bg-[#522912] transition"
           >
             Close Lore Window
           </button>

@@ -150,7 +150,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#EDE1CC] text-[#1C2024] selection:bg-[#1A392A] selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#EDE1CC] text-[#1C2024] selection:bg-[#683619] selection:text-white">
       {/* Fixed Header Navigation */}
       <Header lang={lang} setLang={setLang} />
 

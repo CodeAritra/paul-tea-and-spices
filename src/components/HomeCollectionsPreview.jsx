@@ -13,13 +13,13 @@ export default function HomeCollectionsPreview({ lang }) {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         {/* Atelier Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#1A392A]/10 border border-[#C5A059]/40 text-[#1A392A] text-xs font-mono uppercase tracking-[0.25em] mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#683619]/10 border border-[#C5A059]/40 text-[#683619] text-xs font-mono uppercase tracking-[0.25em] mb-4">
           <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
           <span>PAUL'S TEA & SPICES</span>
         </div>
 
         {/* Section Heading */}
-        <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A392A] mb-3">
+        <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#683619] mb-3">
           {isDe ? "Paul's Tee & Gewürze" : "Paul's Tea & Spices"}
         </h2>
 
@@ -38,12 +38,12 @@ export default function HomeCollectionsPreview({ lang }) {
             className="group block p-6 sm:p-8 rounded-2xl bg-white/70 hover:bg-white/95 border border-[#C5A059]/30 hover:border-[#C5A059] shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden"
           >
             <div className="flex items-center justify-between mb-4">
-              <span className="px-3 py-1 rounded-full text-[10.5px] font-mono uppercase tracking-widest bg-[#1A392A] text-[#E5C483]">
+              <span className="px-3 py-1 rounded-full text-[10.5px] font-mono uppercase tracking-widest bg-[#683619] text-[#E5C483]">
                 PAUL'S TEA
               </span>
               <Coffee className="w-5 h-5 text-[#C5A059]" />
             </div>
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#1A392A] group-hover:text-[#C5A059] transition-colors mb-2">
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#683619] group-hover:text-[#C5A059] transition-colors mb-2">
               {isDe ? "Tee Kollektion" : "Tea Collection"}
             </h3>
             <p className="text-xs sm:text-sm text-[#1C2024]/70 leading-relaxed font-light mb-4">
@@ -51,7 +51,7 @@ export default function HomeCollectionsPreview({ lang }) {
                 ? "Feinster Schwarzer & Grüner Tee, Weißer Tee und alpine Kräutermischungen in handgefertigten Holzschatullen."
                 : "Finest Black & Green teas, delicate White tea buds, and alpine herbal blends encased in handcrafted keepsake boxes."}
             </p>
-            <div className="flex items-center gap-2 text-xs font-serif font-bold text-[#1A392A] uppercase tracking-wider group-hover:text-[#C5A059] transition-colors">
+            <div className="flex items-center gap-2 text-xs font-serif font-bold text-[#683619] uppercase tracking-wider group-hover:text-[#C5A059] transition-colors">
               <span>{isDe ? "Tee Entdecken" : "Explore Tea"}</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </div>
@@ -63,12 +63,12 @@ export default function HomeCollectionsPreview({ lang }) {
             className="group block p-6 sm:p-8 rounded-2xl bg-white/70 hover:bg-white/95 border border-[#C5A059]/30 hover:border-[#C5A059] shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden"
           >
             <div className="flex items-center justify-between mb-4">
-              <span className="px-3 py-1 rounded-full text-[10.5px] font-mono uppercase tracking-widest bg-[#1A392A] text-[#E5C483]">
+              <span className="px-3 py-1 rounded-full text-[10.5px] font-mono uppercase tracking-widest bg-[#683619] text-[#E5C483]">
                 PAUL'S SPICES
               </span>
               <Flame className="w-5 h-5 text-[#C5A059]" />
             </div>
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#1A392A] group-hover:text-[#C5A059] transition-colors mb-2">
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#683619] group-hover:text-[#C5A059] transition-colors mb-2">
               {isDe ? "Gewürze Kollektion" : "Spices Collection"}
             </h3>
             <p className="text-xs sm:text-sm text-[#1C2024]/70 leading-relaxed font-light mb-4">
@@ -76,7 +76,7 @@ export default function HomeCollectionsPreview({ lang }) {
                 ? "13 unvergleichliche ganze indische Gewürze – von Idukki Kardamom über Malabar Pfeffer bis zu Kashmir Safran."
                 : "13 exceptional single-origin whole Indian spices — from Idukki Green Cardamom to Malabar Black Pepper and Kashmiri Saffron."}
             </p>
-            <div className="flex items-center gap-2 text-xs font-serif font-bold text-[#1A392A] uppercase tracking-wider group-hover:text-[#C5A059] transition-colors">
+            <div className="flex items-center gap-2 text-xs font-serif font-bold text-[#683619] uppercase tracking-wider group-hover:text-[#C5A059] transition-colors">
               <span>{isDe ? "Gewürze Entdecken" : "Explore Spices"}</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </div>

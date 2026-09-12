@@ -13,12 +13,12 @@ export default function ProductCard({
   const isLuxury = product.tier === "luxury";
 
   // Luxury Colors:
-  // Bottle Green (#1A392A) -> Tea Luxury
+  // Warm Copper (#683619) -> Tea Luxury
   // Midnight Sapphire (#121D2C) -> Spices Luxury
   // Ink Navy (#1B263B) -> Premium / Global
   const accentColor = isLuxury
     ? isTea
-      ? "#1A392A" // Bottle Green
+      ? "#683619" // Warm Copper
       : "#121D2C" // Midnight Sapphire
     : "#1B263B"; // Ink Navy
 
@@ -37,7 +37,7 @@ export default function ProductCard({
         backgroundPosition: "center",
       }
     : {
-        background: `linear-gradient(180deg, rgba(26, 57, 42, 0.45) 0%, rgba(26, 57, 42, 0.95) 100%), url('${product.imageUrl}')`,
+        background: `linear-gradient(180deg, rgba(104, 54, 25, 0.45) 0%, rgba(104, 54, 25, 0.95) 100%), url('${product.imageUrl}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       };

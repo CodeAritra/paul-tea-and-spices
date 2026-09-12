@@ -109,7 +109,7 @@ export const TRANSLATIONS = {
 export const PRODUCTS = [
   // ==========================================
   // 1. PAUL TEA — LUXURY VERTICAL (SINGLE-ORIGIN UNBLENDED)
-  // Packaging: Keepsake Wooden Box | Color Accent: Bottle Green (#1A392A)
+  // Packaging: Keepsake Wooden Box | Color Accent: Warm Copper (#683619)
   // Different Tea Cup Photography per SKU
   // ==========================================
   {
@@ -117,7 +117,7 @@ export const PRODUCTS = [
     category: "tea",
     vertical: "tea-luxury",
     tier: "luxury",
-    accentColor: "#1A392A",
+    accentColor: "#683619",
     name: "Finest Tea For Enthusiasts",
     germanName: "Feinster Tee Für Enthusiasten",
     subtitle: "Delicate & Refreshing • Single-Origin Unblended",
@@ -138,7 +138,7 @@ export const PRODUCTS = [
     },
     sommelierMood: ["morning", "focus", "energy", "malty"],
     imageUrl: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80",
-    imageGradient: "linear-gradient(180deg, rgba(26, 57, 42, 0.4) 0%, rgba(26, 57, 42, 0.92) 100%), url('https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80')",
+    imageGradient: "linear-gradient(180deg, rgba(104, 54, 25, 0.4) 0%, rgba(104, 54, 25, 0.92) 100%), url('https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80')",
     iconSymbol: "🍃",
   },
   {
@@ -146,7 +146,7 @@ export const PRODUCTS = [
     category: "tea",
     vertical: "tea-luxury",
     tier: "luxury",
-    accentColor: "#1A392A",
+    accentColor: "#683619",
     name: "Finest Green Tea from Darjeeling and Assam",
     germanName: "Feinster Grüner Tee aus Darjeeling und Assam",
     subtitle: "Fresh Grassy Flavor with Subtle Hints of Sweetness",
@@ -167,7 +167,7 @@ export const PRODUCTS = [
     },
     sommelierMood: ["morning", "energy", "fresh", "wellness"],
     imageUrl: "https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?auto=format&fit=crop&w=800&q=80",
-    imageGradient: "linear-gradient(180deg, rgba(43, 58, 65, 0.4) 0%, rgba(26, 57, 42, 0.92) 100%), url('https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?auto=format&fit=crop&w=800&q=80')",
+    imageGradient: "linear-gradient(180deg, rgba(104, 54, 25, 0.4) 0%, rgba(104, 54, 25, 0.92) 100%), url('https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?auto=format&fit=crop&w=800&q=80')",
     iconSymbol: "🍃",
   },
   {
@@ -175,7 +175,7 @@ export const PRODUCTS = [
     category: "tea",
     vertical: "tea-luxury",
     tier: "luxury",
-    accentColor: "#1A392A",
+    accentColor: "#683619",
     name: "Finest White Tea",
     germanName: "Feinster Weißer Tee",
     subtitle: "Often Referred to as the 'Champagne of Teas' • Handpicked Tender Buds",
@@ -196,7 +196,7 @@ export const PRODUCTS = [
     },
     sommelierMood: ["calm", "evening", "floral", "meditation"],
     imageUrl: "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=800&q=80",
-    imageGradient: "linear-gradient(180deg, rgba(40, 55, 45, 0.4) 0%, rgba(26, 57, 42, 0.92) 100%), url('https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=800&q=80')",
+    imageGradient: "linear-gradient(180deg, rgba(104, 54, 25, 0.4) 0%, rgba(104, 54, 25, 0.92) 100%), url('https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=800&q=80')",
     iconSymbol: "✨",
   },
 

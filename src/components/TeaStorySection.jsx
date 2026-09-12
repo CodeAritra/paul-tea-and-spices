@@ -15,7 +15,7 @@ function ProductIntroduction({ tea, lang, isEven }) {
       className={`tea-story-item w-full lg:w-[70%] ${isEven ? "lg:mr-auto lg:ml-0" : "lg:ml-auto lg:mr-0"} flex flex-col ${isEven ? "lg:flex-row" : "lg:flex-row-reverse"} items-center gap-8 lg:gap-12`}
     >
       <div className="w-full lg:w-1/2 shrink-0">
-        <div className="tea-visual-frame relative rounded-3xl overflow-hidden shadow-xl gold-foil-frame border border-[#C5A059]/40 bg-[#1A392A] aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] max-h-[480px]">
+        <div className="tea-visual-frame relative rounded-3xl overflow-hidden shadow-xl gold-foil-frame border border-[#C5A059]/40 bg-[#683619] aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] max-h-[480px]">
           <img
             src={tea.imageUrl}
             alt={tea.name}
@@ -30,7 +30,7 @@ function ProductIntroduction({ tea, lang, isEven }) {
         </div>
       </div>
       <div className="tea-story-content w-full lg:w-1/2 space-y-5">
-        <h3 className="tea-story-heading font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A392A] leading-tight tracking-tight">
+        <h3 className="tea-story-heading font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#683619] leading-tight tracking-tight">
           {lang === "de" && tea.germanName ? tea.germanName : tea.name}
         </h3>
         <p className="tea-story-desc text-xs sm:text-sm text-[#1C2024]/80 leading-relaxed font-light">
@@ -197,7 +197,7 @@ function CinematicTeaStory({ tea, lang, story }) {
             className="tea-origin-image absolute inset-0 w-full h-full object-cover will-change-transform"
           />
           {hasTextOverlay && (
-            <div className="absolute inset-0 bg-gradient-to-b from-[#121D2C]/65 via-[#1A392A]/30 to-[#121D2C]/85 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#121D2C]/65 via-[#683619]/30 to-[#121D2C]/85 pointer-events-none" />
           )}
         </div>
         {hasTextOverlay && (
@@ -242,7 +242,7 @@ function CinematicTeaStory({ tea, lang, story }) {
         <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-14 pointer-events-auto">
           {/* Left: Product Image */}
           <div className="w-full lg:w-1/2 shrink-0 flex justify-center">
-            <div className="tea-visual-frame relative w-full max-w-[480px] aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl gold-foil-frame border border-[#C5A059]/40 bg-[#1A392A]">
+            <div className="tea-visual-frame relative w-full max-w-[480px] aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl gold-foil-frame border border-[#C5A059]/40 bg-[#683619]">
               <img
                 src={tea.imageUrl}
                 alt={tea.name}
@@ -259,7 +259,7 @@ function CinematicTeaStory({ tea, lang, story }) {
 
           {/* Right: Title & Story Text */}
           <div className="w-full lg:w-1/2 space-y-5 text-left">
-            <h3 className="tea-story-heading font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A392A] leading-tight tracking-tight">
+            <h3 className="tea-story-heading font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#683619] leading-tight tracking-tight">
               {lang === "de" && tea.germanName ? tea.germanName : tea.name}
             </h3>
             <p className="tea-story-desc text-xs sm:text-sm lg:text-base text-[#1C2024]/80 leading-relaxed font-light">

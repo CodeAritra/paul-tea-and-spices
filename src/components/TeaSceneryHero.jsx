@@ -165,7 +165,7 @@ export default function TeaSceneryHero({ lang = "de" }) {
           <span>{content.badge}</span>
           <span className="w-8 h-px bg-[#C5A059]/50" />
         </div>
-        <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A392A] mb-3 tracking-tight">
+        <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#683619] mb-3 tracking-tight">
           {content.title}
         </h1>
         <p className="text-xs sm:text-base text-[#1C2024]/75 max-w-2xl mx-auto font-light leading-relaxed">

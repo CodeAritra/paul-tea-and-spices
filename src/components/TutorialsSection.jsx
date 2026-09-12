@@ -58,7 +58,7 @@ export default function TutorialsSection({ lang }) {
           timeStr: "3 Minuten",
           ratio: "2,5g pro 200ml Quellwasser",
           vessel: "Porzellankanne oder Gaiwan",
-          color: "#1A392A",
+          color: "#683619",
           prepSummary:
             "Quellwasser kochen und auf ~92°C abkühlen lassen. 2,5g unzerkleinerte Blätter in die vorgewärmte Kanne geben und genau 3 Minuten ziehen lassen, um feine Muskatell-Noten ohne Bitterstoffe zu entfalten.",
           image:
@@ -80,7 +80,7 @@ export default function TutorialsSection({ lang }) {
           timeStr: "2,5 Minuten",
           ratio: "2g pro 200ml Quellwasser",
           vessel: "Glaskanne oder Keramik-Kyusu",
-          color: "#2D5A27",
+          color: "#683619",
           prepSummary:
             "Wasser nach dem Kochen 3–4 Min. auf 80°C abkühlen lassen. 2g Blätter dosieren, mit temperiertem Wasser aufgießen und 2:30 Min. ziehen lassen für ein smaragdgrünes, süß-frisches Aroma.",
           image:
@@ -256,7 +256,7 @@ export default function TutorialsSection({ lang }) {
           timeStr: "3 Minutes",
           ratio: "2.5g per 200ml spring water",
           vessel: "Porcelain Teapot or Gaiwan",
-          color: "#1A392A",
+          color: "#683619",
           prepSummary:
             "Boil fresh spring water and let settle to ~92°C. Steep 2.5g whole leaves in a preheated pot for 3 minutes to unlock rich muscatel notes without bitterness.",
           image:
@@ -278,7 +278,7 @@ export default function TutorialsSection({ lang }) {
           timeStr: "2.5 Minutes",
           ratio: "2g per 200ml spring water",
           vessel: "Glass Infuser or Kyusu",
-          color: "#2D5A27",
+          color: "#683619",
           prepSummary:
             "Cool boiled water to 80°C (never use boiling water). Infuse 2g tender leaves for 2.5 minutes for a sweet emerald liquor (re-steep up to 3 times).",
           image:
@@ -567,12 +567,12 @@ export default function TutorialsSection({ lang }) {
     <div className="bg-[#EDE1CC] min-h-screen pt-12 pb-24 text-[#1C2024]">
       {/* 1. HERO HEADER SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A392A] text-[#E5C483] text-xs uppercase tracking-[0.2em] font-medium mb-6 shadow-sm">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#683619] text-[#E5C483] text-xs uppercase tracking-[0.2em] font-medium mb-6 shadow-sm">
           <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
           <span>{content.badge}</span>
         </div>
 
-        <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A392A] max-w-4xl mx-auto leading-tight mb-6">
+        <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#683619] max-w-4xl mx-auto leading-tight mb-6">
           {content.title}
         </h1>
 
@@ -595,15 +595,15 @@ export default function TutorialsSection({ lang }) {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`group flex items-center gap-2 px-6 py-3 rounded-full text-xs sm:text-sm font-serif uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                   isActive
-                    ? "bg-[#1A392A] text-[#EDE1CC] border border-[#C5A059] font-bold shadow-md scale-105"
-                    : "bg-transparent text-[#1A392A] border border-[#1A392A]/50 hover:bg-[#1A392A] hover:text-[#EDE1CC] font-semibold"
+                    ? "bg-[#683619] text-[#EDE1CC] border border-[#C5A059] font-bold shadow-md scale-105"
+                    : "bg-transparent text-[#683619] border border-[#683619]/50 hover:bg-[#683619] hover:text-[#EDE1CC] font-semibold"
                 }`}
               >
                 <Icon
                   className={`w-4 h-4 transition-colors duration-300 ${
                     isActive
                       ? "text-[#C5A059]"
-                      : "text-[#1A392A] group-hover:text-[#C5A059]"
+                      : "text-[#683619] group-hover:text-[#C5A059]"
                   }`}
                 />
                 <span>{cat.label}</span>
@@ -616,10 +616,10 @@ export default function TutorialsSection({ lang }) {
       {/* 1. INTERACTIVE TEA TIMER & SOMMELIER SECTION (Timer Tab) */}
       {activeCategory === "timer" && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-          <div className="bg-[#1A392A] text-white rounded-3xl p-6 sm:p-10 lg:p-12 border border-[#C5A059]/40 shadow-2xl relative overflow-hidden">
+          <div className="bg-[#683619] text-white rounded-3xl p-6 sm:p-10 lg:p-12 border border-[#C5A059]/40 shadow-2xl relative overflow-hidden">
             {/* Background Glow Accents */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-[#C5A059]/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#2D5A27]/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#854620]/20 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10">
               <div className="text-center max-w-2xl mx-auto mb-10">
@@ -715,7 +715,7 @@ export default function TutorialsSection({ lang }) {
                     {!isTimerRunning ? (
                       <button
                         onClick={handleStartTimer}
-                        className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#C5A059] hover:bg-[#D4B06A] text-[#1A392A] font-serif font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer hover:scale-105"
+                        className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#C5A059] hover:bg-[#D4B06A] text-[#683619] font-serif font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer hover:scale-105"
                       >
                         <Play className="w-3.5 h-3.5 fill-current" />
                         <span>{content.start}</span>
@@ -803,7 +803,7 @@ export default function TutorialsSection({ lang }) {
                           key={sIdx}
                           className="flex items-start gap-3 text-xs text-white/80 leading-relaxed bg-white/5 p-2.5 rounded-lg border border-white/5"
                         >
-                          <span className="w-5 h-5 rounded-full bg-[#C5A059] text-[#1A392A] font-bold flex items-center justify-center shrink-0 text-[10px]">
+                          <span className="w-5 h-5 rounded-full bg-[#C5A059] text-[#683619] font-bold flex items-center justify-center shrink-0 text-[10px]">
                             {sIdx + 1}
                           </span>
                           <span>{step}</span>
@@ -825,7 +825,7 @@ export default function TutorialsSection({ lang }) {
             <span className="text-[#C5A059] text-xs font-serif uppercase tracking-[0.25em] font-semibold">
               Masterclass Infusions
             </span>
-            <h2 className="font-serif text-3xl font-bold text-[#1A392A] mt-1 mb-3">
+            <h2 className="font-serif text-3xl font-bold text-[#683619] mt-1 mb-3">
               Tee-Zubereitung Anleitungen
             </h2>
             <p className="text-sm text-[#1C2024]/70 font-light">
@@ -846,27 +846,27 @@ export default function TutorialsSection({ lang }) {
                     alt={guide.name}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                   />
-                  <div className="absolute top-3 left-3 bg-[#1A392A]/90 backdrop-blur-xs text-[#E5C483] px-3 py-1 rounded-full text-[10px] font-mono tracking-wider font-semibold border border-[#C5A059]/30">
+                  <div className="absolute top-3 left-3 bg-[#683619]/90 backdrop-blur-xs text-[#E5C483] px-3 py-1 rounded-full text-[10px] font-mono tracking-wider font-semibold border border-[#C5A059]/30">
                     {guide.type}
                   </div>
                 </div>
                 <div className="p-6 sm:p-7 flex flex-col justify-between flex-grow sm:w-7/12">
                   <div>
-                    <h3 className="font-serif text-base sm:text-lg font-bold text-[#1A392A] mb-2 leading-snug">
+                    <h3 className="font-serif text-base sm:text-lg font-bold text-[#683619] mb-2 leading-snug">
                       {guide.name}
                     </h3>
 
                     <div className="flex flex-wrap gap-2 text-[11px] font-mono text-[#C5A059] mb-3">
-                      <span className="bg-[#EDE1CC] text-[#1A392A] px-2.5 py-1 rounded-md border border-[#C5A059]/30 font-semibold">
+                      <span className="bg-[#EDE1CC] text-[#683619] px-2.5 py-1 rounded-md border border-[#C5A059]/30 font-semibold">
                         {guide.temp}
                       </span>
-                      <span className="bg-[#EDE1CC] text-[#1A392A] px-2.5 py-1 rounded-md border border-[#C5A059]/30 font-semibold">
+                      <span className="bg-[#EDE1CC] text-[#683619] px-2.5 py-1 rounded-md border border-[#C5A059]/30 font-semibold">
                         {guide.timeStr}
                       </span>
                     </div>
 
                     <div className="bg-[#EDE1CC]/75 p-3 rounded-xl border border-[#C5A059]/25 mb-4">
-                      <span className="text-[10px] font-serif uppercase tracking-widest text-[#1A392A] font-bold block mb-1">
+                      <span className="text-[10px] font-serif uppercase tracking-widest text-[#683619] font-bold block mb-1">
                         {lang === "de" ? "Zubereitung:" : "Preparation:"}
                       </span>
                       <p className="text-xs text-[#1C2024]/85 leading-relaxed font-light">
@@ -876,7 +876,7 @@ export default function TutorialsSection({ lang }) {
                   </div>
 
                   <div className="border-t border-[#C5A059]/25 pt-3 mt-auto">
-                    <span className="text-[10px] font-serif uppercase tracking-widest text-[#1A392A] font-bold block mb-0.5">
+                    <span className="text-[10px] font-serif uppercase tracking-widest text-[#683619] font-bold block mb-0.5">
                       {content.vessel}:
                     </span>
                     <p className="text-xs text-[#1C2024]/75 font-light">
@@ -897,7 +897,7 @@ export default function TutorialsSection({ lang }) {
             <span className="text-[#C5A059] text-xs font-serif uppercase tracking-[0.25em] font-semibold">
               The Alchemy of Aroma
             </span>
-            <h2 className="font-serif text-3xl font-bold text-[#1A392A] mt-1 mb-3">
+            <h2 className="font-serif text-3xl font-bold text-[#683619] mt-1 mb-3">
               Ganze Gewürze Thermisch Aktivieren
             </h2>
             <p className="text-sm text-[#1C2024]/70 font-light">
@@ -920,13 +920,13 @@ export default function TutorialsSection({ lang }) {
                       alt={ritual.title}
                       className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                     />
-                    <div className="absolute top-3 left-3 bg-[#1A392A]/90 backdrop-blur-xs text-[#E5C483] px-3 py-1 rounded-full text-[10px] font-mono tracking-wider font-semibold border border-[#C5A059]/30">
+                    <div className="absolute top-3 left-3 bg-[#683619]/90 backdrop-blur-xs text-[#E5C483] px-3 py-1 rounded-full text-[10px] font-mono tracking-wider font-semibold border border-[#C5A059]/30">
                       {ritual.tag}
                     </div>
                   </div>
 
                   <div className="p-6">
-                    <h3 className="font-serif text-lg font-bold text-[#1A392A] mb-3 leading-snug">
+                    <h3 className="font-serif text-lg font-bold text-[#683619] mb-3 leading-snug">
                       {ritual.title}
                     </h3>
 
@@ -935,7 +935,7 @@ export default function TutorialsSection({ lang }) {
                     </p>
 
                     <div className="space-y-2 border-t border-[#C5A059]/25 pt-4">
-                      <span className="text-[10px] font-serif uppercase tracking-widest text-[#1A392A] font-bold block mb-1">
+                      <span className="text-[10px] font-serif uppercase tracking-widest text-[#683619] font-bold block mb-1">
                         Praxis-Tipps:
                       </span>
                       {ritual.tips.map((tip, tIdx) => (

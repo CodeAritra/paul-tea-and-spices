@@ -413,7 +413,7 @@ export default function SpiceMapSection({ lang = "de" }) {
                   </div>
                   <button
                     onClick={handleResetZoom}
-                    className="w-7 h-7 rounded-full bg-[#EDE1CC] border border-[#C5A059]/35 text-[#1A392A] hover:bg-[#1A392A] hover:text-[#E5C483] hover:border-[#1A392A] transition-all duration-300 flex items-center justify-center text-sm cursor-pointer"
+                    className="w-7 h-7 rounded-full bg-[#EDE1CC] border border-[#C5A059]/35 text-[#683619] hover:bg-[#683619] hover:text-[#E5C483] hover:border-[#683619] transition-all duration-300 flex items-center justify-center text-sm cursor-pointer"
                     title={isGerman ? "Schließen" : "Close detail"}
                   >
                     ✕
@@ -435,7 +435,7 @@ export default function SpiceMapSection({ lang = "de" }) {
 
                     {/* Category Pill on Image */}
                     <div className="absolute top-2.5 left-2.5 z-10">
-                      <span className="px-2 py-0.5 rounded-md text-[8.5px] font-mono uppercase tracking-wider bg-[#1A392A]/90 text-[#E5C483] border border-[#C5A059]/50 backdrop-blur-md">
+                      <span className="px-2 py-0.5 rounded-md text-[8.5px] font-mono uppercase tracking-wider bg-[#683619]/90 text-[#E5C483] border border-[#C5A059]/50 backdrop-blur-md">
                         {selectedSpice.category}
                       </span>
                     </div>
@@ -443,7 +443,7 @@ export default function SpiceMapSection({ lang = "de" }) {
 
                   {/* Spice Name & Subtitle */}
                   <div>
-                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#1A392A] leading-tight mb-0.5">
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#683619] leading-tight mb-0.5">
                       {isGerman ? selectedSpice.germanName : selectedSpice.name}
                     </h3>
                     <p className="font-serif italic text-xs text-[#C5A059] font-medium">
@@ -470,7 +470,7 @@ export default function SpiceMapSection({ lang = "de" }) {
                         {selectedSpice.tastingNotes.map((note) => (
                           <span
                             key={note}
-                            className="px-2.5 py-1 rounded text-[10px] font-mono bg-[#EDE1CC] text-[#1A392A] border border-[#C5A059]/30 font-semibold"
+                            className="px-2.5 py-1 rounded text-[10px] font-mono bg-[#EDE1CC] text-[#683619] border border-[#C5A059]/30 font-semibold"
                           >
                             {note}
                           </span>
@@ -484,7 +484,7 @@ export default function SpiceMapSection({ lang = "de" }) {
                 <div className="shrink-0 flex items-center justify-between pt-3 mt-3 border-t border-[#C5A059]/25 text-xs font-mono">
                   <button
                     onClick={handlePrevSpice}
-                    className="px-3 py-1.5 rounded-lg bg-[#EDE1CC] text-[#1A392A] border border-[#C5A059]/40 hover:bg-[#1A392A] hover:text-[#E5C483] transition-all duration-300 flex items-center gap-1 cursor-pointer font-bold"
+                    className="px-3 py-1.5 rounded-lg bg-[#EDE1CC] text-[#683619] border border-[#C5A059]/40 hover:bg-[#683619] hover:text-[#E5C483] transition-all duration-300 flex items-center gap-1 cursor-pointer font-bold"
                   >
                     <span>←</span>
                     <span>{isGerman ? "Vorheriges" : "Previous"}</span>
@@ -499,7 +499,7 @@ export default function SpiceMapSection({ lang = "de" }) {
 
                   <button
                     onClick={handleNextSpice}
-                    className="px-3 py-1.5 rounded-lg bg-[#1A392A] text-[#E5C483] font-bold hover:bg-[#C5A059] hover:text-[#1A392A] transition-all duration-300 flex items-center gap-1 shadow-md cursor-pointer"
+                    className="px-3 py-1.5 rounded-lg bg-[#683619] text-[#E5C483] font-bold hover:bg-[#C5A059] hover:text-[#683619] transition-all duration-300 flex items-center gap-1 shadow-md cursor-pointer"
                   >
                     <span>{isGerman ? "Nächstes" : "Next"}</span>
                     <span>→</span>

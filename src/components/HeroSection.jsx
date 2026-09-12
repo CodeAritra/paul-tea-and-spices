@@ -226,7 +226,7 @@ export default function HeroSection({ lang }) {
     <section className="relative overflow-hidden bg-gradient-to-b from-[#EDE1CC] via-[#E4D7C0] to-[#EDE1CC] min-h-[calc(100vh-110px)] flex flex-col justify-between py-12 sm:py-16 lg:py-20 border-b border-[#C5A059]/20 paper-texture">
       {/* Background Ambient Mist Micro-Animations */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-10 left-10 w-96 h-96 bg-[#1A392A]/5 rounded-full blur-3xl animate-mist"></div>
+        <div className="absolute top-10 left-10 w-96 h-96 bg-[#683619]/5 rounded-full blur-3xl animate-mist"></div>
         <div
           className="absolute bottom-10 right-10 w-96 h-96 bg-[#121D2C]/5 rounded-full blur-3xl animate-mist"
           style={{ animationDelay: "4s" }}
@@ -243,7 +243,7 @@ export default function HeroSection({ lang }) {
           {/* Son Paul Dedication Pill */}
           <Link
             to="/about"
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1A392A]/10 hover:bg-[#1A392A]/15 border border-[#C5A059]/40 text-[#1A392A] text-xs font-medium mb-5 animate-slide-in transition cursor-pointer group shadow-xs"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#683619]/10 hover:bg-[#683619]/15 border border-[#C5A059]/40 text-[#683619] text-xs font-medium mb-5 animate-slide-in transition cursor-pointer group shadow-xs"
             title="Explore Our Founder Story"
           >
             <Heart className="w-3 h-3 text-[#C5A059] fill-[#C5A059] group-hover:scale-110 transition-transform" />
@@ -273,7 +273,7 @@ export default function HeroSection({ lang }) {
           </div>
 
           {/* Main Hero Title */}
-          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A392A] mb-3 sm:mb-4 py-2 leading-tight max-w-4xl mx-auto whitespace-pre-line">
+          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#683619] mb-3 sm:mb-4 py-2 leading-tight max-w-4xl mx-auto whitespace-pre-line">
             {t.heritageHeadline}
           </h1>
 
@@ -290,7 +290,7 @@ export default function HeroSection({ lang }) {
           <div className="flex justify-center py-3 sm:py-4">
             <button
               onClick={scrollToContent}
-              className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#1A392A]/5 hover:bg-[#1A392A]/10 text-[#1A392A] border border-[#C5A059]/40 text-xs font-semibold tracking-wider uppercase transition cursor-pointer hover:scale-103 shadow-xs"
+              className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#683619]/5 hover:bg-[#683619]/10 text-[#683619] border border-[#C5A059]/40 text-xs font-semibold tracking-wider uppercase transition cursor-pointer hover:scale-103 shadow-xs"
             >
               <span>
                 {lang === "de"
@@ -313,14 +313,14 @@ export default function HeroSection({ lang }) {
                   className="p-3.5 sm:p-4 rounded-xl bg-white border border-[#C5A059]/30 hover:border-[#C5A059] shadow-sm hover:shadow-md transition-all duration-300 w-[270px] sm:w-[310px] flex-shrink-0 text-left cursor-default group"
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-[10px] uppercase tracking-widest text-[#C5A059] font-semibold group-hover:text-[#1A392A] transition-colors">
+                    <span className="text-[10px] uppercase tracking-widest text-[#C5A059] font-semibold group-hover:text-[#683619] transition-colors">
                       {item.num}
                     </span>
                     {item.icon && (
                       <item.icon className="w-3.5 h-3.5 text-[#C5A059] opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all" />
                     )}
                   </div>
-                  <div className="font-serif text-xs sm:text-sm font-bold text-[#1A392A] group-hover:text-[#C5A059] transition-colors">
+                  <div className="font-serif text-xs sm:text-sm font-bold text-[#683619] group-hover:text-[#C5A059] transition-colors">
                     {item.title}
                   </div>
                   <div className="text-[10.5px] sm:text-[11px] text-[#1C2024]/70 mt-0.5 leading-snug">

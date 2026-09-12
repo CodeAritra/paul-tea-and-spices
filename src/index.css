@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @theme {
   --color-finesse: #ede1cc;
-  --color-bottle-green: #1a392a;
+  --color-bottle-green: #683619;
   --color-midnight-sapphire: #121d2c;
   --color-ink-navy: #1b263b;
   --color-gold: #c5a059;
@@ -12,7 +12,7 @@
 @layer base {
   :root {
     --color-finesse: #ede1cc;
-    --color-bottle-green: #1a392a;
+    --color-bottle-green: #683619;
     --color-midnight-sapphire: #121d2c;
     --color-ink-navy: #1b263b;
     --color-gold: #c5a059;
@@ -178,11 +178,11 @@
 .gold-shimmer-btn {
   background: linear-gradient(
     90deg,
-    #1a392a 0%,
-    #2d5a43 45%,
+    #683619 0%,
+    #854620 45%,
     #c5a059 50%,
-    #2d5a43 55%,
-    #1a392a 100%
+    #854620 55%,
+    #683619 100%
   );
   background-size: 250% 100%;
   transition: all 0.5s ease;
@@ -190,12 +190,12 @@
 
 .gold-shimmer-btn:hover {
   background-position: 100% 0;
-  box-shadow: 0 8px 25px rgba(26, 57, 42, 0.3);
+  box-shadow: 0 8px 25px rgba(104, 54, 25, 0.3);
 }
 
 /* Sommelier Apothecary Label Style */
 .apothecary-label {
-  background: rgba(26, 57, 42, 0.75);
+  background: rgba(104, 54, 25, 0.75);
   border: 1px solid rgba(197, 160, 89, 0.4);
   color: #ede1cc;
   font-family: "Playfair Display", Georgia, serif;
@@ -222,7 +222,7 @@
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #1a392a;
+  background: #683619;
 }
 
 /* Infinite Horizontal Marquee Ticker */
