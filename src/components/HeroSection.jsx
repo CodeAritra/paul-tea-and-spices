@@ -1,10 +1,174 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Sparkles, Mountain, Heart, ArrowDown } from "lucide-react";
+import {
+  Sparkles,
+  Mountain,
+  Heart,
+  ArrowDown,
+  Package,
+  ShieldCheck,
+  Compass,
+} from "lucide-react";
 import { TRANSLATIONS } from "../data/productsData";
+
+const FEATURE_PILLARS = {
+  de: [
+    {
+      num: "01. Herkunft",
+      title: "Single-Origin Lagen",
+      desc: "Darjeeling, Assam, Kaschmir & Kerala",
+      icon: Mountain,
+    },
+    {
+      num: "02. Handwerkskunst",
+      title: "Vorarlberger Atelier",
+      desc: "Veredelt mit alpinen Kräutern & Blüten",
+      icon: Sparkles,
+    },
+    {
+      num: "03. Verpackung",
+      title: "Handgefertigtes Holz",
+      desc: "Exklusive Holzschatullen & Baumwollpapier",
+      icon: Package,
+    },
+    {
+      num: "04. Hingabe",
+      title: "Gewidmet Paul",
+      desc: "Reinheit, Geduld & familiäre Sorgfalt",
+      icon: Heart,
+    },
+    {
+      num: "05. Reinheit",
+      title: "100% Unverfälscht",
+      desc: "Direktimport ohne künstliche Zusätze",
+      icon: ShieldCheck,
+    },
+    {
+      num: "06. Meisterschaft",
+      title: "Alpen & Teekultur",
+      desc: "Hundertjährige Handwerkstradition",
+      icon: Compass,
+    },
+  ],
+  en: [
+    {
+      num: "01. Provenance",
+      title: "Single-Origin Estates",
+      desc: "Darjeeling, Assam, Kashmir & Kerala",
+      icon: Mountain,
+    },
+    {
+      num: "02. Craftsmanship",
+      title: "Vorarlberg Atelier",
+      desc: "Blended with Austrian Alpine herbs",
+      icon: Sparkles,
+    },
+    {
+      num: "03. Packaging",
+      title: "Handcrafted Wood",
+      desc: "Reserve wooden boxes & eco cotton paper",
+      icon: Package,
+    },
+    {
+      num: "04. Devotion",
+      title: "Named for Paul",
+      desc: "Purity, patience & family stewardship",
+      icon: Heart,
+    },
+    {
+      num: "05. Purity",
+      title: "100% Pure Harvests",
+      desc: "Direct single-origin without additives",
+      icon: ShieldCheck,
+    },
+    {
+      num: "06. Heritage",
+      title: "Alps & Indian Estates",
+      desc: "Centuries-old tea lore reimagined",
+      icon: Compass,
+    },
+  ],
+  es: [
+    {
+      num: "01. Procedencia",
+      title: "Fincas de Origen Único",
+      desc: "Darjeeling, Assam, Cachemira y Kerala",
+      icon: Mountain,
+    },
+    {
+      num: "02. Artesanía",
+      title: "Atelier de Vorarlberg",
+      desc: "Mezclado con hierbas alpinas austríacas",
+      icon: Sparkles,
+    },
+    {
+      num: "03. Embalaje",
+      title: "Madera Hecha a Mano",
+      desc: "Cajas de madera y papel de algodón",
+      icon: Package,
+    },
+    {
+      num: "04. Devoción",
+      title: "Dedicado a Paul",
+      desc: "Pureza, paciencia y custodia familiar",
+      icon: Heart,
+    },
+    {
+      num: "05. Pureza",
+      title: "100% Cosechas Puras",
+      desc: "Importación directa sin aditivos",
+      icon: ShieldCheck,
+    },
+    {
+      num: "06. Patrimonio",
+      title: "Los Alpes y la India",
+      desc: "Tradición milenaria reinventada",
+      icon: Compass,
+    },
+  ],
+  it: [
+    {
+      num: "01. Provenienza",
+      title: "Tenute di Singola Origine",
+      desc: "Darjeeling, Assam, Kashmir e Kerala",
+      icon: Mountain,
+    },
+    {
+      num: "02. Artigianato",
+      title: "Atelier del Vorarlberg",
+      desc: "Miscelato con erbe alpine austriache",
+      icon: Sparkles,
+    },
+    {
+      num: "03. Confezione",
+      title: "Legno Artigianale",
+      desc: "Scatole in legno e carta di cotone",
+      icon: Package,
+    },
+    {
+      num: "04. Devozione",
+      title: "Dedicato a Paul",
+      desc: "Purezza, pazienza e dedizione familiare",
+      icon: Heart,
+    },
+    {
+      num: "05. Purezza",
+      title: "100% Raccolti Puri",
+      desc: "Importazione diretta senza additivi",
+      icon: ShieldCheck,
+    },
+    {
+      num: "06. Eredità",
+      title: "Le Alpi e l'India",
+      desc: "Tradizione secolare reinterpretata",
+      icon: Compass,
+    },
+  ],
+};
 
 export default function HeroSection({ lang }) {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.de;
+  const pillars = FEATURE_PILLARS[lang] || FEATURE_PILLARS.de;
 
   const scrollToContent = () => {
     const el =
@@ -81,53 +245,32 @@ export default function HeroSection({ lang }) {
           </div>
         </div>
 
-        {/* 4 Feature Badges */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-8 w-full pt-6 border-t border-[#C5A059]/25 text-left">
-          <div className="p-3 rounded-xl bg-white/60 border border-[#C5A059]/20 shadow-xs hover:bg-white/80 transition-colors">
-            <div className="text-[10px] uppercase tracking-widest text-[#C5A059] font-semibold mb-0.5">
-              01. Provenance
-            </div>
-            <div className="font-serif text-xs sm:text-sm font-bold text-[#1A392A]">
-              Single-Origin Estates
-            </div>
-            <div className="text-[10.5px] text-[#1C2024]/70 mt-0.5 leading-snug">
-              Darjeeling, Assam, Kashmir & Kerala
-            </div>
-          </div>
-
-          <div className="p-3 rounded-xl bg-white/60 border border-[#C5A059]/20 shadow-xs hover:bg-white/80 transition-colors">
-            <div className="text-[10px] uppercase tracking-widest text-[#C5A059] font-semibold mb-0.5">
-              02. Craftsmanship
-            </div>
-            <div className="font-serif text-xs sm:text-sm font-bold text-[#1A392A]">
-              Vorarlberg Atelier
-            </div>
-            <div className="text-[10.5px] text-[#1C2024]/70 mt-0.5 leading-snug">
-              Blended with Austrian Alpine herbs
-            </div>
-          </div>
-
-          <div className="p-3 rounded-xl bg-white/60 border border-[#C5A059]/20 shadow-xs hover:bg-white/80 transition-colors">
-            <div className="text-[10px] uppercase tracking-widest text-[#C5A059] font-semibold mb-0.5">
-              03. Packaging
-            </div>
-            <div className="font-serif text-xs sm:text-sm font-bold text-[#1A392A]">
-              Handcrafted Wood
-            </div>
-            <div className="text-[10.5px] text-[#1C2024]/70 mt-0.5 leading-snug">
-              Reserve wooden boxes & eco cotton paper
-            </div>
-          </div>
-
-          <div className="p-3 rounded-xl bg-white/60 border border-[#C5A059]/20 shadow-xs hover:bg-white/80 transition-colors">
-            <div className="text-[10px] uppercase tracking-widest text-[#C5A059] font-semibold mb-0.5">
-              04. Devotion
-            </div>
-            <div className="font-serif text-xs sm:text-sm font-bold text-[#1A392A]">
-              Named for Paul
-            </div>
-            <div className="text-[10.5px] text-[#1C2024]/70 mt-0.5 leading-snug">
-              Purity, patience & family stewardship
+        {/* Feature Badges Horizontal Scrolling Ribbon */}
+        <div className="w-full mt-8 pt-6 border-t border-[#C5A059]/25 relative">
+          <div className="w-full overflow-hidden mask-gradient-x py-1">
+            <div className="animate-marquee-scroll flex gap-3 sm:gap-4 items-center">
+              {/* Duplicated list for seamless infinite loop */}
+              {[...pillars, ...pillars].map((item, idx) => (
+                <div
+                  key={`${item.num}-${idx}`}
+                  className="p-3.5 sm:p-4 rounded-xl bg-white border border-[#C5A059]/30 hover:border-[#C5A059] shadow-sm hover:shadow-md transition-all duration-300 w-[270px] sm:w-[310px] flex-shrink-0 text-left cursor-default group"
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-[10px] uppercase tracking-widest text-[#C5A059] font-semibold group-hover:text-[#1A392A] transition-colors">
+                      {item.num}
+                    </span>
+                    {item.icon && (
+                      <item.icon className="w-3.5 h-3.5 text-[#C5A059] opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all" />
+                    )}
+                  </div>
+                  <div className="font-serif text-xs sm:text-sm font-bold text-[#1A392A] group-hover:text-[#C5A059] transition-colors">
+                    {item.title}
+                  </div>
+                  <div className="text-[10.5px] sm:text-[11px] text-[#1C2024]/70 mt-0.5 leading-snug">
+                    {item.desc}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -135,3 +278,4 @@ export default function HeroSection({ lang }) {
     </section>
   );
 }
+
