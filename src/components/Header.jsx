@@ -12,26 +12,41 @@ const HEADER_TEA_ITEMS = [
     id: "alpine-glow",
     name: "Alpine Glow",
     imageUrl: "/images/alpine glow.png",
+    bgColor: "#343536",
+    containerPadding: "p-1.5 sm:p-2",
+    imgScale: "scale-140 group-hover/item:scale-138",
   },
   {
     id: "energy-kick",
     name: "Energy Kick",
     imageUrl: "/images/energy kick.png",
+    bgColor: "#718756",
+    containerPadding: "p-2.5 sm:p-3",
+    imgScale: "scale-115 group-hover/item:scale-115",
   },
   {
     id: "evening-relaxation",
     name: "Evening and Relaxation",
     imageUrl: "/images/evening and relaxation.png",
+    bgColor: "#111A2B",
+    containerPadding: "p-2.5 sm:p-3.5",
+    imgScale: "scale-125 group-hover/item:scale-122 mt-7",
   },
   {
     id: "morning-spark",
     name: "Morning Spark",
     imageUrl: "/images/morning spark.png",
+    bgColor: "#EDE1CC",
+    containerPadding: "p-2 sm:p-2.5",
+    imgScale: "scale-112 group-hover/item:scale-120 ml-9",
   },
   {
     id: "summer-breeze",
     name: "Summer Breeze",
     imageUrl: "/images/summer breeze.png",
+    bgColor: "#84A6D2",
+    containerPadding: "p-2 sm:p-3",
+    imgScale: "scale-118 group-hover/item:scale-125",
   },
 ];
 
@@ -342,7 +357,9 @@ export default function Header({ lang, setLang }) {
                 onClick={() => {
                   closeAllMenus();
                   if (location.pathname === "/tea") {
-                    window.dispatchEvent(new CustomEvent("paul:trigger-tea-reveal"));
+                    window.dispatchEvent(
+                      new CustomEvent("paul:trigger-tea-reveal"),
+                    );
                   }
                 }}
                 className={({ isActive }) =>
@@ -438,12 +455,13 @@ export default function Header({ lang, setLang }) {
                           );
                         }
                       }}
-                      className="w-full aspect-square max-h-[220px] sm:max-h-[260px] flex items-center justify-center mb-4 overflow-hidden rounded-2xl border border-[#C5A059]/40 shadow-md group-hover/item:border-[#E5C483] group-hover/item:shadow-xl transition-all duration-300"
+                      style={{ backgroundColor: tea.bgColor }}
+                      className={`w-full aspect-[4/3] max-h-[220px] sm:max-h-[260px] flex items-center justify-center mb-4 overflow-hidden rounded-2xl border border-[#C5A059]/40 shadow-md group-hover/item:border-[#E5C483] group-hover/item:shadow-xl transition-all duration-300 ${tea.containerPadding || "p-3 sm:p-4"}`}
                     >
                       <img
                         src={tea.imageUrl}
                         alt={tea.name}
-                        className="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-500 ease-out"
+                        className={`w-full h-full object-contain transition-transform duration-500 ease-out ${tea.imgScale || "group-hover/item:scale-105"}`}
                       />
                     </Link>
 
@@ -515,7 +533,9 @@ export default function Header({ lang, setLang }) {
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 sm:gap-8 items-start justify-center">
                 {SPICE_PRODUCTS.slice(0, 5).map((spice) => {
                   const name =
-                    lang === "de" && spice.germanName ? spice.germanName : spice.name;
+                    lang === "de" && spice.germanName
+                      ? spice.germanName
+                      : spice.name;
                   const isLuxury = spice.tier === "luxury";
 
                   const leftLinkText = isLuxury
@@ -607,7 +627,9 @@ export default function Header({ lang, setLang }) {
                 to="/tea"
                 onClick={() => {
                   if (location.pathname === "/tea") {
-                    window.dispatchEvent(new CustomEvent("paul:trigger-tea-reveal"));
+                    window.dispatchEvent(
+                      new CustomEvent("paul:trigger-tea-reveal"),
+                    );
                   }
                 }}
                 className={({ isActive }) =>
