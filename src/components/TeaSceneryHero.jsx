@@ -72,7 +72,7 @@ export default function TeaSceneryHero({ lang = "de" }) {
     });
 
     gsap.set(img, {
-      scale: 1.14,
+      scale: 1.05,
     });
 
     if (heading) {
@@ -104,10 +104,10 @@ export default function TeaSceneryHero({ lang = "de" }) {
       frame,
       {
         clipPath: "circle(150% at 50% 50%)",
-        duration: 1.5,
+        duration: 0.8,
         ease: "power3.inOut",
       },
-      0.15,
+      0.1,
     );
 
     // 3. Image scales smoothly into place
@@ -115,10 +115,10 @@ export default function TeaSceneryHero({ lang = "de" }) {
       img,
       {
         scale: 1.0,
-        duration: 2,
+        duration: 3,
         ease: "power2.out",
       },
-      0.2,
+      0.15,
     );
   };
 
@@ -127,7 +127,7 @@ export default function TeaSceneryHero({ lang = "de" }) {
     const ctx = gsap.context(() => {
       timer = setTimeout(() => {
         playCenterOutReveal();
-      }, 50);
+      }, 80);
 
       const handleCustomTrigger = () => {
         playCenterOutReveal(true);

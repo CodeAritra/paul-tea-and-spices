@@ -195,7 +195,7 @@ export default function HeroSection({ lang }) {
         frame,
         {
           clipPath: "circle(150% at 50% 50%)",
-          duration: 1.6,
+          duration: 0.8,
           ease: "power3.inOut",
         },
         0.1,
@@ -204,7 +204,7 @@ export default function HeroSection({ lang }) {
         img,
         {
           scale: 1.0,
-          duration: 1.8,
+          duration: 3,
           ease: "power2.out",
         },
         0.15,
@@ -301,8 +301,8 @@ export default function HeroSection({ lang }) {
         {/* Subtitle / Lore quote */}
         <p className="text-sm sm:text-base lg:text-lg text-[#1C2024]/80 font-sans max-w-2xl mx-auto mb-6 sm:mb-8 py-1 leading-relaxed font-light">
           Born from a friendship in the mountains of Vorarlberg. We curate
-          pristine single-origin teas and whole spices from high-altitude
-          Indian estates, finished in our Alpine Atelier.
+          pristine single-origin teas and whole spices from high-altitude Indian
+          estates, finished in our Alpine Atelier.
         </p>
 
         {/* Scroll Indicator */}
@@ -353,4 +353,3 @@ export default function HeroSection({ lang }) {
     </section>
   );
 }
-
