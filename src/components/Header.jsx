@@ -295,8 +295,8 @@ export default function Header({ lang, setLang }) {
               className={({ isActive }) =>
                 `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
                   isActive
-                    ? "text-[#1A392A] font-bold border-[#1A392A]"
-                    : "text-[#1C2024]/75 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+                    ? "text-[#683619] font-bold border-[#683619]"
+                    : "text-[#1C2024]/75 border-transparent hover:text-[#683619] hover:border-[#683619]"
                 }`
               }
             >
@@ -318,8 +318,8 @@ export default function Header({ lang, setLang }) {
                 className={({ isActive }) =>
                   `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] flex items-center gap-1.5 ${
                     isActive || isTeaMenuOpen
-                      ? "text-[#1A392A] font-bold border-[#1A392A]"
-                      : "text-[#1C2024]/75 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+                      ? "text-[#683619] font-bold border-[#683619]"
+                      : "text-[#1C2024]/75 border-transparent hover:text-[#683619] hover:border-[#683619]"
                   }`
                 }
               >
@@ -339,8 +339,8 @@ export default function Header({ lang, setLang }) {
                 className={({ isActive }) =>
                   `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] flex items-center gap-1.5 ${
                     isActive || isSpiceMenuOpen
-                      ? "text-[#1A392A] font-bold border-[#1A392A]"
-                      : "text-[#1C2024]/75 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+                      ? "text-[#683619] font-bold border-[#683619]"
+                      : "text-[#1C2024]/75 border-transparent hover:text-[#683619] hover:border-[#683619]"
                   }`
                 }
               >
@@ -355,8 +355,8 @@ export default function Header({ lang, setLang }) {
               className={({ isActive }) =>
                 `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
                   isActive
-                    ? "text-[#1A392A] font-bold border-[#1A392A]"
-                    : "text-[#1C2024]/75 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+                    ? "text-[#683619] font-bold border-[#683619]"
+                    : "text-[#1C2024]/75 border-transparent hover:text-[#683619] hover:border-[#683619]"
                 }`
               }
             >
@@ -370,8 +370,8 @@ export default function Header({ lang, setLang }) {
               className={({ isActive }) =>
                 `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] ${
                   isActive
-                    ? "text-[#1A392A] font-bold border-[#1A392A]"
-                    : "text-[#1C2024]/75 border-transparent hover:text-[#1A392A] hover:border-[#C5A059]"
+                    ? "text-[#683619] font-bold border-[#683619]"
+                    : "text-[#1C2024]/75 border-transparent hover:text-[#683619] hover:border-[#683619]"
                 }`
               }
             >
@@ -559,8 +559,8 @@ export default function Header({ lang, setLang }) {
                 className={({ isActive }) =>
                   `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
                     isActive
-                      ? "font-bold text-[#1A392A] bg-[#1A392A]/10"
-                      : "text-[#1C2024]/70"
+                      ? "font-bold text-[#683619] bg-[#683619]/10"
+                      : "text-[#1C2024]/70 hover:text-[#683619]"
                   }`
                 }
               >
@@ -575,8 +575,8 @@ export default function Header({ lang, setLang }) {
                 className={({ isActive }) =>
                   `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
                     isActive
-                      ? "font-bold text-[#1A392A] bg-[#1A392A]/10"
-                      : "text-[#1C2024]/70"
+                      ? "font-bold text-[#683619] bg-[#683619]/10"
+                      : "text-[#1C2024]/70 hover:text-[#683619]"
                   }`
                 }
               >
@@ -588,8 +588,8 @@ export default function Header({ lang, setLang }) {
                 className={({ isActive }) =>
                   `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
                     isActive
-                      ? "font-bold text-[#1A392A] bg-[#1A392A]/10"
-                      : "text-[#1C2024]/70"
+                      ? "font-bold text-[#683619] bg-[#683619]/10"
+                      : "text-[#1C2024]/70 hover:text-[#683619]"
                   }`
                 }
               >
@@ -601,8 +601,8 @@ export default function Header({ lang, setLang }) {
                 className={({ isActive }) =>
                   `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
                     isActive
-                      ? "font-bold text-[#1A392A] bg-[#1A392A]/10"
-                      : "text-[#1C2024]/70"
+                      ? "font-bold text-[#683619] bg-[#683619]/10"
+                      : "text-[#1C2024]/70 hover:text-[#683619]"
                   }`
                 }
               >
@@ -614,8 +614,8 @@ export default function Header({ lang, setLang }) {
                 className={({ isActive }) =>
                   `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
                     isActive
-                      ? "font-bold text-[#1A392A] bg-[#1A392A]/10"
-                      : "text-[#1C2024]/70"
+                      ? "font-bold text-[#683619] bg-[#683619]/10"
+                      : "text-[#1C2024]/70 hover:text-[#683619]"
                   }`
                 }
               >
