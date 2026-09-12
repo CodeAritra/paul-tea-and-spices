@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
 import {
   Sparkles,
   Mountain,
@@ -169,6 +170,49 @@ const FEATURE_PILLARS = {
 export default function HeroSection({ lang }) {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.de;
   const pillars = FEATURE_PILLARS[lang] || FEATURE_PILLARS.de;
+  const landingFrameRef = useRef(null);
+  const landingImgRef = useRef(null);
+
+  useEffect(() => {
+    const frame = landingFrameRef.current;
+    const img = landingImgRef.current;
+    if (!frame || !img) return;
+
+    gsap.set(frame, {
+      clipPath: "circle(0% at 50% 50%)",
+      autoAlpha: 1,
+    });
+    gsap.set(img, {
+      scale: 1.15,
+    });
+
+    const timer = setTimeout(() => {
+      const tl = gsap.timeline();
+      tl.to(
+        frame,
+        {
+          clipPath: "circle(150% at 50% 50%)",
+          duration: 1.6,
+          ease: "power3.inOut",
+        },
+        0.1,
+      );
+      tl.to(
+        img,
+        {
+          scale: 1.0,
+          duration: 2.2,
+          ease: "power2.out",
+        },
+        0.15,
+      );
+    }, 80);
+
+    return () => {
+      clearTimeout(timer);
+      gsap.killTweensOf([frame, img]);
+    };
+  }, []);
 
   const scrollToContent = () => {
     const el =
@@ -195,7 +239,7 @@ export default function HeroSection({ lang }) {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex-grow flex flex-col justify-between items-center w-full">
         {/* Content Centered Wrapper */}
-        <div className="flex-grow flex flex-col justify-center items-center max-w-4xl">
+        <div className="flex-grow flex flex-col justify-center items-center max-w-5xl w-full">
           {/* Son Paul Dedication Pill */}
           <Link
             to="/about"
@@ -210,23 +254,43 @@ export default function HeroSection({ lang }) {
             </span>
           </Link>
 
+          {/* Home Landing Image with Center-Out Fade Reveal Animation */}
+          <div className="w-full max-w-5xl mx-auto my-4 sm:my-6 px-1 sm:px-4">
+            <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] max-h-[480px] rounded-2xl sm:rounded-3xl overflow-hidden bg-transparent">
+              <div
+                ref={landingFrameRef}
+                className="w-full h-full overflow-hidden will-change-[clip-path]"
+                style={{ clipPath: "circle(0% at 50% 50%)" }}
+              >
+                <img
+                  ref={landingImgRef}
+                  src="/images/homepage-landing.png"
+                  alt="Paul's Tea & Spices Atelier & Estates"
+                  className="w-full h-full object-cover object-center will-change-transform filter brightness-95 contrast-105"
+                />
+              </div>
+            </div>
+          </div>
+
           {/* Main Hero Title */}
-          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A392A] mb-4 sm:mb-5 py-5 leading-tight max-w-4xl mx-auto whitespace-pre-line">
+          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A392A] mb-3 sm:mb-4 py-2 leading-tight max-w-4xl mx-auto whitespace-pre-line">
             {t.heritageHeadline}
           </h1>
 
           {/* Subtitle / Lore quote */}
-          <p className="text-sm sm:text-base lg:text-lg text-[#1C2024]/80 font-sans max-w-2xl mx-auto mb-6 sm:mb-8 py-3 leading-relaxed font-light">
+          <p className="text-sm sm:text-base lg:text-lg text-[#1C2024]/80 font-sans max-w-2xl mx-auto mb-5 sm:mb-6 py-1 leading-relaxed font-light">
             Born from a friendship in the mountains of Vorarlberg. We curate
             pristine single-origin teas and whole spices from high-altitude
             Indian estates, finished in our Alpine Atelier.
           </p>
 
+          
+
           {/* Scroll Indicator */}
-          <div className="flex justify-center py-3">
+          <div className="flex justify-center py-3 sm:py-4">
             <button
               onClick={scrollToContent}
-              className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#1A392A]/5 hover:bg-[#1A392A]/10 text-[#1A392A] border border-[#C5A059]/40 text-xs font-semibold tracking-wider uppercase transition cursor-pointer hover:scale-103"
+              className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#1A392A]/5 hover:bg-[#1A392A]/10 text-[#1A392A] border border-[#C5A059]/40 text-xs font-semibold tracking-wider uppercase transition cursor-pointer hover:scale-103 shadow-xs"
             >
               <span>
                 {lang === "de"
