@@ -7,6 +7,34 @@ import { TRANSLATIONS, PRODUCTS } from "../data/productsData";
 const TEA_PRODUCTS = PRODUCTS.filter((p) => p.category === "tea");
 const SPICE_PRODUCTS = PRODUCTS.filter((p) => p.category === "spices");
 
+const HEADER_TEA_ITEMS = [
+  {
+    id: "alpine-glow",
+    name: "Alpine Glow",
+    imageUrl: "/images/alpine glow.png",
+  },
+  {
+    id: "energy-kick",
+    name: "Energy Kick",
+    imageUrl: "/images/energy kick.png",
+  },
+  {
+    id: "evening-relaxation",
+    name: "Evening and Relaxation",
+    imageUrl: "/images/evening and relaxation.png",
+  },
+  {
+    id: "morning-spark",
+    name: "Morning Spark",
+    imageUrl: "/images/morning spark.png",
+  },
+  {
+    id: "summer-breeze",
+    name: "Summer Breeze",
+    imageUrl: "/images/summer breeze.png",
+  },
+];
+
 export default function Header({ lang, setLang }) {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.de;
   const location = useLocation();
@@ -385,83 +413,89 @@ export default function Header({ lang, setLang }) {
           <div
             className={`absolute top-full left-0 right-0 w-full bg-[#683619] border-t border-b border-[#C5A059]/40 shadow-2xl transition-all duration-300 overflow-hidden z-40 ${
               isTeaMenuOpen
-                ? "max-h-[1400px] opacity-100 py-16 sm:py-24 pointer-events-auto"
+                ? "max-h-[1400px] opacity-100 py-8 sm:py-12 pointer-events-auto"
                 : "max-h-0 opacity-0 py-0 pointer-events-none"
             }`}
             onMouseEnter={handleTeaEnter}
             onMouseLeave={handleTeaLeave}
           >
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-              {/* Grid of Tea Items */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 items-start justify-center">
-                {TEA_PRODUCTS.map((tea) => {
-                  const name =
-                    lang === "de" && tea.germanName ? tea.germanName : tea.name;
-                  const isPremium = tea.tier === "premium";
-
-                  const leftLinkText = isPremium
-                    ? lang === "de"
-                      ? "Premium"
-                      : "Premium"
-                    : lang === "de"
-                      ? "Luxus"
-                      : "Luxury";
-
-                  const rightLinkText = isPremium
-                    ? lang === "de"
-                      ? "Feinste Mischung"
-                      : "Finest Blend"
-                    : lang === "de"
-                      ? "Einzelursprung"
-                      : "Single-Origin";
-
-                  return (
-                    <div
-                      key={tea.id}
-                      className="group/item flex flex-col items-center text-center cursor-pointer select-none"
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+              {/* Grid of 5 Tea Items with Names Only */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5 sm:gap-6 lg:gap-8 items-start justify-center">
+                {HEADER_TEA_ITEMS.map((tea) => (
+                  <div
+                    key={tea.id}
+                    className="group/item flex flex-col items-center text-center cursor-pointer select-none"
+                  >
+                    {/* 1. Product Image with Refined Dimensions */}
+                    <Link
+                      to="/tea"
+                      onClick={() => {
+                        closeAllMenus();
+                        if (location.pathname === "/tea") {
+                          window.dispatchEvent(
+                            new CustomEvent("paul:trigger-tea-reveal"),
+                          );
+                        }
+                      }}
+                      className="w-full aspect-square max-h-[180px] sm:max-h-[210px] lg:max-h-[230px] flex items-center justify-center overflow-hidden rounded-2xl bg-transparent border-none shadow-none transition-all duration-300 px-2 mb-2"
                     >
-                      {/* 1. Product Image */}
-                      <Link
-                        to={`/tea#tea-story-${tea.id}`}
-                        onClick={closeAllMenus}
-                        className="w-full aspect-[4/3] max-h-[300px] sm:max-h-[340px] flex items-center justify-center mb-5 overflow-hidden rounded-2xl bg-[#522912] border border-[#C5A059]/40 shadow-sm group-hover/item:border-[#E5C483] group-hover/item:shadow-xl transition-all duration-300"
-                      >
-                        <img
-                          src={tea.imageUrl}
-                          alt={name}
-                          className="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-500 ease-out filter brightness-95"
-                        />
-                      </Link>
+                      <img
+                        src={tea.imageUrl}
+                        alt={tea.name}
+                        className="w-full h-full object-contain rounded-xl group-hover/item:scale-106 transition-transform duration-500 ease-out filter drop-shadow-lg brightness-100"
+                      />
+                    </Link>
 
-                      {/* 2. Product Name */}
-                      <Link
-                        to={`/tea#tea-story-${tea.id}`}
-                        onClick={closeAllMenus}
-                        className="font-serif text-base sm:text-lg font-bold text-[#EDE1CC] group-hover/item:text-[#E5C483] transition-colors leading-tight mb-2 tracking-tight line-clamp-1"
-                      >
-                        {name}
-                      </Link>
+                    {/* 2. Product Name */}
+                    <Link
+                      to="/tea"
+                      onClick={() => {
+                        closeAllMenus();
+                        if (location.pathname === "/tea") {
+                          window.dispatchEvent(
+                            new CustomEvent("paul:trigger-tea-reveal"),
+                          );
+                        }
+                      }}
+                      className="font-serif text-sm sm:text-base font-bold text-[#EDE1CC] group-hover/item:text-[#E5C483] transition-colors leading-tight tracking-tight line-clamp-1 mb-2"
+                    >
+                      {tea.name}
+                    </Link>
 
-                      {/* 3. Sub-links below title */}
-                      <div className="flex items-center justify-center gap-4 text-xs sm:text-sm font-sans text-[#EDE1CC]/75 mt-1">
-                        <Link
-                          to={`/tea#tea-story-${tea.id}`}
-                          onClick={closeAllMenus}
-                          className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#E5C483] hover:text-[#E5C483] transition-all font-medium"
-                        >
-                          {leftLinkText}
-                        </Link>
-                        <Link
-                          to={`/tea#tea-story-${tea.id}`}
-                          onClick={closeAllMenus}
-                          className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#E5C483] hover:text-[#E5C483] transition-all font-medium"
-                        >
-                          {rightLinkText}
-                        </Link>
-                      </div>
+                    {/* 3. Sub-links below title: Luxury & Single-Origin */}
+                    <div className="flex items-center justify-center gap-4 text-xs font-sans text-[#EDE1CC]/80">
+                      <Link
+                        to="/tea"
+                        onClick={() => {
+                          closeAllMenus();
+                          if (location.pathname === "/tea") {
+                            window.dispatchEvent(
+                              new CustomEvent("paul:trigger-tea-reveal"),
+                            );
+                          }
+                        }}
+                        className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#E5C483] hover:text-[#E5C483] transition-all font-medium"
+                      >
+                        {lang === "de" ? "Luxus" : "Luxury"}
+                      </Link>
+                      <Link
+                        to="/tea"
+                        onClick={() => {
+                          closeAllMenus();
+                          if (location.pathname === "/tea") {
+                            window.dispatchEvent(
+                              new CustomEvent("paul:trigger-tea-reveal"),
+                            );
+                          }
+                        }}
+                        className="underline underline-offset-4 decoration-[#C5A059]/60 hover:decoration-[#E5C483] hover:text-[#E5C483] transition-all font-medium"
+                      >
+                        {lang === "de" ? "Einzelursprung" : "Single-Origin"}
+                      </Link>
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
