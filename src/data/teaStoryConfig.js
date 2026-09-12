@@ -1,14 +1,14 @@
 export const TEA_STORY_CONFIG = {
   "tea-lux-1": {
-    // originLabel: "THE ORIGIN",
-    // location: "DARJEELING & ASSAM",
-    // region: "INDIA",
-    originImageUrl: "/images/scenery-1.jpeg",
-    // originImageAlt: "Tea landscapes across Darjeeling and Assam",
+    originLabel: "THE ORIGIN",
+    location: "DARJEELING & ASSAM",
+    region: "INDIA",
+    originImageUrl: "/images/darjeeling-assam-origin.jpg",
+    originImageAlt: "Tea landscapes across Darjeeling and Assam",
     revealDirection: "bottom",
-    // statement:
-    //   "Mountain air brings muscatel brightness; Assam's warm valleys lend the cup its malty depth.",
-    // character: ["MUSCATEL", "MALTY", "ENERGIZING"],
+    statement:
+      "Mountain air brings muscatel brightness; Assam's warm valleys lend the cup its malty depth.",
+    character: ["MUSCATEL", "MALTY", "ENERGIZING"],
   },
   "tea-lux-3": {
     originLabel: "THE ORIGIN",

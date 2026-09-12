@@ -8,6 +8,7 @@ import HeroSection from "./components/HeroSection";
 import HomeCollectionsPreview from "./components/HomeCollectionsPreview";
 import StoryTimeline from "./components/StoryTimeline";
 import TeaStorySection from "./components/TeaStorySection";
+import TeaSceneryHero from "./components/TeaSceneryHero";
 import SpiceMapSection from "./components/SpiceMapSection";
 import TutorialsSection from "./components/TutorialsSection";
 import Footer from "./components/Footer";
@@ -32,6 +33,9 @@ function HomePage({ lang }) {
 function TeaPage({ lang }) {
   return (
     <div id="tea-catalog" className="bg-[#EDE1CC] paper-texture">
+      {/* TEA SCENERY HERO WITH CENTER-OUT REVEAL OF whole-scenery.png */}
+      <TeaSceneryHero lang={lang} />
+
       {/* PAUL TEA COLLECTION — STORY-DRIVEN & MINIMAL */}
       <TeaStorySection teaProducts={TEA_PRODUCTS} lang={lang} />
     </div>

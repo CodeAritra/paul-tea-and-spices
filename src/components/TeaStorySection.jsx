@@ -78,14 +78,19 @@ function CinematicTeaStory({ tea, lang, story }) {
       // Origin stage sits behind the intro, ready
       gsap.set(origin, { autoAlpha: 1 });
 
-      // Origin image: hidden by clip-path (will unroll downward from top)
-      gsap.set(originMedia, { clipPath: "inset(0 0 100% 0)" });
+      // Origin image: hidden by clip-path (supports center-out or top-to-bottom)
+      const isCenterOut = story?.revealDirection === "center-out";
+      gsap.set(originMedia, {
+        clipPath: isCenterOut
+          ? "circle(0% at 50% 50%)"
+          : "inset(0 0 100% 0)",
+      });
 
       // Origin image is scaled up & shifted upward; slides into place as it reveals
       gsap.set(originImg, {
-        scale: 1.12,
-        y: -70,
-        transformOrigin: "center top",
+        scale: isCenterOut ? 1.16 : 1.12,
+        y: isCenterOut ? 0 : -70,
+        transformOrigin: isCenterOut ? "center center" : "center top",
       });
 
       // Origin text overlays start invisible
@@ -126,10 +131,16 @@ function CinematicTeaStory({ tea, lang, story }) {
           0.4,
         )
 
-        // Step B – Origin landscape unrolls from the top to fill screen
+        // Step B – Origin landscape reveals (center-out iris or unroll from top) to fill screen
         .to(
           originMedia,
-          { clipPath: "inset(0 0 0% 0)", duration: 1.6, ease: "power2.inOut" },
+          {
+            clipPath: isCenterOut
+              ? "circle(150% at 50% 50%)"
+              : "inset(0 0 0% 0)",
+            duration: 1.6,
+            ease: "power2.inOut",
+          },
           0.7,
         )
         .to(
@@ -332,22 +343,6 @@ export default function TeaStorySection({ teaProducts, lang }) {
       id="tea-collection"
       className="bg-[#EDE1CC] paper-texture border-b border-[#C5A059]/20"
     >
-      {/* ── Section heading ── */}
-      <div className="pt-12 sm:pt-16 pb-2 sm:pb-3 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="inline-flex items-center gap-3 text-[11px] font-mono uppercase tracking-[0.25em] text-[#C5A059] mb-2">
-          <span className="w-8 h-px bg-[#C5A059]/50" />
-          <span>PAUL'S TEA MAISON</span>
-          <span className="w-8 h-px bg-[#C5A059]/50" />
-        </div>
-        <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A392A] mb-2.5 tracking-tight">
-          Paul's Tea Collections
-        </h2>
-        <p className="text-xs sm:text-base text-[#1C2024]/70 max-w-2xl mx-auto font-light leading-relaxed">
-          Pristine single-origin harvests from Darjeeling and Assam, alongside
-          artisanal herbal blends crafted in our Vorarlberg Atelier.
-        </p>
-      </div>
-
       {/* ── Cinematic sections (tea intro → scroll → scenery reveal) ── */}
       {items
         .filter((i) => i.isCinematic)

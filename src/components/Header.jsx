@@ -311,7 +311,10 @@ export default function Header({ lang, setLang }) {
             >
               <NavLink
                 to="/tea"
-                onClick={closeAllMenus}
+                onClick={() => {
+                  closeAllMenus();
+                  window.dispatchEvent(new CustomEvent("paul:trigger-tea-reveal"));
+                }}
                 className={({ isActive }) =>
                   `transition-all py-1.5 border-b-2 font-medium tracking-[0.14em] flex items-center gap-1.5 ${
                     isActive || isTeaMenuOpen
@@ -566,6 +569,9 @@ export default function Header({ lang, setLang }) {
               <span className="text-[#C5A059]/40">•</span>
               <NavLink
                 to="/tea"
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent("paul:trigger-tea-reveal"));
+                }}
                 className={({ isActive }) =>
                   `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
                     isActive
