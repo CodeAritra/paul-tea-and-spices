@@ -186,7 +186,7 @@ export default function HeroSection({ lang }) {
       autoAlpha: 1,
     });
     gsap.set(img, {
-      scale: 1.15,
+      scale: 1.02,
     });
 
     const timer = setTimeout(() => {
@@ -204,16 +204,15 @@ export default function HeroSection({ lang }) {
         img,
         {
           scale: 1.0,
-          duration: 2.2,
+          duration: 1.8,
           ease: "power2.out",
         },
         0.15,
       );
 
-      // Subtle scroll parallax & soft dissolve as you scroll into the 2nd section
+      // Subtle scroll parallax without extra scaling
       gsap.to(img, {
-        yPercent: 16,
-        scale: 1.06,
+        yPercent: 8,
         ease: "none",
         scrollTrigger: {
           trigger: frame,
