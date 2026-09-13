@@ -10,40 +10,40 @@ export const SINGLE_ORIGIN_TEAS = [
     id: "alpine-glow-darjeeling",
     name: "Alpine Glow First Flush",
     imageUrl: "/images/alpine glow.png",
-    imgWidth: "w-[92%] sm:w-[86%] lg:w-[100%] max-w-[100%]",
-    imgHeight: "h-[210px] sm:h-[270px] lg:h-[100%] max-h-[100%]",
+    imgWidth: "w-[100%] max-w-[100%]",
+    imgHeight: "h-[100%] max-h-[100%]",
   },
   // 2. Royal Stag: Stately portrait, medium-narrow width, tall height
   {
     id: "royal-assam-golden-tips",
     name: "Royal Assam Golden Malty",
     imageUrl: "/images/morning spark.png",
-    imgWidth: "w-[60%] sm:w-[50%] lg:w-[380px] max-w-[380px]",
-    imgHeight: "h-[320px] sm:h-[400px] lg:h-[470px] max-h-[470px]",
+    imgWidth: "w-[80%] max-w-[380px]",
+    imgHeight: "h-[100%] max-h-[470px]",
   },
   // 3. Soaring Eagle: Expansive wingspan, balanced large width & height
   {
     id: "silver-needle-reserve",
     name: "Silver Needle Reserve White Tea",
     imageUrl: "/images/summer breeze.png",
-    imgWidth: "w-[80%] sm:w-[72%] lg:w-[560px] max-w-[560px]",
-    imgHeight: "h-[260px] sm:h-[340px] lg:h-[410px] max-h-[410px]",
+    imgWidth: "w-[80%] max-w-[560px]",
+    imgHeight: "h-[100%] max-h-[410px]",
   },
   // 4. Alpine Hiker: Slender vertical silhouette, maximum tall height
   {
     id: "himalayan-emerald-green",
     name: "Himalayan Emerald Green",
     imageUrl: "/images/energy kick.png",
-    imgWidth: "w-[46%] sm:w-[38%] lg:w-[100%] max-w-[100%]",
-    imgHeight: "h-[340px] sm:h-[430px] lg:h-[80%] max-h-[80%]",
+    imgWidth: "w-[100%] max-w-[100%]",
+    imgHeight: "h-[100%] max-h-[80%]",
   },
   // 5. Mystic Full Moon: Distinct circular disc aspect
   {
     id: "nilgiri-frost-reserve",
     name: "Nilgiri Frost Reserve Oolong",
     imageUrl: "/images/evening and relaxation.png",
-    imgWidth: "w-[62%] sm:w-[52%] lg:w-[360px] max-w-[360px]",
-    imgHeight: "h-[240px] sm:h-[300px] lg:h-[360px] max-h-[360px]",
+    imgWidth: "w-[100%] max-w-[360px]",
+    imgHeight: "h-[100%] max-h-[360px]",
   },
 ];
 
@@ -65,10 +65,12 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
       const isMobile = window.matchMedia("(max-width: 767px)").matches;
       const totalCards = cards.length;
 
-      // Clean initial positions (cards 1..4 remain off-screen until scrolled)
+      // Clean initial positions:
+      // Inactive upcoming cards (1..4) start hidden off-screen until their slide begins
       cards.forEach((card, i) => {
         gsap.set(card, {
-          y: i === 0 ? 0 : isMobile ? "140%" : "115%",
+          y: i === 0 ? 0 : isMobile ? "160%" : "120%",
+          autoAlpha: i === 0 ? 1 : 0,
           scale: 1,
           zIndex: i + 1,
           transformOrigin: "center top",
@@ -104,7 +106,10 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
         const stepTime = (i - 1) * 1.0;
         const currentCard = cards[i];
 
-        // 1. Current card slides up to rest position
+        // 1. Instantly toggle visibility to fully visible & opaque (solid bg) at the exact moment slide begins
+        tl.set(currentCard, { autoAlpha: 1 }, stepTime);
+
+        // 2. Current card slides up to rest position with 100% solid opacity
         tl.to(
           currentCard,
           {
@@ -116,7 +121,7 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
           stepTime,
         );
 
-        // 2. Preceding cards scale down and shift upward smoothly to show layered top edges
+        // 3. Preceding cards scale down and shift upward smoothly to show layered top edges
         for (let j = 0; j < i; j++) {
           const prevCard = cards[j];
           const depth = i - j;
@@ -142,7 +147,7 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
             tl.to(
               overlays[j],
               {
-                opacity: Math.min(0.2, depth * 0.06),
+                opacity: Math.min(0.22, depth * 0.07),
                 ease: "none",
                 duration: 1.0,
               },
@@ -185,11 +190,11 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
       {/* ── 2. Pinned Showcase Section ── */}
       <section
         ref={containerRef}
-        className="relative w-full h-auto md:h-screen min-h-0 md:min-h-[700px] max-h-none md:max-h-[1080px] flex flex-col items-center justify-start md:justify-center pt-3 pb-7 md:py-12 overflow-visible"
+        className="relative w-full h-screen min-h-[580px] md:min-h-[700px] max-h-none md:max-h-[1080px] flex flex-col items-center justify-start md:justify-center pt-2 pb-6 md:py-12 overflow-hidden md:overflow-visible"
       >
         {/* Mobile-Only Frozen Hero */}
-        <div className="block md:hidden max-w-6xl mx-auto px-4 text-center relative z-10 shrink-0 mb-5">
-          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#683619]/10 border border-[#C5A059]/40 text-[#683619] text-[11px] font-mono uppercase tracking-[0.2em] mt-5 mb-2 shadow-xs">
+        <div className="block md:hidden max-w-6xl mx-auto px-4 text-center relative z-10 shrink-0 mb-20">
+          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#683619]/10 border border-[#C5A059]/40 text-[#683619] text-[11px] font-mono uppercase tracking-[0.2em] mt-13 mb-3 shadow-xs">
             <span>
               {isDe
                 ? "PAUL'S TEE • SINGLE-ORIGIN UNBLENDED"
@@ -197,7 +202,7 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
             </span>
           </div>
 
-          <h1 className="font-serif text-2xl xs:text-3xl font-bold tracking-tight text-[#683619] mb-1.5">
+          <h1 className="font-serif text-2xl xs:text-3xl font-bold tracking-tight text-[#683619] mb-1">
             {isDe ? "Single Origin Kollektion" : "Single Origin Collection"}
           </h1>
 
@@ -209,18 +214,18 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
         </div>
 
         {/* Stacked Cards Deck */}
-        <div className="relative w-[88%] xs:w-[86%] sm:w-[90%] md:w-full max-w-4xl xl:max-w-5xl h-[460px] sm:h-[520px] lg:h-[580px] mx-auto px-0 sm:px-6">
+        <div className="relative w-[88%] xs:w-[86%] sm:w-[90%] md:w-full max-w-4xl xl:max-w-5xl h-[420px] sm:h-[500px] lg:h-[580px] mx-auto px-0 sm:px-6">
           {SINGLE_ORIGIN_TEAS.map((tea, index) => {
             return (
               <div
                 key={tea.id}
                 ref={(el) => (cardsRef.current[index] = el)}
-                className="absolute inset-0 w-full h-full rounded-[2rem] sm:rounded-[2.5rem] border border-[#C5A059]/40 shadow-[0_20px_45px_-12px_rgba(0,0,0,0.22)] overflow-hidden flex items-center justify-center will-change-transform bg-gradient-to-br from-[#522912] via-[#683619] to-[#3A1B0B]"
+                className="absolute inset-0 w-full h-full rounded-[2rem] sm:rounded-[2.5rem] border border-[#C5A059]/40 shadow-[0_20px_45px_-12px_rgba(0,0,0,0.22)] overflow-hidden flex items-center justify-center will-change-transform bg-[#3A1B0B] bg-gradient-to-br from-[#522912] via-[#683619] to-[#3A1B0B]"
               >
                 {/* Ambient Soft Dimming Overlay for Background Stacking */}
                 <div
                   ref={(el) => (overlaysRef.current[index] = el)}
-                  className="absolute inset-0 bg-[#3A1B0B] pointer-events-none rounded-[2rem] sm:rounded-[2.5rem] z-30 transition-opacity"
+                  className="absolute inset-0 bg-black/40 pointer-events-none rounded-[2rem] sm:rounded-[2.5rem] z-30 transition-opacity"
                   style={{ opacity: 0 }}
                 />
 
