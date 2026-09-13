@@ -583,167 +583,128 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
                   : "opacity-0 lg:translate-x-12 scale-95 pointer-events-none"
               }`}
             >
-              <div className="relative w-full max-w-xl xl:max-w-2xl h-[400px] sm:h-[480px] lg:h-[540px] mx-auto bg-[#F5EBDB] border border-[#C5A059]/45 rounded-[2rem] sm:rounded-[2.5rem] p-4 sm:p-5 shadow-xl text-[#1C2024] flex flex-col justify-between overflow-hidden">
+              <div className="relative w-full max-w-xl xl:max-w-2xl h-[400px] sm:h-[480px] lg:h-[540px] mx-auto bg-[#F5EBDB] border border-[#C5A059]/45 rounded-[2rem] sm:rounded-[2.5rem] p-3.5 sm:p-4.5 shadow-xl text-[#1C2024] flex flex-col overflow-hidden">
                 {/* Gold Top Accent Line */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C5A059] to-transparent" />
 
-                {/* Header Tag + Step Counter + Close Button (Top Section) */}
-                <div className="shrink-0 flex items-center justify-between mb-2 pb-2 border-b border-[#C5A059]/25">
-                  <div className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-[#C5A059] font-bold">
-                    <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
-                    <span>
-                      {isGerman
-                        ? activeTea.origin.de
-                        : activeTea.origin.en}
-                    </span>
-                    <span className="text-black/30">•</span>
-                    <span className="text-[#683619]">
-                      {activeTea.altitude}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono font-bold text-[#683619] bg-[#EDE1CC] px-2.5 py-0.5 rounded-full border border-[#C5A059]/35">
-                      {`0${activeIndex + 1} / 05`}
-                    </span>
-
-                    <button
-                      onClick={handleClose}
-                      className="w-7 h-7 rounded-full bg-[#EDE1CC] border border-[#C5A059]/35 text-[#683619] hover:bg-[#683619] hover:text-[#E5C483] hover:border-[#683619] transition-all duration-300 flex items-center justify-center text-xs cursor-pointer font-bold"
-                      title={isGerman ? "Schließen" : "Close detail"}
-                    >
-                      ✕
-                    </button>
-                  </div>
-                </div>
-
-                {/* Middle Content Section (Flexible & Scrollable, Animated on Tea Switch) */}
+                {/* Main 2-Column Split: Left Image + Right Details */}
                 <div
                   key={activeTea.id}
-                  className="flex-1 flex flex-col justify-center space-y-2.5 my-auto overflow-y-auto pr-1 animate-tea-crossfade"
+                  className="flex-1 w-full grid grid-cols-1 sm:grid-cols-12 gap-3.5 sm:gap-4 items-stretch overflow-hidden animate-tea-crossfade my-auto"
                 >
-                  {/* Package Image Frame */}
-                  <div className="relative w-full aspect-[16/9] max-h-[140px] sm:max-h-[160px] rounded-2xl overflow-hidden border border-[#C5A059]/35 bg-gradient-to-b from-[#3A1B0B] via-[#4A230F] to-[#261005] group shrink-0 flex items-center justify-center p-3 shadow-inner">
-                    <img
-                      src={activeTea.packageImageUrl}
-                      alt={activeTea.name}
-                      className="max-h-full max-w-full object-contain filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)] group-hover:scale-105 transition-transform duration-700 ease-out select-none"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#1C2024]/40 via-transparent to-transparent pointer-events-none" />
+                  {/* ── LEFT SIDE OF INFO CARD: PACKAGE IMAGE SHOWCASE ── */}
+                  <div className="sm:col-span-5 relative w-full h-full min-h-[150px] sm:min-h-full rounded-2xl sm:rounded-3xl overflow-hidden  group shrink-0 flex flex-col items-center justify-between p-3">
+                    {/* Atmospheric Glow */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(229,196,131,0.22),transparent_70%)] pointer-events-none" />
 
-                    {/* Packaging Type Pill on Image */}
-                    <div className="absolute top-2.5 left-2.5 z-10">
-                      <span className="px-2.5 py-0.5 rounded-md text-[8.5px] font-mono uppercase tracking-wider bg-[#683619]/90 text-[#E5C483] border border-[#C5A059]/50 backdrop-blur-md font-semibold">
-                        {isGerman ? "Holzschatulle" : "Keepsake Wood Box"}
-                      </span>
-                    </div>
 
-                    {/* Weight Tag */}
-                    <div className="absolute top-2.5 right-2.5 z-10">
-                      <span className="px-2.5 py-0.5 rounded-md text-[8.5px] font-mono uppercase tracking-wider bg-black/60 text-[#E5C483] border border-[#C5A059]/40 backdrop-blur-md font-semibold">
-                        100g Loose Leaf
-                      </span>
+                    {/* Centered Package Photo */}
+                    <div className="relative z-10 flex-1 w-full flex items-center justify-center my-auto py-1">
+                      <img
+                        src={activeTea.packageImageUrl}
+                        alt={activeTea.name}
+                        className="max-h-[150px] sm:max-h-[220px] max-w-full object-contain filter drop-shadow-[0_15px_25px_rgba(0,0,0,0.75)] group-hover:scale-105 transition-transform duration-700 ease-out select-none"
+                      />
                     </div>
                   </div>
 
-                  {/* Tea Name & Subtitle */}
-                  <div>
-                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#683619] leading-tight mb-0.5">
-                      {isGerman && activeTea.germanName
-                        ? activeTea.germanName
-                        : activeTea.name}
-                    </h3>
-                    <p className="font-serif italic text-xs text-[#C5A059] font-medium leading-snug">
-                      "{isGerman
-                        ? activeTea.subtitle.de
-                        : activeTea.subtitle.en}"
-                    </p>
-                  </div>
+                  {/* ── RIGHT SIDE OF INFO CARD: DETAILS & SPECS ── */}
+                  <div className="sm:col-span-7 flex flex-col justify-between h-[90%] space-y-2 overflow-y-auto pr-0.5">
+                    {/* Header: Origin + Step Counter + Close Button */}
+                    <div className="shrink-0 flex items-center justify-between pb-1.5 border-b border-[#C5A059]/25">
+                      <div className="inline-flex items-center gap-1.5 text-[9.5px] sm:text-[10px] font-mono uppercase tracking-widest text-[#C5A059] font-bold truncate">
+                        <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse shrink-0" />
+                        <span className="truncate">
+                          {isGerman ? activeTea.origin.de : activeTea.origin.en}
+                        </span>
+                      </div>
 
-                  {/* Story Description */}
-                  <div className="bg-[#EDE1CC]/75 rounded-xl p-2.5 border border-[#C5A059]/25">
-                    <p className="text-xs sm:text-[12.5px] text-[#1C2024]/85 font-light leading-relaxed">
-                      {isGerman ? activeTea.story.de : activeTea.story.en}
-                    </p>
-                  </div>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <span className="text-[9.5px] sm:text-[10px] font-mono font-bold text-[#683619] bg-[#EDE1CC] px-2 py-0.5 rounded-full border border-[#C5A059]/35">
+                          {`0${activeIndex + 1}/05`}
+                        </span>
 
-                  {/* Tasting Notes */}
-                  {activeTea.tastingNotes && (
-                    <div>
-                      <p className="text-[9px] font-mono uppercase tracking-widest text-[#C5A059] mb-1 font-bold">
-                        {isGerman ? "GESCHMACKSPROFIL" : "TASTING NOTES"}
+                        <button
+                          onClick={handleClose}
+                          className="w-6 h-6 rounded-full bg-[#EDE1CC] border border-[#C5A059]/35 text-[#683619] hover:bg-[#683619] hover:text-[#E5C483] hover:border-[#683619] transition-all duration-300 flex items-center justify-center text-xs cursor-pointer font-bold"
+                          title={isGerman ? "Schließen" : "Close detail"}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Tea Name & Subtitle */}
+                    <div className="shrink-0">
+                      <h3 className="font-serif text-lg sm:text-xl font-bold text-[#683619] leading-tight mb-0.5">
+                        {isGerman && activeTea.germanName
+                          ? activeTea.germanName
+                          : activeTea.name}
+                      </h3>
+                      <p className="font-serif italic text-[11px] sm:text-xs text-[#C5A059] font-medium leading-snug">
+                        "{isGerman ? activeTea.subtitle.de : activeTea.subtitle.en}"
                       </p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {(isGerman
-                          ? activeTea.tastingNotes.de
-                          : activeTea.tastingNotes.en
-                        ).map((note) => (
-                          <span
-                            key={note}
-                            className="px-2.5 py-0.5 rounded text-[10px] font-mono bg-[#EDE1CC] text-[#683619] border border-[#C5A059]/30 font-semibold"
-                          >
-                            🍃 {note}
-                          </span>
-                        ))}
-                      </div>
                     </div>
-                  )}
 
-                  {/* Steeping Ritual Quick Guide */}
-                  <div className="bg-[#683619]/10 rounded-xl p-2 border border-[#C5A059]/30 flex items-center justify-around text-center text-xs">
-                    <div>
-                      <div className="text-[8.5px] font-mono uppercase text-[#683619]/70 font-bold">
-                        {isGerman ? "Wassertemp." : "Water Temp"}
-                      </div>
-                      <div className="font-serif font-bold text-[#683619] text-[11px] mt-0.5">
-                        {activeTea.steeping.waterTemp}
-                      </div>
+                    {/* Story Lore */}
+                    <div className="bg-[#EDE1CC]/75 rounded-xl p-2 sm:p-2.5 border border-[#C5A059]/25 shrink-0">
+                      <p className="text-[10.5px] sm:text-[11.5px] text-[#1C2024]/85 font-light leading-relaxed">
+                        {isGerman ? activeTea.story.de : activeTea.story.en}
+                      </p>
                     </div>
-                    <div className="h-4 w-px bg-[#C5A059]/30" />
-                    <div>
-                      <div className="text-[8.5px] font-mono uppercase text-[#683619]/70 font-bold">
-                        {isGerman ? "Ziehzeit" : "Steep Time"}
+
+                    {/* Tasting Notes */}
+                    {activeTea.tastingNotes && (
+                      <div className="shrink-0">
+                        <p className="text-[8px] sm:text-[8.5px] font-mono uppercase tracking-widest text-[#C5A059] mb-1 font-bold">
+                          {isGerman ? "GESCHMACKSPROFIL" : "TASTING NOTES"}
+                        </p>
+                        <div className="flex flex-wrap gap-1">
+                          {(isGerman
+                            ? activeTea.tastingNotes.de
+                            : activeTea.tastingNotes.en
+                          ).map((note) => (
+                            <span
+                              key={note}
+                              className="px-2 py-0.5 rounded text-[9px] sm:text-[9.5px] font-mono bg-[#EDE1CC] text-[#683619] border border-[#C5A059]/30 font-semibold"
+                            >
+                              🍃 {note}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                      <div className="font-serif font-bold text-[#683619] text-[11px] mt-0.5">
-                        {activeTea.steeping.time}
+                    )}
+
+                    {/* Steeping Ritual Guide */}
+                    <div className="bg-[#683619]/10 rounded-xl p-1.5 border border-[#C5A059]/30 flex items-center justify-around text-center shrink-0">
+                      <div>
+                        <div className="text-[7.5px] sm:text-[8px] font-mono uppercase text-[#683619]/70 font-bold">
+                          {isGerman ? "Wassertemp." : "Water Temp"}
+                        </div>
+                        <div className="font-serif font-bold text-[#683619] text-[10px] sm:text-[10.5px] mt-0.5">
+                          {activeTea.steeping.waterTemp}
+                        </div>
                       </div>
-                    </div>
-                    <div className="h-4 w-px bg-[#C5A059]/30" />
-                    <div>
-                      <div className="text-[8.5px] font-mono uppercase text-[#683619]/70 font-bold">
-                        {isGerman ? "Menge" : "Leaf Amount"}
+                      <div className="h-3.5 w-px bg-[#C5A059]/30" />
+                      <div>
+                        <div className="text-[7.5px] sm:text-[8px] font-mono uppercase text-[#683619]/70 font-bold">
+                          {isGerman ? "Ziehzeit" : "Steep Time"}
+                        </div>
+                        <div className="font-serif font-bold text-[#683619] text-[10px] sm:text-[10.5px] mt-0.5">
+                          {activeTea.steeping.time}
+                        </div>
                       </div>
-                      <div className="font-serif font-bold text-[#683619] text-[11px] mt-0.5">
-                        {activeTea.steeping.leafAmount}
+                      <div className="h-3.5 w-px bg-[#C5A059]/30" />
+                      <div>
+                        <div className="text-[7.5px] sm:text-[8px] font-mono uppercase text-[#683619]/70 font-bold">
+                          {isGerman ? "Menge" : "Leaf Amount"}
+                        </div>
+                        <div className="font-serif font-bold text-[#683619] text-[10px] sm:text-[10.5px] mt-0.5">
+                          {activeTea.steeping.leafAmount}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-
-                {/* Footer Navigation Bar (Bottom Section) */}
-                <div className="shrink-0 flex items-center justify-between pt-2.5 mt-2 border-t border-[#C5A059]/25 text-xs font-mono">
-                  <button
-                    onClick={handlePrevTea}
-                    className="px-3 py-1.5 rounded-lg bg-[#EDE1CC] text-[#683619] border border-[#C5A059]/40 hover:bg-[#683619] hover:text-[#E5C483] transition-all duration-300 flex items-center gap-1 cursor-pointer font-bold text-[11.5px]"
-                  >
-                    <span>←</span>
-                    <span>{isGerman ? "Vorheriges" : "Previous"}</span>
-                  </button>
-
-                  <button
-                    onClick={handleClose}
-                    className="text-[10.5px] text-[#C5A059] hover:underline cursor-pointer font-semibold"
-                  >
-                    {isGerman ? "Schließen" : "Close"}
-                  </button>
-
-                  <button
-                    onClick={handleNextTea}
-                    className="px-3 py-1.5 rounded-lg bg-[#683619] text-[#E5C483] font-bold hover:bg-[#C5A059] hover:text-[#683619] transition-all duration-300 flex items-center gap-1 shadow-md cursor-pointer text-[11.5px]"
-                  >
-                    <span>{isGerman ? "Nächstes" : "Next"}</span>
-                    <span>→</span>
-                  </button>
                 </div>
               </div>
             </div>
