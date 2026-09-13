@@ -9,6 +9,8 @@ import HomeCollectionsPreview from "./components/HomeCollectionsPreview";
 import StoryTimeline from "./components/StoryTimeline";
 import TeaStorySection from "./components/TeaStorySection";
 import TeaSceneryHero from "./components/TeaSceneryHero";
+import SingleOriginStackedShowcase from "./components/SingleOriginStackedShowcase";
+import HerbalBlendComingSoon from "./components/HerbalBlendComingSoon";
 import SpiceMapSection from "./components/SpiceMapSection";
 import TutorialsSection from "./components/TutorialsSection";
 import Footer from "./components/Footer";
@@ -40,6 +42,14 @@ function TeaPage({ lang }) {
       <TeaStorySection teaProducts={TEA_PRODUCTS} lang={lang} />
     </div>
   );
+}
+
+function SingleOriginPage({ lang }) {
+  return <SingleOriginStackedShowcase lang={lang} />;
+}
+
+function HerbalBlendPage({ lang }) {
+  return <HerbalBlendComingSoon lang={lang} />;
 }
 
 function SpicesPage({ lang }) {
@@ -162,6 +172,22 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage lang={lang} />} />
           <Route path="/tea" element={<TeaPage lang={lang} />} />
+          <Route
+            path="/tea/single-origin"
+            element={<SingleOriginPage lang={lang} />}
+          />
+          <Route
+            path="/single-origin"
+            element={<Navigate to="/tea/single-origin" replace />}
+          />
+          <Route
+            path="/tea/herbal-blend"
+            element={<HerbalBlendPage lang={lang} />}
+          />
+          <Route
+            path="/herbal-blend"
+            element={<Navigate to="/tea/herbal-blend" replace />}
+          />
           <Route path="/spices" element={<SpicesPage lang={lang} />} />
           <Route path="/tutorials" element={<TutorialsPage lang={lang} />} />
           <Route

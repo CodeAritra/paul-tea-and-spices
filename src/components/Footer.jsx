@@ -9,7 +9,7 @@ export default function Footer({ lang }) {
   const [logoError, setLogoError] = useState(false);
 
   return (
-    <footer className="bg-[#683619] text-white pt-16 pb-12 border-t border-[#C5A059]/40 relative overflow-hidden">
+    <footer className="bg-[#683619] text-white pt-10 sm:pt-16 pb-10 sm:pb-12 border-t border-[#C5A059]/40 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-white/15">
           {/* Brand Col with Logo & Social Links */}

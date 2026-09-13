@@ -336,7 +336,7 @@ export default function TeaStorySection({ teaProducts, lang }) {
       ScrollTrigger.refresh();
     }, introRef);
     return () => ctx.revert();
-  }, []);
+  }, [teaProducts]);
 
   return (
     <section
