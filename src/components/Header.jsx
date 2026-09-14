@@ -77,6 +77,8 @@ export default function Header({ lang, setLang }) {
   const langDropdownRef = useRef(null);
   const langTimeoutRef = useRef(null);
   const teaTimeoutRef = useRef(null);
+  const teaDropdownRef = useRef(null);
+  const mobileTeaRef = useRef(null);
 
   const teaDropdownLabels =
     TEA_DROPDOWN_OPTIONS[lang] || TEA_DROPDOWN_OPTIONS.en;
@@ -90,6 +92,13 @@ export default function Header({ lang, setLang }) {
     teaTimeoutRef.current = setTimeout(() => {
       setIsTeaMenuOpen(false);
     }, 200);
+  };
+
+  const handleTeaClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (teaTimeoutRef.current) clearTimeout(teaTimeoutRef.current);
+    setIsTeaMenuOpen((prev) => !prev);
   };
 
   const navLabels = {
@@ -140,6 +149,13 @@ export default function Header({ lang, setLang }) {
       ) {
         setIsLangOpen(false);
       }
+      if (
+        teaDropdownRef.current &&
+        !teaDropdownRef.current.contains(e.target) &&
+        (!mobileTeaRef.current || !mobileTeaRef.current.contains(e.target))
+      ) {
+        setIsTeaMenuOpen(false);
+      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -148,6 +164,12 @@ export default function Header({ lang, setLang }) {
       if (teaTimeoutRef.current) clearTimeout(teaTimeoutRef.current);
     };
   }, []);
+
+  // Close all open dropdown menus on route change
+  useEffect(() => {
+    setIsTeaMenuOpen(false);
+    setIsLangOpen(false);
+  }, [location.pathname]);
 
   const handleLangEnter = () => {
     if (langTimeoutRef.current) clearTimeout(langTimeoutRef.current);
@@ -321,58 +343,40 @@ export default function Header({ lang, setLang }) {
             )}
           </NavLink>
 
-          {/* Tea Tab with Hover Dropdown (Single Origin & Herbal Blend) */}
+          {/* Tea Tab with Hover & Click Dropdown (Single Origin & Herbal Blend) */}
           <div
+            ref={teaDropdownRef}
             className="relative group"
             onMouseEnter={handleTeaEnter}
             onMouseLeave={handleTeaLeave}
           >
-            <NavLink
-              to="/tea"
-              onClick={() => {
-                setIsTeaMenuOpen(false);
-                if (location.pathname === "/tea") {
-                  window.dispatchEvent(
-                    new CustomEvent("paul:trigger-tea-reveal"),
-                  );
-                }
-              }}
-              className={({ isActive }) =>
-                `relative py-1.5 font-medium tracking-[0.14em] flex items-center gap-1.5 transition-colors ${
-                  isActive ||
-                  location.pathname.startsWith("/tea") ||
-                  isTeaMenuOpen
-                    ? "text-[#E5C483] font-bold"
-                    : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
-                }`
-              }
+            <button
+              type="button"
+              onClick={handleTeaClick}
+              aria-expanded={isTeaMenuOpen}
+              aria-haspopup="true"
+              className={`relative py-1.5 font-medium tracking-[0.14em] flex items-center gap-1.5 transition-colors cursor-pointer bg-transparent border-0 outline-none uppercase font-serif text-xs ${
+                location.pathname.startsWith("/tea") || isTeaMenuOpen
+                  ? "text-[#E5C483] font-bold"
+                  : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
+              }`}
             >
-              {({ isActive }) => {
-                const isTeaActive =
-                  isActive ||
-                  location.pathname.startsWith("/tea") ||
-                  isTeaMenuOpen;
-                return (
-                  <>
-                    <span>{currentNav.tea}</span>
-                    <ChevronDown
-                      className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                        isTeaMenuOpen
-                          ? "rotate-180 text-[#E5C483]"
-                          : "text-[#EDE1CC]/60"
-                      }`}
-                    />
-                    <span
-                      className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#E5C483] transition-transform duration-300 ease-out origin-left ${
-                        isTeaActive
-                          ? "scale-x-100"
-                          : "scale-x-0 group-hover:scale-x-100"
-                      }`}
-                    />
-                  </>
-                );
-              }}
-            </NavLink>
+              <span>{currentNav.tea}</span>
+              <ChevronDown
+                className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                  isTeaMenuOpen
+                    ? "rotate-180 text-[#E5C483]"
+                    : "text-[#EDE1CC]/60"
+                }`}
+              />
+              <span
+                className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#E5C483] transition-transform duration-300 ease-out origin-left ${
+                  location.pathname.startsWith("/tea") || isTeaMenuOpen
+                    ? "scale-x-100"
+                    : "scale-x-0 group-hover:scale-x-100"
+                }`}
+              />
+            </button>
 
             {/* Floating Dropdown for Tea Options */}
             <div
@@ -526,25 +530,62 @@ export default function Header({ lang, setLang }) {
               {currentNav.home}
             </NavLink>
             <span className="text-[#C5A059]/40">•</span>
-            <NavLink
-              to="/tea"
-              onClick={() => {
-                if (location.pathname === "/tea") {
-                  window.dispatchEvent(
-                    new CustomEvent("paul:trigger-tea-reveal"),
-                  );
-                }
-              }}
-              className={({ isActive }) =>
-                `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
-                  isActive || location.pathname.startsWith("/tea")
+
+            {/* Mobile Tea Dropdown Button */}
+            <div ref={mobileTeaRef} className="relative">
+              <button
+                type="button"
+                onClick={handleTeaClick}
+                aria-expanded={isTeaMenuOpen}
+                className={`px-1.5 py-0.5 rounded transition whitespace-nowrap flex items-center gap-0.5 cursor-pointer bg-transparent border-0 font-serif uppercase text-[11px] ${
+                  location.pathname.startsWith("/tea") || isTeaMenuOpen
                     ? "font-bold text-[#E5C483] bg-[#522912]"
                     : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
-                }`
-              }
-            >
-              {currentNav.tea}
-            </NavLink>
+                }`}
+              >
+                <span>{currentNav.tea}</span>
+                <ChevronDown
+                  className={`w-3 h-3 transition-transform duration-200 ${
+                    isTeaMenuOpen ? "rotate-180 text-[#E5C483]" : "text-[#EDE1CC]/60"
+                  }`}
+                />
+              </button>
+
+              {/* Mobile Tea Dropdown Menu */}
+              <div
+                className={`fixed left-4 right-4 top-[72px] pt-2 transition-all duration-200 z-50 ${
+                  isTeaMenuOpen
+                    ? "opacity-100 translate-y-0 pointer-events-auto"
+                    : "opacity-0 -translate-y-2 pointer-events-none"
+                }`}
+              >
+                <div className="bg-[#522912] border border-[#C5A059]/50 rounded-xl shadow-2xl p-2 divide-y divide-[#C5A059]/20 backdrop-blur-md">
+                  <Link
+                    to="/tea/single-origin"
+                    onClick={() => setIsTeaMenuOpen(false)}
+                    className="flex items-center gap-2.5 p-2 rounded-lg hover:bg-[#683619] text-[#EDE1CC] hover:text-[#E5C483] transition"
+                  >
+                    <span className="text-base">🍃</span>
+                    <div>
+                      <div className="font-bold text-xs font-serif">{teaDropdownLabels.singleOrigin.title}</div>
+                      <div className="text-[10px] text-[#E5C483]/90 font-mono">{teaDropdownLabels.singleOrigin.sub}</div>
+                    </div>
+                  </Link>
+                  <Link
+                    to="/tea/herbal-blend"
+                    onClick={() => setIsTeaMenuOpen(false)}
+                    className="flex items-center gap-2.5 p-2 rounded-lg hover:bg-[#683619] text-[#EDE1CC] hover:text-[#E5C483] transition pt-2"
+                  >
+                    <span className="text-base">🌿</span>
+                    <div>
+                      <div className="font-bold text-xs font-serif">{teaDropdownLabels.herbalBlend.title}</div>
+                      <div className="text-[10px] text-[#E5C483]/90 font-mono">{teaDropdownLabels.herbalBlend.sub}</div>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
             <span className="text-[#C5A059]/40">•</span>
             <NavLink
               to="/spices"
