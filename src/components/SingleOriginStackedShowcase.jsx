@@ -496,7 +496,7 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
       >
         {/* Mobile-Only Frozen Hero */}
         <div className="block md:hidden max-w-6xl mx-auto px-4 text-center relative z-10 shrink-0 mb-4">
-          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#683619]/10 border border-[#C5A059]/40 text-[#683619] text-[11px] font-mono uppercase tracking-[0.2em] mt-6 mb-1.5 shadow-xs">
+          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#683619]/10 border border-[#C5A059]/40 text-[#683619] text-[11px] font-mono uppercase tracking-[0.2em] mt-13 sm:my-0 shadow-xs">
             <span>
               {isGerman
                 ? "PAUL'S TEE • SINGLE-ORIGIN"
@@ -504,11 +504,11 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
             </span>
           </div>
 
-          <h1 className="font-serif text-2xl xs:text-3xl font-bold tracking-tight text-[#683619] mb-1">
+          <h1 className="font-serif text-2xl xs:text-3xl font-bold tracking-tight text-[#683619] my-3 sm:my-0">
             {isGerman ? "Single Origin Kollektion" : "Single Origin Collection"}
           </h1>
 
-          <p className="text-xs text-[#1C2024]/75 max-w-3xl mx-auto font-light leading-relaxed">
+          <p className="text-xs text-[#1C2024]/75 max-w-3xl mx-auto font-light leading-relaxed my-3 sm:my-0">
             {isGerman
               ? "Karte antippen, um Details & Verpackung anzuzeigen."
               : "Tap card for package & lore details."}
@@ -522,7 +522,7 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
           <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center justify-center my-auto relative">
             {/* ── LEFT COLUMN: STACKED TEA DECK (SMOOTH GLIDE FROM CENTER TO LEFT) ── */}
             <div
-              className={`w-full flex flex-col justify-center items-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu ${
+              className={`w-full flex flex-col justify-center items-center transition-transform mt-23 sm:mt-0 duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu ${
                 isOpen
                   ? "lg:translate-x-0"
                   : "lg:translate-x-[calc(50%+1rem)]"
