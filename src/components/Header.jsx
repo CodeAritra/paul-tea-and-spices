@@ -80,7 +80,7 @@ export default function Header({ lang, setLang }) {
   const [logoError, setLogoError] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isSidebarTeaOpen, setIsSidebarTeaOpen] = useState(true);
+  const [isSidebarTeaOpen, setIsSidebarTeaOpen] = useState(false);
 
   const headerRef = useRef(null);
   const langDropdownRef = useRef(null);
@@ -501,28 +501,72 @@ export default function Header({ lang, setLang }) {
               </NavLink>
             </div>
 
-            {/* 2. Single Origin */}
-            <div>
-              <NavLink
-                to="/tea/single-origin"
-                onClick={() => setIsSidebarOpen(false)}
-                className="group relative inline-block py-1 text-[#1C2024] hover:text-[#683619] [&.active]:text-[#683619] transition-colors"
+            {/* 2. Tea (Expandable on hover or click) */}
+            <div
+              className="relative"
+              onMouseEnter={() => setIsSidebarTeaOpen(true)}
+            >
+              <button
+                type="button"
+                onClick={() => setIsSidebarTeaOpen((prev) => !prev)}
+                className={`group relative flex items-center justify-between w-full py-1 text-left hover:text-[#683619] transition-colors cursor-pointer outline-none ${
+                  location.pathname.includes("/tea") ||
+                  location.pathname.includes("/single-origin") ||
+                  location.pathname.includes("/herbal-blend")
+                    ? "text-[#683619] font-medium"
+                    : "text-[#1C2024]"
+                }`}
               >
-                <span>{teaDropdownLabels.singleOrigin.title}</span>
-                <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#683619] transition-transform duration-300 ease-out origin-left scale-x-0 group-hover:scale-x-100 group-[.active]:scale-x-100" />
-              </NavLink>
-            </div>
+                <span className="relative">
+                  {currentNav.tea}
+                  <span
+                    className={`absolute bottom-0 left-0 w-full h-[1.5px] bg-[#683619] transition-transform duration-300 ease-out origin-left ${
+                      location.pathname.includes("/tea") ||
+                      location.pathname.includes("/single-origin") ||
+                      location.pathname.includes("/herbal-blend")
+                        ? "scale-x-100"
+                        : "scale-x-0 group-hover:scale-x-100"
+                    }`}
+                  />
+                </span>
+                <ChevronDown
+                  className={`w-4 h-4 text-[#683619] transition-transform duration-300 ${
+                    isSidebarTeaOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
 
-            {/* 3. Herbal Blend */}
-            <div>
-              <NavLink
-                to="/tea/herbal-blend"
-                onClick={() => setIsSidebarOpen(false)}
-                className="group relative inline-block py-1 text-[#1C2024] hover:text-[#683619] [&.active]:text-[#683619] transition-colors"
+              {/* Submenu for Single Origin & Herbal Blend */}
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  isSidebarTeaOpen
+                    ? "max-h-48 opacity-100 mt-2 mb-1"
+                    : "max-h-0 opacity-0"
+                }`}
               >
-                <span>{teaDropdownLabels.herbalBlend.title}</span>
-                <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#683619] transition-transform duration-300 ease-out origin-left scale-x-0 group-hover:scale-x-100 group-[.active]:scale-x-100" />
-              </NavLink>
+                <div className="pl-4 space-y-2.5 border-l-2 border-[#683619]/25 ml-1 py-1">
+                  <div>
+                    <NavLink
+                      to="/tea/single-origin"
+                      onClick={() => setIsSidebarOpen(false)}
+                      className="group relative inline-block text-[16px] sm:text-[17px] text-[#1C2024]/85 hover:text-[#683619] [&.active]:text-[#683619] [&.active]:font-semibold transition-colors"
+                    >
+                      <span>{teaDropdownLabels.singleOrigin.title}</span>
+                      <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#683619] transition-transform duration-300 ease-out origin-left scale-x-0 group-hover:scale-x-100 group-[.active]:scale-x-100" />
+                    </NavLink>
+                  </div>
+                  <div>
+                    <NavLink
+                      to="/tea/herbal-blend"
+                      onClick={() => setIsSidebarOpen(false)}
+                      className="group relative inline-block text-[16px] sm:text-[17px] text-[#1C2024]/85 hover:text-[#683619] [&.active]:text-[#683619] [&.active]:font-semibold transition-colors"
+                    >
+                      <span>{teaDropdownLabels.herbalBlend.title}</span>
+                      <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#683619] transition-transform duration-300 ease-out origin-left scale-x-0 group-hover:scale-x-100 group-[.active]:scale-x-100" />
+                    </NavLink>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* 4. Spices */}
