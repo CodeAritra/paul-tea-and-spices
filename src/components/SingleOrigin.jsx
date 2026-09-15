@@ -1,7 +1,7 @@
 import React from "react";
 import { Sparkles } from "lucide-react";
 
-export default function HerbalBlendComingSoon({ lang = "de" }) {
+export default function SingleOrigin({ lang = "de" }) {
   const titles = {
     de: "Demnächst erhältlich",
     en: "Coming Soon",
@@ -11,10 +11,10 @@ export default function HerbalBlendComingSoon({ lang = "de" }) {
   };
 
   const subtitles = {
-    de: "Kräutertees • Vorarlberger Atelier",
-    en: "Herbal Blends • Vorarlberg Atelier",
-    fr: "Mélanges d'Herbes • Atelier Vorarlberg",
-    it: "Infusi di Erbe • Atelier Vorarlberg",
+    de: "Single Origin • Vorarlberger Atelier",
+    en: "Single Origin • Vorarlberg Atelier",
+    fr: "Single Origin • Atelier Vorarlberg",
+    it: "Single Origin • Atelier Vorarlberg",
     es: "Mezclas de Hierbas • Atelier Vorarlberg",
   };
 

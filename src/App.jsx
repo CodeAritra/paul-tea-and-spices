@@ -9,8 +9,8 @@ import HomeCollectionsPreview from "./components/HomeCollectionsPreview";
 import StoryTimeline from "./components/StoryTimeline";
 import TeaStorySection from "./components/TeaStorySection";
 import TeaSceneryHero from "./components/TeaSceneryHero";
-import SingleOriginStackedShowcase from "./components/SingleOriginStackedShowcase";
-import HerbalBlendComingSoon from "./components/HerbalBlendComingSoon";
+import HerbalBlend from "./components/HerbalBlend";
+import SingleOrigin from "./components/SingleOrigin";
 import SpiceMapSection from "./components/SpiceMapSection";
 import TutorialsSection from "./components/TutorialsSection";
 import Footer from "./components/Footer";
@@ -45,11 +45,11 @@ function TeaPage({ lang }) {
 }
 
 function SingleOriginPage({ lang }) {
-  return <SingleOriginStackedShowcase lang={lang} />;
+  return <SingleOrigin lang={lang} />;
 }
 
 function HerbalBlendPage({ lang }) {
-  return <HerbalBlendComingSoon lang={lang} />;
+  return <HerbalBlend lang={lang} />;
 }
 
 function SpicesPage({ lang }) {
@@ -171,10 +171,7 @@ export default function App() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<HomePage lang={lang} />} />
-          <Route
-            path="/tea"
-            element={<Navigate to="/tea/single-origin" replace />}
-          />
+          
           <Route
             path="/tea/single-origin"
             element={<SingleOriginPage lang={lang} />}
@@ -193,10 +190,6 @@ export default function App() {
           />
           <Route path="/spices" element={<SpicesPage lang={lang} />} />
           <Route path="/tutorials" element={<TutorialsPage lang={lang} />} />
-          <Route
-            path="/tea-and-spices"
-            element={<Navigate to="/tea/single-origin" replace />}
-          />
           <Route path="/about" element={<AboutPage lang={lang} />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

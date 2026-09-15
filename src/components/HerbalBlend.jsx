@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const SINGLE_ORIGIN_TEAS = [
+export const HERBAL_BLENDS = [
   // 1. Mountain Peaks: Wide horizontal panorama, compact height
   {
     id: "alpine-glow-darjeeling",
@@ -282,7 +282,7 @@ export const SINGLE_ORIGIN_TEAS = [
   },
 ];
 
-export default function SingleOriginStackedShowcase({ lang = "de" }) {
+export default function HerbalBlend({ lang = "de" }) {
   const containerRef = useRef(null);
   const cardsRef = useRef([]);
   const overlaysRef = useRef([]);
@@ -298,7 +298,7 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
 
   const activeIndex =
     selectedTeaIndex !== null ? selectedTeaIndex : prevIndexRef.current;
-  const activeTea = SINGLE_ORIGIN_TEAS[activeIndex] || SINGLE_ORIGIN_TEAS[0];
+  const activeTea = HERBAL_BLENDS[activeIndex] || HERBAL_BLENDS[0];
 
   const handleClose = () => {
     setSelectedTeaIndex(null);
@@ -309,16 +309,16 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
       setSelectedTeaIndex(0);
       return;
     }
-    setSelectedTeaIndex((prev) => (prev + 1) % SINGLE_ORIGIN_TEAS.length);
+    setSelectedTeaIndex((prev) => (prev + 1) % HERBAL_BLENDS.length);
   };
 
   const handlePrevTea = () => {
     if (selectedTeaIndex === null) {
-      setSelectedTeaIndex(SINGLE_ORIGIN_TEAS.length - 1);
+      setSelectedTeaIndex(HERBAL_BLENDS.length - 1);
       return;
     }
     setSelectedTeaIndex(
-      (prev) => (prev - 1 + SINGLE_ORIGIN_TEAS.length) % SINGLE_ORIGIN_TEAS.length,
+      (prev) => (prev - 1 + HERBAL_BLENDS.length) % HERBAL_BLENDS.length,
     );
   };
 
@@ -473,13 +473,13 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
         <div className="inline-flex items-center gap-2.5 px-4 py-1 rounded-full bg-[#683619]/10 border border-[#C5A059]/40 text-[#683619] text-xs font-mono uppercase tracking-[0.24em] mb-2 shadow-xs">
           <span>
             {isGerman
-              ? "PAUL'S TEE • SINGLE-ORIGIN UNBLENDED"
-              : "PAUL'S TEA • SINGLE-ORIGIN UNBLENDED"}
+              ? "PAUL'S TEE • Herbal Blends"
+              : "PAUL'S TEA • Herbal Blends"}
           </span>
         </div>
 
         <h1 className="font-serif text-3xl lg:text-5xl font-bold tracking-tight text-[#683619] mb-1.5">
-          {isGerman ? "Single Origin Kollektion" : "Single Origin Collection"}
+          {isGerman ? "Herbal Blends Kollektion" : "Herbal Blends Collection"}
         </h1>
 
         <p className="text-xs lg:text-sm text-[#1C2024]/75 max-w-2xl mx-auto font-light leading-relaxed">
@@ -505,7 +505,7 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
           </div>
 
           <h1 className="font-serif text-2xl xs:text-3xl font-bold tracking-tight text-[#683619] my-3 sm:my-0">
-            {isGerman ? "Single Origin Kollektion" : "Single Origin Collection"}
+            {isGerman ? "Herbal Blends Kollektion" : "Herbal Blends Collection"}
           </h1>
 
           <p className="text-xs text-[#1C2024]/75 max-w-3xl mx-auto font-light leading-relaxed my-3 sm:my-0">
@@ -531,7 +531,7 @@ export default function SingleOriginStackedShowcase({ lang = "de" }) {
               <div
                 className="relative w-full max-w-2xl xl:max-w-3xl h-[400px] sm:h-[480px] lg:h-[540px] mx-auto"
               >
-                {SINGLE_ORIGIN_TEAS.map((tea, index) => {
+                {HERBAL_BLENDS.map((tea, index) => {
                   const isSelected = selectedTeaIndex === index;
                   // When open, strictly hide any upcoming cards so nothing peeks from bottom
                   const isHiddenWhenOpen =
