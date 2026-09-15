@@ -171,7 +171,10 @@ export default function App() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<HomePage lang={lang} />} />
-          <Route path="/tea" element={<TeaPage lang={lang} />} />
+          <Route
+            path="/tea"
+            element={<Navigate to="/tea/single-origin" replace />}
+          />
           <Route
             path="/tea/single-origin"
             element={<SingleOriginPage lang={lang} />}
@@ -192,7 +195,7 @@ export default function App() {
           <Route path="/tutorials" element={<TutorialsPage lang={lang} />} />
           <Route
             path="/tea-and-spices"
-            element={<Navigate to="/tea" replace />}
+            element={<Navigate to="/tea/single-origin" replace />}
           />
           <Route path="/about" element={<AboutPage lang={lang} />} />
           <Route path="*" element={<Navigate to="/" replace />} />

@@ -1,7 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Sparkles, Globe, ChevronDown } from "lucide-react";
+import {
+  Sparkles,
+  Globe,
+  Menu,
+  X,
+  ChevronDown,
+  ChevronRight,
+} from "lucide-react";
 import { TRANSLATIONS } from "../data/productsData";
 
 const TEA_DROPDOWN_OPTIONS = {
@@ -72,34 +79,33 @@ export default function Header({ lang, setLang }) {
   const location = useLocation();
   const [logoError, setLogoError] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const [isTeaMenuOpen, setIsTeaMenuOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarTeaOpen, setIsSidebarTeaOpen] = useState(true);
+
   const headerRef = useRef(null);
   const langDropdownRef = useRef(null);
   const langTimeoutRef = useRef(null);
-  const teaTimeoutRef = useRef(null);
-  const teaDropdownRef = useRef(null);
-  const mobileTeaRef = useRef(null);
 
   const teaDropdownLabels =
     TEA_DROPDOWN_OPTIONS[lang] || TEA_DROPDOWN_OPTIONS.en;
 
-  const handleTeaEnter = () => {
-    if (teaTimeoutRef.current) clearTimeout(teaTimeoutRef.current);
-    setIsTeaMenuOpen(true);
+  const menuLabels = {
+    de: "Menü",
+    en: "Menu",
+    es: "Menú",
+    it: "Menu",
+    fr: "Menu",
   };
+  const currentMenuLabel = menuLabels[lang] || menuLabels.en;
 
-  const handleTeaLeave = () => {
-    teaTimeoutRef.current = setTimeout(() => {
-      setIsTeaMenuOpen(false);
-    }, 200);
+  const closeLabels = {
+    de: "Schließen",
+    en: "Close",
+    es: "Cerrar",
+    it: "Chiudi",
+    fr: "Fermer",
   };
-
-  const handleTeaClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (teaTimeoutRef.current) clearTimeout(teaTimeoutRef.current);
-    setIsTeaMenuOpen((prev) => !prev);
-  };
+  const currentCloseLabel = closeLabels[lang] || closeLabels.en;
 
   const navLabels = {
     de: {
@@ -108,6 +114,9 @@ export default function Header({ lang, setLang }) {
       spices: "Gewürze",
       tutorials: "Anleitungen",
       about: "Über Uns",
+      navigation: "Navigation",
+      languages: "Sprache",
+      teaOverview: "Alle Teesorten (Übersicht)",
     },
     en: {
       home: "Home",
@@ -115,6 +124,9 @@ export default function Header({ lang, setLang }) {
       spices: "Spices",
       tutorials: "Tutorials",
       about: "About Us",
+      navigation: "Navigation",
+      languages: "Language",
+      teaOverview: "All Teas (Overview)",
     },
     es: {
       home: "Inicio",
@@ -122,6 +134,9 @@ export default function Header({ lang, setLang }) {
       spices: "Especias",
       tutorials: "Tutoriales",
       about: "Sobre Nosotros",
+      navigation: "Navegación",
+      languages: "Idioma",
+      teaOverview: "Todos los Tés (Resumen)",
     },
     it: {
       home: "Home",
@@ -129,6 +144,9 @@ export default function Header({ lang, setLang }) {
       spices: "Spezie",
       tutorials: "Tutorial",
       about: "Chi Siamo",
+      navigation: "Navigazione",
+      languages: "Lingua",
+      teaOverview: "Tutti i Tè (Panoramica)",
     },
     fr: {
       home: "Accueil",
@@ -136,11 +154,44 @@ export default function Header({ lang, setLang }) {
       spices: "Épices",
       tutorials: "Tutoriels",
       about: "À Propos",
+      navigation: "Navigation",
+      languages: "Langue",
+      teaOverview: "Tous les Thés (Aperçu)",
     },
   };
   const currentNav = navLabels[lang] || navLabels.en;
 
-  // Close dropdowns on outside click
+  // Lock body scroll when sidebar drawer is open
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isSidebarOpen]);
+
+  // Close all open dropdowns/sidebar on route change
+  useEffect(() => {
+    setIsSidebarOpen(false);
+    setIsLangOpen(false);
+  }, [location.pathname]);
+
+  // Close menus on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setIsSidebarOpen(false);
+        setIsLangOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // Close lang dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -149,27 +200,13 @@ export default function Header({ lang, setLang }) {
       ) {
         setIsLangOpen(false);
       }
-      if (
-        teaDropdownRef.current &&
-        !teaDropdownRef.current.contains(e.target) &&
-        (!mobileTeaRef.current || !mobileTeaRef.current.contains(e.target))
-      ) {
-        setIsTeaMenuOpen(false);
-      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       if (langTimeoutRef.current) clearTimeout(langTimeoutRef.current);
-      if (teaTimeoutRef.current) clearTimeout(teaTimeoutRef.current);
     };
   }, []);
-
-  // Close all open dropdown menus on route change
-  useEffect(() => {
-    setIsTeaMenuOpen(false);
-    setIsLangOpen(false);
-  }, [location.pathname]);
 
   const handleLangEnter = () => {
     if (langTimeoutRef.current) clearTimeout(langTimeoutRef.current);
@@ -230,6 +267,9 @@ export default function Header({ lang, setLang }) {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
+      // Don't auto-hide header if sidebar drawer is open
+      if (isSidebarOpen) return;
+
       // Check if any pinned section is currently active
       const isAnyPinActive = ScrollTrigger
         ? ScrollTrigger.getAll().some((st) => st.pin && st.isActive)
@@ -270,448 +310,281 @@ export default function Header({ lang, setLang }) {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isSidebarOpen]);
 
   return (
-    <header
-      ref={headerRef}
-      style={{ transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)" }}
-      className="fixed top-0 left-0 right-0 z-50 bg-[#683619] text-[#EDE1CC] transition-all duration-300 will-change-transform border-b border-[#C5A059]/40 shadow-[0_8px_30px_rgba(0,0,0,0.25)]"
-    >
-      {/* Top Banner Notice with Gold Ribbon Accent */}
-      <div className="relative bg-[#522912] text-[#EDE1CC] text-xs py-1.5 px-4 text-center font-medium tracking-wider uppercase flex items-center justify-center gap-2 border-b border-[#C5A059]/30 shadow-xs">
-        {/* Gold Metallic Ribbon Line */}
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#E5C483] to-transparent opacity-90" />
+    <>
+      <header
+        ref={headerRef}
+        style={{ transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)" }}
+        className="fixed top-0 left-0 right-0 z-50 bg-[#683619] text-[#EDE1CC] transition-all duration-300 will-change-transform border-b border-[#C5A059]/40 shadow-[0_8px_30px_rgba(0,0,0,0.25)]"
+      >
+        {/* Top Banner Notice with Gold Ribbon Accent */}
+        <div className="relative bg-[#522912] text-[#EDE1CC] text-xs py-1.5 px-4 text-center font-medium tracking-wider uppercase flex items-center justify-center gap-2 border-b border-[#C5A059]/30 shadow-xs">
+          {/* Gold Metallic Ribbon Line */}
+          <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#E5C483] to-transparent opacity-90" />
 
-        <Sparkles className="w-3.5 h-3.5 text-[#E5C483]" />
-        <span>{t.heritageSub}</span>
-        <span className="hidden sm:inline text-[#E5C483]">|</span>
-        <span className="hidden sm:inline text-[#E5C483]/90 font-serif italic text-sm">
-          "Crafted to be kept, not consumed."
-        </span>
-      </div>
+          <Sparkles className="w-3.5 h-3.5 text-[#E5C483]" />
+          <span>{t.heritageSub}</span>
+          <span className="hidden sm:inline text-[#E5C483]">|</span>
+          <span className="hidden sm:inline text-[#E5C483]/90 font-serif italic text-sm">
+            "Crafted to be kept, not consumed."
+          </span>
+        </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-        {/* Left Side: Paul's Logo + Subtitle "TEA & SPICES" */}
-        <Link
-          to="/"
-          className="flex flex-col items-center group select-none shrink-0"
-          title="Paul's Tea & Spices"
-        >
-          <div className="flex items-center justify-center">
+        {/* Main Header Bar with Hamburger (Left), Logo (Center), and Language (Right) */}
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+          {/* Left Side: Hamburger Menu Button */}
+          <div className="flex items-center">
+            <button
+              type="button"
+              onClick={() => setIsSidebarOpen(true)}
+              aria-label="Open Navigation Menu"
+              aria-expanded={isSidebarOpen}
+              className="flex items-center gap-2.5 px-3 sm:px-4 py-2  text-[#EDE1CC] hover:text-[#E5C483] transition-all duration-200 shadow-xs cursor-pointer group"
+            >
+              <Menu className="w-5 h-5 text-[#E5C483] transition-transform duration-200 group-hover:scale-110" />
+              <span className="hidden sm:inline font-serif text-xs uppercase tracking-[0.18em] font-semibold">
+                {currentMenuLabel}
+              </span>
+            </button>
+          </div>
+
+          {/* Center: Brand Logo + Subtitle "TEA & SPICES" (Dead Center for Desktop & Mobile) */}
+          <Link
+            to="/"
+            className="absolute left-1/2 top-8 sm:top-7  -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center select-none shrink-0"
+            title="Paul's Tea & Spices"
+          >
             {!logoError ? (
               <img
                 src="/images/logo.png"
                 alt="Paul's Logo"
                 onError={() => setLogoError(true)}
-                className="h-9 sm:h-10 w-auto object-contain cursor-pointer transition-transform group-hover:scale-105"
+                className="h-12 sm:h-17 w-auto object-contain cursor-pointer"
               />
             ) : (
-              <div className="w-8 h-8 rounded-full bg-[#522912] border border-[#C5A059] flex items-center justify-center text-[#E5C483] font-serif font-bold text-base shadow-xs">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#522912] border border-[#C5A059] flex items-center justify-center text-[#E5C483] font-serif font-bold text-base sm:text-lg shadow-xs">
                 P
               </div>
             )}
-          </div>
-          <span className="text-[8px] sm:text-[9.5px] uppercase tracking-[0.24em] font-serif font-semibold text-[#E5C483] group-hover:text-white transition-colors -mt-0.5 whitespace-nowrap">
-            TEA & SPICES
-          </span>
-        </Link>
+            <span className="text-[8.5px] sm:text-[10px] uppercase tracking-[0.26em] font-serif font-semibold text-[#E5C483] -mt-1.5 sm:-mt-4 whitespace-nowrap">
+              TEA & SPICES
+            </span>
+          </Link>
 
-        {/* Center: Desktop Navigation Tabs (Home, Tea, Spices, Tutorials, About Us) */}
-        <nav className="hidden md:flex items-center justify-center gap-6 lg:gap-8 text-xs font-serif tracking-wider uppercase">
-          {/* Home */}
-          <NavLink
-            to="/"
-            end
-            className={({ isActive }) =>
-              `relative py-1.5 font-medium tracking-[0.14em] group transition-colors ${
-                isActive
-                  ? "text-[#E5C483] font-bold"
-                  : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
-              }`
-            }
-          >
-            {({ isActive }) => (
-              <>
-                <span>{currentNav.home}</span>
-                <span
-                  className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#E5C483] transition-transform duration-300 ease-out origin-left ${
-                    isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                  }`}
-                />
-              </>
-            )}
-          </NavLink>
-
-          {/* Tea Tab with Hover & Click Dropdown (Single Origin & Herbal Blend) */}
-          <div
-            ref={teaDropdownRef}
-            className="relative group"
-            onMouseEnter={handleTeaEnter}
-            onMouseLeave={handleTeaLeave}
-          >
-            <button
-              type="button"
-              onClick={handleTeaClick}
-              aria-expanded={isTeaMenuOpen}
-              aria-haspopup="true"
-              className={`relative py-1.5 font-medium tracking-[0.14em] flex items-center gap-1.5 transition-colors cursor-pointer bg-transparent border-0 outline-none uppercase font-serif text-xs ${
-                location.pathname.startsWith("/tea") || isTeaMenuOpen
-                  ? "text-[#E5C483] font-bold"
-                  : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
-              }`}
-            >
-              <span>{currentNav.tea}</span>
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  isTeaMenuOpen
-                    ? "rotate-180 text-[#E5C483]"
-                    : "text-[#EDE1CC]/60"
-                }`}
-              />
-              <span
-                className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#E5C483] transition-transform duration-300 ease-out origin-left ${
-                  location.pathname.startsWith("/tea") || isTeaMenuOpen
-                    ? "scale-x-100"
-                    : "scale-x-0 group-hover:scale-x-100"
-                }`}
-              />
-            </button>
-
-            {/* Floating Dropdown for Tea Options */}
+          {/* Right Side: Language Selector */}
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <div
-              className={`absolute left-1/2 -translate-x-1/2 top-full pt-2.5 w-72 transition-all duration-200 z-50 ${
-                isTeaMenuOpen
-                  ? "opacity-100 translate-y-0 pointer-events-auto"
-                  : "opacity-0 -translate-y-2 pointer-events-none"
-              }`}
+              ref={langDropdownRef}
+              className="relative"
+              onMouseEnter={handleLangEnter}
+              onMouseLeave={handleLangLeave}
             >
-              <div className="bg-[#522912] border border-[#C5A059]/50 rounded-2xl shadow-2xl p-2 overflow-hidden backdrop-blur-md">
-                {/* Option 1: Single Origin */}
-                <Link
-                  to="/tea/single-origin"
-                  onClick={() => setIsTeaMenuOpen(false)}
-                  className={`group/item flex items-start gap-3 p-2.5 rounded-xl transition-all cursor-pointer ${
-                    location.pathname === "/tea/single-origin"
-                      ? "bg-[#683619] border border-[#E5C483]/50 shadow-inner"
-                      : "hover:bg-[#683619]/80 border border-transparent hover:border-[#C5A059]/30"
-                  }`}
-                >
-                  <div className="w-8 h-8 rounded-lg bg-[#683619] border border-[#C5A059]/40 flex items-center justify-center shrink-0 text-base shadow-xs group-hover/item:scale-105 group-hover/item:border-[#E5C483] transition-transform">
-                    🍃
-                  </div>
-                  <div className="flex flex-col text-left">
-                    <span className="font-serif font-bold text-sm text-[#EDE1CC] group-hover/item:text-[#E5C483] transition-colors leading-tight">
-                      {teaDropdownLabels.singleOrigin.title}
-                    </span>
-                    <span className="text-[11px] text-[#E5C483]/90 font-mono tracking-wide mt-0.5">
-                      {teaDropdownLabels.singleOrigin.sub}
-                    </span>
-                    <span className="text-[10px] text-[#EDE1CC]/60 font-sans mt-0.5">
-                      {teaDropdownLabels.singleOrigin.desc}
-                    </span>
-                  </div>
-                </Link>
-
-                {/* Option 2: Herbal Blend */}
-                <Link
-                  to="/tea/herbal-blend"
-                  onClick={() => setIsTeaMenuOpen(false)}
-                  className={`group/item flex items-start gap-3 p-2.5 rounded-xl transition-all cursor-pointer mt-1 ${
-                    location.pathname === "/tea/herbal-blend"
-                      ? "bg-[#683619] border border-[#E5C483]/50 shadow-inner"
-                      : "hover:bg-[#683619]/80 border border-transparent hover:border-[#C5A059]/30"
-                  }`}
-                >
-                  <div className="w-8 h-8 rounded-lg bg-[#683619] border border-[#C5A059]/40 flex items-center justify-center shrink-0 text-base shadow-xs group-hover/item:scale-105 group-hover/item:border-[#E5C483] transition-transform">
-                    🌿
-                  </div>
-                  <div className="flex flex-col text-left">
-                    <span className="font-serif font-bold text-sm text-[#EDE1CC] group-hover/item:text-[#E5C483] transition-colors leading-tight">
-                      {teaDropdownLabels.herbalBlend.title}
-                    </span>
-                    <span className="text-[11px] text-[#E5C483]/90 font-mono tracking-wide mt-0.5">
-                      {teaDropdownLabels.herbalBlend.sub}
-                    </span>
-                    <span className="text-[10px] text-[#EDE1CC]/60 font-sans mt-0.5">
-                      {teaDropdownLabels.herbalBlend.desc}
-                    </span>
-                  </div>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Spices Tab */}
-          <NavLink
-            to="/spices"
-            className={({ isActive }) =>
-              `relative py-1.5 font-medium tracking-[0.14em] group transition-colors ${
-                isActive
-                  ? "text-[#E5C483] font-bold"
-                  : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
-              }`
-            }
-          >
-            {({ isActive }) => (
-              <>
-                <span>{currentNav.spices}</span>
-                <span
-                  className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#E5C483] transition-transform duration-300 ease-out origin-left ${
-                    isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                  }`}
-                />
-              </>
-            )}
-          </NavLink>
-
-          {/* Tutorials */}
-          <NavLink
-            to="/tutorials"
-            className={({ isActive }) =>
-              `relative py-1.5 font-medium tracking-[0.14em] group transition-colors ${
-                isActive
-                  ? "text-[#E5C483] font-bold"
-                  : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
-              }`
-            }
-          >
-            {({ isActive }) => (
-              <>
-                <span>{currentNav.tutorials}</span>
-                <span
-                  className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#E5C483] transition-transform duration-300 ease-out origin-left ${
-                    isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                  }`}
-                />
-              </>
-            )}
-          </NavLink>
-
-          {/* About Us */}
-          <NavLink
-            to="/about"
-            className={({ isActive }) =>
-              `relative py-1.5 font-medium tracking-[0.14em] group transition-colors ${
-                isActive
-                  ? "text-[#E5C483] font-bold"
-                  : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
-              }`
-            }
-          >
-            {({ isActive }) => (
-              <>
-                <span>{currentNav.about}</span>
-                <span
-                  className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#E5C483] transition-transform duration-300 ease-out origin-left ${
-                    isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                  }`}
-                />
-              </>
-            )}
-          </NavLink>
-        </nav>
-
-        {/* Right Side: Mobile Navigation + Language Selector */}
-        <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-          {/* Mobile Nav Links */}
-          <div className="flex md:hidden items-center gap-1 text-[11px] font-serif uppercase tracking-wider mr-1 overflow-x-auto no-scrollbar">
-            <NavLink
-              to="/"
-              end
-              className={({ isActive }) =>
-                `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
-                  isActive
-                    ? "font-bold text-[#E5C483] bg-[#522912]"
-                    : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
-                }`
-              }
-            >
-              {currentNav.home}
-            </NavLink>
-            <span className="text-[#C5A059]/40">•</span>
-
-            {/* Mobile Tea Dropdown Button */}
-            <div ref={mobileTeaRef} className="relative">
               <button
-                type="button"
-                onClick={handleTeaClick}
-                aria-expanded={isTeaMenuOpen}
-                className={`px-1.5 py-0.5 rounded transition whitespace-nowrap flex items-center gap-0.5 cursor-pointer bg-transparent border-0 font-serif uppercase text-[11px] ${
-                  location.pathname.startsWith("/tea") || isTeaMenuOpen
-                    ? "font-bold text-[#E5C483] bg-[#522912]"
-                    : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
+                onClick={() => {
+                  if (langTimeoutRef.current)
+                    clearTimeout(langTimeoutRef.current);
+                  setIsLangOpen(!isLangOpen);
+                }}
+                aria-expanded={isLangOpen}
+                aria-label="Select Language"
+                className={`flex items-center justify-center p-1.5 sm:p-2 rounded-full border transition-all duration-200 shadow-xs cursor-pointer ${
+                  isLangOpen
+                    ? "border-[#E5C483] bg-[#E5C483]"
+                    : "border-[#C5A059]/50 bg-[#522912] hover:border-[#E5C483] hover:bg-[#683619]"
                 }`}
               >
-                <span>{currentNav.tea}</span>
-                <ChevronDown
-                  className={`w-3 h-3 transition-transform duration-200 ${
-                    isTeaMenuOpen ? "rotate-180 text-[#E5C483]" : "text-[#EDE1CC]/60"
-                  }`}
+                <img
+                  src={currentLanguage.flagUrl}
+                  alt={currentLanguage.label}
+                  className="w-5 h-3.5 object-cover rounded-xs border border-[#C5A059]/40 shadow-xs"
                 />
               </button>
 
-              {/* Mobile Tea Dropdown Menu */}
+              {/* Dropdown Menu Container */}
               <div
-                className={`fixed left-4 right-4 top-[72px] pt-2 transition-all duration-200 z-50 ${
-                  isTeaMenuOpen
+                className={`absolute right-0 top-full pt-2 w-52 transition-all duration-200 z-50 ${
+                  isLangOpen
                     ? "opacity-100 translate-y-0 pointer-events-auto"
                     : "opacity-0 -translate-y-2 pointer-events-none"
                 }`}
               >
-                <div className="bg-[#522912] border border-[#C5A059]/50 rounded-xl shadow-2xl p-2 divide-y divide-[#C5A059]/20 backdrop-blur-md">
-                  <Link
-                    to="/tea/single-origin"
-                    onClick={() => setIsTeaMenuOpen(false)}
-                    className="flex items-center gap-2.5 p-2 rounded-lg hover:bg-[#683619] text-[#EDE1CC] hover:text-[#E5C483] transition"
-                  >
-                    <span className="text-base">🍃</span>
-                    <div>
-                      <div className="font-bold text-xs font-serif">{teaDropdownLabels.singleOrigin.title}</div>
-                      <div className="text-[10px] text-[#E5C483]/90 font-mono">{teaDropdownLabels.singleOrigin.sub}</div>
-                    </div>
-                  </Link>
-                  <Link
-                    to="/tea/herbal-blend"
-                    onClick={() => setIsTeaMenuOpen(false)}
-                    className="flex items-center gap-2.5 p-2 rounded-lg hover:bg-[#683619] text-[#EDE1CC] hover:text-[#E5C483] transition pt-2"
-                  >
-                    <span className="text-base">🌿</span>
-                    <div>
-                      <div className="font-bold text-xs font-serif">{teaDropdownLabels.herbalBlend.title}</div>
-                      <div className="text-[10px] text-[#E5C483]/90 font-mono">{teaDropdownLabels.herbalBlend.sub}</div>
-                    </div>
-                  </Link>
+                <div className="bg-[#522912] border border-[#C5A059]/50 rounded-xl shadow-2xl py-1.5 overflow-hidden divide-y divide-[#C5A059]/20">
+                  <div className="px-3 py-1 text-[10px] uppercase tracking-wider font-semibold text-[#E5C483] mb-1">
+                    Select Language
+                  </div>
+                  {languages.map((l) => (
+                    <button
+                      key={l.code}
+                      onClick={() => {
+                        setLang(l.code);
+                        setIsLangOpen(false);
+                      }}
+                      className={`w-full px-3.5 py-2 text-left text-xs flex items-center justify-between transition cursor-pointer ${
+                        lang === l.code
+                          ? "font-bold text-[#E5C483] bg-[#683619]"
+                          : "text-[#EDE1CC] hover:bg-[#683619] hover:text-[#E5C483]"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <img
+                          src={l.flagUrl}
+                          alt={l.label}
+                          className="w-4.5 h-3.5 object-cover rounded-xs border border-[#C5A059]/30 shadow-xs"
+                        />
+                        <span className="font-serif">{l.label}</span>
+                        <span className="text-[10px] text-[#EDE1CC]/60 font-mono">
+                          ({l.short})
+                        </span>
+                      </div>
+                      {lang === l.code && (
+                        <span className="w-2 h-2 rounded-full bg-[#E5C483] shadow-xs"></span>
+                      )}
+                    </button>
+                  ))}
                 </div>
-              </div>
-            </div>
-
-            <span className="text-[#C5A059]/40">•</span>
-            <NavLink
-              to="/spices"
-              className={({ isActive }) =>
-                `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
-                  isActive
-                    ? "font-bold text-[#E5C483] bg-[#522912]"
-                    : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
-                }`
-              }
-            >
-              {currentNav.spices}
-            </NavLink>
-            <span className="text-[#C5A059]/40">•</span>
-            <NavLink
-              to="/tutorials"
-              className={({ isActive }) =>
-                `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
-                  isActive
-                    ? "font-bold text-[#E5C483] bg-[#522912]"
-                    : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
-                }`
-              }
-            >
-              {currentNav.tutorials}
-            </NavLink>
-            <span className="text-[#C5A059]/40">•</span>
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                `px-1.5 py-0.5 rounded transition whitespace-nowrap ${
-                  isActive
-                    ? "font-bold text-[#E5C483] bg-[#522912]"
-                    : "text-[#EDE1CC]/80 hover:text-[#E5C483]"
-                }`
-              }
-            >
-              {currentNav.about}
-            </NavLink>
-          </div>
-
-          {/* Language Selector Dropdown */}
-          <div
-            ref={langDropdownRef}
-            className="relative"
-            onMouseEnter={handleLangEnter}
-            onMouseLeave={handleLangLeave}
-          >
-            <button
-              onClick={() => {
-                if (langTimeoutRef.current)
-                  clearTimeout(langTimeoutRef.current);
-                setIsLangOpen(!isLangOpen);
-              }}
-              aria-expanded={isLangOpen}
-              aria-label="Select Language"
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition shadow-xs text-xs font-semibold cursor-pointer ${
-                isLangOpen
-                  ? "border-[#E5C483] bg-[#E5C483] text-[#522912]"
-                  : "border-[#C5A059]/50 bg-[#522912] text-[#EDE1CC] hover:bg-[#E5C483] hover:text-[#522912] hover:border-[#E5C483]"
-              }`}
-            >
-              <img
-                src={currentLanguage.flagUrl}
-                alt={currentLanguage.label}
-                className="w-4 h-3 object-cover rounded-xs border border-[#C5A059]/40 shadow-xs"
-              />
-              <span className="hidden sm:inline font-serif">
-                {currentLanguage.label}
-              </span>
-              <span className="sm:hidden font-mono uppercase">
-                {currentLanguage.short}
-              </span>
-              <Globe
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  isLangOpen ? "text-[#522912] rotate-180" : "text-[#E5C483]"
-                }`}
-              />
-            </button>
-
-            {/* Dropdown Menu Container with Zero-Gap Hover Bridge */}
-            <div
-              className={`absolute right-0 top-full pt-2 w-52 transition-all duration-200 z-50 ${
-                isLangOpen
-                  ? "opacity-100 translate-y-0 pointer-events-auto"
-                  : "opacity-0 -translate-y-2 pointer-events-none"
-              }`}
-            >
-              <div className="bg-[#522912] border border-[#C5A059]/50 rounded-xl shadow-2xl py-1.5 overflow-hidden divide-y divide-[#C5A059]/20">
-                <div className="px-3 py-1 text-[10px] uppercase tracking-wider font-semibold text-[#E5C483] mb-1">
-                  Select Language
-                </div>
-                {languages.map((l) => (
-                  <button
-                    key={l.code}
-                    onClick={() => {
-                      setLang(l.code);
-                      setIsLangOpen(false);
-                    }}
-                    className={`w-full px-3.5 py-2 text-left text-xs flex items-center justify-between transition cursor-pointer ${
-                      lang === l.code
-                        ? "font-bold text-[#E5C483] bg-[#683619]"
-                        : "text-[#EDE1CC] hover:bg-[#683619] hover:text-[#E5C483]"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <img
-                        src={l.flagUrl}
-                        alt={l.label}
-                        className="w-4.5 h-3.5 object-cover rounded-xs border border-[#C5A059]/30 shadow-xs"
-                      />
-                      <span className="font-serif">{l.label}</span>
-                      <span className="text-[10px] text-[#EDE1CC]/60 font-mono">
-                        ({l.short})
-                      </span>
-                    </div>
-                    {lang === l.code && (
-                      <span className="w-2 h-2 rounded-full bg-[#E5C483] shadow-xs"></span>
-                    )}
-                  </button>
-                ))}
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* ========================================================================= */}
+      {/* OFF-CANVAS MINIMALIST SIDEBAR NAVIGATION MENU (LOUIS VUITTON STYLE) */}
+      {/* ========================================================================= */}
+
+      {/* Backdrop Dimmer Overlay */}
+      <div
+        className={`fixed inset-0 bg-black/40 backdrop-blur-xs z-[9998] transition-opacity duration-300 ${
+          isSidebarOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setIsSidebarOpen(false)}
+        aria-hidden="true"
+      />
+
+      {/* Sidebar Drawer Container */}
+      <aside
+        className={`fixed top-0 left-0 bottom-0 w-[320px] sm:w-[380px] max-w-[85vw] bg-[#EDE1CC] paper-texture text-[#1C2024] border-r border-[#C5A059]/40 z-[9999] shadow-[20px_0_50px_rgba(0,0,0,0.2)] flex flex-col transition-transform duration-300 ease-out select-none ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+        aria-label="Navigation Menu Drawer"
+      >
+        {/* Top Header: Simple '✕ Close' Button on Top Left */}
+        <div className="p-6 sm:p-8 pb-2 flex items-center justify-between">
+          <button
+            type="button"
+            onClick={() => setIsSidebarOpen(false)}
+            aria-label="Close navigation menu"
+            className="flex items-center gap-3 text-sm sm:text-base font-sans tracking-wide text-[#1C2024] hover:text-[#683619] transition-colors cursor-pointer bg-transparent border-0 outline-none group p-0"
+          >
+            <X className="w-4 h-4 stroke-[1.75] transition-transform group-hover:rotate-90" />
+            <span className="font-normal">{currentCloseLabel}</span>
+          </button>
+        </div>
+
+        {/* Scrollable Navigation Area */}
+        <div className="flex-1 overflow-y-auto px-6 sm:px-10 py-6 space-y-6 no-scrollbar font-serif text-[18px] sm:text-[20px] leading-relaxed tracking-wide">
+          <div className="space-y-4">
+            {/* 1. Home */}
+            <div>
+              <NavLink
+                to="/"
+                end
+                onClick={() => setIsSidebarOpen(false)}
+                className="group relative inline-block py-1 text-[#1C2024] hover:text-[#683619] [&.active]:text-[#683619] transition-colors"
+              >
+                <span>{currentNav.home}</span>
+                <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#683619] transition-transform duration-300 ease-out origin-left scale-x-0 group-hover:scale-x-100 group-[.active]:scale-x-100" />
+              </NavLink>
+            </div>
+
+            {/* 2. Single Origin */}
+            <div>
+              <NavLink
+                to="/tea/single-origin"
+                onClick={() => setIsSidebarOpen(false)}
+                className="group relative inline-block py-1 text-[#1C2024] hover:text-[#683619] [&.active]:text-[#683619] transition-colors"
+              >
+                <span>{teaDropdownLabels.singleOrigin.title}</span>
+                <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#683619] transition-transform duration-300 ease-out origin-left scale-x-0 group-hover:scale-x-100 group-[.active]:scale-x-100" />
+              </NavLink>
+            </div>
+
+            {/* 3. Herbal Blend */}
+            <div>
+              <NavLink
+                to="/tea/herbal-blend"
+                onClick={() => setIsSidebarOpen(false)}
+                className="group relative inline-block py-1 text-[#1C2024] hover:text-[#683619] [&.active]:text-[#683619] transition-colors"
+              >
+                <span>{teaDropdownLabels.herbalBlend.title}</span>
+                <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#683619] transition-transform duration-300 ease-out origin-left scale-x-0 group-hover:scale-x-100 group-[.active]:scale-x-100" />
+              </NavLink>
+            </div>
+
+            {/* 4. Spices */}
+            <div>
+              <NavLink
+                to="/spices"
+                onClick={() => setIsSidebarOpen(false)}
+                className="group relative inline-block py-1 text-[#1C2024] hover:text-[#683619] [&.active]:text-[#683619] transition-colors"
+              >
+                <span>{currentNav.spices}</span>
+                <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#683619] transition-transform duration-300 ease-out origin-left scale-x-0 group-hover:scale-x-100 group-[.active]:scale-x-100" />
+              </NavLink>
+            </div>
+
+            {/* 5. Tutorials */}
+            <div>
+              <NavLink
+                to="/tutorials"
+                onClick={() => setIsSidebarOpen(false)}
+                className="group relative inline-block py-1 text-[#1C2024] hover:text-[#683619] [&.active]:text-[#683619] transition-colors"
+              >
+                <span>{currentNav.tutorials}</span>
+                <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#683619] transition-transform duration-300 ease-out origin-left scale-x-0 group-hover:scale-x-100 group-[.active]:scale-x-100" />
+              </NavLink>
+            </div>
+
+            {/* 6. About Us */}
+            <div>
+              <NavLink
+                to="/about"
+                onClick={() => setIsSidebarOpen(false)}
+                className="group relative inline-block py-1 text-[#1C2024] hover:text-[#683619] [&.active]:text-[#683619] transition-colors"
+              >
+                <span>{currentNav.about}</span>
+                <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#683619] transition-transform duration-300 ease-out origin-left scale-x-0 group-hover:scale-x-100 group-[.active]:scale-x-100" />
+              </NavLink>
+            </div>
+          </div>
+        </div>
+
+        {/* Pinned Bottom Language Switcher Row */}
+        <div className="p-6 sm:px-10 py-5 border-t border-[#1C2024]/12 bg-[#EDE1CC]/90 shrink-0">
+          <div className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#683619] font-semibold mb-2.5">
+            {currentNav.languages}
+          </div>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm font-sans">
+            {languages.map((l) => (
+              <button
+                key={l.code}
+                onClick={() => setLang(l.code)}
+                className={`transition-colors cursor-pointer ${
+                  lang === l.code
+                    ? "font-bold text-[#683619] underline decoration-[#683619] underline-offset-4"
+                    : "text-[#1C2024]/75 hover:text-[#683619]"
+                }`}
+              >
+                {l.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </aside>
+    </>
   );
 }

@@ -11,23 +11,27 @@ export default function Footer({ lang }) {
   return (
     <footer className="bg-[#683619] text-white pt-10 sm:pt-16 pb-10 sm:pb-12 border-t border-[#C5A059]/40 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-white/15">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 sm:gap-10 pb-12 border-b border-white/15">
           {/* Brand Col with Logo & Social Links */}
-          <div className="md:col-span-1 space-y-4">
-            <Link to="/" className="inline-flex flex-col items-start group" title="Paul's Tea & Spices">
+          <div className="col-span-2 md:col-span-1 space-y-4">
+            <Link
+              to="/"
+              className="inline-flex flex-col items-start"
+              title="Paul's Tea & Spices"
+            >
               {!logoError ? (
                 <img
                   src="/images/logo.png"
                   alt="Paul's Tea & Spices Logo"
                   onError={() => setLogoError(true)}
-                  className="h-12 w-auto object-contain transition-transform group-hover:scale-105"
+                  className="h-12 sm:h-17 w-auto object-contain"
                 />
               ) : (
                 <div className="w-10 h-10 rounded-full bg-[#522912] border border-[#C5A059] flex items-center justify-center text-[#E5C483] font-serif font-bold text-xl shadow-sm">
                   P
                 </div>
               )}
-              <span className="text-[9.5px] uppercase tracking-[0.25em] text-[#E5C483] font-mono mt-1.5 font-semibold group-hover:text-white transition-colors">
+              <span className="text-[9.5px] uppercase tracking-[0.25em] text-[#E5C483] font-mono -mt-1.5 font-semibold">
                 TEA & SPICES • VORARLBERG
               </span>
             </Link>
@@ -75,7 +79,7 @@ export default function Footer({ lang }) {
           </div>
 
           {/* Sourcing & Atelier Col with Address, Demo Phone & Email */}
-          <div className="space-y-3 text-xs text-white/85">
+          <div className="col-span-1 space-y-3 text-xs text-white/85">
             <h4 className="font-serif text-sm font-bold text-[#E5C483] uppercase tracking-wider">
               Atelier & HQ
             </h4>
@@ -96,7 +100,7 @@ export default function Footer({ lang }) {
               <Phone className="w-4 h-4 text-[#E5C483] shrink-0" />
               <a
                 href="tel:+435522123456"
-                className="hover:underline hover:text-[#E5C483] transition"
+                className="hover:underline hover:text-[#E5C483] transition break-all sm:break-normal"
               >
                 +43 (0) 5522 123456
               </a>
@@ -106,7 +110,7 @@ export default function Footer({ lang }) {
               <Mail className="w-4 h-4 text-[#E5C483] shrink-0" />
               <a
                 href="mailto:office@paulsteaspices.at"
-                className="hover:underline hover:text-[#E5C483] transition"
+                className="hover:underline hover:text-[#E5C483] transition break-all sm:break-normal"
               >
                 office@paulsteaspices.at
               </a>
@@ -114,7 +118,7 @@ export default function Footer({ lang }) {
           </div>
 
           {/* Navigation Links Col */}
-          <div className="space-y-3 text-xs text-white/85">
+          <div className="col-span-1 space-y-3 text-xs text-white/85">
             <h4 className="font-serif text-sm font-bold text-[#E5C483] uppercase tracking-wider">
               Navigation
             </h4>
@@ -125,22 +129,34 @@ export default function Footer({ lang }) {
                 </Link>
               </li>
               <li>
-                <Link to="/tea" className="hover:text-[#E5C483] transition-colors">
+                <Link
+                  to="/tea"
+                  className="hover:text-[#E5C483] transition-colors"
+                >
                   {lang === "de" ? "Tee Kollektion" : "Tea Collection"}
                 </Link>
               </li>
               <li>
-                <Link to="/spices" className="hover:text-[#E5C483] transition-colors">
+                <Link
+                  to="/spices"
+                  className="hover:text-[#E5C483] transition-colors"
+                >
                   {lang === "de" ? "Gewürze Karte" : "Spices Map"}
                 </Link>
               </li>
               <li>
-                <Link to="/tutorials" className="hover:text-[#E5C483] transition-colors">
+                <Link
+                  to="/tutorials"
+                  className="hover:text-[#E5C483] transition-colors"
+                >
                   {lang === "de" ? "Anleitungen" : "Tutorials"}
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="hover:text-[#E5C483] transition-colors">
+                <Link
+                  to="/about"
+                  className="hover:text-[#E5C483] transition-colors"
+                >
                   {lang === "de" ? "Über Uns" : "About Us"}
                 </Link>
               </li>
