@@ -267,7 +267,7 @@ export default function HeroSection({ lang }) {
         >
           <img
             ref={landingImgRef}
-            src="/images/homepage-landing.png"
+            src="/images/homepage-landing.jpeg"
             alt="Paul's Tea & Spices Atelier & Estates"
             className="w-full h-full object-cover object-center will-change-transform filter brightness-95 contrast-105"
           />
