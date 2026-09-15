@@ -333,35 +333,55 @@ export default function HerbalBlend({ lang = "de" }) {
       if (e.key === "Escape") handleClose();
       if (e.key === "ArrowRight") handleNextTea();
       if (e.key === "ArrowLeft") handlePrevTea();
+      if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", " "].includes(e.key)) {
+        const infoPane = e.target.closest(".overflow-y-auto");
+        if (!infoPane) {
+          e.preventDefault();
+        }
+      }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedTeaIndex]);
 
-  // Refresh ScrollTrigger calculations smoothly when details open or close
+  // Block outer page scroll and stack card scrubbing while the info card is open
   useEffect(() => {
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 380);
-    return () => clearTimeout(timer);
-  }, [selectedTeaIndex]);
+    if (selectedTeaIndex === null) return undefined;
 
-  // Block page scroll and Lenis smooth scroll while the information card is open
-  useEffect(() => {
-    if (selectedTeaIndex !== null) {
-      if (window.lenis) {
-        window.lenis.stop();
-      }
-      const prevOverflow = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-
-      return () => {
-        if (window.lenis) {
-          window.lenis.start();
-        }
-        document.body.style.overflow = prevOverflow || "";
-      };
+    // Pause Lenis smooth scroll engine
+    if (window.lenis) {
+      window.lenis.stop();
     }
+
+    // Intercept wheel/touchmove to prevent stack cards from scrolling
+    const handleScrollLock = (e) => {
+      const infoCardScrollPane = e.target.closest(".overflow-y-auto");
+      if (infoCardScrollPane) {
+        const { scrollTop, scrollHeight, clientHeight } = infoCardScrollPane;
+        const delta = e.deltaY || 0;
+        const isScrollingUp = delta < 0;
+        const isScrollingDown = delta > 0;
+
+        if (
+          (isScrollingUp && scrollTop > 0) ||
+          (isScrollingDown && scrollTop < scrollHeight - clientHeight)
+        ) {
+          return;
+        }
+      }
+      e.preventDefault();
+    };
+
+    window.addEventListener("wheel", handleScrollLock, { passive: false });
+    window.addEventListener("touchmove", handleScrollLock, { passive: false });
+
+    return () => {
+      if (window.lenis) {
+        window.lenis.start();
+      }
+      window.removeEventListener("wheel", handleScrollLock);
+      window.removeEventListener("touchmove", handleScrollLock);
+    };
   }, [selectedTeaIndex]);
 
   useLayoutEffect(() => {
@@ -533,8 +553,8 @@ export default function HerbalBlend({ lang = "de" }) {
               >
                 {HERBAL_BLENDS.map((tea, index) => {
                   const isSelected = selectedTeaIndex === index;
-                  // When open, strictly hide any upcoming cards so nothing peeks from bottom
-                  const isHiddenWhenOpen =
+                  // When open, smoothly fade upcoming cards so nothing peeks from bottom
+                  const isUpcomingWhenOpen =
                     isOpen && index > (selectedTeaIndex ?? 0);
 
                   return (
@@ -542,14 +562,15 @@ export default function HerbalBlend({ lang = "de" }) {
                       key={tea.id}
                       ref={(el) => (cardsRef.current[index] = el)}
                       onClick={() => handleCardClick(index)}
-                      style={{
-                        display: isHiddenWhenOpen ? "none" : undefined,
-                      }}
-                      className={`cursor-pointer absolute inset-0 w-full h-full rounded-[2rem] sm:rounded-[2.5rem] border shadow-[0_20px_45px_-12px_rgba(0,0,0,0.22)] overflow-hidden flex items-center justify-center will-change-transform bg-[#3A1B0B] bg-gradient-to-br from-[#522912] via-[#683619] to-[#3A1B0B] transition-[border-color,box-shadow] duration-500 ease-out ${
+                      className={`cursor-pointer absolute inset-0 w-full h-full rounded-[2rem] sm:rounded-[2.5rem] border shadow-[0_20px_45px_-12px_rgba(0,0,0,0.22)] overflow-hidden flex items-center justify-center bg-[#3A1B0B] bg-gradient-to-br from-[#522912] via-[#683619] to-[#3A1B0B] transition-all duration-500 ease-out ${
                         isSelected
                           ? "border-[#C5A059] shadow-[0_0_30px_rgba(197,160,89,0.35)]"
                           : "border-[#C5A059]/40 hover:border-[#C5A059]/70"
-                      } ${isHiddenWhenOpen ? "!hidden invisible opacity-0 pointer-events-none" : ""}`}
+                      } ${
+                        isUpcomingWhenOpen
+                          ? "opacity-0 pointer-events-none invisible"
+                          : "opacity-100 pointer-events-auto"
+                      }`}
                     >
                       {/* Ambient Soft Dimming Overlay for Background Stacking */}
                       <div
