@@ -320,8 +320,8 @@ export default function Header({ lang, setLang }) {
         className="fixed top-0 left-0 right-0 z-50 bg-[#683619] text-[#EDE1CC] transition-all duration-300 will-change-transform border-b border-[#C5A059]/40 shadow-[0_8px_30px_rgba(0,0,0,0.25)]"
       >
         {/* Top Banner Notice with Gold Ribbon Accent */}
-        <div className="relative bg-[#522912] text-[#EDE1CC] text-xs py-1.5 px-4 text-center font-medium tracking-wider uppercase flex items-center justify-center gap-2 border-b border-[#C5A059]/30 shadow-xs">
-          {/* Gold Metallic Ribbon Line */}
+        {/* <div className="relative bg-[#522912] text-[#EDE1CC] text-xs py-1.5 px-4 text-center font-medium tracking-wider uppercase flex items-center justify-center gap-2 border-b border-[#C5A059]/30 shadow-xs">
+          
           <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#E5C483] to-transparent opacity-90" />
 
           <Sparkles className="w-3.5 h-3.5 text-[#E5C483]" />
@@ -330,7 +330,7 @@ export default function Header({ lang, setLang }) {
           <span className="hidden sm:inline text-[#E5C483]/90 font-serif italic text-sm">
             "Crafted to be kept, not consumed."
           </span>
-        </div>
+        </div> */}
 
         {/* Main Header Bar with Hamburger (Left), Logo (Center), and Language (Right) */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
@@ -608,7 +608,7 @@ export default function Header({ lang, setLang }) {
         </div>
 
         {/* Pinned Bottom Language Switcher Row */}
-        <div className="p-6 sm:px-10 py-5 border-t border-[#1C2024]/12 bg-[#EDE1CC]/90 shrink-0">
+        {/* <div className="p-6 sm:px-10 py-5 border-t border-[#1C2024]/12 bg-[#EDE1CC]/90 shrink-0">
           <div className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#683619] font-semibold mb-2.5">
             {currentNav.languages}
           </div>
@@ -627,7 +627,7 @@ export default function Header({ lang, setLang }) {
               </button>
             ))}
           </div>
-        </div>
+        </div> */}
       </aside>
     </>
   );
