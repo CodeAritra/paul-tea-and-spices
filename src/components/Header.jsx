@@ -467,7 +467,7 @@ export default function Header({ lang, setLang }) {
 
       {/* Sidebar Drawer Container */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 w-[320px] sm:w-[380px] max-w-[85vw] bg-[#EDE1CC] paper-texture text-[#1C2024] border-r border-[#C5A059]/40 z-[9999] shadow-[20px_0_50px_rgba(0,0,0,0.2)] flex flex-col transition-transform duration-300 ease-out select-none ${
+        className={`fixed top-0 left-0 bottom-0 w-full max-w-full sm:w-[380px] sm:max-w-[380px] bg-[#EDE1CC] paper-texture text-[#1C2024] border-r border-[#C5A059]/40 z-[9999] shadow-[20px_0_50px_rgba(0,0,0,0.2)] flex flex-col transition-transform duration-300 ease-out select-none ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         aria-label="Navigation Menu Drawer"
