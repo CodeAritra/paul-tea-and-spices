@@ -93,7 +93,7 @@ export default function SpiceMapSection({ lang = "de" }) {
   const isGerman = lang === "de";
 
   return (
-    <section className="relative w-full min-h-[calc(100vh-110px)] flex flex-col justify-center bg-[#EDE1CC] paper-texture text-[#121D2C] py-4 sm:py-6 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-[#C5A059]/20 selection:bg-[#121D2C] selection:text-white">
+    <section className="relative w-full min-h-[calc(100vh-80px)] flex flex-col justify-center bg-[#EDE1CC] paper-texture text-[#121D2C] py-4 sm:py-6 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-[#C5A059]/20 selection:bg-[#121D2C] selection:text-white">
       {/* Background Decorative Ambient Glows */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#C5A059]/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-80 h-80 bg-[#C5A059]/5 rounded-full blur-2xl pointer-events-none" />

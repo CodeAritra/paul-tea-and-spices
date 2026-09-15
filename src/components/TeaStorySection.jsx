@@ -237,8 +237,8 @@ function CinematicTeaStory({ tea, lang, story }) {
 
       {/* ② INTRO STAGE – Tea image (left) + story text (right) (z-10)
            bg-[#EDE1CC] blocks origin text bleed-through.
-           pt-[110px] clears the fixed header both before and after pinning. */}
-      <div className="tea-story-intro absolute inset-0 z-10 bg-[#EDE1CC] flex items-start justify-center pt-[110px] px-4 sm:px-6 lg:px-8 pointer-events-none">
+           pt-20 clears the fixed header both before and after pinning. */}
+      <div className="tea-story-intro absolute inset-0 z-10 bg-[#EDE1CC] flex items-start justify-center pt-20 px-4 sm:px-6 lg:px-8 pointer-events-none">
         <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-14 pointer-events-auto">
           {/* Left: Product Image */}
           <div className="w-full lg:w-1/2 shrink-0 flex justify-center">

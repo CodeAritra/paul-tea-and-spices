@@ -253,7 +253,7 @@ export default function HeroSection({ lang }) {
       </div>
 
       {/* ── 1. Full-Width & Full-Height Landing Hero Image Stage (Screen Height - Navbar Height) with Seamless Gradient Dissolve ── */}
-      <div className="relative w-full h-[calc(100vh-110px)] min-h-[500px] overflow-hidden bg-transparent">
+      <div className="relative w-full h-[calc(100vh-80px)] min-h-[500px] overflow-hidden bg-transparent">
         <div
           ref={landingFrameRef}
           className="w-full h-full overflow-hidden will-change-[clip-path]"

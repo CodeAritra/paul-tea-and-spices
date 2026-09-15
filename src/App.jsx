@@ -84,7 +84,7 @@ export default function App() {
       const el = document.querySelector(location.hash);
       if (el) {
         if (window.lenis) {
-          window.lenis.scrollTo(el, { offset: -110 });
+          window.lenis.scrollTo(el, { offset: -80 });
         } else {
           el.scrollIntoView({ behavior: "smooth" });
         }
@@ -164,8 +164,8 @@ export default function App() {
       {/* Fixed Header Navigation */}
       <Header lang={lang} setLang={setLang} />
 
-      {/* Spacer for fixed header (banner ~30px + nav 80px) */}
-      <div className="h-[110px] shrink-0" />
+      {/* Spacer for fixed header (nav 80px) */}
+      <div className="h-20 shrink-0" />
 
       {/* Main Routed Flow */}
       <main className="flex-grow">
