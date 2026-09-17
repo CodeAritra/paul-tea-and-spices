@@ -252,8 +252,8 @@ export default function HeroSection({ lang }) {
         ></div>
       </div>
 
-      {/* ── 1. Full-Width & Full-Height Landing Hero Image Stage (Screen Height - Navbar Height) with Seamless Gradient Dissolve ── */}
-      <div className="relative w-full h-[calc(100vh-80px)] min-h-[500px] overflow-hidden bg-transparent">
+      {/* ── 1. Landing Hero Image Stage (16:9 aspect ratio on mobile, full-height on desktop) with Seamless Gradient Dissolve ── */}
+      <div className="relative w-full aspect-video sm:aspect-auto sm:h-[calc(100vh-80px)] sm:min-h-[500px] overflow-hidden bg-transparent">
         <div
           ref={landingFrameRef}
           className="w-full h-full overflow-hidden will-change-[clip-path]"
@@ -282,13 +282,13 @@ export default function HeroSection({ lang }) {
         {/* Son Paul Dedication Pill */}
         <Link
           to="/about"
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#683619]/10 hover:bg-[#683619]/15 border border-[#C5A059]/40 text-[#683619] text-xs font-medium mb-4 sm:mb-6 animate-slide-in transition cursor-pointer group shadow-xs backdrop-blur-xs"
+          className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-[#683619]/10 hover:bg-[#683619]/15 border border-[#C5A059]/40 text-[#683619] text-[10.5px] sm:text-xs font-medium mb-4 sm:mb-6 animate-slide-in transition cursor-pointer group shadow-xs backdrop-blur-xs whitespace-nowrap max-w-full"
           title="Explore Our Founder Story"
         >
-          <Heart className="w-3 h-3 text-[#C5A059] fill-[#C5A059] group-hover:scale-110 transition-transform" />
-          <span>{t.dedicatedToPaul}</span>
-          <span className="w-1 h-1 rounded-full bg-[#C5A059]"></span>
-          <span className="text-[#C5A059] font-serif italic font-semibold">
+          <Heart className="w-3 h-3 text-[#C5A059] fill-[#C5A059] group-hover:scale-110 transition-transform shrink-0" />
+          <span className="shrink-0">{t.dedicatedToPaul}</span>
+          <span className="w-1 h-1 rounded-full bg-[#C5A059] shrink-0"></span>
+          <span className="text-[#C5A059] font-serif italic font-semibold shrink-0">
             Vorarlberg • Austria
           </span>
         </Link>
