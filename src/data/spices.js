@@ -173,7 +173,7 @@ export const SPICES_DATA = [
     subtitle: "True Sweet Wood Quills",
     tastingNotes: ["Sweet Wood", "Subtle Clove", "Warmth", "Fragrant"],
     category: "Global Tier",
-    iconSymbol: "❄️"
+    iconSymbol: "🪵"
   },
   {
     id: "nutmeg",

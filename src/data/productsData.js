@@ -562,7 +562,7 @@ export const PRODUCTS = [
     sommelierMood: ["baking", "sweet", "winter", "warmth"],
     imageUrl: "https://images.unsplash.com/photo-1553499944-e4297a0af1bd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2lubmFtb258ZW58MHx8MHx8fDI%3D",
     imageGradient: "linear-gradient(180deg, rgba(61, 53, 40, 0.4) 0%, rgba(27, 38, 59, 0.92) 100%), url('https://images.unsplash.com/photo-1553499944-e4297a0af1bd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2lubmFtb258ZW58MHx8MHx8fDI%3D')",
-    iconSymbol: "❄️",
+    iconSymbol: "🪵",
   },
   {
     id: "spice-glob-8",
