@@ -5,62 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export const HERBAL_BLENDS = [
-  // 1. Mountain Peaks: Wide horizontal panorama, compact height
-  {
-    id: "alpine-glow-darjeeling",
-    name: "Alpine Glow First Flush",
-    germanName: "Alpine Glow First Flush",
-    tagline: "Darjeeling First Flush • High Altitude Spring Harvest",
-    subtitle: {
-      de: "Frühlings-Ernte aus den höchsten Lagen Darjeelings • Unverfälschter Single-Origin",
-      en: "Spring First Flush from Darjeeling's Highest Peaks • Unblended Single-Origin",
-    },
-    imageUrl: "/images/alpine glow.png",
-    packageImageUrl: "/images/alpine glow package.png",
-    imgWidth: "w-[100%] max-w-[100%]",
-    imgHeight: "h-[100%] max-h-[100%]",
-    origin: {
-      de: "Darjeeling, Westbengalen, Indien",
-      en: "Darjeeling, West Bengal, India",
-    },
-    estate: "Makaibari & Singbulli High Valleys",
-    altitude: "1.850m – 2.100m",
-    harvestSeason: {
-      de: "First Flush (Frühlings-Erstpflückung)",
-      en: "First Flush (Spring Harvest)",
-    },
-    leafGrade: "FTGFOP1 • Finest Tippy Golden Flowery Orange Pekoe",
-    packagingType: "woodBox",
-    packagingDesc: {
-      de: "Handgefertigte Keepsake-Holzschatulle mit Goldprägung",
-      en: "Handcrafted Keepsake Wooden Box with Gold Crest",
-    },
-    tastingNotes: {
-      de: [
-        "Muskatell-Aroma",
-        "Frühlingsblüte",
-        "Helle Bergfrische",
-        "Seidiger Waldhonig",
-      ],
-      en: [
-        "Muscatel Grape",
-        "Spring Blossom",
-        "Crisp Alpine Air",
-        "Silken Forest Honey",
-      ],
-    },
-    story: {
-      de: "Geerntet während der ersten Schneeschmelze im Frühjahr an den steilen, sonnenbeschienenen Nebelhängen des Himalaya. Die zartesten handgepflückten Blattknospen ergeben einen strahlend bernsteinfarbenen Aufguss mit vibrierender floraler Frische und dem legendären Muskatell-Bukett.",
-      en: "Harvested during the earliest spring melt along the mist-veiled Himalayan slopes. Delicately handpicked tender buds yield a radiant amber cup with vibrant floral freshness and the legendary muscatel character prized by connoisseurs worldwide.",
-    },
-    steeping: {
-      waterTemp: "85°C – 90°C",
-      time: "3 Min.",
-      leafAmount: "2.5g / 200ml",
-      vessel: "Porzellan oder Glas",
-    },
-  },
-  // 2. Royal Stag: Stately portrait, medium-narrow width, tall height
+  // 1. Royal Stag: Stately portrait, medium-narrow width, tall height
   {
     id: "royal-assam-golden-tips",
     name: "Royal Assam Golden Malty",
@@ -115,7 +60,7 @@ export const HERBAL_BLENDS = [
       vessel: "Klassische Teekanne",
     },
   },
-  // 3. Soaring Eagle: Expansive wingspan, balanced large width & height
+  // 2. Soaring Eagle: Expansive wingspan, balanced large width & height
   {
     id: "silver-needle-reserve",
     name: "Silver Needle Reserve White Tea",
@@ -170,7 +115,7 @@ export const HERBAL_BLENDS = [
       vessel: "Glas Gaiwan / Schale",
     },
   },
-  // 4. Alpine Hiker: Slender vertical silhouette, maximum tall height
+  // 3. Alpine Hiker: Slender vertical silhouette, maximum tall height
   {
     id: "himalayan-emerald-green",
     name: "Himalayan Emerald Green",
@@ -225,7 +170,7 @@ export const HERBAL_BLENDS = [
       vessel: "Porzellan oder Glas",
     },
   },
-  // 5. Mystic Full Moon: Distinct circular disc aspect
+  // 4. Mystic Full Moon: Distinct circular disc aspect
   {
     id: "nilgiri-frost-reserve",
     name: "Nilgiri Frost Reserve Oolong",
@@ -278,6 +223,61 @@ export const HERBAL_BLENDS = [
       time: "3.5 Min.",
       leafAmount: "3.0g / 200ml",
       vessel: "Yixing-Kanne / Porzellan",
+    },
+  },
+  // 5. Mountain Peaks: Wide horizontal panorama, compact height
+  {
+    id: "alpine-glow-darjeeling",
+    name: "Alpine Glow First Flush",
+    germanName: "Alpine Glow First Flush",
+    tagline: "Darjeeling First Flush • High Altitude Spring Harvest",
+    subtitle: {
+      de: "Frühlings-Ernte aus den höchsten Lagen Darjeelings • Unverfälschter Single-Origin",
+      en: "Spring First Flush from Darjeeling's Highest Peaks • Unblended Single-Origin",
+    },
+    imageUrl: "/images/alpine glow.png",
+    packageImageUrl: "/images/alpine glow package.png",
+    imgWidth: "w-[100%] max-w-[100%]",
+    imgHeight: "h-[100%] max-h-[100%]",
+    origin: {
+      de: "Darjeeling, Westbengalen, Indien",
+      en: "Darjeeling, West Bengal, India",
+    },
+    estate: "Makaibari & Singbulli High Valleys",
+    altitude: "1.850m – 2.100m",
+    harvestSeason: {
+      de: "First Flush (Frühlings-Erstpflückung)",
+      en: "First Flush (Spring Harvest)",
+    },
+    leafGrade: "FTGFOP1 • Finest Tippy Golden Flowery Orange Pekoe",
+    packagingType: "woodBox",
+    packagingDesc: {
+      de: "Handgefertigte Keepsake-Holzschatulle mit Goldprägung",
+      en: "Handcrafted Keepsake Wooden Box with Gold Crest",
+    },
+    tastingNotes: {
+      de: [
+        "Muskatell-Aroma",
+        "Frühlingsblüte",
+        "Helle Bergfrische",
+        "Seidiger Waldhonig",
+      ],
+      en: [
+        "Muscatel Grape",
+        "Spring Blossom",
+        "Crisp Alpine Air",
+        "Silken Forest Honey",
+      ],
+    },
+    story: {
+      de: "Geerntet während der ersten Schneeschmelze im Frühjahr an den steilen, sonnenbeschienenen Nebelhängen des Himalaya. Die zartesten handgepflückten Blattknospen ergeben einen strahlend bernsteinfarbenen Aufguss mit vibrierender floraler Frische und dem legendären Muskatell-Bukett.",
+      en: "Harvested during the earliest spring melt along the mist-veiled Himalayan slopes. Delicately handpicked tender buds yield a radiant amber cup with vibrant floral freshness and the legendary muscatel character prized by connoisseurs worldwide.",
+    },
+    steeping: {
+      waterTemp: "85°C – 90°C",
+      time: "3 Min.",
+      leafAmount: "2.5g / 200ml",
+      vessel: "Porzellan oder Glas",
     },
   },
 ];

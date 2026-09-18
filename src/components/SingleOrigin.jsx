@@ -24,78 +24,6 @@ export const SINGLE_ORIGIN_PRODUCTS = [
     id: "so-1",
     num: "01",
     name: {
-      de: "Alpine Glow",
-      en: "Alpine Glow",
-      fr: "Alpine Glow",
-      it: "Alpine Glow",
-      es: "Alpine Glow"
-    },
-    tagline: {
-      de: "Darjeeling First Flush • Erste Schneeschmelze",
-      en: "Darjeeling First Flush • Spring Melt Harvest",
-      fr: "Darjeeling First Flush • Récolte de Printemps",
-      it: "Darjeeling First Flush • Raccolto Primaverile",
-      es: "Darjeeling First Flush • Cosecha de Primavera"
-    },
-    subtitle: {
-      de: "Frühlings-Ernte aus den höchsten Lagen Darjeelings • Unverfälschter Single-Origin",
-      en: "Spring First Flush from Darjeeling's Highest Peaks • Unblended Single-Origin",
-      fr: "Récolte de printemps des plus hauts sommets de Darjeeling • Origine unique",
-      it: "Raccolto primaverile dalle vette più alte di Darjeeling • Singola origine",
-      es: "Cosecha de primavera de los picos más altos de Darjeeling • Origen único"
-    },
-    imageUrl: "/images/alpine glow.png",
-    packageImageUrl: "/images/alpine glow package.png",
-    origin: {
-      de: "Darjeeling, Westbengalen, Indien",
-      en: "Darjeeling, West Bengal, India",
-      fr: "Darjeeling, Bengale-Occidental, Inde",
-      it: "Darjeeling, Bengala Occidentale, India",
-      es: "Darjeeling, Bengala Occidental, India"
-    },
-    estate: "Makaibari & Singbulli High Valleys",
-    altitude: "1.850m – 2.100m",
-    harvestSeason: {
-      de: "First Flush (Frühlingslese)",
-      en: "First Flush (Spring Harvest)",
-      fr: "First Flush (Récolte de Printemps)",
-      it: "First Flush (Raccolto Primaverile)",
-      es: "First Flush (Cosecha de Primavera)"
-    },
-    leafGrade: "FTGFOP1 • Finest Tippy Golden Flowery Orange Pekoe",
-    packagingType: "woodBox",
-    packagingDesc: {
-      de: "Handgefertigte Keepsake-Holzschatulle mit Goldprägung",
-      en: "Handcrafted Keepsake Wooden Box with Gold Crest",
-      fr: "Boîte en bois artisanale avec sceau doré",
-      it: "Scatola in legno artigianale con sigillo dorato",
-      es: "Caja de madera artesanal con sello dorado"
-    },
-    tastingNotes: {
-      de: ["Muskatell-Aroma", "Frühlingsblüte", "Helle Bergfrische", "Seidiger Waldhonig"],
-      en: ["Muscatel Grape", "Spring Blossom", "Crisp Alpine Air", "Silken Forest Honey"],
-      fr: ["Arôme Muscat", "Fleur de Printemps", "Fraîcheur Alpine", "Miel de Forêt"],
-      it: ["Uva Moscato", "Fiori Primaverili", "Aria Alpina", "Miele di Bosco"],
-      es: ["Uva Moscatel", "Flor de Primavera", "Aire Alpino", "Miel de Bosque"]
-    },
-    story: {
-      de: "Geerntet während der ersten Schneeschmelze im Frühjahr an den steilen, sonnenbeschienenen Nebelhängen des Himalaya. Die zartesten handgepflückten Blattknospen ergeben einen strahlend bernsteinfarbenen Aufguss mit vibrierender floraler Frische und dem legendären Muskatell-Bukett.",
-      en: "Harvested during the earliest spring melt along the mist-veiled Himalayan slopes. Delicately handpicked tender buds yield a radiant amber cup with vibrant floral freshness and the legendary muscatel character prized by connoisseurs worldwide.",
-      fr: "Récolté lors de la première fonte des neiges au printemps sur les pentes brumeuses de l'Himalaya. Les bourgeons les plus tendres offrent une tasse ambrée brillante à la fraîcheur florale vibrante.",
-      it: "Raccolto durante il primo disgelo primaverile sui pendii nebbiosi dell'Himalaya. Le gemme più tenere regalano una tazza dorata con freschezza floreale vibrante.",
-      es: "Cosechado durante el primer deshielo primaveral en las laderas brumosas del Himalaya. Los brotes más tiernos ofrecen una taza ámbar radiante con frescura floral vibrante."
-    },
-    steeping: {
-      waterTemp: "85°C – 90°C",
-      time: "3 Min.",
-      leafAmount: "2.5g / 200ml",
-      vessel: "Porzellan oder Glas"
-    }
-  },
-  {
-    id: "so-2",
-    num: "02",
-    name: {
       de: "Morning Spark",
       en: "Morning Spark",
       fr: "Morning Spark",
@@ -165,8 +93,8 @@ export const SINGLE_ORIGIN_PRODUCTS = [
     }
   },
   {
-    id: "so-3",
-    num: "03",
+    id: "so-2",
+    num: "02",
     name: {
       de: "Summer Breeze",
       en: "Summer Breeze",
@@ -237,8 +165,8 @@ export const SINGLE_ORIGIN_PRODUCTS = [
     }
   },
   {
-    id: "so-4",
-    num: "04",
+    id: "so-3",
+    num: "03",
     name: {
       de: "Energy Kick",
       en: "Energy Kick",
@@ -309,8 +237,8 @@ export const SINGLE_ORIGIN_PRODUCTS = [
     }
   },
   {
-    id: "so-5",
-    num: "05",
+    id: "so-4",
+    num: "04",
     name: {
       de: "Evening & Relaxation",
       en: "Evening & Relaxation",
@@ -322,7 +250,7 @@ export const SINGLE_ORIGIN_PRODUCTS = [
       de: "Blauer Berg Oolong • Beruhigend & Samtig",
       en: "Blue Mountain Oolong • Soothing Twilight Calm",
       fr: "Oolong des Montagnes Bleues • Semi-Oxydé",
-      it: "Oolong delle Montagne Blu • Semi-Ossidato",
+      it: "Oolong delle Montagnes Bleues • Semi-Ossidato",
       es: "Oolong de las Montañas Azules • Semi-Oxidado"
     },
     subtitle: {
@@ -378,6 +306,78 @@ export const SINGLE_ORIGIN_PRODUCTS = [
       time: "4 Min.",
       leafAmount: "2.5g / 200ml",
       vessel: "Gaiwan oder Porzellan"
+    }
+  },
+  {
+    id: "so-5",
+    num: "05",
+    name: {
+      de: "Alpine Glow",
+      en: "Alpine Glow",
+      fr: "Alpine Glow",
+      it: "Alpine Glow",
+      es: "Alpine Glow"
+    },
+    tagline: {
+      de: "Darjeeling First Flush • Erste Schneeschmelze",
+      en: "Darjeeling First Flush • Spring Melt Harvest",
+      fr: "Darjeeling First Flush • Récolte de Printemps",
+      it: "Darjeeling First Flush • Raccolto Primaverile",
+      es: "Darjeeling First Flush • Cosecha de Primavera"
+    },
+    subtitle: {
+      de: "Frühlings-Ernte aus den höchsten Lagen Darjeelings • Unverfälschter Single-Origin",
+      en: "Spring First Flush from Darjeeling's Highest Peaks • Unblended Single-Origin",
+      fr: "Récolte de printemps des plus hauts sommets de Darjeeling • Origine unique",
+      it: "Raccolto primaverile dalle vette più alte di Darjeeling • Singola origine",
+      es: "Cosecha de primavera de los picos más altos de Darjeeling • Origen único"
+    },
+    imageUrl: "/images/alpine glow.png",
+    packageImageUrl: "/images/alpine glow package.png",
+    origin: {
+      de: "Darjeeling, Westbengalen, Indien",
+      en: "Darjeeling, West Bengal, India",
+      fr: "Darjeeling, Bengale-Occidental, Inde",
+      it: "Darjeeling, Bengala Occidentale, India",
+      es: "Darjeeling, Bengala Occidental, India"
+    },
+    estate: "Makaibari & Singbulli High Valleys",
+    altitude: "1.850m – 2.100m",
+    harvestSeason: {
+      de: "First Flush (Frühlingslese)",
+      en: "First Flush (Spring Harvest)",
+      fr: "First Flush (Récolte de Printemps)",
+      it: "First Flush (Raccolto Primaverile)",
+      es: "First Flush (Cosecha de Primavera)"
+    },
+    leafGrade: "FTGFOP1 • Finest Tippy Golden Flowery Orange Pekoe",
+    packagingType: "woodBox",
+    packagingDesc: {
+      de: "Handgefertigte Keepsake-Holzschatulle mit Goldprägung",
+      en: "Handcrafted Keepsake Wooden Box with Gold Crest",
+      fr: "Boîte en bois artisanale avec sceau doré",
+      it: "Scatola in legno artigianale con sigillo dorato",
+      es: "Caja de madera artesanal con sello dorado"
+    },
+    tastingNotes: {
+      de: ["Muskatell-Aroma", "Frühlingsblüte", "Helle Bergfrische", "Seidiger Waldhonig"],
+      en: ["Muscatel Grape", "Spring Blossom", "Crisp Alpine Air", "Silken Forest Honey"],
+      fr: ["Arôme Muscat", "Fleur de Printemps", "Fraîcheur Alpine", "Miel de Forêt"],
+      it: ["Uva Moscato", "Fiori Primaverili", "Aria Alpina", "Miele di Bosco"],
+      es: ["Uva Moscatel", "Flor de Primavera", "Aire Alpino", "Miel de Bosque"]
+    },
+    story: {
+      de: "Geerntet während der ersten Schneeschmelze im Frühjahr an den steilen, sonnenbeschienenen Nebelhängen des Himalaya. Die zartesten handgepflückten Blattknospen ergeben einen strahlend bernsteinfarbenen Aufguss mit vibrierender floraler Frische und dem legendären Muskatell-Bukett.",
+      en: "Harvested during the earliest spring melt along the mist-veiled Himalayan slopes. Delicately handpicked tender buds yield a radiant amber cup with vibrant floral freshness and the legendary muscatel character prized by connoisseurs worldwide.",
+      fr: "Récolté lors de la première fonte des neiges au printemps sur les pentes brumeuses de l'Himalaya. Les bourgeons les plus tendres offrent une tasse ambrée brillante à la fraîcheur florale vibrante.",
+      it: "Raccolto durante il primo disgelo primaverile sui pendii nebbiosi dell'Himalaya. Le gemme più tenere regalano una tazza dorata con freschezza floreale vibrante.",
+      es: "Cosechado durante el primer deshielo primaveral en las laderas brumosas del Himalaya. Los brotes más tiernos ofrecen una taza ámbar radiante con frescura floral vibrante."
+    },
+    steeping: {
+      waterTemp: "85°C – 90°C",
+      time: "3 Min.",
+      leafAmount: "2.5g / 200ml",
+      vessel: "Porzellan oder Glas"
     }
   }
 ];
