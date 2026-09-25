@@ -549,10 +549,10 @@ export default function HerbalBlend({ lang = "de" }) {
           scrollTrigger: {
             trigger: container,
             start: "top top+=70",
-            end: `+=${totalCards * 360}`,
+            end: `+=${totalCards * 750}`,
             pin: true,
             anticipatePin: 1,
-            scrub: 0.3,
+            scrub: 0.8,
             invalidateOnRefresh: true,
           },
         });
