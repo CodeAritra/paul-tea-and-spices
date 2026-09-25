@@ -470,6 +470,11 @@ export default function HerbalBlend({ lang = "de" }) {
   const containerRef = useRef(null);
   const cardsRef = useRef([]);
   const overlaysRef = useRef([]);
+  const modalProductRef = useRef(modalProduct);
+
+  useEffect(() => {
+    modalProductRef.current = modalProduct;
+  }, [modalProduct]);
 
   // Close modal on Escape key press
   useEffect(() => {
@@ -518,18 +523,40 @@ export default function HerbalBlend({ lang = "de" }) {
     };
   }, [modalProduct]);
 
-  // GSAP Pinned Stack Scroll Timeline for Mobile Deck (matching HerbalBlend)
+  // GSAP Pinned Stack Scroll Timeline for Mobile Deck
+  // Disables Lenis scroll input (wheelMultiplier=0) while pinned in the card
+  // section, then uses lenis.scrollTo for precise 1-card-per-scroll navigation.
+  // At boundaries, restores Lenis to let natural scrolling exit the section.
   useLayoutEffect(() => {
     const container = containerRef.current;
     const cards = cardsRef.current.filter(Boolean);
     const overlays = overlaysRef.current.filter(Boolean);
     if (!container || cards.length === 0) return undefined;
 
+    // Store original Lenis multipliers to restore later
+    const origWheelMult = window.lenis?.options?.wheelMultiplier ?? 1.0;
+    const origTouchMult = window.lenis?.options?.touchMultiplier ?? 1.5;
+
+    const disableLenisInput = () => {
+      if (window.lenis?.options) {
+        window.lenis.options.wheelMultiplier = 0;
+        window.lenis.options.touchMultiplier = 0;
+      }
+    };
+
+    const restoreLenisInput = () => {
+      if (window.lenis?.options) {
+        window.lenis.options.wheelMultiplier = origWheelMult;
+        window.lenis.options.touchMultiplier = origTouchMult;
+      }
+    };
+
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
       mm.add("(max-width: 1023px)", () => {
         const totalCards = cards.length;
+        const steps = totalCards - 1; // 4 transitions for 5 cards
 
         cards.forEach((card, i) => {
           gsap.set(card, {
@@ -545,17 +572,89 @@ export default function HerbalBlend({ lang = "de" }) {
           gsap.set(overlay, { opacity: 0 });
         });
 
+        // ── State + snapToCard defined BEFORE timeline ──
+        let currentCardIndex = 0;
+        let isAnimating = false;
+        let lastSnapTime = 0;
+        let tlRef = null; // set after timeline creation
+        const SNAP_COOLDOWN = 380; // ms — matches animation duration
+
+        const snapToCard = (index) => {
+          const now = Date.now();
+          if (isAnimating || now - lastSnapTime < SNAP_COOLDOWN) return;
+          if (index < 0 || index > steps || index === currentCardIndex) return;
+
+          isAnimating = true;
+          lastSnapTime = now;
+          currentCardIndex = index;
+
+          const st = tlRef?.scrollTrigger;
+          if (!st) {
+            isAnimating = false;
+            return;
+          }
+
+          const targetScroll =
+            st.start + (index / steps) * (st.end - st.start);
+
+          const unlock = () => {
+            isAnimating = false;
+            clearTimeout(safetyTimer);
+          };
+
+          const safetyTimer = setTimeout(unlock, 500);
+
+          if (window.lenis) {
+            window.lenis.scrollTo(targetScroll, {
+              duration: 0.4,
+              easing: (t) => 1 - Math.pow(1 - t, 3),
+              force: true,
+              lock: true,
+              onComplete: unlock,
+            });
+          } else {
+            const startScroll = window.scrollY;
+            const diff = targetScroll - startScroll;
+            const startTime = performance.now();
+            const dur = 400;
+            const animate = (time) => {
+              const elapsed = time - startTime;
+              const p = Math.min(elapsed / dur, 1);
+              const ease = 1 - Math.pow(1 - p, 3);
+              window.scrollTo(0, startScroll + diff * ease);
+              if (p < 1) {
+                requestAnimationFrame(animate);
+              } else {
+                unlock();
+              }
+            };
+            requestAnimationFrame(animate);
+          }
+        };
+
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: container,
             start: "top top+=70",
-            end: `+=${totalCards * 750}`,
+            end: `+=${totalCards * 800}`,
             pin: true,
             anticipatePin: 1,
-            scrub: 0.8,
+            scrub: true,
             invalidateOnRefresh: true,
+            onEnter: () => {
+              disableLenisInput();
+              currentCardIndex = 0;
+            },
+            onEnterBack: () => {
+              disableLenisInput();
+              currentCardIndex = steps;
+            },
+            onLeave: restoreLenisInput,
+            onLeaveBack: restoreLenisInput,
           },
         });
+
+        tlRef = tl;
 
         for (let i = 1; i < totalCards; i++) {
           const stepTime = (i - 1) * 1.0;
@@ -605,12 +704,125 @@ export default function HerbalBlend({ lang = "de" }) {
             }
           }
         }
+
+        // Wheel handler — intercepts wheel inside the pinned card section
+        const handleWheel = (e) => {
+          if (modalProductRef.current) return;
+
+          const st = tl.scrollTrigger;
+          if (!st) return;
+
+          const scrollY = window.lenis?.animatedScroll ?? window.scrollY;
+          // Only intercept when near or in the pinned card section
+          if (scrollY < st.start - 80 || scrollY > st.end + 50) return;
+
+          const scrollingDown = e.deltaY > 0;
+          const scrollingUp = e.deltaY < 0;
+
+          // Boundary exits: let natural scroll resume to exit the pin
+          if (scrollingUp && currentCardIndex <= 0) {
+            restoreLenisInput();
+            return;
+          }
+          if (scrollingDown && currentCardIndex >= steps) {
+            restoreLenisInput();
+            return;
+          }
+
+          // Inside the deck: prevent default to block browser/Lenis raw wheel conflicts
+          if (e.cancelable) {
+            e.preventDefault();
+          }
+
+          disableLenisInput();
+
+          if (scrollingDown) snapToCard(currentCardIndex + 1);
+          else if (scrollingUp) snapToCard(currentCardIndex - 1);
+        };
+
+        // Touch handlers — handles mobile touch swipes
+        let touchStartY = 0;
+        let touchHandled = false;
+
+        const handleTouchStart = (e) => {
+          if (e.touches.length > 0) {
+            touchStartY = e.touches[0].clientY;
+            touchHandled = false;
+          }
+        };
+
+        const handleTouchMove = (e) => {
+          if (modalProductRef.current) return;
+
+          const st = tl.scrollTrigger;
+          if (!st) return;
+
+          const scrollY = window.lenis?.animatedScroll ?? window.scrollY;
+          if (scrollY < st.start - 80 || scrollY > st.end + 50) return;
+
+          if (e.touches.length === 0) return;
+
+          const currentY = e.touches[0].clientY;
+          const deltaY = touchStartY - currentY;
+          const scrollingDown = deltaY > 0;
+          const scrollingUp = deltaY < 0;
+
+          // Boundary exits: let natural scroll resume to exit the pin
+          if (scrollingUp && currentCardIndex <= 0) {
+            restoreLenisInput();
+            return;
+          }
+          if (scrollingDown && currentCardIndex >= steps) {
+            restoreLenisInput();
+            return;
+          }
+
+          // Inside the deck: prevent native browser scroll so it doesn't fight Lenis
+          if (e.cancelable) {
+            e.preventDefault();
+          }
+
+          if (touchHandled) return;
+          if (Math.abs(deltaY) < 25) return;
+
+          touchHandled = true;
+          disableLenisInput();
+
+          if (scrollingDown) snapToCard(currentCardIndex + 1);
+          else if (scrollingUp) snapToCard(currentCardIndex - 1);
+        };
+
+        const handleTouchEnd = () => {
+          touchHandled = false;
+        };
+
+        window.addEventListener("wheel", handleWheel, { passive: false });
+        window.addEventListener("touchstart", handleTouchStart, {
+          passive: true,
+        });
+        window.addEventListener("touchmove", handleTouchMove, {
+          passive: false,
+        });
+        window.addEventListener("touchend", handleTouchEnd, {
+          passive: true,
+        });
+
+        return () => {
+          restoreLenisInput();
+          window.removeEventListener("wheel", handleWheel);
+          window.removeEventListener("touchstart", handleTouchStart);
+          window.removeEventListener("touchmove", handleTouchMove);
+          window.removeEventListener("touchend", handleTouchEnd);
+        };
       });
 
       ScrollTrigger.refresh();
     }, container);
 
-    return () => ctx.revert();
+    return () => {
+      restoreLenisInput();
+      ctx.revert();
+    };
   }, []);
 
   const titles = {
