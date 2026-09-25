@@ -160,7 +160,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#EDE1CC] text-[#1C2024] selection:bg-[#683619] selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#EDE1CC] text-[#1C2024] selection:bg-[#683619] selection:text-white w-full max-w-full overflow-x-hidden">
       {/* Fixed Header Navigation */}
       <Header lang={lang} setLang={setLang} />
 
@@ -168,7 +168,7 @@ export default function App() {
       <div className="h-20 shrink-0" />
 
       {/* Main Routed Flow */}
-      <main className="flex-grow">
+      <main className="flex-grow w-full max-w-full min-w-0 overflow-x-hidden">
         <Routes>
           <Route path="/" element={<HomePage lang={lang} />} />
           

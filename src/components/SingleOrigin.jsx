@@ -38,9 +38,11 @@ export default function SingleOrigin({ lang = "de" }) {
   const current = titles[lang] || titles.de;
 
   return (
-    <div className="bg-[#EDE1CC] paper-texture text-[#1C2024] min-h-[70vh] flex items-center justify-center relative selection:bg-[#683619] selection:text-white px-4 py-16">
+    <div className="bg-[#EDE1CC] paper-texture text-[#1C2024] min-h-[70vh] flex items-center justify-center relative selection:bg-[#683619] selection:text-white px-4 py-16 w-full max-w-full overflow-x-hidden">
       {/* Background Soft Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#C5A059]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ clipPath: "inset(0)" }}>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 sm:w-96 h-64 sm:h-96 max-w-[80vw] bg-[#C5A059]/15 rounded-full blur-3xl pointer-events-none" />
+      </div>
 
       <div className="relative z-10 max-w-2xl mx-auto text-center space-y-6">
         

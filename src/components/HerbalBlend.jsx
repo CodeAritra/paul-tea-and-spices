@@ -560,11 +560,12 @@ export default function HerbalBlend({ lang = "de" }) {
 
         cards.forEach((card, i) => {
           gsap.set(card, {
-            y: i === 0 ? 0 : "120vh",
+            y: i === 0 ? 0 : "100vh",
             autoAlpha: i === 0 ? 1 : 0,
             scale: 1,
             zIndex: i + 1,
             transformOrigin: "center top",
+            force3D: true,
           });
         });
 
@@ -638,9 +639,12 @@ export default function HerbalBlend({ lang = "de" }) {
             start: "top top+=70",
             end: `+=${totalCards * 800}`,
             pin: true,
-            anticipatePin: 1,
+            pinSpacing: true,
+            anticipatePin: 0,
             scrub: true,
             invalidateOnRefresh: true,
+            fastScrollEnd: true,
+            preventOverlaps: true,
             onEnter: () => {
               disableLenisInput();
               currentCardIndex = 0;
@@ -664,12 +668,13 @@ export default function HerbalBlend({ lang = "de" }) {
 
           tl.fromTo(
             currentCard,
-            { y: "120vh" },
+            { y: "100vh" },
             {
               y: i * 8,
               scale: 1,
               ease: "none",
               duration: 1.0,
+              force3D: true,
             },
             stepTime,
           );
@@ -687,6 +692,7 @@ export default function HerbalBlend({ lang = "de" }) {
                 y: targetY,
                 ease: "none",
                 duration: 1.0,
+                force3D: true,
               },
               stepTime,
             );
@@ -817,6 +823,8 @@ export default function HerbalBlend({ lang = "de" }) {
       });
 
       ScrollTrigger.refresh();
+      const t1 = setTimeout(() => ScrollTrigger.refresh(), 200);
+      const t2 = setTimeout(() => ScrollTrigger.refresh(), 800);
     }, container);
 
     return () => {
@@ -863,16 +871,18 @@ export default function HerbalBlend({ lang = "de" }) {
   const currentExploreText = exploreBtnText[lang] || exploreBtnText.de;
 
   return (
-    <div className="bg-[#EDE1CC] paper-texture text-[#1C2024] min-h-screen relative selection:bg-[#683619] selection:text-white">
-      {/* Background Soft Glow */}
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#C5A059]/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="bg-[#EDE1CC] paper-texture text-[#1C2024] min-h-screen relative w-full max-w-full overflow-x-hidden selection:bg-[#683619] selection:text-white" style={{ maxWidth: "100vw" }}>
+      {/* Background Soft Glow (strictly contained with hardware clip-path to prevent mobile blur overflow) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ clipPath: "inset(0)" }}>
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-64 sm:w-96 h-64 sm:h-96 max-w-[80vw] bg-[#C5A059]/10 rounded-full blur-3xl" />
+      </div>
 
-      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-10 sm:space-y-14">
+      <div className="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-10 sm:space-y-14">
         {/* TOP HERO HEADER */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#683619]/10 border border-[#C5A059]/50 text-[#683619] text-xs sm:text-sm font-mono uppercase tracking-[0.25em] shadow-sm">
-            <Sparkles className="w-4 h-4 text-[#C5A059] animate-pulse" />
-            <span>{currentSub}</span>
+        <div className="text-center max-w-3xl mx-auto space-y-4 px-2 w-full max-w-full overflow-hidden">
+          <div className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-[#683619]/10 border border-[#C5A059]/50 text-[#683619] text-[10px] sm:text-xs font-mono uppercase tracking-normal sm:tracking-[0.2em] shadow-sm max-w-[calc(100vw-32px)] overflow-hidden">
+            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C5A059] animate-pulse shrink-0" />
+            <span className="truncate min-w-0 block">{currentSub}</span>
           </div>
 
           <h1 className="font-serif text-4xl sm:text-6xl font-bold tracking-tight text-[#683619] drop-shadow-sm">
@@ -886,11 +896,11 @@ export default function HerbalBlend({ lang = "de" }) {
           {/* <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-[#C5A059] to-transparent mx-auto pt-1" /> */}
         </div>
 
-        {/* 5-COLUMN SIDE-BY-SIDE VERTICAL SHOWCASE IN #683619 COLOR (DESKTOP & MOBILE RESPONSIVE) */}
-        <div className="sm:bg-[#683619] sm:border-2 sm:border-[#C5A059]/50 sm:rounded-2xl overflow-hidden sm:shadow-2xl sm:gold-foil-frame text-[#EDE1CC] mb-25">
+        {/* 5-COLUMN SIDE-BY-SIDE VERTICAL SHOWCASE IN #683619 COLOR (DESKTOP ONLY) */}
+        <div className="hidden lg:block bg-[#683619] border-2 border-[#C5A059]/50 rounded-2xl overflow-hidden shadow-2xl gold-foil-frame text-[#EDE1CC] mb-20">
           {/* Desktop Showcase Layout (5 Vertical Side-by-Side Columns matching design) */}
           <div
-            className="hidden lg:flex flex-row h-[660px] w-full divide-x divide-[#C5A059]/30"
+            className="flex flex-row h-[660px] w-full divide-x divide-[#C5A059]/30"
             onMouseLeave={() => setHoveredId(null)}
           >
             {HERBAL_BLEND.map((prod) => {
@@ -961,76 +971,83 @@ export default function HerbalBlend({ lang = "de" }) {
               );
             })}
           </div>
+        </div>
 
-          {/* Mobile Layout (GSAP Pinned Stack Scroll Deck matching HerbalBlend) */}
-          <div
-            ref={containerRef}
-            className="block lg:hidden p-3 sm:p-6 max-w-sm sm:max-w-md mx-auto relative min-h-[400px] sm:min-h-[520px] flex flex-col justify-center"
-          >
-            {/* Stacked Cards Container */}
-            <div className="relative w-full h-[360px] xs:h-[400px] sm:h-[480px] mx-auto my-auto">
-              {HERBAL_BLEND.map((prod, index) => {
-                return (
+        {/* Mobile Layout (GSAP Pinned Stack Scroll Deck) */}
+        <div
+          ref={containerRef}
+          className="block lg:hidden p-2 sm:p-4 w-full max-w-[340px] xs:max-w-sm sm:max-w-md mx-auto relative min-h-[400px] sm:min-h-[500px] flex flex-col justify-center mb-16 will-change-transform"
+        >
+          {/* Stacked Cards Container */}
+          <div className="relative w-full h-[370px] sm:h-[480px] mx-auto my-auto">
+            {HERBAL_BLEND.map((prod, index) => {
+              return (
+                <div
+                  key={prod.id}
+                  ref={(el) => (cardsRef.current[index] = el)}
+                  onClick={() => {
+                    setModalProduct(prod);
+                    setActiveProduct(prod);
+                  }}
+                  className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-[2rem] border border-[#C5A059]/40 hover:border-[#C5A059] bg-gradient-to-br from-[#522912] via-[#683619] to-[#3A1B0B] p-4 sm:p-6 flex flex-col justify-between cursor-pointer shadow-none sm:shadow-[0_20px_45px_rgba(0,0,0,0.5)] overflow-hidden transition-colors duration-300"
+                  style={{
+                    WebkitBackfaceVisibility: "hidden",
+                    backfaceVisibility: "hidden",
+                    WebkitPerspective: 1000,
+                    perspective: 1000,
+                    transform: "translate3d(0, 0, 0)",
+                  }}
+                >
+                  {/* Dark Overlay for depth blending */}
                   <div
-                    key={prod.id}
-                    ref={(el) => (cardsRef.current[index] = el)}
-                    onClick={() => {
-                      setModalProduct(prod);
-                      setActiveProduct(prod);
-                    }}
-                    className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-[2rem] border border-[#C5A059]/40 hover:border-[#C5A059] bg-gradient-to-br from-[#522912] via-[#683619] to-[#3A1B0B] p-4 sm:p-6 flex flex-col justify-between cursor-pointer shadow-none sm:shadow-[0_20px_45px_rgba(0,0,0,0.5)] overflow-hidden transition-colors duration-300"
-                  >
-                    {/* Dark Overlay for depth blending */}
-                    <div
-                      ref={(el) => (overlaysRef.current[index] = el)}
-                      className="absolute inset-0 bg-black/40 pointer-events-none rounded-2xl sm:rounded-[2rem] z-30"
-                      style={{ opacity: 0 }}
-                    />
+                    ref={(el) => (overlaysRef.current[index] = el)}
+                    className="absolute inset-0 bg-black/40 pointer-events-none rounded-2xl sm:rounded-[2rem] z-30"
+                    style={{ opacity: 0 }}
+                  />
 
-                    {/* Atmospheric Glow */}
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(229,196,131,0.18),transparent_70%)] pointer-events-none" />
+                  {/* Atmospheric Glow */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(229,196,131,0.18),transparent_70%)] pointer-events-none" />
 
-                    {/* Top Bar: Number Badge & Leaf Icon */}
-                    <div className="relative z-10 flex items-center justify-between">
-                      <span className="font-mono text-lg sm:text-xl font-bold tracking-widest text-[#C5A059] border-b border-[#C5A059]/40 pb-0.5">
-                        {prod.num}
-                      </span>
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#683619]/90 border border-[#C5A059]/50 flex items-center justify-center text-[#E5C483] shadow-none sm:shadow-md">
-                        <Leaf className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C5A059]" />
-                      </div>
-                    </div>
-
-                    {/* Clean Product Picture */}
-                    <div className="relative z-10 my-auto h-[170px] xs:h-[200px] sm:h-[260px] w-full flex items-center justify-center p-2">
-                      <img
-                        src={prod.imageUrl}
-                        alt={prod.name[lang] || prod.name.de}
-                        className="max-h-full max-w-full object-contain filter drop-shadow-none sm:drop-shadow-[0_20px_35px_rgba(0,0,0,0.65)] select-none pointer-events-none"
-                      />
-                    </div>
-
-                    {/* Bottom Bar: Title & Details Button */}
-                    <div className="relative z-10 pt-2.5 sm:pt-3 border-t border-[#C5A059]/20 flex items-center justify-between gap-2">
-                      <h3 className="font-serif text-sm sm:text-lg font-bold text-[#EDE1CC] truncate">
-                        {prod.name[lang] || prod.name.de}
-                      </h3>
-
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setModalProduct(prod);
-                          setActiveProduct(prod);
-                        }}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 sm:px-3.5 sm:py-1.5 rounded-lg bg-[#C5A059] text-[#4a240e] text-[11px] sm:text-xs font-semibold shadow-none sm:shadow-md shrink-0 hover:bg-[#e5c483] transition-colors"
-                      >
-                        <span>Details</span>
-                        <ChevronRight className="w-3.5 h-3.5" />
-                      </button>
+                  {/* Top Bar: Number Badge & Leaf Icon */}
+                  <div className="relative z-10 flex items-center justify-between">
+                    <span className="font-mono text-lg sm:text-xl font-bold tracking-widest text-[#C5A059] border-b border-[#C5A059]/40 pb-0.5">
+                      {prod.num}
+                    </span>
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#683619]/90 border border-[#C5A059]/50 flex items-center justify-center text-[#E5C483] shadow-none sm:shadow-md">
+                      <Leaf className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C5A059]" />
                     </div>
                   </div>
-                );
-              })}
-            </div>
+
+                  {/* Clean Product Picture */}
+                  <div className="relative z-10 my-auto h-[170px] sm:h-[260px] w-full flex items-center justify-center p-2">
+                    <img
+                      src={prod.imageUrl}
+                      alt={prod.name[lang] || prod.name.de}
+                      className="max-h-full max-w-full object-contain filter drop-shadow-none sm:drop-shadow-[0_20px_35px_rgba(0,0,0,0.65)] select-none pointer-events-none"
+                    />
+                  </div>
+
+                  {/* Bottom Bar: Title & Details Button */}
+                  <div className="relative z-10 pt-2.5 sm:pt-3 border-t border-[#C5A059]/20 flex items-center justify-between gap-2 min-w-0">
+                    <h3 className="font-serif text-sm sm:text-lg font-bold text-[#EDE1CC] truncate min-w-0">
+                      {prod.name[lang] || prod.name.de}
+                    </h3>
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setModalProduct(prod);
+                        setActiveProduct(prod);
+                      }}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 sm:px-3.5 sm:py-1.5 rounded-lg bg-[#C5A059] text-[#4a240e] text-[11px] sm:text-xs font-semibold shadow-none sm:shadow-md shrink-0 hover:bg-[#e5c483] transition-colors"
+                    >
+                      <span>Details</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

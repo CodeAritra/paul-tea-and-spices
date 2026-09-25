@@ -20,11 +20,16 @@
     --color-charcoal: #1c2024;
   }
 
-  body {
+  html,
+  body,
+  #root {
     background-color: var(--color-finesse);
     color: var(--color-charcoal);
     font-family: "Plus Jakarta Sans", sans-serif;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
+    max-width: 100vw;
+    width: 100%;
+    position: relative;
   }
 
   h1,
@@ -214,6 +219,10 @@
 ::-webkit-scrollbar {
   width: 8px;
 }
+::-webkit-scrollbar:horizontal {
+  height: 0px !important;
+  display: none !important;
+}
 ::-webkit-scrollbar-track {
   background: #ede1cc;
 }
@@ -223,6 +232,12 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #683619;
+}
+
+/* Ensure GSAP pin-spacer never causes horizontal overflow */
+.pin-spacer {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 /* Infinite Horizontal Marquee Ticker */
