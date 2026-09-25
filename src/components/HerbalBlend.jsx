@@ -1,39 +1,75 @@
-import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  Sparkles,
+  Clock,
+  Thermometer,
+  Compass,
+  Award,
+  ChevronRight,
+  X,
+  Leaf,
+  Feather,
+  Droplets,
+  Box,
+  MapPin,
+  Flame,
+} from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const HERBAL_BLENDS = [
-  // 1. Royal Stag: Stately portrait, medium-narrow width, tall height
+export const HERBAL_BLEND = [
   {
-    id: "royal-assam-golden-tips",
-    name: "Royal Assam Golden Malty",
-    germanName: "Royal Assam Golden Malty",
-    tagline: "Assam Second Flush • Velvet Golden Tips",
+    id: "so-1",
+    num: "01",
+    name: {
+      de: "Morning Spark",
+      en: "Morning Spark",
+      fr: "Morning Spark",
+      it: "Morning Spark",
+      es: "Morning Spark",
+    },
+    tagline: {
+      de: "Assam Second Flush • Goldene Blattknospen",
+      en: "Assam Second Flush • Peak Summer Harvest",
+      fr: "Assam Second Flush • Bourgeons Dorés",
+      it: "Assam Second Flush • Gemme Dorate",
+      es: "Assam Second Flush • Brotes Dorados",
+    },
     subtitle: {
       de: "Kräftige Spitzen-Ernte mit goldenen Blattknospen • Vollmundig & Malzig",
       en: "Peak Second Flush with Golden Velvet Tips • Robust & Full-Bodied",
+      fr: "Récolte d'été aux bourgeons dorés • Robuste et malté",
+      it: "Raccolto estivo con gemme dorate • Robusto e maltato",
+      es: "Cosecha de verano con brotes dorados • Robusto y malteado",
     },
     imageUrl: "/images/morning spark.png",
     packageImageUrl: "/images/morning spark package.png",
-    imgWidth: "w-[80%] max-w-[380px]",
-    imgHeight: "h-[100%] max-h-[470px]",
     origin: {
       de: "Brahmaputra-Tal, Assam, Indien",
       en: "Brahmaputra Valley, Assam, India",
+      fr: "Vallée du Brahmapoutre, Assam, Inde",
+      it: "Valle del Brahmaputra, Assam, India",
+      es: "Valle del Brahmaputra, Assam, India",
     },
     estate: "Heritage Riverbank Estates",
     altitude: "120m Urwald-Schwemmland",
     harvestSeason: {
       de: "Second Flush (Sommer-Spitzenlese)",
       en: "Second Flush (Peak Summer Harvest)",
+      fr: "Second Flush (Récolte d'Été)",
+      it: "Second Flush (Raccolto Estivo)",
+      es: "Second Flush (Cosecha de Verano)",
     },
     leafGrade: "TGFOP • Tippy Golden Flowery Orange Pekoe",
     packagingType: "woodBox",
     packagingDesc: {
       de: "Handgefertigte Keepsake-Holzschatulle mit Goldprägung",
       en: "Handcrafted Keepsake Wooden Box with Gold Crest",
+      fr: "Boîte en bois artisanale avec sceau doré",
+      it: "Scatola in legno artigianale con sigillo dorato",
+      es: "Caja de madera artesanal con sello dorado",
     },
     tastingNotes: {
       de: [
@@ -42,218 +78,346 @@ export const HERBAL_BLENDS = [
         "Gerösteter Kakao",
         "Warme Würze",
       ],
-      en: [
-        "Rich Malt",
-        "Dark Forest Honey",
-        "Roasted Cocoa",
-        "Warm Spiciness",
-      ],
+      en: ["Robust Malt", "Dark Wild Honey", "Roasted Cocoa", "Warm Earth"],
+      fr: ["Malt Robuste", "Miel Sauvage", "Cacao Grillé", "Notes Epicées"],
+      it: ["Malto Robusto", "Miele Scuro", "Cacao Tostato", "Spezie Calde"],
+      es: ["Malta Robusta", "Miel Oscura", "Cacao Tostado", "Notas Cálidas"],
     },
     story: {
-      de: "Aus den renommiertesten Teegärten am Ufer des mächtigen Brahmaputra-Stroms. Vollgepackt mit samtigen goldenen Blattspitzen, die einen tiefen, kupferroten Aufguss mit betörender Malzsüße, kräftigem Körper und langanhaltender vitaler Wärme entfalten.",
-      en: "Sourced from premier heritage gardens along the banks of the mighty Brahmaputra River. Abundant in velvety golden tips that yield a deep copper liquor with bold, malty sweetness and an invigorating, restorative body.",
+      de: "Tief aus den dichten Urwäldern des Brahmaputra-Tals stammt dieser unnachahmliche Second Flush. Die mit goldenem Flaum bedeckten Knospen entwickeln während des tropischen Sommers ihre charakteristische malzige Tiefe und kupferrote Aufgussfarbe.",
+      en: "Originating deep within the tropical primeval forests along the Brahmaputra River. Covered in velvety golden down, these hand-selected summer buds develop an unmistakable rich malty body and deep copper hue.",
+      fr: "Originaire des forêts tropicales le long du Brahmapoutre. Recouverts d'un duvet doré, ces bourgeons d'été développent un corps malté riche et une teinte cuivrée profonde.",
+      it: "Proveniente dalle foreste tropicali lungo il fiume Brahmaputra. Ricoperte di peluria dorata, queste gemme estive sviluppano un corpo maltato e una tonalità ramata.",
+      es: "Originario de los bosques tropicales a lo largo del río Brahmaputra. Cubiertos de vello dorado, estos brotes de verano desarrollan un cuerpo malteado y un tono cobrizo.",
     },
     steeping: {
-      waterTemp: "95°C – 100°C",
-      time: "3.5 – 4 Min.",
+      waterTemp: "95°C",
+      time: "3.5 Min.",
       leafAmount: "3.0g / 200ml",
-      vessel: "Klassische Teekanne",
+      vessel: "Keramik oder Ton",
     },
   },
-  // 2. Soaring Eagle: Expansive wingspan, balanced large width & height
   {
-    id: "silver-needle-reserve",
-    name: "Silver Needle Reserve White Tea",
-    germanName: "Silver Needle Reserve Weißer Tee",
-    tagline: "Imperial White Tea • Pure Silvery Unopened Buds",
+    id: "so-2",
+    num: "02",
+    name: {
+      de: "Summer Breeze",
+      en: "Summer Breeze",
+      fr: "Summer Breeze",
+      it: "Summer Breeze",
+      es: "Summer Breeze",
+    },
+    tagline: {
+      de: "Himalaya Weißer Tee • Reines Knospen-Juwel",
+      en: "Himalayan White Tea • Champagne of Teas",
+      fr: "Thé Blanc de l'Himalaya • Bourgeons d'Argent",
+      it: "Tè Bianco dell'Himalaya • Gemme d'Argento",
+      es: "Té Blanco del Himalaya • Brotes de Plata",
+    },
     subtitle: {
-      de: "Der 'Champagner unter den Tees' • Reine ungeöffnete Silberknospen",
-      en: "The 'Champagne of Teas' • Pure Downy Silvery Unopened Buds",
+      de: "Nur handgepflückte ungeöffnete Silberknospen • Sanft, Seidig & Elegant",
+      en: "Exclusively Handpicked Unopened Velvet Buds • Subtle, Silken & Rare",
+      fr: "Exclusivement des bourgeons d'argent cueillis à la main • Subtil et soyeux",
+      it: "Esclusivamente gemme d'argento raccolte a mano • Sottile e setoso",
+      es: "Exclusivamente brotes de plata cosechados a mano • Subtil y sedoso",
     },
     imageUrl: "/images/summer breeze.png",
     packageImageUrl: "/images/summer breeze package.png",
-    imgWidth: "w-[80%] max-w-[560px]",
-    imgHeight: "h-[100%] max-h-[410px]",
     origin: {
-      de: "Himalaya-Hochlagen, Indien",
-      en: "High-Altitude Terroir, India",
+      de: "Himalaya-Höhenzug, Indien",
+      en: "High Himalayan Ridges, India",
+      fr: "Hautes Crêtes de l'Himalaya, Inde",
+      it: "Alte Cresti dell'Himalaya, India",
+      es: "Altas Cumbres del Himalaya, India",
     },
-    estate: "High Peak Cloud Sanctuary",
-    altitude: "2.000m Wolkenwälder",
+    estate: "Misty Mountain Peak Estate",
+    altitude: "2.200m",
     harvestSeason: {
-      de: "Vor Sonnenaufgang handverlesene Jungknospen",
-      en: "Pre-Dawn Handpicked Virgin Buds",
+      de: "Frühjahrs-Morgenlese (Einzeltag)",
+      en: "Single-Day Early Dawn Harvest",
+      fr: "Récolte de l'Aube (Jour Unique)",
+      it: "Raccolto dell'Alba (Giorno Singolo)",
+      es: "Cosecha del Alba (Día Único)",
     },
-    leafGrade: "Imperial Pure Buds (Yin Zhen)",
+    leafGrade: "Pure Velvet Silver Needle Buds",
     packagingType: "woodBox",
     packagingDesc: {
       de: "Handgefertigte Keepsake-Holzschatulle mit Goldprägung",
       en: "Handcrafted Keepsake Wooden Box with Gold Crest",
+      fr: "Boîte en bois artisanale avec sceau doré",
+      it: "Scatola in legno artigianale con sigillo dorato",
+      es: "Caja de madera artesanal con sello dorado",
     },
     tastingNotes: {
       de: [
-        "Wilde Geißblattblüte",
-        "Seidige Melone",
-        "Süßes Berggras",
-        "Kristallene Reinheit",
+        "Weiße Orchidee",
+        "Wilder Pfirsich",
+        "Seidiger Tautropfen",
+        "Langanhaltende Süße",
       ],
       en: [
-        "Wild Honeysuckle",
-        "Silken Melon",
-        "Sweet Mountain Grass",
-        "Crystalline Finish",
+        "White Orchid",
+        "Wild Peach",
+        "Silky Mountain Dew",
+        "Linger Floral Sweetness",
+      ],
+      fr: [
+        "Orchidée Blanche",
+        "Pêche Sauvage",
+        "Rosée Alpine",
+        "Douceur Florale",
+      ],
+      it: [
+        "Orchidea Bianca",
+        "Pesca Selvatica",
+        "Rugiada Alpina",
+        "Dolcezza Floreale",
+      ],
+      es: [
+        "Orquídea Blanca",
+        "Melocotón Silvestre",
+        "Rocío Alpino",
+        "Dulcera Floral",
       ],
     },
     story: {
-      de: "Das erhabenste Juwel der traditionellen Teekunst: Ausschließlich vor Sonnenaufgang von Hand gepflückte, seidig-silbrig behaarte Jungknospen. Sanft an der reinen Höhenluft sonnengetrocknet, um das vollendete Spektrum natürlicher Antioxidantien und eine schwerelose Süße zu bewahren.",
-      en: "Revered as the crown jewel of luxury teas, comprised exclusively of plump, downy unopened silvery buds plucked before sunrise. Gently sun-withered in pristine alpine air to retain vital antioxidants and an ethereal, lingering sweetness.",
+      de: "Die Krone der Teekunst. An nur wenigen Morgen im Jahr werden die silbrigen Blattknospen im Morgentau von Hand gepflückt und ausschließlich an der Höhenluft getrocknet. Der Aufguss schimmert blassgold mit unvergleichlicher Eleganz.",
+      en: "The undisputed crown jewel of tea artistry. Harvested on only a handful of spring mornings before the sun breaks the mountain haze. Air-dried in alpine breezes to yield a crystal champagne liqueur.",
+      fr: "Le joyau de l'art du thé. Récolté seulement quelques matins par an au lever du soleil et séché à l'air libre des montagnes.",
+      it: "Il gioiello dell'arte del tè. Raccolto solo in poche mattine all'anno e asciugato all'aria pura di montagna.",
+      es: "La joya del arte del té. Cosechado solo unas pocas mañanas al año y secado al aire puro de montaña.",
     },
     steeping: {
-      waterTemp: "75°C – 80°C",
-      time: "4 – 5 Min.",
-      leafAmount: "2.5g / 200ml",
-      vessel: "Glas Gaiwan / Schale",
+      waterTemp: "75°C",
+      time: "5 Min.",
+      leafAmount: "2.0g / 200ml",
+      vessel: "Feines Porzellan",
     },
   },
-  // 3. Alpine Hiker: Slender vertical silhouette, maximum tall height
   {
-    id: "himalayan-emerald-green",
-    name: "Himalayan Emerald Green",
-    germanName: "Himalayan Emerald Green",
-    tagline: "Highland Green Tea • Artisan Pan-Fired Whole Leaf",
+    id: "so-3",
+    num: "03",
+    name: {
+      de: "Energy Kick",
+      en: "Energy Kick",
+      fr: "Energy Kick",
+      it: "Energy Kick",
+      es: "Energy Kick",
+    },
+    tagline: {
+      de: "Bio-Grüntee • Unverarbeitet & Kraftvoll",
+      en: "Organic Green Tea • Fresh Alpine Leaf",
+      fr: "Thé Vert Bio • Fraîcheur Alpine",
+      it: "Tè Verde Biologico • Freschezza Alpina",
+      es: "Té Verde Orgánico • Frescura Alpina",
+    },
     subtitle: {
-      de: "Wok-gerösteter Grüntee aus Höhenquell-Lagen • Frisch, Grasig & Klar",
-      en: "Artisanal Pan-Fired Green Tea • Crisp, Grassy & Vitalizing",
+      de: "Edler Bio-Grüntee aus Darjeeling-Höhengärten • Antioxidantienreich & Vitalisierend",
+      en: "Pristine Organic Green Tea from Darjeeling High Gardens • Fresh & Antioxidant-Rich",
+      fr: "Thé vert bio d'exception des jardins de Darjeeling • Frais et végétal",
+      it: "Pregiato tè verde biologico dei giardini di Darjeeling • Fresco e vegetale",
+      es: "Té verde orgánico de alta montaña de Darjeeling • Fresco y vegetal",
     },
     imageUrl: "/images/energy kick.png",
     packageImageUrl: "/images/energy kick package.png",
-    imgWidth: "w-[100%] max-w-[100%]",
-    imgHeight: "h-[100%] max-h-[80%]",
     origin: {
-      de: "Himalaja-Vorberge, Darjeeling, Indien",
-      en: "Himalayan Slopes, Darjeeling, India",
+      de: "Arya & Risheehat, Darjeeling, Indien",
+      en: "Arya & Risheehat Estates, Darjeeling, India",
+      fr: "Domaines Arya & Risheehat, Darjeeling, Inde",
+      it: "Tenute Arya & Risheehat, Darjeeling, India",
+      es: "Fincas Arya & Risheehat, Darjeeling, India",
     },
-    estate: "Pristine Valley Organic Garden",
-    altitude: "1.600m Gebirgshänge",
+    estate: "High-Altitude Bio Gardens",
+    altitude: "1.600m – 1.950m",
     harvestSeason: {
-      de: "Frühjahrs-Erstpflückung (Frisch geerntet)",
-      en: "Spring Fresh Flush",
+      de: "Sommer-Ernte (Handverlesen)",
+      en: "Summer Garden Pick",
+      fr: "Récolte d'Été (Main)",
+      it: "Raccolto Estivo (A mano)",
+      es: "Cosecha de Verano (A mano)",
     },
-    leafGrade: "Artisanal Whole Leaf Green",
+    leafGrade: "Whole Leaf Organic Green",
     packagingType: "woodBox",
     packagingDesc: {
       de: "Handgefertigte Keepsake-Holzschatulle mit Goldprägung",
       en: "Handcrafted Keepsake Wooden Box with Gold Crest",
+      fr: "Boîte en bois artisanale avec sceau doré",
+      it: "Scatola in legno artigianale con sigillo dorato",
+      es: "Caja de madera artesanal con sello dorado",
     },
     tastingNotes: {
       de: [
-        "Frisches Wiesengrün",
-        "Taufrischer Bambus",
-        "Geröstete Edelkastanie",
-        "Vitalisierende Frische",
+        "Frische Taukristalle",
+        "Zarter Bambus",
+        "Gerösteter Reis",
+        "Süßer Nachklang",
       ],
       en: [
-        "Fresh Meadow Grass",
-        "Dewy Bamboo",
-        "Toasted Chestnut",
-        "Vitalizing Clarity",
+        "Fresh Meadow Air",
+        "Sweet Bamboo",
+        "Toasted Rice",
+        "Sweet Botanical Finish",
       ],
+      fr: ["Air de Prairie", "Bambou Doux", "Riz Torréfié", "Finale Douce"],
+      it: ["Aria di Prato", "Bambù Dolce", "Riso Tostato", "Finale Dolce"],
+      es: ["Aire de Pradera", "Bambú Dulce", "Arroz Tostado", "Final Dulce"],
     },
     story: {
-      de: "Gedeiht inmitten uralter Himalaya-Kiefernwälder, genährt von schmelzendem Gletscherquellwasser. Schonend im Wok pfannengeröstet, um das leuchtend smaragdgrüne Chlorophyll, wertvolle Polyphenole und den erfrischend süßlichen Waldduft einzufangen.",
-      en: "Nourished by pure glacial streams amidst pristine Himalayan pine forests. Gently pan-roasted in traditional iron woks to lock in vibrant emerald chlorophyll, essential polyphenols, and a crisp, rejuvenating aroma.",
+      de: "Sanft gedämpft nach traditioneller Methode, um die smaragdgrüne Farbe und den naturally süßen Pflanzensaft zu bewahren. Dieser Tee vereint alpine Frische mit der puren Reinheit unbelasteter Himalaya-Böden.",
+      en: "Gently steamed using traditional artisan methods to preserve its emerald color and naturally sweet botanicals. Combines alpine crispness with the untouched purity of Himalayan soil.",
+      fr: "Délicatement vapeur selon des méthodes artisanales pour préserver sa couleur émeraude et sa douceur naturelle.",
+      it: "Delicatamente cotto a vapore con metodi artigianali per preservare il colore smeraldo e la naturale dolcezza.",
+      es: "Suavemente al vapor mediante métodos artesanales para preservar su color esmeralda y dulzura natural.",
     },
     steeping: {
       waterTemp: "80°C",
       time: "2.5 Min.",
       leafAmount: "2.0g / 200ml",
-      vessel: "Porzellan oder Glas",
+      vessel: "Glas oder Porzellan",
     },
   },
-  // 4. Mystic Full Moon: Distinct circular disc aspect
   {
-    id: "nilgiri-frost-reserve",
-    name: "Nilgiri Frost Reserve Oolong",
-    germanName: "Nilgiri Frost Reserve Oolong",
-    tagline: "Blue Mountains Winter Frost • Semi-Oxidized Oolong",
+    id: "so-4",
+    num: "04",
+    name: {
+      de: "Evening & Relaxation",
+      en: "Evening & Relaxation",
+      fr: "Evening & Relaxation",
+      it: "Evening & Relaxation",
+      es: "Evening & Relaxation",
+    },
+    tagline: {
+      de: "Blauer Berg Oolong • Beruhigend & Samtig",
+      en: "Blue Mountain Oolong • Soothing Twilight Calm",
+      fr: "Oolong des Montagnes Bleues • Semi-Oxydé",
+      it: "Oolong delle Montagnes Bleues • Semi-Ossidato",
+      es: "Oolong de las Montañas Azules • Semi-Oxidado",
+    },
     subtitle: {
-      de: "Winterfrost-Ernte aus den Blauen Bergen • Blumig, Samtig & Ausgleichend",
-      en: "Winter Frost Harvest from the Blue Mountains • Floral, Velvety & Calming",
+      de: "Handgerolltes Oolong-Blatt aus den südlichen Nilgiri-Bergen • Blumig & Samtig",
+      en: "Hand-Rolled Single Estate Oolong from the Southern Blue Mountains • Soothing & Floral",
+      fr: "Thé Oolong des Montagnes Bleues de l'Inde du Sud • Floral et apaisant",
+      it: "Thè Oolong delle Montagne Blu dell'India del Sud • Floreale e rilassante",
+      es: "Té Oolong de las Montañas Azules del Sur de India • Floral y relajante",
     },
     imageUrl: "/images/evening and relaxation.png",
     packageImageUrl: "/images/evening and relaxation package.png",
-    imgWidth: "w-[100%] max-w-[360px]",
-    imgHeight: "h-[100%] max-h-[360px]",
     origin: {
       de: "Nilgiri (Blaue Berge), Südindien",
-      en: "Nilgiris (Blue Mountains), Southern India",
+      en: "Nilgiri Hills (Blue Mountains), South India",
+      fr: "Monts Nilgiri (Montagnes Bleues), Inde du Sud",
+      it: "Monti Nilgiri (Montagne Blu), India del Sud",
+      es: "Montes Nilgiri (Montañas Azules), Sur de India",
     },
-    estate: "Nilgiri Cloud Crest Estate",
-    altitude: "2.200m Gipfellagen",
+    estate: "Coonoor Highland Ridge",
+    altitude: "2.000m",
     harvestSeason: {
-      de: "Winterfrost-Ernte (Dezember – Januar)",
-      en: "Winter Frost Flush (Dec – Jan)",
+      de: "Frost-Harvest (Winterwende)",
+      en: "Winter Frost Harvest",
+      fr: "Récolte de Gelée d'Hiver",
+      it: "Raccolto Invernale",
+      es: "Cosecha de Helada de Invierno",
     },
-    leafGrade: "Hand-rolled Reserve Oolong",
+    leafGrade: "Hand-Rolled Whole Leaf Oolong",
     packagingType: "woodBox",
     packagingDesc: {
       de: "Handgefertigte Keepsake-Holzschatulle mit Goldprägung",
       en: "Handcrafted Keepsake Wooden Box with Gold Crest",
+      fr: "Boîte en bois artisanale avec sceau doré",
+      it: "Scatola in legno artigianale con sigillo dorato",
+      es: "Caja de madera artesanal con sello dorado",
     },
     tastingNotes: {
       de: [
         "Winterjasmin",
-        "Kandierte Waldorchidee",
-        "Goldenes Karamell",
-        "Samtige Abendruhe",
+        "Gefrostete Zitrone",
+        "Walnuss-Aroma",
+        "Goldener Bienenhonig",
       ],
       en: [
         "Winter Jasmine",
-        "Candied Orchid",
-        "Golden Caramel",
-        "Velvety Twilight Calm",
+        "Crisp Citrus Bloom",
+        "Roasted Walnut",
+        "Golden Honey Finish",
+      ],
+      fr: ["Jasmin d'Hiver", "Agrume Frais", "Noix Torréfiée", "Miel Doré"],
+      it: [
+        "Gelsomino Invernale",
+        "Agrume Fresco",
+        "Noce Tostata",
+        "Miele Dorato",
+      ],
+      es: [
+        "Jazmín de Invierno",
+        "Cítrico Fresco",
+        "Nuez Tostada",
+        "Miel Dorado",
       ],
     },
     story: {
-      de: "Entsteht in klirrend kalten Winternächten auf über 2.200 Metern Höhe in den südindischen Nilgiri-Bergen. Der Frost konzentriert die ätherischen Essenzen der Teepflanze. Kunstvoll teiloxidiert für ein betörendes, blumig-fruchtiges Aroma und samtige Tiefenentspannung.",
-      en: "Born during freezing Nilgiri winter nights at 2,200m elevation where frost shocks the tea bush, concentrating vital aromatic sugars. Semi-oxidized with artisan precision for an intoxicating floral bouquet and soothing evening serenity.",
+      de: "Aus den kühlen Höhenwinden der 'Blauen Berge' Südindiens. Nach dem Pflücken werden die Blätter in Bambuskörben geschüttelt und vorsichtig halb-fermentiert. Das Aroma verbindet die Spritzigkeit eines Darjeelings mit dem samtenen Körper eines Oolongs.",
+      en: "Grown amidst the cool misty winds of South India's Blue Mountains. Leaves are gently tossed in bamboo baskets and lightly oxidized, capturing the bright floral notes of a high-altitude tea with the rich warmth of an artisanal oolong.",
+      fr: "Culturé dans les vents frais des Montagnes Bleues. Les feuilles sont délicatement secouées dans des paniers en bambou et légèrement oxydées.",
+      it: "Coltivato tra i venti freschi delle Montagne Blu. Le foglie vengono agitate in cestini di bambù e leggermente ossidate.",
+      es: "Cultivado entre los vientos frescos de las Montañas Azules. Las hojas se agitan en cestas de bambú y se oxidan ligeramente.",
     },
     steeping: {
-      waterTemp: "88°C – 92°C",
-      time: "3.5 Min.",
-      leafAmount: "3.0g / 200ml",
-      vessel: "Yixing-Kanne / Porzellan",
+      waterTemp: "88°C",
+      time: "4 Min.",
+      leafAmount: "2.5g / 200ml",
+      vessel: "Gaiwan oder Porzellan",
     },
   },
-  // 5. Mountain Peaks: Wide horizontal panorama, compact height
   {
-    id: "alpine-glow-darjeeling",
-    name: "Alpine Glow First Flush",
-    germanName: "Alpine Glow First Flush",
-    tagline: "Darjeeling First Flush • High Altitude Spring Harvest",
+    id: "so-5",
+    num: "05",
+    name: {
+      de: "Alpine Glow",
+      en: "Alpine Glow",
+      fr: "Alpine Glow",
+      it: "Alpine Glow",
+      es: "Alpine Glow",
+    },
+    tagline: {
+      de: "Darjeeling First Flush • Erste Schneeschmelze",
+      en: "Darjeeling First Flush • Spring Melt Harvest",
+      fr: "Darjeeling First Flush • Récolte de Printemps",
+      it: "Darjeeling First Flush • Raccolto Primaverile",
+      es: "Darjeeling First Flush • Cosecha de Primavera",
+    },
     subtitle: {
       de: "Frühlings-Ernte aus den höchsten Lagen Darjeelings • Unverfälschter Single-Origin",
       en: "Spring First Flush from Darjeeling's Highest Peaks • Unblended Single-Origin",
+      fr: "Récolte de printemps des plus hauts sommets de Darjeeling • Origine unique",
+      it: "Raccolto primaverile dalle vette più alte di Darjeeling • Singola origine",
+      es: "Cosecha de primavera de los picos más altos de Darjeeling • Origen único",
     },
     imageUrl: "/images/alpine glow.png",
     packageImageUrl: "/images/alpine glow package.png",
-    imgWidth: "w-[100%] max-w-[100%]",
-    imgHeight: "h-[100%] max-h-[100%]",
     origin: {
       de: "Darjeeling, Westbengalen, Indien",
       en: "Darjeeling, West Bengal, India",
+      fr: "Darjeeling, Bengale-Occidental, Inde",
+      it: "Darjeeling, Bengala Occidentale, India",
+      es: "Darjeeling, Bengala Occidental, India",
     },
     estate: "Makaibari & Singbulli High Valleys",
     altitude: "1.850m – 2.100m",
     harvestSeason: {
-      de: "First Flush (Frühlings-Erstpflückung)",
+      de: "First Flush (Frühlingslese)",
       en: "First Flush (Spring Harvest)",
+      fr: "First Flush (Récolte de Printemps)",
+      it: "First Flush (Raccolto Primaverile)",
+      es: "First Flush (Cosecha de Primavera)",
     },
     leafGrade: "FTGFOP1 • Finest Tippy Golden Flowery Orange Pekoe",
     packagingType: "woodBox",
     packagingDesc: {
       de: "Handgefertigte Keepsake-Holzschatulle mit Goldprägung",
       en: "Handcrafted Keepsake Wooden Box with Gold Crest",
+      fr: "Boîte en bois artisanale avec sceau doré",
+      it: "Scatola in legno artigianale con sigillo dorato",
+      es: "Caja de madera artesanal con sello dorado",
     },
     tastingNotes: {
       de: [
@@ -268,10 +432,26 @@ export const HERBAL_BLENDS = [
         "Crisp Alpine Air",
         "Silken Forest Honey",
       ],
+      fr: [
+        "Arôme Muscat",
+        "Fleur de Printemps",
+        "Fraîcheur Alpine",
+        "Miel de Forêt",
+      ],
+      it: ["Uva Moscato", "Fiori Primaverili", "Aria Alpina", "Miele di Bosco"],
+      es: [
+        "Uva Moscatel",
+        "Flor de Primavera",
+        "Aire Alpino",
+        "Miel de Bosque",
+      ],
     },
     story: {
       de: "Geerntet während der ersten Schneeschmelze im Frühjahr an den steilen, sonnenbeschienenen Nebelhängen des Himalaya. Die zartesten handgepflückten Blattknospen ergeben einen strahlend bernsteinfarbenen Aufguss mit vibrierender floraler Frische und dem legendären Muskatell-Bukett.",
       en: "Harvested during the earliest spring melt along the mist-veiled Himalayan slopes. Delicately handpicked tender buds yield a radiant amber cup with vibrant floral freshness and the legendary muscatel character prized by connoisseurs worldwide.",
+      fr: "Récolté lors de la première fonte des neiges au printemps sur les pentes brumeuses de l'Himalaya. Les bourgeons les plus tendres offrent une tasse ambrée brillante à la fraîcheur florale vibrante.",
+      it: "Raccolto durante il primo disgelo primaverile sui pendii nebbiosi dell'Himalaya. Le gemme più tenere regalano una tazza dorata con freschezza floreale vibrante.",
+      es: "Cosechado durante el primer deshielo primaveral en las laderas brumosas del Himalaya. Los brotes más tiernos ofrecen una taza ámbar radiante con frescura floral vibrante.",
     },
     steeping: {
       waterTemp: "85°C – 90°C",
@@ -283,77 +463,31 @@ export const HERBAL_BLENDS = [
 ];
 
 export default function HerbalBlend({ lang = "de" }) {
+  const [activeProduct, setActiveProduct] = useState(HERBAL_BLEND[0]);
+  const [hoveredId, setHoveredId] = useState(null);
+  const [modalProduct, setModalProduct] = useState(null);
+
   const containerRef = useRef(null);
   const cardsRef = useRef([]);
   const overlaysRef = useRef([]);
-  const [selectedTeaIndex, setSelectedTeaIndex] = useState(null);
-  const prevIndexRef = useRef(0);
 
-  const isGerman = lang === "de";
-  const isOpen = selectedTeaIndex !== null;
-
-  if (selectedTeaIndex !== null) {
-    prevIndexRef.current = selectedTeaIndex;
-  }
-
-  const activeIndex =
-    selectedTeaIndex !== null ? selectedTeaIndex : prevIndexRef.current;
-  const activeTea = HERBAL_BLENDS[activeIndex] || HERBAL_BLENDS[0];
-
-  const handleClose = () => {
-    setSelectedTeaIndex(null);
-  };
-
-  const handleNextTea = () => {
-    if (selectedTeaIndex === null) {
-      setSelectedTeaIndex(0);
-      return;
-    }
-    setSelectedTeaIndex((prev) => (prev + 1) % HERBAL_BLENDS.length);
-  };
-
-  const handlePrevTea = () => {
-    if (selectedTeaIndex === null) {
-      setSelectedTeaIndex(HERBAL_BLENDS.length - 1);
-      return;
-    }
-    setSelectedTeaIndex(
-      (prev) => (prev - 1 + HERBAL_BLENDS.length) % HERBAL_BLENDS.length,
-    );
-  };
-
-  const handleCardClick = (index) => {
-    setSelectedTeaIndex((prev) => (prev === index ? null : index));
-  };
-
-  // Keyboard navigation for accessible interaction
+  // Close modal on Escape key press
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (selectedTeaIndex === null) return;
-      if (e.key === "Escape") handleClose();
-      if (e.key === "ArrowRight") handleNextTea();
-      if (e.key === "ArrowLeft") handlePrevTea();
-      if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", " "].includes(e.key)) {
-        const infoPane = e.target.closest(".overflow-y-auto");
-        if (!infoPane) {
-          e.preventDefault();
-        }
-      }
+      if (e.key === "Escape") setModalProduct(null);
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedTeaIndex]);
+  }, []);
 
-  // Block outer page scroll and stack card scrubbing while the info card is open
+  // Block outer page scroll and stack card scrubbing while the modal is open
   useEffect(() => {
-    if (selectedTeaIndex === null) return undefined;
+    if (modalProduct === null) return undefined;
 
-    // Pause Lenis smooth scroll engine
     if (window.lenis) {
       window.lenis.stop();
     }
 
-    // Intercept wheel/touchmove to prevent stack cards from scrolling
     const handleScrollLock = (e) => {
       const infoCardScrollPane = e.target.closest(".overflow-y-auto");
       if (infoCardScrollPane) {
@@ -382,8 +516,9 @@ export default function HerbalBlend({ lang = "de" }) {
       window.removeEventListener("wheel", handleScrollLock);
       window.removeEventListener("touchmove", handleScrollLock);
     };
-  }, [selectedTeaIndex]);
+  }, [modalProduct]);
 
+  // GSAP Pinned Stack Scroll Timeline for Mobile Deck (matching HerbalBlend)
   useLayoutEffect(() => {
     const container = containerRef.current;
     const cards = cardsRef.current.filter(Boolean);
@@ -391,339 +526,417 @@ export default function HerbalBlend({ lang = "de" }) {
     if (!container || cards.length === 0) return undefined;
 
     const ctx = gsap.context(() => {
-      const isMobile = window.matchMedia("(max-width: 767px)").matches;
-      const totalCards = cards.length;
+      const mm = gsap.matchMedia();
 
-      // Clean initial positions (cards start well below viewport at 150vh)
-      cards.forEach((card, i) => {
-        gsap.set(card, {
-          y: i === 0 ? 0 : "150vh",
-          autoAlpha: i === 0 ? 1 : 0,
-          scale: 1,
-          zIndex: i + 1,
-          transformOrigin: "center top",
-        });
-      });
+      mm.add("(max-width: 1023px)", () => {
+        const totalCards = cards.length;
 
-      overlays.forEach((overlay) => {
-        gsap.set(overlay, { opacity: 0 });
-      });
-
-      // Master pinned scrub timeline synchronized directly with scroll
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: container,
-          start: "top top",
-          end: `+=${totalCards * (isMobile ? 360 : 460)}`,
-          pin: true,
-          anticipatePin: 1,
-          scrub: 0.3,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      // Smooth continuous stacking sequence with linear 1:1 scroll responsiveness
-      for (let i = 1; i < totalCards; i++) {
-        const stepTime = (i - 1) * 1.0;
-        const currentCard = cards[i];
-
-        // 1. Instantly toggle visibility at the exact moment slide begins
-        tl.set(currentCard, { autoAlpha: 1 }, stepTime);
-
-        // 2. Current card slides up from 150vh to rest position
-        tl.fromTo(
-          currentCard,
-          { y: "150vh" },
-          {
-            y: isMobile ? i * 8 : i * 14,
+        cards.forEach((card, i) => {
+          gsap.set(card, {
+            y: i === 0 ? 0 : "120vh",
+            autoAlpha: i === 0 ? 1 : 0,
             scale: 1,
-            ease: "none",
-            duration: 1.0,
+            zIndex: i + 1,
+            transformOrigin: "center top",
+          });
+        });
+
+        overlays.forEach((overlay) => {
+          gsap.set(overlay, { opacity: 0 });
+        });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: container,
+            start: "top top+=70",
+            end: `+=${totalCards * 360}`,
+            pin: true,
+            anticipatePin: 1,
+            scrub: 0.3,
+            invalidateOnRefresh: true,
           },
-          stepTime,
-        );
+        });
 
-        // 3. Preceding cards scale down and shift upward smoothly
-        for (let j = 0; j < i; j++) {
-          const prevCard = cards[j];
-          const depth = i - j;
-          const targetScale = Math.max(
-            0.86,
-            1 - depth * (isMobile ? 0.03 : 0.038),
-          );
-          const targetY =
-            j * (isMobile ? 8 : 14) - depth * (isMobile ? 10 : 18);
+        for (let i = 1; i < totalCards; i++) {
+          const stepTime = (i - 1) * 1.0;
+          const currentCard = cards[i];
 
-          tl.to(
-            prevCard,
+          tl.set(currentCard, { autoAlpha: 1 }, stepTime);
+
+          tl.fromTo(
+            currentCard,
+            { y: "120vh" },
             {
-              scale: targetScale,
-              y: targetY,
+              y: i * 8,
+              scale: 1,
               ease: "none",
               duration: 1.0,
             },
             stepTime,
           );
 
-          if (overlays[j]) {
+          for (let j = 0; j < i; j++) {
+            const prevCard = cards[j];
+            const depth = i - j;
+            const targetScale = Math.max(0.85, 1 - depth * 0.035);
+            const targetY = j * 8 - depth * 12;
+
             tl.to(
-              overlays[j],
+              prevCard,
               {
-                opacity: Math.min(0.22, depth * 0.07),
+                scale: targetScale,
+                y: targetY,
                 ease: "none",
                 duration: 1.0,
               },
               stepTime,
             );
+
+            if (overlays[j]) {
+              tl.to(
+                overlays[j],
+                {
+                  opacity: Math.min(0.24, depth * 0.08),
+                  ease: "none",
+                  duration: 1.0,
+                },
+                stepTime,
+              );
+            }
           }
         }
-      }
+      });
 
-      // Refresh layout calculations once mounted
       ScrollTrigger.refresh();
     }, container);
 
     return () => ctx.revert();
   }, []);
 
+  const titles = {
+    de: "Herbal Blend",
+    en: "Herbal Blend",
+    fr: "Herbal Blend",
+    it: "Herbal Blend",
+    es: "Herbal Blend",
+  };
+
+  const subtitles = {
+    de: "Unverfälscht • Handgepflückt • In Holzschatullen Gereift",
+    en: "Unblended • Handpicked • Matured in Wooden Keepsakes",
+    fr: "Non Assemblé • Cueilli à la Main • Boîtes en Bois",
+    it: "Puro • Raccolto a Mano • In Scatole di Legno",
+    es: "Puro • Cosechado a Mano • En Cajas de Madera",
+  };
+
+  const headerDesc = {
+    de: "Fünf Meisterwerke reinster indischer Herkunft. Unvergleichlicher Charakter aus den weltberühmten Höhenlagen des Himalaya, Brahmaputra & Nilgiri – veredelt im Vorarlberger Atelier.",
+    en: "Five masterpieces of unblended Indian origin. Peerless character harvested from the legendary high-altitude estates of Darjeeling, Assam & Nilgiri – refined in our Vorarlberg Atelier.",
+    fr: "Cinq chefs-d'œuvre d'origine indienne pure. Un caractère inégalé issu des domaines légendaires de Darjeeling, Assam & Nilgiri.",
+    it: "Cinque capolavori di pura origine indiana. Carattere ineguagliabile raccolto dalle tenute leggendarie di Darjeeling, Assam e Nilgiri.",
+    es: "Cinco obras maestras de puro origen indio. Carácter inigualable cosechado de las fincas legendarias de Darjeeling, Assam y Nilgiri.",
+  };
+
+  const exploreBtnText = {
+    de: "Ritual & Details Erkunden",
+    en: "Explore Ritual & Details",
+    fr: "Explorer Rituel & Détails",
+    it: "Esplora Rituale e Dettagli",
+    es: "Explorar Ritual y Detalles",
+  };
+
+  const currentTitle = titles[lang] || titles.de;
+  const currentSub = subtitles[lang] || subtitles.de;
+  const currentDesc = headerDesc[lang] || headerDesc.de;
+  const currentExploreText = exploreBtnText[lang] || exploreBtnText.de;
+
   return (
-    <div className="bg-[#EDE1CC] paper-texture text-[#1C2024] relative selection:bg-[#683619] selection:text-white overflow-x-clip">
-      {/* ── 1. Desktop Standalone Intro Hero (Visible ONLY on Desktop/Tablet >= 768px) ── */}
-      <section className="hidden md:block pt-8 lg:pt-12 pb-3 lg:pb-4 max-w-6xl mx-auto px-6 lg:px-8 text-center relative z-10">
-        <div className="inline-flex items-center gap-2.5 px-4 py-1 rounded-full bg-[#683619]/10 border border-[#C5A059]/40 text-[#683619] text-xs font-mono uppercase tracking-[0.24em] mb-2 shadow-xs">
-          <span>
-            {isGerman
-              ? "PAUL'S TEE • Herbal Blends"
-              : "PAUL'S TEA • Herbal Blends"}
-          </span>
-        </div>
+    <div className="bg-[#EDE1CC] paper-texture text-[#1C2024] min-h-screen relative selection:bg-[#683619] selection:text-white">
+      {/* Background Soft Glow */}
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#C5A059]/10 rounded-full blur-3xl pointer-events-none" />
 
-        <h1 className="font-serif text-3xl lg:text-5xl font-bold tracking-tight text-[#683619] mb-1.5">
-          {isGerman ? "Herbal Blends Kollektion" : "Herbal Blends Collection"}
-        </h1>
-
-        <p className="text-xs lg:text-sm text-[#1C2024]/75 max-w-2xl mx-auto font-light leading-relaxed">
-          {isGerman
-            ? "Fünf unverfälschte Einzellagen-Ernten aus Darjeeling, Assam und den Nilgiris. Klicken Sie auf eine Karte, um die Details auf der rechten Seite anzuzeigen."
-            : "Five unadulterated single-estate harvests from Darjeeling, Assam, and the Nilgiris. Click any card to reveal details on the right side."}
-        </p>
-      </section>
-
-      {/* ── 2. Pinned Showcase Section ── */}
-      <section
-        ref={containerRef}
-        className="relative w-full h-screen min-h-[600px] md:min-h-[680px] max-h-none md:max-h-[1080px] flex flex-col items-center justify-start md:justify-center pt-2 pb-6 md:py-6 overflow-hidden"
-      >
-        {/* Mobile-Only Frozen Hero */}
-        <div className="block md:hidden max-w-6xl mx-auto px-4 text-center relative z-10 shrink-0 mb-4">
-          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#683619]/10 border border-[#C5A059]/40 text-[#683619] text-[11px] font-mono uppercase tracking-[0.2em] mt-13 sm:my-0 shadow-xs">
-            <span>
-              {isGerman
-                ? "PAUL'S TEE • SINGLE-ORIGIN"
-                : "PAUL'S TEA • SINGLE-ORIGIN"}
-            </span>
+      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-10 sm:space-y-14">
+        {/* TOP HERO HEADER */}
+        <div className="text-center max-w-3xl mx-auto space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#683619]/10 border border-[#C5A059]/50 text-[#683619] text-xs sm:text-sm font-mono uppercase tracking-[0.25em] shadow-sm">
+            <Sparkles className="w-4 h-4 text-[#C5A059] animate-pulse" />
+            <span>{currentSub}</span>
           </div>
 
-          <h1 className="font-serif text-2xl xs:text-3xl font-bold tracking-tight text-[#683619] my-3 sm:my-0">
-            {isGerman ? "Herbal Blends Kollektion" : "Herbal Blends Collection"}
+          <h1 className="font-serif text-4xl sm:text-6xl font-bold tracking-tight text-[#683619] drop-shadow-sm">
+            {currentTitle}
           </h1>
 
-          <p className="text-xs text-[#1C2024]/75 max-w-3xl mx-auto font-light leading-relaxed my-3 sm:my-0">
-            {isGerman
-              ? "Karte antippen, um Details & Verpackung anzuzeigen."
-              : "Tap card for package & lore details."}
+          <p className="text-sm sm:text-base text-[#1C2024]/80 font-light leading-relaxed max-w-2xl mx-auto">
+            {currentDesc}
           </p>
+
+          {/* <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-[#C5A059] to-transparent mx-auto pt-1" /> */}
         </div>
 
-        {/* ============================================================ */}
-        {/* MAIN CONTAINER: CENTERED STACK OR LEFT DECK + RIGHT CARD     */}
-        {/* ============================================================ */}
-        <div className="max-w-7xl xl:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full h-full flex flex-col justify-center">
-          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center justify-center my-auto relative">
-            {/* ── LEFT COLUMN: STACKED TEA DECK (SMOOTH GLIDE FROM CENTER TO LEFT) ── */}
-            <div
-              className={`w-full flex flex-col justify-center items-center transition-transform mt-23 sm:mt-0 duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu ${
-                isOpen
-                  ? "lg:translate-x-0"
-                  : "lg:translate-x-[calc(50%+1rem)]"
-              }`}
-            >
-              <div
-                className="relative w-full max-w-2xl xl:max-w-3xl h-[400px] sm:h-[480px] lg:h-[540px] mx-auto"
-              >
-                {HERBAL_BLENDS.map((tea, index) => {
-                  const isSelected = selectedTeaIndex === index;
-                  // When open, smoothly fade upcoming cards so nothing peeks from bottom
-                  const isUpcomingWhenOpen =
-                    isOpen && index > (selectedTeaIndex ?? 0);
+        {/* 5-COLUMN SIDE-BY-SIDE VERTICAL SHOWCASE IN #683619 COLOR (DESKTOP & MOBILE RESPONSIVE) */}
+        <div className="sm:bg-[#683619] sm:border-2 sm:border-[#C5A059]/50 sm:rounded-2xl overflow-hidden sm:shadow-2xl sm:gold-foil-frame text-[#EDE1CC] mb-25">
+          {/* Desktop Showcase Layout (5 Vertical Side-by-Side Columns matching design) */}
+          <div
+            className="hidden lg:flex flex-row h-[660px] w-full divide-x divide-[#C5A059]/30"
+            onMouseLeave={() => setHoveredId(null)}
+          >
+            {HERBAL_BLEND.map((prod) => {
+              const isHovered = hoveredId === prod.id;
 
-                  return (
-                    <div
-                      key={tea.id}
-                      ref={(el) => (cardsRef.current[index] = el)}
-                      onClick={() => handleCardClick(index)}
-                      className={`cursor-pointer absolute inset-0 w-full h-full rounded-[2rem] sm:rounded-[2.5rem] border shadow-[0_20px_45px_-12px_rgba(0,0,0,0.22)] overflow-hidden flex items-center justify-center bg-[#3A1B0B] bg-gradient-to-br from-[#522912] via-[#683619] to-[#3A1B0B] transition-all duration-500 ease-out ${
-                        isSelected
-                          ? "border-[#C5A059] shadow-[0_0_30px_rgba(197,160,89,0.35)]"
-                          : "border-[#C5A059]/40 hover:border-[#C5A059]/70"
-                      } ${
-                        isUpcomingWhenOpen
-                          ? "opacity-0 pointer-events-none invisible"
-                          : "opacity-100 pointer-events-auto"
-                      }`}
-                    >
-                      {/* Ambient Soft Dimming Overlay for Background Stacking */}
-                      <div
-                        ref={(el) => (overlaysRef.current[index] = el)}
-                        className="absolute inset-0 bg-black/40 pointer-events-none rounded-[2rem] sm:rounded-[2.5rem] z-30"
-                        style={{ opacity: 0 }}
-                      />
-
-                      {/* Atmospheric Glow Layer */}
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(229,196,131,0.2),transparent_70%)] pointer-events-none" />
-
-                      {/* Only Show the Image with Custom Height and Width */}
-                      <div className="relative z-10 w-full h-full flex items-center justify-center p-4 sm:p-8 pointer-events-none">
-                        <img
-                          src={tea.imageUrl}
-                          alt={tea.name}
-                          className={`${tea.imgWidth} ${tea.imgHeight} object-contain filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.65)] select-none`}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* ── RIGHT COLUMN: TEA DETAIL CARD (SMOOTH GLIDE FROM RIGHT INTO VIEW) ── */}
-            <div
-              className={`w-full flex flex-col justify-center items-center transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu ${
-                isOpen
-                  ? "opacity-100 lg:translate-x-0 scale-100 pointer-events-auto"
-                  : "opacity-0 lg:translate-x-12 scale-95 pointer-events-none"
-              }`}
-            >
-              <div className="relative w-full max-w-xl xl:max-w-2xl h-[400px] sm:h-[480px] lg:h-[540px] mx-auto bg-[#F5EBDB] border border-[#C5A059]/45 rounded-[2rem] sm:rounded-[2.5rem] p-3.5 sm:p-4.5 shadow-xl text-[#1C2024] flex flex-col overflow-hidden">
-                {/* Gold Top Accent Line */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C5A059] to-transparent" />
-
-                {/* Main 2-Column Split: Left Image + Right Details */}
+              return (
                 <div
-                  key={activeTea.id}
-                  className="flex-1 w-full grid grid-cols-1 sm:grid-cols-12 gap-3.5 sm:gap-4 items-stretch overflow-hidden animate-tea-crossfade my-auto"
+                  key={prod.id}
+                  onMouseEnter={() => {
+                    setHoveredId(prod.id);
+                    setActiveProduct(prod);
+                  }}
+                  onClick={() => {
+                    setActiveProduct(prod);
+                    setModalProduct(prod);
+                  }}
+                  className={`relative flex-1 group cursor-pointer transition-all duration-700 ease-out overflow-hidden flex flex-col justify-between p-6 ${
+                    isHovered
+                      ? "flex-[2.2] bg-[#753d1c]"
+                      : "bg-[#683619] opacity-90 hover:opacity-100"
+                  }`}
                 >
-                  {/* ── LEFT SIDE OF INFO CARD: PACKAGE IMAGE SHOWCASE ── */}
-                  <div className="sm:col-span-5 relative w-full h-full min-h-[150px] sm:min-h-full rounded-2xl sm:rounded-3xl overflow-hidden  group shrink-0 flex flex-col items-center justify-between p-3">
-                    {/* Atmospheric Glow */}
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(229,196,131,0.22),transparent_70%)] pointer-events-none" />
-
-
-                    {/* Centered Package Photo */}
-                    <div className="relative z-10 flex-1 w-full flex items-center justify-center my-auto py-1">
-                      <img
-                        src={activeTea.packageImageUrl}
-                        alt={activeTea.name}
-                        className="max-h-[150px] sm:max-h-[220px] max-w-full object-contain filter drop-shadow-[0_15px_25px_rgba(0,0,0,0.75)] group-hover:scale-105 transition-transform duration-700 ease-out select-none"
-                      />
+                  {/* Top Bar: Number & Icon */}
+                  <div className="relative z-10 flex items-center justify-between">
+                    <span className="font-mono text-2xl font-bold tracking-widest text-[#C5A059] border-b border-[#C5A059]/40 pb-1">
+                      {prod.num}
+                    </span>
+                    <div className="w-9 h-9 rounded-full bg-[#683619]/90 border border-[#C5A059]/50 flex items-center justify-center text-[#E5C483] shadow-md group-hover:border-[#C5A059]">
+                      <Leaf className="w-4 h-4 text-[#C5A059]" />
                     </div>
                   </div>
 
-                  {/* ── RIGHT SIDE OF INFO CARD: DETAILS & SPECS ── */}
-                  <div className="sm:col-span-7 flex flex-col justify-between h-[90%] space-y-2 overflow-y-auto pr-0.5">
-                    {/* Header: Origin + Step Counter + Close Button */}
-                    <div className="shrink-0 flex items-center justify-between pb-1.5 border-b border-[#C5A059]/25">
-                      <div className="inline-flex items-center gap-1.5 text-[9.5px] sm:text-[10px] font-mono uppercase tracking-widest text-[#C5A059] font-bold truncate">
-                        <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse shrink-0" />
-                        <span className="truncate">
-                          {isGerman ? activeTea.origin.de : activeTea.origin.en}
-                        </span>
-                      </div>
+                  {/* Clean Center Area: High-Res Product Picture (Unobstructed, No Text Overlays) */}
+                  <div className="relative z-0 my-auto h-[440px] w-full flex items-center justify-center p-2">
+                    <img
+                      src={prod.imageUrl}
+                      alt={prod.name[lang] || prod.name.de}
+                      className={`max-h-full max-w-full object-contain transition-all duration-700 ease-out drop-shadow-[0_20px_40px_rgba(0,0,0,0.65)] ${
+                        isHovered
+                          ? "scale-110 filter brightness-110"
+                          : "scale-100 filter brightness-100"
+                      }`}
+                    />
+                  </div>
 
-                      <div className="flex items-center gap-1.5 shrink-0">
-                        <span className="text-[9.5px] sm:text-[10px] font-mono font-bold text-[#683619] bg-[#EDE1CC] px-2 py-0.5 rounded-full border border-[#C5A059]/35">
-                          {`0${activeIndex + 1}/05`}
-                        </span>
+                  {/* Bottom Footer Bar: Clean Title & Details Button */}
+                  <div className="relative z-10 pt-4 border-t border-[#C5A059]/20 flex items-center justify-between gap-1.5 min-w-0">
+                    <h3 className="font-serif text-xs sm:text-sm xl:text-base font-bold text-[#EDE1CC] group-hover:text-white transition-colors tracking-tight whitespace-nowrap min-w-0">
+                      {prod.name[lang] || prod.name.de}
+                    </h3>
 
-                        <button
-                          onClick={handleClose}
-                          className="w-6 h-6 rounded-full bg-[#EDE1CC] border border-[#C5A059]/35 text-[#683619] hover:bg-[#683619] hover:text-[#E5C483] hover:border-[#683619] transition-all duration-300 flex items-center justify-center text-xs cursor-pointer font-bold"
-                          title={isGerman ? "Schließen" : "Close detail"}
-                        >
-                          ✕
-                        </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setModalProduct(prod);
+                      }}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#C5A059] text-[#4a240e] text-xs font-semibold hover:bg-[#e5c483] transition-all duration-300 shadow-md shrink-0 ${
+                        isHovered
+                          ? "opacity-100 scale-100 pointer-events-auto"
+                          : "opacity-0 scale-95 pointer-events-none hidden"
+                      }`}
+                    >
+                      <span>Details</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Mobile Layout (GSAP Pinned Stack Scroll Deck matching HerbalBlend) */}
+          <div
+            ref={containerRef}
+            className="block lg:hidden p-3 sm:p-6 max-w-sm sm:max-w-md mx-auto relative min-h-[400px] sm:min-h-[520px] flex flex-col justify-center"
+          >
+            {/* Stacked Cards Container */}
+            <div className="relative w-full h-[360px] xs:h-[400px] sm:h-[480px] mx-auto my-auto">
+              {HERBAL_BLEND.map((prod, index) => {
+                return (
+                  <div
+                    key={prod.id}
+                    ref={(el) => (cardsRef.current[index] = el)}
+                    onClick={() => {
+                      setModalProduct(prod);
+                      setActiveProduct(prod);
+                    }}
+                    className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-[2rem] border border-[#C5A059]/40 hover:border-[#C5A059] bg-gradient-to-br from-[#522912] via-[#683619] to-[#3A1B0B] p-4 sm:p-6 flex flex-col justify-between cursor-pointer shadow-none sm:shadow-[0_20px_45px_rgba(0,0,0,0.5)] overflow-hidden transition-colors duration-300"
+                  >
+                    {/* Dark Overlay for depth blending */}
+                    <div
+                      ref={(el) => (overlaysRef.current[index] = el)}
+                      className="absolute inset-0 bg-black/40 pointer-events-none rounded-2xl sm:rounded-[2rem] z-30"
+                      style={{ opacity: 0 }}
+                    />
+
+                    {/* Atmospheric Glow */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(229,196,131,0.18),transparent_70%)] pointer-events-none" />
+
+                    {/* Top Bar: Number Badge & Leaf Icon */}
+                    <div className="relative z-10 flex items-center justify-between">
+                      <span className="font-mono text-lg sm:text-xl font-bold tracking-widest text-[#C5A059] border-b border-[#C5A059]/40 pb-0.5">
+                        {prod.num}
+                      </span>
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#683619]/90 border border-[#C5A059]/50 flex items-center justify-center text-[#E5C483] shadow-none sm:shadow-md">
+                        <Leaf className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C5A059]" />
                       </div>
                     </div>
 
-                    {/* Tea Name & Subtitle */}
-                    <div className="shrink-0">
-                      <h3 className="font-serif text-lg sm:text-xl font-bold text-[#683619] leading-tight mb-0.5">
-                        {isGerman && activeTea.germanName
-                          ? activeTea.germanName
-                          : activeTea.name}
+                    {/* Clean Product Picture */}
+                    <div className="relative z-10 my-auto h-[170px] xs:h-[200px] sm:h-[260px] w-full flex items-center justify-center p-2">
+                      <img
+                        src={prod.imageUrl}
+                        alt={prod.name[lang] || prod.name.de}
+                        className="max-h-full max-w-full object-contain filter drop-shadow-none sm:drop-shadow-[0_20px_35px_rgba(0,0,0,0.65)] select-none pointer-events-none"
+                      />
+                    </div>
+
+                    {/* Bottom Bar: Title & Details Button */}
+                    <div className="relative z-10 pt-2.5 sm:pt-3 border-t border-[#C5A059]/20 flex items-center justify-between gap-2">
+                      <h3 className="font-serif text-sm sm:text-lg font-bold text-[#EDE1CC] truncate">
+                        {prod.name[lang] || prod.name.de}
                       </h3>
-                      <p className="font-serif italic text-[11px] sm:text-xs text-[#C5A059] font-medium leading-snug">
-                        "{isGerman ? activeTea.subtitle.de : activeTea.subtitle.en}"
-                      </p>
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setModalProduct(prod);
+                          setActiveProduct(prod);
+                        }}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 sm:px-3.5 sm:py-1.5 rounded-lg bg-[#C5A059] text-[#4a240e] text-[11px] sm:text-xs font-semibold shadow-none sm:shadow-md shrink-0 hover:bg-[#e5c483] transition-colors"
+                      >
+                        <span>Details</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </button>
                     </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
 
-                    {/* Story Lore */}
-                    <div className="bg-[#EDE1CC]/75 rounded-xl p-2 sm:p-2.5 border border-[#C5A059]/25 shrink-0">
-                      <p className="text-[10.5px] sm:text-[11.5px] text-[#1C2024]/85 font-light leading-relaxed">
-                        {isGerman ? activeTea.story.de : activeTea.story.en}
-                      </p>
+      {/* DETAILED PRODUCT MODAL / RITUAL DRAWER matching user reference image */}
+      {modalProduct && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-sm animate-fade-in"
+          onClick={() => setModalProduct(null)}
+        >
+          <div
+            className="relative w-[90%] sm:w-full max-w-4xl bg-[#EDE1CC] paper-texture border border-[#C5A059]/50 rounded-2xl sm:rounded-[2.5rem] p-4 sm:p-8 md:p-10 shadow-none sm:shadow-2xl overflow-hidden text-[#1C2024] selection:bg-[#683619] selection:text-white max-h-[88vh] sm:max-h-[92vh] overflow-y-auto no-scrollbar"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Top Bar: Origin Location & Pill Badges / Close Button */}
+            <div className="flex items-center justify-between border-b border-[#C5A059]/40 pb-3 sm:pb-4 mb-3.5 sm:mb-6">
+              {/* Origin Location */}
+              <div className="flex items-center gap-1.5 sm:gap-2 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#854620]">
+                <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#C5A059] inline-block shadow-xs" />
+                <span>
+                  {modalProduct.origin[lang] || modalProduct.origin.de}
+                </span>
+              </div>
+
+              {/* Controls: Number Pill & Close Button */}
+              <div className="flex items-center gap-2 sm:gap-3">
+                <span className="px-2.5 py-0.5 sm:px-3.5 sm:py-1 font-mono text-[10px] sm:text-xs font-bold tracking-wider text-[#683619] border border-[#683619]/30 rounded-full bg-[#683619]/10">
+                  {modalProduct.num}/05
+                </span>
+
+                <button
+                  onClick={() => setModalProduct(null)}
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-[#683619]/30 flex items-center justify-center text-[#683619] hover:bg-[#683619] hover:text-white transition-all shadow-xs"
+                  aria-label="Close modal"
+                >
+                  <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Main Content Grid: Package Image (Left) & Info (Right) */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 sm:gap-8 items-center">
+              {/* Left Column: Floating Package Image with 3D Shadow */}
+              <div className="md:col-span-5 flex items-center justify-center p-1 sm:p-4">
+                <img
+                  src={modalProduct.packageImageUrl || modalProduct.imageUrl}
+                  alt={modalProduct.name[lang] || modalProduct.name.de}
+                  className="max-h-[160px] xs:max-h-[200px] sm:max-h-[350px] md:max-h-[400px] w-auto object-contain drop-shadow-none sm:drop-shadow-[0_25px_45px_rgba(0,0,0,0.3)] transition-transform duration-700 hover:scale-105"
+                />
+              </div>
+
+              {/* Right Column: Title, Subtitle, Story, Tasting Notes & Steeping Metrics */}
+              <div className="md:col-span-7 space-y-3.5 sm:space-y-5 text-left">
+                {/* Title & Subtitle */}
+                <div className="space-y-1">
+                  <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-[#683619] tracking-tight leading-tight">
+                    {modalProduct.name[lang] || modalProduct.name.de}
+                  </h2>
+                  <p className="font-serif italic text-xs sm:text-sm md:text-base text-[#854620]/90 leading-snug">
+                    "{modalProduct.subtitle[lang] || modalProduct.subtitle.de}"
+                  </p>
+                </div>
+
+                {/* Story / Description Box */}
+                <div className="bg-[#E5D7C2]/70 border border-[#C5A059]/40 rounded-xl sm:rounded-2xl p-3 sm:p-5 shadow-xs">
+                  <p className="text-[#1C2024]/85 text-[11px] sm:text-xs md:text-sm leading-relaxed font-light">
+                    {modalProduct.story[lang] || modalProduct.story.de}
+                  </p>
+                </div>
+
+                {/* Tasting Notes */}
+                <div className="hidden sm:block space-y-1.5 sm:space-y-2">
+                  <div className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-widest text-[#854620]/80">
+                    TASTING NOTES
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                    {(
+                      modalProduct.tastingNotes[lang] ||
+                      modalProduct.tastingNotes.de
+                    ).map((note, idx) => (
+                      <span
+                        key={idx}
+                        className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-[#E5D7C2]/90 border border-[#C5A059]/50 text-[10px] sm:text-xs font-mono font-semibold text-[#683619] shadow-2xs"
+                      >
+                        <Leaf className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#4E7C59]" />
+                        <span>{note}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Steeping Metrics Box (Water Temp, Steep Time, Leaf Amount) */}
+                <div className="bg-[#E5D7C2]/80 border border-[#C5A059]/40 rounded-xl sm:rounded-2xl p-2.5 sm:p-4 shadow-xs grid grid-cols-3 divide-x divide-[#C5A059]/40 text-center">
+                  <div className="px-1 sm:px-2">
+                    <div className="text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider text-[#854620]/70">
+                      WATER TEMP
                     </div>
+                    <div className="font-serif text-xs sm:text-sm md:text-base font-bold text-[#683619] mt-0.5">
+                      {modalProduct.steeping.waterTemp}
+                    </div>
+                  </div>
 
-                    {/* Tasting Notes */}
-                    {activeTea.tastingNotes && (
-                      <div className="shrink-0">
-                        <p className="text-[8px] sm:text-[8.5px] font-mono uppercase tracking-widest text-[#C5A059] mb-1 font-bold">
-                          {isGerman ? "GESCHMACKSPROFIL" : "TASTING NOTES"}
-                        </p>
-                        <div className="flex flex-wrap gap-1">
-                          {(isGerman
-                            ? activeTea.tastingNotes.de
-                            : activeTea.tastingNotes.en
-                          ).map((note) => (
-                            <span
-                              key={note}
-                              className="px-2 py-0.5 rounded text-[9px] sm:text-[9.5px] font-mono bg-[#EDE1CC] text-[#683619] border border-[#C5A059]/30 font-semibold"
-                            >
-                              🍃 {note}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                  <div className="px-1 sm:px-2">
+                    <div className="text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider text-[#854620]/70">
+                      STEEP TIME
+                    </div>
+                    <div className="font-serif text-xs sm:text-sm md:text-base font-bold text-[#683619] mt-0.5">
+                      {modalProduct.steeping.time}
+                    </div>
+                  </div>
 
-                    {/* Steeping Ritual Guide */}
-                    <div className="bg-[#683619]/10 rounded-xl p-1.5 border border-[#C5A059]/30 flex items-center justify-around text-center shrink-0">
-                      <div>
-                        <div className="text-[7.5px] sm:text-[8px] font-mono uppercase text-[#683619]/70 font-bold">
-                          {isGerman ? "Wassertemp." : "Water Temp"}
-                        </div>
-                        <div className="font-serif font-bold text-[#683619] text-[10px] sm:text-[10.5px] mt-0.5">
-                          {activeTea.steeping.waterTemp}
-                        </div>
-                      </div>
-                      <div className="h-3.5 w-px bg-[#C5A059]/30" />
-                      <div>
-                        <div className="text-[7.5px] sm:text-[8px] font-mono uppercase text-[#683619]/70 font-bold">
-                          {isGerman ? "Ziehzeit" : "Steep Time"}
-                        </div>
-                        <div className="font-serif font-bold text-[#683619] text-[10px] sm:text-[10.5px] mt-0.5">
-                          {activeTea.steeping.time}
-                        </div>
-                      </div>
-                      <div className="h-3.5 w-px bg-[#C5A059]/30" />
-                      <div>
-                        <div className="text-[7.5px] sm:text-[8px] font-mono uppercase text-[#683619]/70 font-bold">
-                          {isGerman ? "Menge" : "Leaf Amount"}
-                        </div>
-                        <div className="font-serif font-bold text-[#683619] text-[10px] sm:text-[10.5px] mt-0.5">
-                          {activeTea.steeping.leafAmount}
-                        </div>
-                      </div>
+                  <div className="px-1 sm:px-2">
+                    <div className="text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider text-[#854620]/70">
+                      LEAF AMOUNT
+                    </div>
+                    <div className="font-serif text-xs sm:text-sm md:text-base font-bold text-[#683619] mt-0.5">
+                      {modalProduct.steeping.leafAmount}
                     </div>
                   </div>
                 </div>
@@ -731,12 +944,7 @@ export default function HerbalBlend({ lang = "de" }) {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* ── Spacing Transition before Footer ── */}
-      <div className="h-2 sm:h-24 lg:h-36 w-full flex items-center justify-center relative pointer-events-none">
-        <div className="w-24 sm:w-32 h-px bg-gradient-to-r from-transparent via-[#C5A059]/40 to-transparent" />
-      </div>
+      )}
     </div>
   );
 }
