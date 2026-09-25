@@ -578,7 +578,7 @@ export default function HerbalBlend({ lang = "de" }) {
         let isAnimating = false;
         let lastSnapTime = 0;
         let tlRef = null; // set after timeline creation
-        const SNAP_COOLDOWN = 380; // ms — matches animation duration
+        const SNAP_COOLDOWN = 250; // ms — matches snappy animation duration
 
         const snapToCard = (index) => {
           const now = Date.now();
@@ -603,11 +603,11 @@ export default function HerbalBlend({ lang = "de" }) {
             clearTimeout(safetyTimer);
           };
 
-          const safetyTimer = setTimeout(unlock, 500);
+          const safetyTimer = setTimeout(unlock, 340);
 
           if (window.lenis) {
             window.lenis.scrollTo(targetScroll, {
-              duration: 0.4,
+              duration: 0.26,
               easing: (t) => 1 - Math.pow(1 - t, 3),
               force: true,
               lock: true,
@@ -617,7 +617,7 @@ export default function HerbalBlend({ lang = "de" }) {
             const startScroll = window.scrollY;
             const diff = targetScroll - startScroll;
             const startTime = performance.now();
-            const dur = 400;
+            const dur = 260;
             const animate = (time) => {
               const elapsed = time - startTime;
               const p = Math.min(elapsed / dur, 1);
@@ -789,7 +789,7 @@ export default function HerbalBlend({ lang = "de" }) {
           }
 
           if (touchHandled) return;
-          if (Math.abs(deltaY) < 25) return;
+          if (Math.abs(deltaY) < 16) return;
 
           touchHandled = true;
           disableLenisInput();
@@ -880,7 +880,7 @@ export default function HerbalBlend({ lang = "de" }) {
       <div className="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-10 sm:space-y-14">
         {/* TOP HERO HEADER */}
         <div className="text-center max-w-3xl mx-auto space-y-4 px-2 w-full max-w-full overflow-hidden">
-          <div className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-[#683619]/10 border border-[#C5A059]/50 text-[#683619] text-[10px] sm:text-xs font-mono uppercase tracking-normal sm:tracking-[0.2em] shadow-sm max-w-[calc(100vw-32px)] overflow-hidden">
+          <div className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-[#683619]/10 border border-[#C5A059]/50 text-[#683619] text-[10px] sm:text-xs font-mono uppercase tracking-normal sm:tracking-[0.2em] shadow-sm max-w-[calc(100vw-42px)] overflow-hidden">
             <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C5A059] animate-pulse shrink-0" />
             <span className="truncate min-w-0 block">{currentSub}</span>
           </div>
