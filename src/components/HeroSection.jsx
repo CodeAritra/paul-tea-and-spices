@@ -173,59 +173,104 @@ const FEATURE_PILLARS = {
 export default function HeroSection({ lang }) {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.de;
   const pillars = FEATURE_PILLARS[lang] || FEATURE_PILLARS.de;
+  // ── DOM Refs for Apple-Style Cinematic Scroll-Driven Zoom & Parallax ──
+  const heroTrackRef = useRef(null);
   const landingFrameRef = useRef(null);
   const landingImgRef = useRef(null);
+  const contentSectionRef = useRef(null);
 
+  /**
+   * PINNED FULL-SCREEN ZOOM-OUT + PARALLAX TRANSITION:
+   * 1. On initial load: Image is zoomed in (scale: 1.5).
+   * 2. On 1 scroll: Container is PINNED at top: 0 (does NOT move up).
+   *    Zoom-out completes in exactly 1 scroll gesture down to scale: 1.0 (fit to screen).
+   * 3. On continued scroll into Section 2:
+   *    As the landing image stage scrolls up and Section 2 enters, a subtle parallax tween
+   *    shifts the image at a slower velocity, giving high-end Apple-style visual depth.
+   */
   useEffect(() => {
-    const frame = landingFrameRef.current;
+    const track = heroTrackRef.current;
     const img = landingImgRef.current;
-    if (!frame || !img) return;
+    const content = contentSectionRef.current;
+    if (!track || !img) return;
 
-    gsap.set(frame, {
-      clipPath: "circle(0% at 50% 50%)",
-      autoAlpha: 1,
+    // Clean up any prior ScrollTrigger instances on these elements
+    ScrollTrigger.getAll().forEach((st) => {
+      if (st.trigger === track || st.vars.pin === track || st.trigger === content) {
+        st.kill();
+      }
     });
+
+    const startScale = 1.5; // Zoomed in on initial load
+
+    // Initial state: Zoomed in on load, centered
     gsap.set(img, {
-      scale: 1.02,
+      scale: startScale,
+      yPercent: 0,
+      transformOrigin: "center center",
+      willChange: "transform",
     });
 
-    const timer = setTimeout(() => {
-      const tl = gsap.timeline();
-      tl.to(
-        frame,
-        {
-          clipPath: "circle(150% at 50% 50%)",
-          duration: 0.8,
-          ease: "power3.inOut",
+    // 1. Pinned Scroll-Driven Zoom-Out Animation (1 Scroll to Fully Zoom Out)
+    const zoomTween = gsap.fromTo(
+      img,
+      {
+        scale: startScale,
+      },
+      {
+        scale: 1.0, // Fits to screen at last
+        ease: "power1.out",
+        scrollTrigger: {
+          trigger: track,
+          pin: true,
+          start: "top top",
+          end: "+=350px", // Exactly 1 single scroll gesture to fully zoom out
+          scrub: 0.4,     // Quick, silky responsive scrub
+          snap: {
+            snapTo: [0, 1], // Snaps cleanly to fully zoomed out on 1 scroll
+            duration: { min: 0.2, max: 0.45 },
+            ease: "power2.out",
+          },
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
         },
-        0.1,
-      );
-      tl.to(
-        img,
-        {
-          scale: 1.0,
-          duration: 3,
-          ease: "power2.out",
-        },
-        0.15,
-      );
+      }
+    );
 
-      // Subtle scroll parallax without extra scaling
-      gsap.to(img, {
-        yPercent: 8,
+    // 2. Parallax Effect when scrolling from the landing image into Section 2
+    // Moves the image slightly slower than page scroll to produce cinematic depth
+    let parallaxTween = null;
+    if (content) {
+      parallaxTween = gsap.to(img, {
+        yPercent: 15,
         ease: "none",
         scrollTrigger: {
-          trigger: frame,
-          start: "top top",
-          end: "bottom top",
-          scrub: 0.8,
+          trigger: content,
+          start: "top bottom", // Starts as Section 2 enters viewport
+          end: "top 15%",     // Continues as Section 2 glides up over the hero
+          scrub: true,
         },
       });
-    }, 80);
+    }
+
+    const handleResize = () => {
+      ScrollTrigger.refresh();
+    };
+
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      clearTimeout(timer);
-      gsap.killTweensOf([frame, img]);
+      window.removeEventListener("resize", handleResize);
+      if (zoomTween.scrollTrigger) {
+        zoomTween.scrollTrigger.kill();
+      }
+      zoomTween.kill();
+      if (parallaxTween) {
+        if (parallaxTween.scrollTrigger) {
+          parallaxTween.scrollTrigger.kill();
+        }
+        parallaxTween.kill();
+      }
     };
   }, []);
 
@@ -238,7 +283,7 @@ export default function HeroSection({ lang }) {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#EDE1CC] via-[#E4D7C0] to-[#EDE1CC] border-b border-[#C5A059]/20 paper-texture">
+    <section className="relative bg-gradient-to-b from-[#EDE1CC] via-[#E4D7C0] to-[#EDE1CC] border-b border-[#C5A059]/20 paper-texture">
       {/* Background Ambient Mist Micro-Animations */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-10 left-10 w-96 h-96 bg-[#683619]/5 rounded-full blur-3xl animate-mist"></div>
@@ -252,33 +297,46 @@ export default function HeroSection({ lang }) {
         ></div>
       </div>
 
-      {/* ── 1. Landing Hero Image Stage (16:9 aspect ratio on mobile, full-height on desktop) with Seamless Gradient Dissolve ── */}
-      <div className="relative w-full aspect-video sm:aspect-auto sm:h-[calc(100vh-80px)] sm:min-h-[500px] overflow-hidden bg-transparent">
+      {/* ── 1. Full-Screen Cinematic Pinned Zoom-Out Hero Stage (Edge-to-Edge, No Card) ── */}
+      {/* 
+        The heroTrackRef is PINNED by ScrollTrigger (pin: true).
+        It will NEVER move up vertically while the zoom-out is taking place!
+      */}
+      <div
+        ref={heroTrackRef}
+        className="relative w-full h-screen overflow-hidden -mt-20"
+      >
         <div
           ref={landingFrameRef}
-          className="w-full h-full overflow-hidden will-change-[clip-path]"
-          style={{
-            clipPath: "circle(0% at 50% 50%)",
-            maskImage:
-              "linear-gradient(to bottom, black 95%, rgba(0,0,0,0.4) 98%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, black 95%, rgba(0,0,0,0.4) 98%, transparent 100%)",
-          }}
+          className="relative w-full h-full overflow-hidden"
         >
+          {/* The Pristine 16:9 Landing Illustration with Parallax Bleed */}
           <img
             ref={landingImgRef}
             src="/images/homepage-landing.jpeg"
             alt="Paul's Tea & Spices Atelier & Estates"
-            className="w-full h-full object-cover object-center will-change-transform filter brightness-95 contrast-105"
+            className="absolute inset-x-0 -top-[7%] w-full h-[115%] object-cover object-center will-change-transform filter brightness-95 contrast-105 select-none"
+            style={{
+              transform: "scale(1.5)",
+              transformOrigin: "center center",
+              willChange: "transform",
+            }}
           />
-        </div>
 
-        {/* Soft Atmospheric Bottom Blend starting from the very bottom edge */}
-        <div className="absolute inset-x-0 bottom-0 h-10 sm:h-14 lg:h-20 bg-gradient-to-t from-[#EDE1CC] via-[#EDE1CC]/40 to-transparent pointer-events-none z-10" />
+          {/* Seamless Soft Atmospheric Vignette */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#EDE1CC]/30 via-transparent to-black/10 pointer-events-none" />
+
+          {/* Soft Atmospheric Bottom Blend into Paper Background */}
+          <div className="absolute inset-x-0 bottom-0 h-16 sm:h-24 lg:h-32 bg-gradient-to-t from-[#EDE1CC] via-[#EDE1CC]/50 to-transparent pointer-events-none z-10" />
+
+        </div>
       </div>
 
-      {/* ── 2. Hero Content Section below Image (Floating on the seamless blend) ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center flex flex-col justify-between items-center w-full pt-10 pb-16 sm:pb-20">
+      {/* ── 2. Hero Content Section below Image (Floating on the seamless blend with Parallax Depth) ── */}
+      <div
+        ref={contentSectionRef}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center flex flex-col justify-between items-center w-full pt-10 pb-16 sm:pb-20"
+      >
         {/* Son Paul Dedication Pill */}
         <Link
           to="/about"
