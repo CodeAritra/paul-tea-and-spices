@@ -180,13 +180,11 @@ export default function HeroSection({ lang }) {
   const contentSectionRef = useRef(null);
 
   /**
-   * PINNED FULL-SCREEN ZOOM-OUT + PARALLAX TRANSITION:
-   * 1. On initial load: Image is zoomed in (scale: 1.5).
-   * 2. On 1 scroll: Container is PINNED at top: 0 (does NOT move up).
-   *    Zoom-out completes in exactly 1 scroll gesture down to scale: 1.0 (fit to screen).
-   * 3. On continued scroll into Section 2:
-   *    As the landing image stage scrolls up and Section 2 enters, a subtle parallax tween
-   *    shifts the image at a slower velocity, giving high-end Apple-style visual depth.
+   * RESPONSIVE SCROLL-DRIVEN EFFECT (via gsap.matchMedia):
+   * - DESKTOP (>= 640px): 1-scroll pinned zoom-out from 1.5 -> 1.0 + parallax transition into Section 2.
+   * - MOBILE (< 640px): ZOOM COMPLETELY REMOVED.
+   *   No pinning, no zoom-out, no scroll-hijack. Renders at scale 1.0 (native 16:9 aspect-video)
+   *   and scrolls completely naturally with standard browser scroll!
    */
   useEffect(() => {
     const track = heroTrackRef.current;
@@ -194,83 +192,72 @@ export default function HeroSection({ lang }) {
     const content = contentSectionRef.current;
     if (!track || !img) return;
 
-    // Clean up any prior ScrollTrigger instances on these elements
-    ScrollTrigger.getAll().forEach((st) => {
-      if (st.trigger === track || st.vars.pin === track || st.trigger === content) {
-        st.kill();
-      }
-    });
+    const mm = gsap.matchMedia();
 
-    const startScale = 1.5; // Zoomed in on initial load
+    // ── DESKTOP (>= 640px): Full 1-Scroll Pinned Zoom-Out + Parallax ──
+    mm.add("(min-width: 640px)", () => {
+      const startScale = 1.5;
 
-    // Initial state: Zoomed in on load, centered
-    gsap.set(img, {
-      scale: startScale,
-      yPercent: 0,
-      transformOrigin: "center center",
-      willChange: "transform",
-    });
-
-    // 1. Pinned Scroll-Driven Zoom-Out Animation (1 Scroll to Fully Zoom Out)
-    const zoomTween = gsap.fromTo(
-      img,
-      {
+      gsap.set(img, {
         scale: startScale,
-      },
-      {
-        scale: 1.0, // Fits to screen at last
-        ease: "power1.out",
-        scrollTrigger: {
-          trigger: track,
-          pin: true,
-          start: "top top",
-          end: "+=350px", // Exactly 1 single scroll gesture to fully zoom out
-          scrub: 0.4,     // Quick, silky responsive scrub
-          snap: {
-            snapTo: [0, 1], // Snaps cleanly to fully zoomed out on 1 scroll
-            duration: { min: 0.2, max: 0.45 },
-            ease: "power2.out",
-          },
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      }
-    );
-
-    // 2. Parallax Effect when scrolling from the landing image into Section 2
-    // Moves the image slightly slower than page scroll to produce cinematic depth
-    let parallaxTween = null;
-    if (content) {
-      parallaxTween = gsap.to(img, {
-        yPercent: 15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: content,
-          start: "top bottom", // Starts as Section 2 enters viewport
-          end: "top 15%",     // Continues as Section 2 glides up over the hero
-          scrub: true,
-        },
+        yPercent: 0,
+        transformOrigin: "center center",
+        willChange: "transform",
       });
-    }
 
-    const handleResize = () => {
-      ScrollTrigger.refresh();
-    };
+      // 1. Pinned Scroll-Driven Zoom-Out Animation (1 Scroll to Fully Zoom Out)
+      gsap.fromTo(
+        img,
+        {
+          scale: startScale,
+        },
+        {
+          scale: 1.0,
+          ease: "power1.out",
+          scrollTrigger: {
+            trigger: track,
+            pin: true,
+            start: "top top",
+            end: "+=350px", // Exactly 1 single scroll gesture to fully zoom out
+            scrub: 0.4,
+            snap: {
+              snapTo: [0, 1],
+              duration: { min: 0.2, max: 0.45 },
+              ease: "power2.out",
+            },
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        }
+      );
 
-    window.addEventListener("resize", handleResize);
+      // 2. Parallax Effect when scrolling into Section 2
+      if (content) {
+        gsap.to(img, {
+          yPercent: 15,
+          ease: "none",
+          scrollTrigger: {
+            trigger: content,
+            start: "top bottom",
+            end: "top 15%",
+            scrub: true,
+          },
+        });
+      }
+    });
+
+    // ── MOBILE (< 640px): ZOOM EFFECT COMPLETELY REMOVED ──
+    mm.add("(max-width: 639px)", () => {
+      // Clean, unzoomed scale 1.0 — completely unpinned, natural scrolling
+      gsap.set(img, {
+        scale: 1.0,
+        yPercent: 0,
+        clearProps: "transform",
+      });
+    });
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      if (zoomTween.scrollTrigger) {
-        zoomTween.scrollTrigger.kill();
-      }
-      zoomTween.kill();
-      if (parallaxTween) {
-        if (parallaxTween.scrollTrigger) {
-          parallaxTween.scrollTrigger.kill();
-        }
-        parallaxTween.kill();
-      }
+      mm.revert();
     };
   }, []);
 
@@ -297,27 +284,26 @@ export default function HeroSection({ lang }) {
         ></div>
       </div>
 
-      {/* ── 1. Full-Screen Cinematic Pinned Zoom-Out Hero Stage (Edge-to-Edge, No Card) ── */}
+      {/* ── 1. Full-Screen Cinematic Hero Stage ── */}
       {/* 
-        The heroTrackRef is PINNED by ScrollTrigger (pin: true).
-        It will NEVER move up vertically while the zoom-out is taking place!
+        - Mobile (<640px): 16:9 aspect-video, ZERO ZOOM, natural unpinned scroll.
+        - Desktop (>=640px): sm:h-screen sm:-mt-20, pinned 1-scroll zoom-out from 1.5 -> 1.0.
       */}
       <div
         ref={heroTrackRef}
-        className="relative w-full h-screen overflow-hidden -mt-20"
+        className="relative w-full aspect-video sm:aspect-auto sm:h-screen overflow-hidden sm:-mt-20"
       >
         <div
           ref={landingFrameRef}
           className="relative w-full h-full overflow-hidden"
         >
-          {/* The Pristine 16:9 Landing Illustration with Parallax Bleed */}
+          {/* The Pristine 16:9 Landing Illustration */}
           <img
             ref={landingImgRef}
             src="/images/homepage-landing.jpeg"
             alt="Paul's Tea & Spices Atelier & Estates"
-            className="absolute inset-x-0 -top-[7%] w-full h-[115%] object-cover object-center will-change-transform filter brightness-95 contrast-105 select-none"
+            className="w-full h-full object-cover object-center sm:absolute sm:inset-x-0 sm:-top-[7%] sm:w-full sm:h-[115%] will-change-transform filter brightness-95 contrast-105 select-none"
             style={{
-              transform: "scale(1.5)",
               transformOrigin: "center center",
               willChange: "transform",
             }}
